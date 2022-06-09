@@ -1,0 +1,45 @@
+{
+	"books": [
+		"genesis",
+		"exodus"
+	],
+	"keriUkesiv": false,
+	"taamTachton": false,
+	"display": "first",
+	"splitBy": "pasuk",
+	"search": [
+		{
+			"param": "",
+			"type": "contains",
+			"connector": "none"
+		},{
+			"param": "",
+			"type": "letter",
+			"value": "ו",
+			"count": 3,
+			"connector": "and"
+		},{
+			"param": "",
+			"type": "letter",
+			"value": "י",
+			"count": 2,
+			"connector": "or"
+		},{
+			"param": "",
+			"type": "does not contain",
+			"connector": "none"
+		},{
+			"param": "",
+			"type": "nekudah",
+			"value": "segol",
+			"count": 1,
+			"connector": "or"
+		},{
+			"param": "",
+			"type": "nekudah",
+			"value": "kamatz",
+			"count": 2,
+			"connector": "none"
+		}
+	]
+}
