@@ -41,5 +41,79 @@
 			"count": 2,
 			"connector": "none"
 		}
+	],
+	"searchYG": [
+		{
+			"param": "",
+			"type": "contains",
+			"connector": "or"
+		},{
+			"param": "",
+			"type": "letter",
+			"value": "ו",
+			"count": 3,
+			"connector": "before"
+		},{
+			"param": "",
+			"type": "letter",
+			"value": "י",
+			"count": 2,
+			"connector": "none"
+		},{
+			"param": "",
+			"type": "does not contain",
+			"connector": "none"
+		},{
+			"param": "",
+			"type": "nekudah",
+			"value": "segol",
+			"count": 1,
+			"connector": "or"
+		},{
+			"param": "",
+			"type": "nekudah",
+			"value": "kamatz",
+			"count": 2,
+			"connector": "none"
+		}
+	],
+	"searchAlt": [
+		{
+			"contains": true,
+			"connector": "or",
+			"terms": [
+				{
+					"param": "",
+					"type": "letter",
+					"value": "ו",
+					"count": 3,
+					"connector": "before"
+				},{
+					"param": "",
+					"type": "letter",
+					"value": "ו",
+					"count": 3,
+					"connector": "none"
+				}
+			]
+		},{
+			"contains": false,
+			"connector": "none",
+			"terms": [
+				{
+					"param": "",
+					"type": "nekudah",
+					"value": "segol",
+					"count": 1,
+					"connector": "or"
+				},{
+					"param": "",
+					"type": "nekudah",
+					"value": "kamatz",
+					"count": 2,
+					"connector": "none"
+				}
+			]
+		}
 	]
 }
