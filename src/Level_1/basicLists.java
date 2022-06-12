@@ -2,12 +2,12 @@ package Level_1;
 
 public class basicLists {
 
-	/*public static void main(String[] args){
+	public static void main(String[] args){
 		String[] test = {"ץ", "ֵ", "֦", "p"};
 		for(int i = 0; i < test.length; i++){
 			System.out.println(isaletter(test[i]) + " " + isanekudah(test[i]) + " " + isatrop(test[i]));
 		}
-	}*/
+	}
 
 	public static String[] letterList(){
 		String[] letters = {"א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ", "ק", "ר", "ש", "ת", "ם", "ן", "ץ", "ף", "ך"};
@@ -16,11 +16,9 @@ public class basicLists {
 	
 	public static Boolean isaletter(String now) {
 		String[] letters = letterList();
-		int len = letters.length;
-		for(int i = 0; i < len; i++){
-			if(letters[i].equals(now)){
+		for (String s: letters) {
+			if (s.equals(now))
 				return true;
-			}
 		}
 		return false;
 	}
@@ -32,11 +30,9 @@ public class basicLists {
 	
 	public static Boolean isanekudah(String now) {
 		String[] nekudot = nekudotList();
-		int len = nekudot.length;
-		for(int i = 0; i < len; i++){
-			if(nekudot[i].equals(now)){
+		for (String s: nekudot) {
+			if (s.equals(now))
 				return true;
-			}
 		}
 		return false;
 	}
@@ -49,11 +45,9 @@ public class basicLists {
 	
 	public static Boolean isatrop(String now) {
 		String[] trop = tropList();
-		int len = trop.length;
-		for(int i = 0; i < len; i++){
-			if(trop[i].equals(now)){
+		for (String s: trop) {
+			if (s.equals(now))
 				return true;
-			}
 		}
 		return false;
 	}
