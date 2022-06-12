@@ -2,23 +2,27 @@ package Level_1;
 
 public class basicLists {
 
+	/*public static void main(String[] args){
+		String[] test = {"ץ", "ֵ", "֦", "p"};
+		for(int i = 0; i < test.length; i++){
+			System.out.println(isaletter(test[i]) + " " + isanekudah(test[i]) + " " + isatrop(test[i]));
+		}
+	}*/
+
 	public static String[] letterList(){
 		String[] letters = {"א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ", "ק", "ר", "ש", "ת", "ם", "ן", "ץ", "ף", "ך"};
 		return letters;
 	}
 	
 	public static Boolean isaletter(String now) {
-		if(now.equals("א") || now.equals("ב") || now.equals("ג") || now.equals("ד") || now.equals("ה")
-				|| now.equals("ו") || now.equals("ז") || now.equals("ח") || now.equals("ט") || now.equals("י")
-				|| now.equals("כ") || now.equals("ל") || now.equals("מ") || now.equals("נ") || now.equals("ס")
-				|| now.equals("ע") || now.equals("פ") || now.equals("צ") || now.equals("ק") || now.equals("ר")
-				|| now.equals("ש") || now.equals("ת") || now.equals("ם") || now.equals("ן") || now.equals("ץ")
-				|| now.equals("ף") || now.equals("ך")){
-			return true;
+		String[] letters = letterList();
+		int len = letters.length;
+		for(int i = 0; i < len; i++){
+			if(letters[i].equals(now)){
+				return true;
+			}
 		}
-		else{
-			return false;
-		}
+		return false;
 	}
 	
 	public static String[] nekudotList(){
@@ -27,14 +31,14 @@ public class basicLists {
 	}
 	
 	public static Boolean isanekudah(String now) {
-		if(now.equals("ׂ") || now.equals("ׁ") || now.equals("ָ") || now.equals("ַ") || now.equals("ֵ")
-				|| now.equals("ֶ") || now.equals("ֹ") || now.equals("ֻ") || now.equals("ִ") || now.equals("ְ")
-				|| now.equals("ֳ") || now.equals("ֲ") || now.equals("ֱ") || now.equals("ּ") || now.equals("ֿ") || now.equals("ֺ")){
-			return true;
+		String[] nekudot = nekudotList();
+		int len = nekudot.length;
+		for(int i = 0; i < len; i++){
+			if(nekudot[i].equals(now)){
+				return true;
+			}
 		}
-		else{
-			return false;
-		}
+		return false;
 	}
 	
 	
@@ -44,17 +48,14 @@ public class basicLists {
 	}
 	
 	public static Boolean isatrop(String now) {
-		if(now.equals("֙") || now.equals("֣") || now.equals("֮") || now.equals("֒") || now.equals("֗")
-				|| now.equals("֤") || now.equals("֨") || now.equals("֔") || now.equals("֕") || now.equals("֥")
-				|| now.equals("֖") || now.equals("֭") || now.equals("֑") || now.equals("֡") || now.equals("֩")
-				|| now.equals("֠") || now.equals("֜") || now.equals("֞") || now.equals("֧") || now.equals("֛")
-				|| now.equals("֚") || now.equals("֓") || now.equals("֪") || now.equals("֟") || now.equals("֦")
-				|| now.equals("ֽ")){
-			return true;
+		String[] trop = tropList();
+		int len = trop.length;
+		for(int i = 0; i < len; i++){
+			if(trop[i].equals(now)){
+				return true;
+			}
 		}
-		else{
-			return false;
-		}
+		return false;
 	}
 	
 	public static String[] otherList(){

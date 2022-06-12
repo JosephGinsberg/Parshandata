@@ -5,7 +5,17 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class tools {
-	
+
+	public static String FileToString(File file) throws FileNotFoundException {
+		Scanner sc = new Scanner(file);
+		String output = "";
+	    while (sc.hasNextLine()){
+			output += sc.nextLine();
+		}
+		sc.close();
+		return output;
+	}
+
 	public static void printArray(String[] ar) {
 		int len = ar.length;
 		for(int i = 0; i < len; i++) {

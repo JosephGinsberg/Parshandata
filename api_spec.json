@@ -3,8 +3,8 @@
 		"genesis",
 		"exodus"
 	],
-	"keriUkesiv": false,
-	"taamTachton": false,
+	"keriUkesiv": true,
+	"taamTachton": true,
 	"display": "first",
 	"splitBy": "pasuk",
 	"search": [
@@ -44,37 +44,46 @@
 	],
 	"searchYG": [
 		{
-			"param": "",
+			"param": "condition",
 			"type": "contains",
-			"connector": "or"
+			"connector": "or",
+			"opens": true
 		},{
-			"param": "",
+			"param": "input",
 			"type": "letter",
 			"value": "ו",
 			"count": 3,
-			"connector": "before"
+			"connector": "none"
 		},{
-			"param": "",
+			"param": "condition",
+			"type": "before",
+			"value": 0,
+			"connector": "none"
+		},{
+			"param": "input",
 			"type": "letter",
 			"value": "י",
 			"count": 2,
-			"connector": "none"
+			"connector": "none",
+			"opens": false
 		},{
-			"param": "",
+			"param": "condition",
 			"type": "does not contain",
-			"connector": "none"
+			"connector": "none",
+			"opens": true
 		},{
-			"param": "",
+			"param": "input",
 			"type": "nekudah",
 			"value": "segol",
 			"count": 1,
 			"connector": "or"
 		},{
-			"param": "",
+			"param": "input",
 			"type": "nekudah",
 			"value": "kamatz",
 			"count": 2,
-			"connector": "none"
+			"connector": "none",
+			"opens": false
 		}
 	],
 	"searchAlt": [
