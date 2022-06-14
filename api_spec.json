@@ -9,120 +9,59 @@
 	"splitBy": "pasuk",
 	"search": [
 		{
-			"param": "",
-			"type": "contains",
-			"connector": "none"
-		},{
-			"param": "",
-			"type": "letter",
-			"value": "ו",
-			"count": 3,
-			"connector": "and"
-		},{
-			"param": "",
-			"type": "letter",
-			"value": "י",
-			"count": 2,
-			"connector": "or"
-		},{
-			"param": "",
-			"type": "does not contain",
-			"connector": "none"
-		},{
-			"param": "",
-			"type": "nekudah",
-			"value": "segol",
-			"count": 1,
-			"connector": "or"
-		},{
-			"param": "",
-			"type": "nekudah",
-			"value": "kamatz",
-			"count": 2,
-			"connector": "none"
-		}
-	],
-	"searchYG": [
-		{
 			"param": "condition",
 			"type": "contains",
 			"connector": "or",
-			"opens": true
+			"opens": 1
+		},{
+			"param": "abstract",
+			"type": "word",
+			"connector": "none",
+			"opens": 1
+		},{
+			"param": "condition",
+			"type": "contains",
+			"connector": "none",
+			"opens": 1
 		},{
 			"param": "input",
 			"type": "letter",
 			"value": "ו",
 			"count": 3,
-			"connector": "none"
+			"connector": "none",
+			"opens": 0
 		},{
 			"param": "condition",
 			"type": "before",
 			"value": 0,
-			"connector": "none"
+			"connector": "none",
+			"opens": 1
 		},{
 			"param": "input",
 			"type": "letter",
 			"value": "י",
 			"count": 2,
 			"connector": "none",
-			"opens": false
+			"opens": -4
 		},{
 			"param": "condition",
 			"type": "does not contain",
 			"connector": "none",
-			"opens": true
+			"opens": 1
 		},{
 			"param": "input",
 			"type": "nekudah",
 			"value": "segol",
 			"count": 1,
-			"connector": "or"
+			"connector": "or",
+			"opens": 0
 		},{
 			"param": "input",
 			"type": "nekudah",
 			"value": "kamatz",
 			"count": 2,
 			"connector": "none",
-			"opens": false
-		}
-	],
-	"searchAlt": [
-		{
-			"contains": true,
-			"connector": "or",
-			"terms": [
-				{
-					"param": "",
-					"type": "letter",
-					"value": "ו",
-					"count": 3,
-					"connector": "before"
-				},{
-					"param": "",
-					"type": "letter",
-					"value": "ו",
-					"count": 3,
-					"connector": "none"
-				}
-			]
-		},{
-			"contains": false,
-			"connector": "none",
-			"terms": [
-				{
-					"param": "",
-					"type": "nekudah",
-					"value": "segol",
-					"count": 1,
-					"connector": "or"
-				},{
-					"param": "",
-					"type": "nekudah",
-					"value": "kamatz",
-					"count": 2,
-					"connector": "none"
-				}
-			]
+			"opens": -1
 		}
 	]
 }

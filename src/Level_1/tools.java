@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class tools {
 
 	public static String FileToString(File file) throws FileNotFoundException {
-		Scanner sc = new Scanner(file);
+		Scanner sc = new Scanner(file, "UTF-8");
 		String output = "";
 	    while (sc.hasNextLine()){
 			output += sc.nextLine();
@@ -61,7 +61,7 @@ public class tools {
 		int count = 0;
 		int count2 = 0;
 		String now = "";
-		Scanner sc = new Scanner(file);
+		Scanner sc = new Scanner(file, "UTF-8");
 	    while (sc.hasNextLine()){
 	    	now = sc.nextLine();
 	    	if(now.contains(":")) {

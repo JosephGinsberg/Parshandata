@@ -1,0 +1,24 @@
+{
+	"books": [
+		"genesis",
+		"exodus"
+	],
+	"keriUkesiv": true,
+	"taamTachton": true,
+	"display": "first",
+	"splitBy": "pasuk",
+	"search": [
+		{
+			"param": "condition",
+			"type": "does not contain",
+			"connector": "none",
+			"opens": 1
+		},{
+			"param": "input",
+			"type": "letter",
+			"value": "ו",
+			"connector": "none",
+			"opens": 0
+		}
+	]
+}

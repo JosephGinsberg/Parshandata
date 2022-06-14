@@ -10,10 +10,8 @@ import java.io.FileNotFoundException;
 public class App {
 	public static void main(String[] args) throws FileNotFoundException, IOException, JSONException{
 
-		/*String rawJson = "{\"books\": [\"exodus\"],\"keriUkesiv\": true,\"taamTachton\": true,\"display\": \"first\",\"splitBy\": \"pasuk\",\"searchAlt\": [{\"contains\": true,\"connector\": \"or\",\"terms\": [{\"param\": \"\",\"type\": \"letter\",\"value\": \"ו\",\"count\": 3,\"connector\": \"before\"},{\"param\": \"\",\"type\": \"letter\",\"value\": \"ו\",\"count\": 3,\"connector\": \"none\"}]},{\"contains\": false,\"connector\": \"none\",\"terms\": [{\"param\": \"\",\"type\": \"nekudah\",\"value\": \"segol\",\"count\": 1,\"connector\": \"or\"},{\"param\": \"\",\"type\": \"nekudah\",\"value\": \"kamatz\",\"count\": 2,\"connector\": \"none\"}]}]}";*/
-		File fileJSON = new File("api_spec.json");
+		File fileJSON = new File("test.json");
 		String JSON = Level_1.tools.FileToString(fileJSON);
-		//System.out.println(JSON);
 		JSONObject json = new JSONObject(JSON);
 
 		String searchText = "";
@@ -37,27 +35,127 @@ public class App {
 		else{
 	 		searchText = Bible.keriUkesiv.elyon(searchText, false);
 		}
-		FileOutputStream out = new FileOutputStream("output.txt");
+
+		String searchin = "וַיֹּ֥אמֶר אֱלֹהִ֖ים יְהִ֣י א֑וֹר וַֽיְהִי־אֽוֹר׃";
+		System.out.println(searching(json.getJSONArray("search"), 0, searchin));
+
+		/* FileOutputStream out = new FileOutputStream("output.txt");
 		out.write(searchText.getBytes("UTF-8"));
-		out.close();
+		out.close(); */
 
-
-		JSONArray arr = json.getJSONArray("searchAlt");
-		for (int i = 0; i < arr.length(); i++)
-		{
-			JSONArray terms = arr.getJSONObject(i).getJSONArray("terms");
-			for (int j = 0; j < terms.length(); j++)
-			{
-				String type = terms.getJSONObject(j).getString("type");
-				System.out.println(type);
-
-			}
-		}
+		
 
 		// String data = Bible.maker.torah();
 
 		// FileOutputStream out = new FileOutputStream("output.txt");
 		// out.write(data.getBytes("UTF-8"));
 		// out.close();
+	}
+
+	public static Boolean searching(JSONArray search, int index, String term) throws JSONException {
+		JSONObject current = search.getJSONObject(index);
+		Boolean contains = false;
+		String param = current.getString("param");
+		String connector = current.getString("connector");
+
+		if(param.equals("condition") && connector.equals("and")){
+			String type = current.getString("type");
+			if(type.equals("contains")){
+				int len = search.length();
+				int count = 0;
+				int i;
+				for(i = index; i < len; i++){
+					count += current.getInt("opens");
+					if(count == 0 && search.getJSONObject(i).getString("param").equals("condition")){
+						break;
+					}
+				}
+				return (searching(search, index + 1, term) && searching(search, i, term));
+			}
+			else if(type.equals("does not contain")){
+				int len = search.length();
+				int count = 0;
+				int i;
+				for(i = index; i < len; i++){
+					count += current.getInt("opens");
+					if(count == 0 && search.getJSONObject(i).getString("param").equals("condition")){
+						break;
+					}
+				}
+				return (!searching(search, index + 1, term) && searching(search, i, term));
+			}
+		}
+		else if(param.equals("condition") && connector.equals("or")){
+			String type = current.getString("type");
+			if(type.equals("contains")){
+				int len = search.length();
+				int count = 0;
+				int i;
+				for(i = index; i < len; i++){
+					count += current.getInt("opens");
+					if(count == 0 && search.getJSONObject(i).getString("param").equals("condition")){
+						break;
+					}
+				}
+				return (searching(search, index + 1, term) || searching(search, i, term));
+			}
+			else if(type.equals("does not contain")){
+				int len = search.length();
+				int count = 0;
+				int i;
+				for(i = index; i < len; i++){
+					count += current.getInt("opens");
+					if(count == 0 && search.getJSONObject(i).getString("param").equals("condition")){
+						break;
+					}
+				}
+				return (!searching(search, index + 1, term) || searching(search, i, term));
+			}
+		}
+		else if(param.equals("condition") && connector.equals("none")){
+			String type = current.getString("type");
+			if(type.equals("contains")){
+				System.out.println(search + " " + (index + 1) + " " + term);
+				return searching(search, index + 1, term);
+			}
+			else if(type.equals("does not contain")){
+				return !searching(search, index + 1, term);
+			}
+		}
+
+
+
+
+		/* if(param.equals("abstract") && connector.equals("none")){
+			if(type.equals("word")) {
+
+			}
+		} */
+
+
+
+
+		if(param.equals("input") && connector.equals("and")){
+			if(term.contains(current.getString("value"))){
+				contains = true;
+			}
+			return (contains && searching(search, index + 1, term));
+		}
+		else if(param.equals("input") && connector.equals("or")){
+			if(term.contains(current.getString("value"))){
+				contains = true;
+			}
+			return (contains || searching(search, index + 1, term));
+		}
+		else if(param.equals("input") && connector.equals("none")){
+			System.out.println("here");
+			System.out.println(current.getString("value"));
+			if(term.contains(current.getString("value"))){
+				contains = true;
+				System.out.println("has");
+			}
+			return contains;
+		}
+		return contains;
 	}
 }

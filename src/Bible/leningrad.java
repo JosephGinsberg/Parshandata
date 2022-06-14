@@ -9,7 +9,7 @@ public class leningrad {
 	//turns a Leningrad text file into String with Pesukim numbers () and replaces alternative hebrew fonts with their proper counterparts.
 	//(1) אֲשֶׁ֥ר בִּירוּשָׁלִָֽם׃ ‬ ‫ 5  ׃1   וַיָּק֜וּמוּ רָאשֵׁ֣י הָאָב֗וֹת
 	public static String standard(File file) throws FileNotFoundException {
-		Scanner sc = new Scanner(file);
+		Scanner sc = new Scanner(file, "UTF-8");
 		String finalB = "";
 		String now = "";
 		boolean good = true;
