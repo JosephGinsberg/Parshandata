@@ -1,24 +1,49 @@
 {
 	"books": [
 		"genesis",
-		"exodus"
+		"exodus",
+		"leviticus",
+		"numbers",
+		"deuteronomy"
 	],
 	"keriUkesiv": true,
 	"taamTachton": true,
-	"display": "first",
-	"splitBy": "pasuk",
+	"display": "every",
+	"splitBy": "word",
 	"search": [
 		{
 			"param": "condition",
-			"type": "does not contain",
-			"connector": "none",
-			"opens": 1
+			"type": "contains",
+			"connector": "and",
+			"level": 1
 		},{
 			"param": "input",
 			"type": "letter",
-			"value": "ו",
+			"value": "ץ",
 			"connector": "none",
-			"opens": 0
+			"level": 1
+		},{
+			"param": "condition",
+			"type": "does not contain",
+			"connector": "or",
+			"level": 1
+		},{
+			"param": "input",
+			"type": "letter",
+			"value": "א",
+			"connector": "none",
+			"level": 1
+		},{
+			"param": "condition",
+			"type": "contains",
+			"connector": "none",
+			"level": 1
+		},{
+			"param": "input",
+			"type": "letter",
+			"value":"֣",
+			"connector": "none",
+			"level": 1
 		}
 	]
 }

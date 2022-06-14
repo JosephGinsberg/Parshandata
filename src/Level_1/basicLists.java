@@ -7,6 +7,11 @@ public class basicLists {
 		for(int i = 0; i < test.length; i++){
 			System.out.println(isaletter(test[i]) + " " + isanekudah(test[i]) + " " + isatrop(test[i]));
 		}
+
+		String[][] chars3 = {{"",""},{"",""}};
+
+
+		
 	}
 
 	public static String[] letterList(){

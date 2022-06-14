@@ -92,7 +92,8 @@ public class searcher {
     
     //we need a search any, besides for the search all
     
-    //All this can just be replaced with going through the first two methods and chooosing the ones where it doesn't work. 
+    //All this can just be replaced with going through the first two methods and chooosing the ones where it doesn't work.
+	 
     //Returns an array of all the Pasukim that do not contain all the given input phrases anywhere within their contents.
     public static String[] SearchNotPhrases(String bible, String[] search){
     	ArrayList<String> answer = new ArrayList<String>();
