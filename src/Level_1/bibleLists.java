@@ -95,7 +95,7 @@ public class bibleLists {
 	}
 	
 	//outputs an array containing each letter with all its extra parts (dagesh, nekudot, trop, makaf, pesik, etc.) seperately.
-	public static String[] separate(String str){
+	public static String[] separateLetters(String str){
 		ArrayList<String> sep = new ArrayList<String>();
 		str = str.replace(" ", "");
 		int startPos = 0;

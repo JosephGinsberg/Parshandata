@@ -1,22 +1,42 @@
+import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import Level_1.bibleLists;
 
-import org.json.JSONException;
-import java.io.File;
-import java.io.FileNotFoundException;
-
 public class App {
 	public static void main(String[] args) throws FileNotFoundException, IOException, JSONException{
-
 		File fileJSON = new File("test.json");
 		String JSON = Level_1.tools.FileToString(fileJSON);
 		JSONObject json = new JSONObject(JSON);
 
+		String answer =  mastersearch(setup(json), json);
+
+		FileOutputStream out = new FileOutputStream("output.txt");
+		out.write(answer.getBytes("UTF-8"));
+		out.close();
+	}
+
+	public static String mastersearch(String[] material, JSONObject json) throws JSONException{
+		String answer = "";
+		int len = material.length;
+		int total = 0;
+		for(int i = 0; i < len; i++){
+			if(searching(json.getJSONArray("search"), 0, material[i])){
+				answer += material[i] + "\n";
+				total++;
+			}
+		}
+		System.out.println("total: " + total);
+		return answer;
+	}
+		
+	public static String[] setup(JSONObject json) throws JSONException, FileNotFoundException {
 		String searchText = "";
 		Boolean keri;
 		Boolean taam;
@@ -45,31 +65,13 @@ public class App {
 			material = bibleLists.pasukim(searchText);
 		}
 		else if(splitby.equals("word")){
-			material = bibleLists.words(searchText);
+			material = bibleLists.tropWords(searchText, true);
 		}
-
-		/*String searchin = "וַיֹּ֥אמֶר אֱלֹהִ֖ים יְהִ֣י א֑וֹר וַֽיְהִי־אֽוֹר׃";
-		System.out.println(searching(json.getJSONArray("search"), 0, searchin));*/
-
-		String answer = "";
-		int len = material.length;
-		int total = 0;
-		for(int i = 0; i < len; i++){
-			if(searching(json.getJSONArray("search"), 0, material[i])){
-				answer += material[i] + "\n";
-				total++;
-			}
-		}
-		System.out.println("total: " + total);
-		FileOutputStream out = new FileOutputStream("output.txt");
-		out.write(answer.getBytes("UTF-8"));
-		out.close();
-
-	}
+		return material;
+	} 
 
 	public static Boolean searching(JSONArray search, int index, String term) throws JSONException {
 		JSONObject current = search.getJSONObject(index);
-		Boolean contains = false;
 		String param = current.getString("param");
 		String connector = current.getString("connector");
 
@@ -80,8 +82,9 @@ public class App {
 				int len = search.length();
 				int thislevel = current.getInt("level");
 				for(i = index + 1; i < len; i++){
-					int ilevel = search.getJSONObject(i).getInt("level");
-					if(thislevel == ilevel && search.getJSONObject(i).getString("param").equals("condition")){
+					JSONObject nextobject = search.getJSONObject(i);
+					int ilevel = nextobject.getInt("level");
+					if(thislevel == ilevel && nextobject.getString("param").equals("condition")){
 						//System.out.println(i);
 						break;
 					}
@@ -109,49 +112,64 @@ public class App {
 			}
 		}
 	
-
-
-
-		if(param.equals("abstract") && connector.equals("none")){
+		if(param.equals("abstract")){
 			String type = current.getString("type");
+			Boolean anyhas = false;
+			String[] newterms = {term};
 			if(type.equals("word")) {
-				String[] words = bibleLists.words(term);
-				int wordslen = words.length;
-				Boolean anyhas = false;
-				for(int i = 0; i < wordslen; i++){
-					if(searching(search, index + 1, words[i])){
+				newterms = bibleLists.tropWords(term, true);
+			}
+			else if(type.equals("letter")) {
+				newterms = bibleLists.separateLetters(term);;
+			}
+			int i = 0;
+			if(!connector.equals("none")){
+				int len = search.length();
+				int thislevel = current.getInt("level");
+				for(i = index + 1; i < len; i++){
+					JSONObject nextobject = search.getJSONObject(i);
+					int ilevel = nextobject.getInt("level");
+					if(thislevel == ilevel && nextobject.getString("param").equals("abstract")){
+						break;
+					}
+				}
+				for(String s : newterms){
+					if(searching(search, index + 1, s)){
 						anyhas = true;
 					}
-					break;
 				}
-				return anyhas;
+				if(connector.equals("and")){
+					return (anyhas && searching(search, i, term));
+				}
+				else if(connector.equals("or")){
+					return (anyhas || searching(search, i, term));
+				}
 			}
+			else if(connector.equals("none")){
+				for(String s : newterms){
+					if(searching(search, index + 1, s)){
+						anyhas = true;
+						break;
+					}
+				}
+			}
+			return anyhas;
 		} 
 
-
-
-		if(param.equals("input") && connector.equals("and")){
+		Boolean contains = false;
+		if(param.equals("input")){
 			if(term.contains(current.getString("value"))){
 				contains = true;
-				//System.out.println("here1");
 			}
-			return (contains && searching(search, index + 1, term));
-		}
-		else if(param.equals("input") && connector.equals("or")){
-			if(term.contains(current.getString("value"))){
-				contains = true;
-				//System.out.println("here3");
+			if(connector.equals("and")){
+				return (contains && searching(search, index + 1, term));
 			}
-			return (contains || searching(search, index + 1, term));
-		}
-		else if(param.equals("input") && connector.equals("none")){
-			//System.out.println("here2");
-			//System.out.println(current.getString("value"));
-			if(term.contains(current.getString("value"))){
-				contains = true;
-				//System.out.println("has");
+			else if(connector.equals("or")){
+				return (contains || searching(search, index + 1, term));
 			}
-			return contains;
+			else if(connector.equals("none")){
+				return contains;
+			}
 		}
 		return contains;
 	}

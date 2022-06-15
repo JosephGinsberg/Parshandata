@@ -9,28 +9,32 @@
 	"keriUkesiv": true,
 	"taamTachton": true,
 	"display": "every",
-	"splitBy": "word",
+	"splitBy": "pasuk",
 	"search": [
 		{
 			"param": "condition",
 			"type": "contains",
-			"connector": "and",
-			"level": 1
-		},{
-			"param": "input",
-			"type": "letter",
-			"value": "ץ",
 			"connector": "none",
 			"level": 1
 		},{
+			"param": "abstract",
+			"type": "word",
+			"connector": "and",
+			"level": 1
+		},{
 			"param": "condition",
-			"type": "does not contain",
-			"connector": "or",
+			"type": "contains",
+			"connector": "none",
 			"level": 1
 		},{
 			"param": "input",
 			"type": "letter",
-			"value": "א",
+			"value": "־",
+			"connector": "none",
+			"level": 1
+		},{
+			"param": "abstract",
+			"type": "letter",
 			"connector": "none",
 			"level": 1
 		},{
@@ -41,7 +45,7 @@
 		},{
 			"param": "input",
 			"type": "letter",
-			"value":"֣",
+			"value": "֓",
 			"connector": "none",
 			"level": 1
 		}

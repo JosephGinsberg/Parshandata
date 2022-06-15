@@ -2,20 +2,79 @@ package Level_1;
 
 public class basicLists {
 
+	private static String[][] chars = {
+		{"א", "Aleph", "Hebrew", "letter"},
+		{"ב", "Beis", "Hebrew", "letter"},
+		{"ג", "Gimmel", "Hebrew", "letter"},
+		{"ד", "Dalet", "Hebrew", "letter"},
+		{"ה", "Hei", "Hebrew", "letter"},
+		{"ו", "Vav", "Hebrew", "letter"},
+		{"ז", "Zayin", "Hebrew", "letter"},
+		{"ח", "Ches", "Hebrew", "letter"},
+		{"ט", "Tes", "Hebrew", "letter"},
+		{"י", "Yud", "Hebrew", "letter"},
+		{"כ", "Chaf", "Hebrew", "letter"},
+		{"ל", "Lamed", "Hebrew", "letter"},
+		{"מ", "Mem", "Hebrew", "letter"},
+		{"נ", "Nun", "Hebrew", "letter"},
+		{"ס", "Samach", "Hebrew", "letter"},
+		{"ע", "Ayin", "Hebrew", "letter"},
+		{"פ", "Pei", "Hebrew", "letter"},
+		{"צ", "Tsadi", "Hebrew", "letter"},
+		{"ק", "Kuf", "Hebrew", "letter"},
+		{"ר", "Reish", "Hebrew", "letter"},
+		{"ש", "shin", "Hebrew", "letter"},
+		{"ת", "Tav", "Hebrew", "letter"},
+		{"ם", "Chaf-Sofit", "Hebrew", "letter"},
+		{"ן", "Mem-Sofit", "Hebrew", "letter"},
+		{"ץ", "Nun-Sofit", "Hebrew", "letter"},
+		{"ף", "Pei-Sofit", "Hebrew", "letter"},
+		{"ך", "Tsadi-Sofit", "Hebrew", "letter"},
+		{"ׂ", "sin", "Hebrew", "nekudah"},
+		{"ׁ", "shin", "Hebrew", "nekudah"},
+		{"ָ", "Kamatz", "Hebrew", "nekudah"},
+		{"", "", "Hebrew", "nekudah"},
+		{"", "", "Hebrew", "nekudah"},
+		{"", "", "Hebrew", "nekudah"},
+		{"", "", "Hebrew", "nekudah"},
+		{"", "", "Hebrew", "nekudah"},
+		{"", "", "Hebrew", "nekudah"},
+		{"", "", "Hebrew", "nekudah"},
+		{"", "", "Hebrew", "nekudah"},
+		{"", "", "Hebrew", "nekudah"},
+		{"", "", "Hebrew", "nekudah"}
+	};
+
 	public static void main(String[] args){
 		String[] test = {"ץ", "ֵ", "֦", "p"};
 		for(int i = 0; i < test.length; i++){
-			System.out.println(isaletter(test[i]) + " " + isanekudah(test[i]) + " " + isatrop(test[i]));
+			System.out.println(isaletter(test[i]));
+			// System.out.println(isaletter(test[i]) + " " + isanekudah(test[i]) + " " + isatrop(test[i]));
 		}
-
-		String[][] chars3 = {{"",""},{"",""}};
-
-
-		
 	}
 
 	public static String[] letterList(){
-		String[] letters = {"א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ", "ק", "ר", "ש", "ת", "ם", "ן", "ץ", "ף", "ך"};
+		// String[] letters = {"א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ", "ק", "ר", "ש", "ת", "ם", "ן", "ץ", "ף", "ך"};
+		
+		int len = 0;
+		for (String[] c: chars) {
+			if(c[3].equals("letter")) {
+				len++;
+			}
+		}
+		String[] letters = new String[len];
+		len = 0;
+
+		for (String[] c: chars) {
+			if(c[3].equals("letter")){
+				letters[len] = c[0];
+				len++;
+				// letters = c[0];
+
+				// int i = letters.length;
+				// letters[i] = c[0];
+			}
+		}
 		return letters;
 	}
 	
