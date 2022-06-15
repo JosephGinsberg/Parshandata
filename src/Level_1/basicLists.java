@@ -48,33 +48,34 @@ public class basicLists {
 	public static void main(String[] args){
 		String[] test = {"ץ", "ֵ", "֦", "p"};
 		for(int i = 0; i < test.length; i++){
-			System.out.println(isaletter(test[i]));
-			// System.out.println(isaletter(test[i]) + " " + isanekudah(test[i]) + " " + isatrop(test[i]));
+			System.out.println("isaletter: " + isaletter(test[i]) + " isanekudah: " + isanekudah(test[i]) + " isatrop: " + isatrop(test[i]));
 		}
+	}
+
+	// Get String[] of chars in a class, i.e. letter, nekudah, trop
+	public static String[] charsByGroup(String group){
+		int len = 0;
+		for (String[] c: chars) {
+			if(c[3].equals(group)){
+				len++;
+			}
+		}
+
+		String[] charachters = new String[len];
+		len = 0;
+		for (String[] c: chars) {
+			if(c[3].equals(group)){
+				charachters[len++] = c[0];
+			}
+		}
+
+		return charachters;
 	}
 
 	public static String[] letterList(){
 		// String[] letters = {"א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ", "ק", "ר", "ש", "ת", "ם", "ן", "ץ", "ף", "ך"};
-		
-		int len = 0;
-		for (String[] c: chars) {
-			if(c[3].equals("letter")) {
-				len++;
-			}
-		}
-		String[] letters = new String[len];
-		len = 0;
 
-		for (String[] c: chars) {
-			if(c[3].equals("letter")){
-				letters[len] = c[0];
-				len++;
-				// letters = c[0];
-
-				// int i = letters.length;
-				// letters[i] = c[0];
-			}
-		}
+		String[] letters = charsByGroup("letter");
 		return letters;
 	}
 	
