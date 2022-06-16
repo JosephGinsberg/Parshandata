@@ -9,22 +9,12 @@
 	"keriUkesiv": true,
 	"taamTachton": true,
 	"display": "every",
-	"splitBy": "pasuk",
+	"splitBy": "word",
 	"search": [
 		{
 			"param": "condition",
 			"type": "contains",
-			"connector": "none",
-			"level": 1
-		},{
-			"param": "abstract",
-			"type": "word",
-			"connector": "none",
-			"level": 1
-		},{
-			"param": "condition",
-			"type": "contains",
-			"connector": "none",
+			"connector": "and",
 			"level": 1
 		},{
 			"param": "input",
@@ -32,7 +22,12 @@
 			"value": "ָ",
 			"count": 2,
 			"counttype": "greater",
-			"connector": "and",
+			"connector": "none",
+			"level": 1
+		},{
+			"param": "condition",
+			"type": "does not contain",
+			"connector": "none",
 			"level": 1
 		},{
 			"param": "input",

@@ -136,4 +136,15 @@ public class maker {
 			return books;
 		}
 	}
+
+	public static String[][] booknums(String[] book) throws FileNotFoundException {
+		int booklen = book.length;
+		String[][] returning = new String[booklen][2];
+		for(int i = 0; i < booklen; i++){
+			File file = new File("Bible Text/" + book[i] + ".txt");
+			returning[i][0] = leningrad.standard(file);
+			returning[i][1] = book[i];
+		}
+		return returning;
+	}
 }

@@ -9,6 +9,9 @@ import org.json.JSONObject;
 import org.json.JSONStringer;
 
 import Level_1.bibleLists;
+import Level_1.tools;
+
+import java.util.ArrayList;
 
 public class App {
 	public static void main(String[] args) throws FileNotFoundException, IOException, JSONException{
@@ -16,12 +19,22 @@ public class App {
 		String JSON = Level_1.tools.FileToString(fileJSON);
 		JSONObject json = new JSONObject(JSON);
 
-		String answer =  mastersearch(setup(json), json);
+		/*String answer =  mastersearch(setup(json), json);
 
 		FileOutputStream out = new FileOutputStream("output.txt");
 		out.write(answer.getBytes("UTF-8"));
+		out.close();*/
+
+		/*String[] booklist = {"genesis"};
+		String[][] books = Bible.maker.booknums(booklist); 
+		String[] answers = {"ף", "ף", "ף", "ף", "ף", "ף", "ף", "ף"};
+		String result = JSONbuilder(answers, books);*/
+
+		String result =  mastersearch2(setup(json), json);
+
+		FileOutputStream out = new FileOutputStream("output.json");
+		out.write(result.getBytes("UTF-8"));
 		out.close();
-		
 	}
 
 	public static String mastersearch(String[] material, JSONObject json) throws JSONException{
@@ -36,6 +49,28 @@ public class App {
 		}
 		System.out.println("total: " + total);
 		return answer;
+	}
+
+	public static String mastersearch2(String[] material, JSONObject json) throws JSONException, FileNotFoundException{
+		ArrayList<String> answers = new ArrayList<String>();
+		int len = material.length;
+		int total = 0;
+		for(int i = 0; i < len; i++){
+			if(searching(json.getJSONArray("search"), 0, material[i])){
+				answers.add(material[i]);
+				total++;
+			}
+		}
+		System.out.println("total: " + total);
+		String[] allanswers = tools.Arraylisttoarray(answers);
+		ArrayList<String> allbooks = new ArrayList<String>();
+		JSONArray books = json.getJSONArray("books");
+		for (int i = 0; i < books.length(); i++) {
+			allbooks.add(books.getString(i));
+		}
+		String[] booknames = tools.Arraylisttoarray(allbooks);
+		String[][] finalbooks = Bible.maker.booknums(booknames);
+		return JSONbuilder(allanswers, finalbooks);
 	}
 		
 	public static String[] setup(JSONObject json) throws JSONException, FileNotFoundException {
@@ -200,5 +235,64 @@ public class App {
 			}
 		}
 		return contains;
+	}
+
+	public static String JSONbuilder(String[] answers, String[][] books) throws JSONException{
+		String jsonresult = "{\"answers\":[";
+		int answerslen = answers.length;
+		for(int i = 0; i < answerslen; i++){
+			if(i > 0){
+				jsonresult += ",";
+			}
+			int count = 1;
+			for(int j = 0; j < i; j++){
+				if(answers[j].equals(answers[i])){
+					count++;
+				}
+			}
+			int thislen = answers[i].length();
+			int bookslen = books.length;
+			for(int j = 0; j < bookslen; j++){
+				int findercount = 0;
+				String currentbook = books[j][0];
+				int currentbooklen = currentbook.length();
+				int forward = 0;
+  				int backward = 0;
+				for(int k = 0; k < (currentbooklen - thislen); k++){
+					if(currentbook.substring(k, k + thislen).equals(answers[i])){
+						findercount++;
+						//System.out.println(findercount + " " + count);
+					}
+					if(currentbook.substring(k, k + thislen).equals(answers[i]) && (findercount == count)){
+						forward = 0;
+						backward = 0;
+						for(int l = k - 1; l < currentbooklen; l++) {
+							if(currentbook.substring(l, l + 1).equals("׃")) {
+								forward = l + 1;
+								break;
+							}
+						}
+						for(int l = k; l > 0; l--) {
+							if(currentbook.substring(l - 1, l).equals("׃")) {
+								backward = l - 6;
+								break;
+							}
+						}
+						String bookname = books[j][1];
+						String pasuk = currentbook.substring(backward + 10, forward);
+						String[] place = currentbook.substring(backward + 1, backward + 10).replace(" ", "").split("׃");
+						jsonresult += new JSONStringer().object()
+							.key("splitvalue").value(answers[i])
+							.key("fullverse").value(pasuk)
+							.key("bookname").value(bookname)
+							.key("perek").value(place[1])
+							.key("pasuk").value(place[0])
+							.endObject().toString();
+					}
+				}
+			}
+		}
+		jsonresult += "]}";
+		return jsonresult;
 	}
 }
