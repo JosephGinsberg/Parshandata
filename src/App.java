@@ -62,13 +62,13 @@ public class App {
 			}
 		}
 		System.out.println("total: " + total);
-		String[] allanswers = tools.Arraylisttoarray(answers);
+		String[] allanswers = tools.ArraylistToArray(answers);
 		ArrayList<String> allbooks = new ArrayList<String>();
 		JSONArray books = json.getJSONArray("books");
 		for (int i = 0; i < books.length(); i++) {
 			allbooks.add(books.getString(i));
 		}
-		String[] booknames = tools.Arraylisttoarray(allbooks);
+		String[] booknames = tools.ArraylistToArray(allbooks);
 		String[][] finalbooks = Bible.maker.booknums(booknames);
 		return JSONbuilder(allanswers, finalbooks);
 	}

@@ -23,13 +23,7 @@ public class bibleLists {
 				startPos = i + 1;
 			}
 		}
-		String[] word = new String[words.size()];
-		int i = 0;
-		for(String j : words){
-			word[i] = j;
-			i++;
-		}
-		return word;
+		return tools.ArraylistToArray(words);
 	}
 	
 	/*Outputs a String array of all the accentual words in the input string, one accent per word. In this instance, words connected by a makaf (־) will be considered one word, and words at the end of verses will have the verse-end symbol (׃) appended to it, so as to distinguish the sof-pasuk (ֽ ) from a gayah (same).
@@ -64,13 +58,7 @@ public class bibleLists {
 				startPos = i + 1;
 			}
 		}
-		String[] word = new String[words.size()];
-		int i = 0;
-		for(String j : words){
-			word[i] = j;
-			i++;
-		}
-		return word;
+		return tools.ArraylistToArray(words);
 	}
 	
 
@@ -85,13 +73,7 @@ public class bibleLists {
 				StartPos = i + 1;
 			}
 		}
-		String[] pasukim = new String[pasuk.size()];
-		int i = 0;
-		for(String j : pasuk){
-			pasukim[i] = j;
-			i++;
-		}
-		return pasukim;
+		return tools.ArraylistToArray(pasuk);
 	}
 	
 	//outputs an array containing each letter with all its extra parts (dagesh, nekudot, trop, makaf, pesik, etc.) seperately.
@@ -108,13 +90,7 @@ public class bibleLists {
 				startPos = i;
 			}
 		}
-		String[] seperate = new String[sep.size()];
-		int i = 0;
-		for(String j : sep){
-			seperate[i] = j;
-			i++;
-		}
-		return seperate;
+		return tools.ArraylistToArray(sep);
 	}
 	
 }

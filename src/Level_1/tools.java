@@ -2,9 +2,20 @@ package Level_1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class tools {
+
+	public static String[] ArraylistToArray(ArrayList<String> input){
+		String[] result = new String[input.size()];
+		int i = 0;
+		for(String j : input){
+			result[i] = j;
+			i++;
+		}
+		return result;
+	}
 
 	public static String FileToString(File file) throws FileNotFoundException {
 		Scanner sc = new Scanner(file, "UTF-8");
