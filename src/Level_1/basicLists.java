@@ -60,7 +60,6 @@ public class basicLists {
 				len++;
 			}
 		}
-
 		String[] charachters = new String[len];
 		len = 0;
 		for (String[] c: chars) {

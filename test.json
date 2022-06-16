@@ -19,33 +19,27 @@
 		},{
 			"param": "abstract",
 			"type": "word",
+			"connector": "none",
+			"level": 1
+		},{
+			"param": "condition",
+			"type": "contains",
+			"connector": "none",
+			"level": 1
+		},{
+			"param": "input",
+			"type": "letter",
+			"value": "ָ",
+			"count": 2,
+			"counttype": "greater",
 			"connector": "and",
 			"level": 1
 		},{
-			"param": "condition",
-			"type": "contains",
-			"connector": "none",
-			"level": 1
-		},{
 			"param": "input",
 			"type": "letter",
-			"value": "־",
-			"connector": "none",
-			"level": 1
-		},{
-			"param": "abstract",
-			"type": "letter",
-			"connector": "none",
-			"level": 1
-		},{
-			"param": "condition",
-			"type": "contains",
-			"connector": "none",
-			"level": 1
-		},{
-			"param": "input",
-			"type": "letter",
-			"value": "֓",
+			"value": "֔",
+			"count": 0,
+			"counttype": "greater",
 			"connector": "none",
 			"level": 1
 		}

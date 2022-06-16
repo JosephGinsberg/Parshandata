@@ -14,29 +14,31 @@ import Bible.keriUkesiv;
 import Bible.maker;
 import Level_1.bibleLists;
 
+
 public class twentyOneTester {
 	
 	
 	
 	public static void main(String[] args) throws IOException{
+
 		
 		
 		
 		//System.out.println(tropLists.tropList(" וְכַאֲשֶׁ֤ר נָשָׂ֙אתָה֙ לָעָ֣ם הַזֶּ֔ה מִמִּצְרַ֖יִם וְעַד־הֵֽנָּה׃")[0]);
-		String[] books = maker.book_numbers("all");
+		/*String[] books = maker.book_numbers("all");
 		String[] bookNames = maker.bookNames("all");
 		String twentyOne = keriUkesiv.keri(maker.all());
 		/*System.out.println(twentyOne.substring(300000, 310000));
 		String[] ser = searcher.searchPhrase(twentyOne, "שארות ופ");
 		tools.printArray(ser);*/
-		String[] trop = bibleLists.tropWords(twentyOne, false);
+		/*String[] trop = bibleLists.tropWords(twentyOne, false);
 		int len = trop.length;
 		for(int i = 0; i < len; i++){
 			String now = trop[i];
 			if(now.contains("֨") && now.contains("֔") && now.contains("וּ")) {
 				System.out.println(now);
 			}
-		}
+		}*/
 		
 		
 		

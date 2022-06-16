@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import Level_1.bibleLists;
 
@@ -20,6 +21,7 @@ public class App {
 		FileOutputStream out = new FileOutputStream("output.txt");
 		out.write(answer.getBytes("UTF-8"));
 		out.close();
+		
 	}
 
 	public static String mastersearch(String[] material, JSONObject json) throws JSONException{
@@ -117,10 +119,13 @@ public class App {
 			Boolean anyhas = false;
 			String[] newterms = {term};
 			if(type.equals("word")) {
+				newterms = bibleLists.words(term);
+			}
+			else if(type.equals("tropword")) {
 				newterms = bibleLists.tropWords(term, true);
 			}
 			else if(type.equals("letter")) {
-				newterms = bibleLists.separateLetters(term);;
+				newterms = bibleLists.separateLetters(term);
 			}
 			int i = 0;
 			if(!connector.equals("none")){
@@ -158,8 +163,31 @@ public class App {
 
 		Boolean contains = false;
 		if(param.equals("input")){
-			if(term.contains(current.getString("value"))){
-				contains = true;
+			int totalcount = current.getInt("count");
+			String val = current.getString("value");
+			String counttype = current.getString("counttype");
+			int thiscount = 0;
+			int termlen = term.length();
+			int vallen = val.length();
+			for(int i = 0; i <= (termlen - vallen); i++){
+				if(term.substring(i, i + vallen).equals(val)){
+					thiscount++;
+				}
+			}
+			if(counttype.equals("equal")){
+				if(thiscount == totalcount){
+					contains = true;
+				}
+			}
+			else if(counttype.equals("greater")){
+				if(thiscount > totalcount){
+					contains = true;
+				}
+			}
+			else if(counttype.equals("less")){
+				if(thiscount < totalcount){
+					contains = true;
+				}
 			}
 			if(connector.equals("and")){
 				return (contains && searching(search, index + 1, term));
