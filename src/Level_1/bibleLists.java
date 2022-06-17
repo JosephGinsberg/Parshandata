@@ -75,6 +75,36 @@ public class bibleLists {
 		}
 		return tools.ArraylistToArray(pasuk);
 	}
+
+	public static String[] numpasukim(String bible){
+		ArrayList<String> pasuk = new ArrayList<String>();
+		int StartPos = 0;
+		int len = bible.length();
+		for(int i = 0; i < len; i++){
+			if(bible.substring(i, i + 1).equals("׃") && !bible.substring(i - 1, i).equals(" ")){
+				pasuk.add(bible.substring(StartPos, i + 1));
+				StartPos = i + 1;
+			}
+		}
+		return tools.ArraylistToArray(pasuk);
+	}
+
+	public static String[][] numseperator(String[] pas, String name){
+		int len = pas.length;
+		String[][] result = new String[len][4];
+		for(int i = 0; i < len; i++){
+			String thispas = pas[i];
+			int thislen = thispas.length();
+			int pos = thispas.indexOf("׃");
+			pos = pos - 6;
+			result[i][0] = thispas.substring(pos + 11, thislen);
+			result[i][1] = name;
+			String[] place = thispas.substring(pos + 2, pos + 11).replace(" ", "").split("׃");
+			result[i][2] = place[1];
+			result[i][3] = place[0];
+		}
+		return result;
+	}
 	
 	//outputs an array containing each letter with all its extra parts (dagesh, nekudot, trop, makaf, pesik, etc.) seperately.
 	public static String[] separateLetters(String str){

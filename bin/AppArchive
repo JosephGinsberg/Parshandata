@@ -1,0 +1,161 @@
+public static String mastersearch(String[] material, JSONObject json) throws JSONException{
+		String answer = "";
+		int len = material.length;
+		int total = 0;
+		for(int i = 0; i < len; i++){
+			if(searching(json.getJSONArray("search"), 0, material[i])){
+				answer += material[i] + "\n";
+				total++;
+			}
+		}
+		System.out.println("total: " + total);
+		return answer;
+	}
+
+	public static String mastersearch2(String[] material, JSONObject json) throws JSONException, FileNotFoundException{
+		ArrayList<String> answers = new ArrayList<String>();
+		int len = material.length;
+		int total = 0;
+		for(int i = 0; i < len; i++){
+			if(searching(json.getJSONArray("search"), 0, material[i])){
+				answers.add(material[i]);
+				total++;
+			}
+		}
+		System.out.println("total: " + total);
+		String[] allanswers = tools.ArraylistToArray(answers);
+		ArrayList<String> allbooks = new ArrayList<String>();
+		JSONArray books = json.getJSONArray("books");
+		for (int i = 0; i < books.length(); i++) {
+			allbooks.add(books.getString(i));
+		}
+		String[] booknames = tools.ArraylistToArray(allbooks);
+		String[][] finalbooks = Bible.maker.booknums(booknames);
+		return JSONbuilder(allanswers, finalbooks);
+	}
+
+		//splitby = json.getString("splitBy");
+		//material =
+		/*if(splitby.equals("pasuk")){
+			material = bibleLists.pasukim(searchText);
+		}*/
+		/*ArrayList<String[]> q = new ArrayList<String[]>();
+		if(splitby.equals("word")){
+			int len = material.length;
+			for(int i = 0; i < len; i++){
+				String[] q2 = bibleLists.tropWords(material[i][0], true);
+				for(int j = 0; j < q2.length; j++){
+					String[] q3 = {q2[j], material[i][2], material[i][0]};
+					q.add(q3);
+				}
+			}
+			int i = 0;
+			String[][] q4 = new String[q.size()][3];
+			for(String[] j : q){
+				q4[i][0] = j[0];
+				q4[i][1] = j[1];
+				q4[i][2] = j[2];
+				i++;
+			}
+			material = q4;
+		}*/
+
+		public static String JSONbuilder(String[] answers, String[][] books) throws JSONException{
+			String jsonresult = "{\"answers\":[";
+			int answerslen = answers.length;
+			for(int i = 0; i < answerslen; i++){
+				if(i > 0){
+					jsonresult += ",";
+				}
+				int count = 1;
+				for(int j = 0; j < i; j++){
+					if(answers[j].equals(answers[i])){
+						count++;
+					}
+				}
+				int thislen = answers[i].length();
+				int bookslen = books.length;
+				for(int j = 0; j < bookslen; j++){
+					int findercount = 0;
+					String currentbook = books[j][0];
+					int currentbooklen = currentbook.length();
+					int forward = 0;
+					  int backward = 0;
+					for(int k = 0; k < (currentbooklen - thislen); k++){
+						if(currentbook.substring(k, k + thislen).equals(answers[i])){
+							findercount++;
+							//System.out.println(findercount + " " + count);
+						}
+						if(currentbook.substring(k, k + thislen).equals(answers[i]) && (findercount == count)){
+							forward = 0;
+							backward = 0;
+							for(int l = k - 1; l < currentbooklen; l++) {
+								if(currentbook.substring(l, l + 1).equals("׃")) {
+									forward = l + 1;
+									break;
+								}
+							}
+							for(int l = k; l > 0; l--) {
+								if(currentbook.substring(l - 1, l).equals("׃")) {
+									backward = l - 6;
+									break;
+								}
+							}
+							String bookname = books[j][1];
+							String pasuk = currentbook.substring(backward + 10, forward);
+							String[] place = currentbook.substring(backward + 1, backward + 10).replace(" ", "").split("׃");
+							jsonresult += new JSONStringer().object()
+								.key("splitvalue").value(answers[i])
+								.key("fullverse").value(pasuk)
+								.key("bookname").value(bookname)
+								.key("perek").value(place[1])
+								.key("pasuk").value(place[0])
+								.endObject().toString();
+						}
+					}
+				}
+			}
+			jsonresult += "]}";
+			return jsonresult;
+		}
+	
+		public static String JSONbuilder2(String[] answers, String[][] books) throws JSONException{
+			String jsonresult = "{\"answers\":[";
+			int answerslen = answers.length;
+			for(int i = 0; i < answerslen; i++){
+				if(i > 0){
+					jsonresult += ",";
+				}
+				int count = 1;
+				for(int j = 0; j < i; j++){
+					if(answers[j].equals(answers[i])){
+						count++;
+					}
+				}
+				int bookslen = books.length;
+				int findercount = 0;
+				for(int j = 0; j < bookslen; j++){
+					String currentbook = books[j][0];
+					String[][] split = bibleLists.numseperator(bibleLists.numpasukim(currentbook), "");
+					int splitlen = split.length;
+					for(int k = 0; k < splitlen; k++){
+						if(split[k][0].contains(answers[i])){
+							findercount++;
+							if(findercount == count){
+								String bookname = books[j][1];
+								jsonresult += new JSONStringer().object()
+									.key("splitvalue").value(answers[i])
+									.key("fullverse").value(split[k][0])
+									.key("bookname").value(bookname)
+									.key("perek").value(split[k][1])
+									.key("pasuk").value(split[k][2])
+									.endObject().toString();
+								break;
+							}
+						}
+					}
+				}
+			}
+			jsonresult += "]}";
+			return jsonresult;
+		}

@@ -13,6 +13,7 @@ import java.util.Scanner;
 import Bible.keriUkesiv;
 import Bible.maker;
 import Level_1.bibleLists;
+import Level_1.tools;
 
 
 public class twentyOneTester {
@@ -20,8 +21,14 @@ public class twentyOneTester {
 	
 	
 	public static void main(String[] args) throws IOException{
-
-		
+		/*String[][] x = bibleLists.numseperator(bibleLists.numpasukim(maker.book_numbers("Chronicles_2")[0]));
+		String l = "";
+		for(int i = 0; i < x.length; i++){
+			l += "verse:" + x[i][0] + "perek:" + x[i][1] + "verse:" + x[i][2] + "\n";
+		}
+		FileOutputStream out = new FileOutputStream("output.txt");
+		out.write(l.getBytes("UTF-8"));
+		out.close();*/
 		
 		
 		//System.out.println(tropLists.tropList(" וְכַאֲשֶׁ֤ר נָשָׂ֙אתָה֙ לָעָ֣ם הַזֶּ֔ה מִמִּצְרַ֖יִם וְעַד־הֵֽנָּה׃")[0]);
