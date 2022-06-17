@@ -1,7 +1,8 @@
 package Level_1;
 
-public class basicLists {
+import java.util.ArrayList;
 
+public class basicLists {
 	private static String[][] chars = {
 		{"א", "Aleph", "Hebrew", "letter"},
 		{"ב", "Beis", "Hebrew", "letter"},
@@ -30,304 +31,124 @@ public class basicLists {
 		{"ץ", "Nun-Sofit", "Hebrew", "letter"},
 		{"ף", "Pei-Sofit", "Hebrew", "letter"},
 		{"ך", "Tsadi-Sofit", "Hebrew", "letter"},
-		{"ׂ", "sin", "Hebrew", "nekudah"},
-		{"ׁ", "shin", "Hebrew", "nekudah"},
+		{"ּ", "Dagesh", "Hebrew", "nekudah"},
+		{"ׂ", "sin-dot", "Hebrew", "nekudah"},
+		{"ׁ", "shin-dot", "Hebrew", "nekudah"},
 		{"ָ", "Kamatz", "Hebrew", "nekudah"},
-		{"", "", "Hebrew", "nekudah"},
-		{"", "", "Hebrew", "nekudah"},
-		{"", "", "Hebrew", "nekudah"},
-		{"", "", "Hebrew", "nekudah"},
-		{"", "", "Hebrew", "nekudah"},
-		{"", "", "Hebrew", "nekudah"},
-		{"", "", "Hebrew", "nekudah"},
-		{"", "", "Hebrew", "nekudah"},
-		{"", "", "Hebrew", "nekudah"},
-		{"", "", "Hebrew", "nekudah"}
+		{"ַ", "Patach", "Hebrew", "nekudah"},
+		{"ֵ", "Tsaray", "Hebrew", "nekudah"},
+		{"ֶ", "Segol (Nakud)", "Hebrew", "nekudah"},
+		{"ֹ", "Cholam", "Hebrew", "nekudah"},
+		{"ֻ", "Shuruk", "Hebrew", "nekudah"},
+		{"ִ", "Chirik", "Hebrew", "nekudah"},
+		{"ְ", "Shva", "Hebrew", "nekudah"},
+		{"ֿ", "Rafeh", "Hebrew", "nekudah"},
+		{"ֺ", "Cholam Chaser for Vav", "Hebrew", "nekudah"},
+		{"ֳ", "Chataf-Kamatz", "Hebrew", "nekudah"},
+		{"ֲ", "Chataf-Patach", "Hebrew", "nekudah"},
+		{"ֱ", "Chataf-Segol", "Hebrew", "nekudah"},
+		{"֨" , "kadmah", "Hebrew", "trop"},
+		{"֣" , "munach", "Hebrew", "trop"},
+		{"֮" , "zarka", "Hebrew", "trop"},
+		{"֒" , "segol", "Hebrew", "trop"},
+		{"֗" , "revie", "Hebrew", "trop"},
+		{"֤" , "mahpach", "Hebrew", "trop"},
+		{"֙" , "pashtah", "Hebrew", "trop"},
+		{"֔" , "zakaif", "Hebrew", "trop"},
+		{"֕" , "zakaif-Gadol", "Hebrew", "trop"},
+		{"֥" , "mercha", "Hebrew", "trop"},
+		{"֖" , "tipcha", "Hebrew", "trop"},
+		{"֑" , "esnachta", "Hebrew", "trop"},
+		{"֡" , "pazair", "Hebrew", "trop"},
+		{"֩" , "telisha-ketanah", "Hebrew", "trop"},
+		{"֠" , "telisha-gedolah", "Hebrew", "trop"},
+		{"֜" , "azlah-geiresh", "Hebrew", "trop"},
+		{"֞" , "gershayim", "Hebrew", "trop"},
+		{"֧" , "dargah", "Hebrew", "trop"},
+		{"֛" , "tevier", "Hebrew", "trop"},
+		{"֚" , "yesiv", "Hebrew", "trop"},
+		{"֓" , "shalsheles", "Hebrew", "trop"},
+		{"֪" , "yareach-ben-yomo", "Hebrew", "trop"},
+		{"֟" , "karnei-pharah", "Hebrew", "trop"},
+		{"֦" , "mercha-kefula", "Hebrew", "trop"},
+		{"ֽ" , "gaya", "Hebrew", "trop"},
+		{"֭" , "tarcha", "Hebrew", "trop"},
+		{"׃", "sof-pasuk", "Hebrew", "other"},
+		{"־", "Makaf", "Hebrew", "other"},
+		{"׀", "Pesik", "Hebrew", "other"},
+		//{" ׀", "Pesik", "Hebrew", "other"},
+		{"ׄ", "Dots on top of words", "Hebrew", "other"},
+		{"*", "Keri ukesiv marker", "Hebrew", "other"},
+		{" ", "Space", "Hebrew", "other"}
 	};
 
 	public static void main(String[] args){
-		String[] test = {"ץ", "ֵ", "֦", "p"};
-		for(int i = 0; i < test.length; i++){
-			System.out.println("isaletter: " + isaletter(test[i]) + " isanekudah: " + isanekudah(test[i]) + " isatrop: " + isatrop(test[i]));
+		String[] testChars = {"ץ", "ֵ", "֦", "p"};
+		for(int i = 0; i < testChars.length; i++){
+			System.out.println(
+			 "isaLetter: "	+ isaletter(testChars[i]) +
+			" isaNekudah: "	+ isanekudah(testChars[i]) +
+			" isaTrop: "	+ isatrop(testChars[i]));
 		}
 	}
 
 	// Get String[] of chars in a class, i.e. letter, nekudah, trop
 	public static String[] charsByGroup(String group){
-		int len = 0;
+		ArrayList<String> matchedChars = new ArrayList<String>();
 		for (String[] c: chars) {
 			if(c[3].equals(group)){
-				len++;
+				matchedChars.add(c[0]);
 			}
 		}
-		String[] charachters = new String[len];
-		len = 0;
-		for (String[] c: chars) {
-			if(c[3].equals(group)){
-				charachters[len++] = c[0];
-			}
-		}
+		String[] finalChars = tools.ArraylistToArray(matchedChars);
+		return finalChars;
+	}
 
-		return charachters;
+	// Return Boolean whether a char is w/in a specified class
+	public static Boolean isCharInGroup(String term, String group){
+		String[] charsInGroup = charsByGroup(group);
+		for (String s: charsInGroup) {
+			if (s.equals(term))
+				return true;
+		}
+		return false;
 	}
 
 	public static String[] letterList(){
-		// String[] letters = {"א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ", "ק", "ר", "ש", "ת", "ם", "ן", "ץ", "ף", "ך"};
+		return charsByGroup("letter");
+	}
 
-		String[] letters = charsByGroup("letter");
-		return letters;
+	public static Boolean isaletter(String term) {
+		return isCharInGroup(term, "letter");
 	}
-	
-	public static Boolean isaletter(String now) {
-		String[] letters = letterList();
-		for (String s: letters) {
-			if (s.equals(now))
-				return true;
-		}
-		return false;
-	}
-	
+
 	public static String[] nekudotList(){
-		String[] nekudot = {/*sin*/ "ׂ" , /*shin*/ "ׁ" , "ָ" , "ַ" , "ֵ" , "ֶ" , "ֹ" , "ֻ" , "ִ" , "ְ" , "ֳ" , "ֲ" , "ֱ" , /*dagesh*/ "ּ", /*rafeh*/ "ֿ", /*Cholam Chaser for Vav*/ "ֺ"};
-		return nekudot;
+		return charsByGroup("nekudah");
 	}
-	
-	public static Boolean isanekudah(String now) {
-		String[] nekudot = nekudotList();
-		for (String s: nekudot) {
-			if (s.equals(now))
-				return true;
-		}
-		return false;
+
+	public static Boolean isanekudah(String term) {
+		return isCharInGroup(term, "nekudah");
 	}
-	
-	
+
 	public static String[] tropList(){
-		String[] trop = {"֙" , "֣" , "֮" , "֒" , "֗" , "֤" , "֨" , "֔" , "֕" , "֥" , "֖" , "֭" , "֑" , "֡" , "֩" , "֠" , "֜" , "֞" , "֧" , "֛" , "֚" , "֓" , "֪" , "֟" , "֦" , "ֽ"};
-		return trop;
+		return charsByGroup("trop");
 	}
-	
-	public static Boolean isatrop(String now) {
-		String[] trop = tropList();
-		for (String s: trop) {
-			if (s.equals(now))
-				return true;
-		}
-		return false;
+
+	public static Boolean isatrop(String term) {
+		return isCharInGroup(term, "trop");
 	}
-	
+
 	public static String[] otherList(){
-		String[] other = {"׃" , "־" , " ׀" , /*dots on top of words*/ "ׄ" , "*" , " "};
-		return other;
+		return charsByGroup("other");
 	}
 
 	//translates the input character to english
 	public static String translate(String str){
-		String out = "";
-		if(str.equals("ֽ")){
-			out = "Gaya";
-		}
-		else if(str.equals("־")){
-			out = "Makaf";
-		}
-		else if(str.equals("׀")){
-			out = "Pesik";
-		}
-		else if(str.equals("ּ")){
-			out = "Dagesh";
-		}
-		else if(str.equals("א")){
-			out = "Aleph";
-		}
-		else if(str.equals("ב")){
-			out = "Beis";
-		}
-		else if(str.equals("ג")){
-			out = "Gimmel";
-		}
-		else if(str.equals("ד")){
-			out = "Dalet";
-		}
-		else if(str.equals("ה")){
-			out = "Hei";
-		}
-		else if(str.equals("ו")){
-			out = "Vav";
-		}
-		else if(str.equals("ז")){
-			out = "Zayin";
-		}
-		else if(str.equals("ח")){
-			out = "Ches";
-		}
-		else if(str.equals("ט")){
-			out = "Tes";
-		}
-		else if(str.equals("י")){
-			out = "Yud";
-		}
-		else if(str.equals("כ")){
-			out = "Chaf";
-		}
-		else if(str.equals("ל")){
-			out = "Lamed";
-		}
-		else if(str.equals("מ")){
-			out = "Mem";
-		}
-		else if(str.equals("נ")){
-			out = "Nun";
-		}
-		else if(str.equals("ס")){
-			out = "Samach";
-		}
-		else if(str.equals("ע")){
-			out = "Ayin";
-		}
-		else if(str.equals("פ")){
-			out = "Pei";
-		}
-		else if(str.equals("צ")){
-			out = "Tsadi";
-		}
-		else if(str.equals("ק")){
-			out = "Kuf";
-		}
-		else if(str.equals("ר")){
-			out = "Reish";
-		}
-		else if(str.equals("ש")){
-			out = "shin";
-		}
-		else if(str.equals("ת")){
-			out = "Tav";
-		}
-		else if(str.equals("ך")){
-			out = "Chaf-Sofit";
-		}
-		else if(str.equals("ם")){
-			out = "Mem-Sofit";
-		}
-		else if(str.equals("ן")){
-			out = "Nun-Sofit";
-		}
-		else if(str.equals("ף")){
-			out = "Pei-Sofit";
-		}
-		else if(str.equals("ץ")){
-			out = "Tsadi-Sofit";
-		}
-		else if(str.equals("ָ")){
-			out = "Kamatz";
-		}
-		else if(str.equals("ַ")){
-			out = "Patach";
-		}
-		else if(str.equals("ֵ")){
-			out = "Tsaray";
-		}
-		else if(str.equals("ֶ")){
-			out = "Segol (Nakud)";
-		}
-		else if(str.equals("ֹ")){
-			out = "Cholam";
-		}
-		else if(str.equals("ֻ")){
-			out = "Shuruk";
-		}
-		else if(str.equals("ִ")){
-			out = "Chirik";
-		}
-		else if(str.equals("ְ")){
-			out = "Shva";
-		}
-		else if(str.equals("ֺ")){
-			out = "Cholam Chaser for Vav";
-		}
-		else if(str.equals("ֳ")){
-			out = "Chataf-Kamatz";
-		}
-		else if(str.equals("ֲ")){
-			out = "Chataf-Patach";
-		}
-		else if(str.equals("ֱ")){
-			out = "Chataf-Segol";
-		}
-		else if(str.equals("׃")){
-			out = "sof-pasuk";
-		}
-		else if(str.equals("֨")){
-			out = "kadmah";
-		}
-		else if(str.equals("֣")){
-			out = "munach";
-		}
-		else if(str.equals("֮")){
-			out = "zarka";
-		}
-		else if(str.equals("֒")){
-			out = "segol";
-		}
-		else if(str.equals("֗")){
-			out = "revie";
-		}
-		else if(str.equals("֤")){
-			out = "mahpach";
-		}
-		else if(str.equals("֙")){
-			out = "pashtah";
-		}
-		else if(str.equals("֔")){
-			out = "zakaif";
-		}
-		else if(str.equals("֕")){
-			out = "zakaif-gadol";
-		}
-		else if(str.equals("֥")){
-			out = "mercha";
-		}
-		else if(str.equals("֖")){
-			out = "tipcha";
-		}
-		else if(str.equals("֑")){
-			out = "esnachta";
-		}
-		else if(str.equals("֡")){
-			out = "pazair";
-		}
-		else if(str.equals("֩")){
-			out = "telisha-ketanah";
-		}
-		else if(str.equals("֠")){
-			out = "telisha-gedolah";
-		}
-		else if(str.equals("֜")){
-			out = "azlah-geiresh";
-		}
-		else if(str.equals("֞")){
-			out = "gershayim";
-		}
-		else if(str.equals("֧")){
-			out = "dargah";
-		}
-		else if(str.equals("֛")){
-			out = "tevier";
-		}
-		else if(str.equals("֚")){
-			out = "yesiv";
-		}
-		else if(str.equals("֓")){
-			out = "shalsheles";
-		}
-		else if(str.equals("֪")){
-			out = "yareach-ben-yomo";
-		}
-		else if(str.equals("֟")){
-			out = "karnei-pharah";
-		}
-		else if(str.equals("֦")){
-			out = "mercha-kefula";
-		}
-		return out;
+		for (String[] c : chars) {
+			if(str.equals(c[0])){
+				return c[1];
+			}
+		}
+		return "";
 	}
 }
