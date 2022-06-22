@@ -159,3 +159,60 @@ public static String mastersearch(String[] material, JSONObject json) throws JSO
 			jsonresult += "]}";
 			return jsonresult;
 		}
+
+		public static String mastersearch4(String[][][] material, JSONObject json) throws JSONException, FileNotFoundException{
+			String jsonresult = "{\"answers\":[";
+			String splitby = json.getString("splitBy");
+			int len = material.length;
+			int total = 0;
+			for(int l = 0; l < len; l++){
+				String[][] thismaterial = material[l];
+				int thismateriallen = thismaterial.length;
+				String list[] = {};
+				if(splitby.equals("pasuk")){
+					for(int i = 0; i < thismateriallen; i++){
+						String thispasuk = thismaterial[i][0];
+						String[] tropwords = bibleLists.tropWords(thispasuk, true);
+						String[] trop = tropLists.tropFinder(tropwords);
+						if(searching(json.getJSONArray("search"), 0, thismaterial[i][0])){
+							jsonresult += ",";
+							jsonresult += new JSONStringer().object()
+											.key("splitvalue").value(thismaterial[i][0])
+											.key("fullverse").value("same")
+											.key("bookname").value(thismaterial[i][1])
+											.key("perek").value(thismaterial[i][2])
+											.key("pasuk").value(thismaterial[i][3])
+											.endObject().toString();
+							total++;
+						}
+					}
+				}
+				else{
+					for(int i = 0; i < thismateriallen; i++){
+						if(splitby.equals("word")){
+							list = bibleLists.tropWords(thismaterial[i][0], true);
+						}
+						else if(splitby.equals("letter")){
+							list = bibleLists.separateLetters(thismaterial[i][0]);
+						}
+						int listlen = list.length;
+						for(int j = 0; j < listlen; j++){
+							if(searching(json.getJSONArray("search"), 0, list[j])){
+								jsonresult += ",";
+								jsonresult += new JSONStringer().object()
+												.key("splitvalue").value(list[j])
+												.key("fullverse").value(thismaterial[i][0])
+												.key("bookname").value(thismaterial[i][1])
+												.key("perek").value(thismaterial[i][2])
+												.key("pasuk").value(thismaterial[i][3])
+												.endObject().toString();
+								total++;
+							}
+						}
+					}
+				}
+			}
+			System.out.println("total: " + total);
+			return jsonresult.replaceFirst(",", "") + "]}";
+		}
+	
