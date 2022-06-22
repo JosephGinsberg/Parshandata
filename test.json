@@ -1,10 +1,10 @@
 {
 	"books": [
-		"genesis",
-		"exodus",
-		"leviticus",
-		"numbers",
-		"deuteronomy"
+		"Genesis",
+		"Exodus",
+		"Leviticus",
+		"Numbers",
+		"Deuteronomy"
 	],
 	"keriUkesiv": true,
 	"taamTachton": true,
@@ -14,41 +14,34 @@
 		{
 			"param": "condition",
 			"type": "contains",
-			"connector": "and",
+			"connector": "none",
 			"level": 1
 		},{
 			"param": "input",
-			"type": "letter",
-			"value": "ָ",
-			"count": 3,
+			"type": "trop",
+			"value": "pazair",
+			"count": 0,
+			"counttype": "greater",
+			"connector": "before",
+			"distance": 2,
+			"distancetype": "greater",
+			"level": 1
+		},{
+			"param": "input",
+			"type": "trop",
+			"value": "telisha-gedolah",
+			"count": 1,
 			"counttype": "equal",
-			"connector": "none",
-			"level": 1
-		},{
-			"param": "condition",
-			"type": "contains",
-			"connector": "and",
+			"connector": "before",
+			"distance": 0,
+			"distancetype": "greater",
 			"level": 1
 		},{
 			"param": "input",
-			"type": "letter",
-			"value": "֔",
-			"count": 0,
-			"counttype": "greater",
-			"connector": "none",
-			"level": 1
-		}
-		,{
-			"param": "condition",
-			"type": "does not contain",
-			"connector": "none",
-			"level": 1
-		},{
-			"param": "input",
-			"type": "letter",
-			"value": "־",
-			"count": 0,
-			"counttype": "greater",
+			"type": "trop",
+			"value": "esnachta",
+			"count": 1,
+			"counttype": "equal",
 			"connector": "none",
 			"level": 1
 		}

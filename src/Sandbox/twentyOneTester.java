@@ -12,7 +12,9 @@ import java.util.Scanner;
 
 import Bible.keriUkesiv;
 import Bible.maker;
+import Level_1.basicLists;
 import Level_1.bibleLists;
+import Level_1.otherBibles;
 import Level_1.tools;
 
 
@@ -21,6 +23,15 @@ public class twentyOneTester {
 	
 	
 	public static void main(String[] args) throws IOException{
+
+		/*String[] x = bibleLists.tropWords("תְּנוּ־לָ֭הּ מִפְּרִ֣י יָדֶ֑יהָ וִֽיהַלְל֖וּהָ בַשְּׁעָרִ֣ים מַעֲשֶֽׂיהָ׃");
+		tools.printArray(Level_2.tropLists.tropFinder(x));*/
+		/*String book = maker.book_numbers("Genesis")[0];
+		book = keriUkesiv.tachton(book, true);
+		//book = book.replace("‬", "").replaceAll("‫", "");
+		FileOutputStream out = new FileOutputStream("output.txt");
+		out.write(book.getBytes("UTF-8"));
+		out.close();*/
 		/*String[][] x = bibleLists.numseperator(bibleLists.numpasukim(maker.book_numbers("Chronicles_2")[0]));
 		String l = "";
 		for(int i = 0; i < x.length; i++){
@@ -34,7 +45,27 @@ public class twentyOneTester {
 		//System.out.println(tropLists.tropList(" וְכַאֲשֶׁ֤ר נָשָׂ֙אתָה֙ לָעָ֣ם הַזֶּ֔ה מִמִּצְרַ֖יִם וְעַד־הֵֽנָּה׃")[0]);
 		/*String[] books = maker.book_numbers("all");
 		String[] bookNames = maker.bookNames("all");
-		String twentyOne = keriUkesiv.keri(maker.all());
+		String all = keriUkesiv.keri(maker.all());*/
+		//String y = otherBibles.removeCheck(all);
+		//String x = "";
+		/*for(int i = 0; i < y.length(); i++){
+			String now = y.substring(i, i + 1);
+			x += "\"" + now + "\"" + "\n";
+			y = y.replaceAll(now, "");
+		}*/
+		//x = tools.spacer(x," ");
+		//x = otherBibles.noSpaces(" ֘");
+		/*String[] ser = Level_1.searcher.searchPhrase(bibleLists.pasukim(all), "‬");
+		for(int i = 0; i < ser.length; i++){
+			x += ser[i] + "\n";
+		}
+		FileOutputStream out = new FileOutputStream("output.txt");
+		out.write(x.getBytes("UTF-8"));
+		out.close();*/
+
+
+
+		
 		/*System.out.println(twentyOne.substring(300000, 310000));
 		String[] ser = searcher.searchPhrase(twentyOne, "שארות ופ");
 		tools.printArray(ser);*/

@@ -28,7 +28,7 @@ public class bibleLists {
 	
 	/*Outputs a String array of all the accentual words in the input string, one accent per word. In this instance, words connected by a makaf (־) will be considered one word, and words at the end of verses will have the verse-end symbol (׃) appended to it, so as to distinguish the sof-pasuk (ֽ ) from a gayah (same).
 	If pesik == true, pesiks (׀), which are surrounded on both sides by a space, and would therefore be theoretically counted as their own word, will be appended to the end of the previous trop-word (important for Legarmeh). If pesik == false, pesiks will not be included at all.*/ 
-	public static String[] tropWords(String bible, boolean pesik){
+	public static String[] tropWords2(String bible, boolean pesik){
 		ArrayList<String> words = new ArrayList<String>();
 		int startPos = 1;
 		int len = bible.length();
@@ -60,6 +60,30 @@ public class bibleLists {
 		}
 		return tools.ArraylistToArray(words);
 	}
+
+	public static String[] tropWords(String bible){
+		ArrayList<String> words = new ArrayList<String>();
+		int startPos = 1;
+		int len = bible.length();
+		for(int i = 1; i < len; i++){
+			String now = bible.substring(i, i + 1);
+			if(now.equals(" ")){
+				if(!bible.substring(startPos, i).equals("׀")) {
+					words.add(bible.substring(startPos, i));
+				}
+				else {
+					words.set(words.size() - 1, words.get(words.size() - 1) + "׀");
+				}
+				startPos = i + 1;
+			}
+			else if(now.equals("׃") || now.equals("־")) {
+				words.add(bible.substring(startPos, i + 1));
+				i += 1;
+				startPos = i + 1;
+			}
+		}
+		return tools.ArraylistToArray(words);
+	}
 	
 
 	/*Outputs a String array containing all the Pesukim in the given input String*/
@@ -81,7 +105,7 @@ public class bibleLists {
 		int StartPos = 0;
 		int len = bible.length();
 		for(int i = 0; i < len; i++){
-			if(bible.substring(i, i + 1).equals("׃") && !bible.substring(i - 1, i).equals(" ")){
+			if(bible.substring(i, i + 1).equals("׃") && !bible.substring(i - 1, i).equals(" ") && !bible.substring(i - 3, i - 2).equals("1")){
 				pasuk.add(bible.substring(StartPos, i + 1));
 				StartPos = i + 1;
 			}
@@ -97,11 +121,13 @@ public class bibleLists {
 			int thislen = thispas.length();
 			int pos = thispas.indexOf("׃");
 			pos = pos - 6;
+			//System.out.println(name + " " + pos + " " + thislen);
 			result[i][0] = thispas.substring(pos + 11, thislen);
 			result[i][1] = name;
 			String[] place = thispas.substring(pos + 2, pos + 11).replace(" ", "").split("׃");
 			result[i][2] = place[1];
 			result[i][3] = place[0];
+			//System.out.println(name + " " + place[1] + " " + place[0]);
 		}
 		return result;
 	}

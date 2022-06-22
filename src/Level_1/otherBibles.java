@@ -1,7 +1,5 @@
 package Level_1;
 
-import java.io.FileNotFoundException;
-
 public class otherBibles {
 	
 	//Removes all the letters from the given input String
@@ -103,7 +101,7 @@ public class otherBibles {
 	}
 	
 	//Keeps only the nekudot of the given input String
-	public static String justNekudot(String bible) throws FileNotFoundException{
+	public static String justNekudot(String bible){
 		bible = noTrop(bible);
 		bible = noLetters(bible);
 		bible = noOther(bible);
@@ -114,11 +112,7 @@ public class otherBibles {
 	public static String justTrop(String bible){
 		bible = noNekudot(bible);
 		bible = noLetters(bible);
-		bible = bible.replace(basicLists.otherList()[1], "");
-		bible = bible.replace(basicLists.otherList()[3], "");
-		bible = bible.replace(basicLists.otherList()[4], "");
-		bible = bible.replace(basicLists.otherList()[5], "");
-		bible = bible.replace("ֽ", "");
+		bible = noOther(bible);
 		return bible;
 	}
 	

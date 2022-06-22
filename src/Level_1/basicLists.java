@@ -31,9 +31,6 @@ public class basicLists {
 		{"ץ", "Nun-Sofit", "Hebrew", "letter"},
 		{"ף", "Pei-Sofit", "Hebrew", "letter"},
 		{"ך", "Tsadi-Sofit", "Hebrew", "letter"},
-		{"ּ", "Dagesh", "Hebrew", "nekudah"},
-		{"ׂ", "sin-dot", "Hebrew", "nekudah"},
-		{"ׁ", "shin-dot", "Hebrew", "nekudah"},
 		{"ָ", "Kamatz", "Hebrew", "nekudah"},
 		{"ַ", "Patach", "Hebrew", "nekudah"},
 		{"ֵ", "Tsaray", "Hebrew", "nekudah"},
@@ -42,11 +39,14 @@ public class basicLists {
 		{"ֻ", "Shuruk", "Hebrew", "nekudah"},
 		{"ִ", "Chirik", "Hebrew", "nekudah"},
 		{"ְ", "Shva", "Hebrew", "nekudah"},
-		{"ֿ", "Rafeh", "Hebrew", "nekudah"},
 		{"ֺ", "Cholam Chaser for Vav", "Hebrew", "nekudah"},
 		{"ֳ", "Chataf-Kamatz", "Hebrew", "nekudah"},
 		{"ֲ", "Chataf-Patach", "Hebrew", "nekudah"},
 		{"ֱ", "Chataf-Segol", "Hebrew", "nekudah"},
+		{"ּ", "Dagesh", "Hebrew", "other"},
+		{"ֿ", "Rafeh", "Hebrew", "other"},
+		{"ׂ", "sin-dot", "Hebrew", "other"},
+		{"ׁ", "shin-dot", "Hebrew", "other"},
 		{"֨" , "kadmah", "Hebrew", "trop"},
 		{"֣" , "munach", "Hebrew", "trop"},
 		{"֮" , "zarka", "Hebrew", "trop"},
@@ -71,15 +71,19 @@ public class basicLists {
 		{"֪" , "yareach-ben-yomo", "Hebrew", "trop"},
 		{"֟" , "karnei-pharah", "Hebrew", "trop"},
 		{"֦" , "mercha-kefula", "Hebrew", "trop"},
-		{"ֽ" , "gaya", "Hebrew", "trop"},
-		{"֭" , "tarcha", "Hebrew", "trop"},
-		{"׃", "sof-pasuk", "Hebrew", "other"},
-		{"־", "Makaf", "Hebrew", "other"},
-		{"׀", "Pesik", "Hebrew", "other"},
-		//{" ׀", "Pesik", "Hebrew", "other"},
-		{"ׄ", "Dots on top of words", "Hebrew", "other"},
+		{"׃", "sof-pasuk", "Hebrew", "trop"},
+		{"֭" , "dechi", "Hebrew", "trop"},
+		{"֘", "tsinor", "Hebrew", "trop"},
+		{"֬", "elui", "Hebrew", "trop"},
+		{"֫", "oleh", "Hebrew", "trop"},
+		{"֝", "mugrash", "Hebrew", "trop"},
+		{"׀", "Pesik", "Hebrew", "trop"},
+		{"־", "Makaf", "Hebrew", "trop"},
+		{"ֽ" , "gaya", "Hebrew", "other"},
+		{"ׄ", "top dots", "Hebrew", "other"},
+		{"ׅ", "bottom dots", "Hebrew", "other"},
 		{"*", "Keri ukesiv marker", "Hebrew", "other"},
-		{" ", "Space", "Hebrew", "other"}
+		{" ", "space", "Hebrew", "other"}
 	};
 
 	public static void main(String[] args){
@@ -112,6 +116,19 @@ public class basicLists {
 				return true;
 		}
 		return false;
+	}
+
+	// Search if a char in String exists in a specified group
+	public static Boolean contains(String searched, String group){
+		Boolean has = false;
+		int len = searched.length();
+		for(int i = 0; i < len; i++){
+			if(isCharInGroup(searched.substring(i, i + 1), group)){
+				has = true;
+				break;
+			}
+		}
+		return has;
 	}
 
 	public static String[] letterList(){
