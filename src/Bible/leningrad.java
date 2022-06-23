@@ -120,6 +120,7 @@ public class leningrad {
 		return x;
 	}
 	
+	//why not use replaceAll Aleph?
 	public static String specialCharacter() {
 		String special = "א‍"; //special character is isolated on this aleph.
 	    String justSpecial = "";

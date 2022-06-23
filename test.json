@@ -20,20 +20,10 @@
 			"param": "input",
 			"type": "trop",
 			"value": "pazair",
-			"count": 0,
-			"counttype": "greater",
-			"connector": "before",
-			"distance": 2,
-			"distancetype": "greater",
-			"level": 1
-		},{
-			"param": "input",
-			"type": "trop",
-			"value": "telisha-gedolah",
-			"count": 1,
+			"count": 2,
 			"counttype": "equal",
 			"connector": "before",
-			"distance": 0,
+			"distance": 10,
 			"distancetype": "greater",
 			"level": 1
 		},{

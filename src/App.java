@@ -88,8 +88,8 @@ public class App {
 
 	public static String[][][] setup(JSONObject json) throws JSONException, FileNotFoundException {
 		String searchText = "";
-		Boolean keri = json.getBoolean("keriUkesiv");
 		Boolean taam = json.getBoolean("taamTachton");
+		Boolean keri = json.getBoolean("keriUkesiv");
 		JSONArray books = json.getJSONArray("books");
 		int bookslen = books.length();
 		String[][][] material = new String[bookslen][][];
@@ -131,9 +131,6 @@ public class App {
 						break;
 					}
 				}
-			}
-			//System.out.println(i);
-			if(!connector.equals("none")){
 				if(type.equals("contains")){
 					return logics(connector, searching(search, index + 1, term, trop), searching(search, i, term, trop));
 				}
