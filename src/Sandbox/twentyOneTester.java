@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import Bible.keriUkesiv;
+import Bible.leningrad;
 import Bible.maker;
 import Level_1.basicLists;
 import Level_1.bibleLists;
@@ -24,20 +25,27 @@ public class twentyOneTester {
 	
 	public static void main(String[] args) throws IOException{
 
+		//String l = leningrad.specialCharacter();
 		/*String[] x = bibleLists.tropWords("תְּנוּ־לָ֭הּ מִפְּרִ֣י יָדֶ֑יהָ וִֽיהַלְל֖וּהָ בַשְּׁעָרִ֣ים מַעֲשֶֽׂיהָ׃");
 		tools.printArray(Level_2.tropLists.tropFinder(x));*/
-		/*String book = maker.book_numbers("Genesis")[0];
+		String book = maker.book("Numbers");
 		book = keriUkesiv.tachton(book, true);
+		book = keriUkesiv.keri(book);
+		String[] v = bibleLists.tropWords(book);
+		String s = "";
+		for(String u : v){
+			s += u + "\n";
+		}
 		//book = book.replace("‬", "").replaceAll("‫", "");
 		FileOutputStream out = new FileOutputStream("output.txt");
-		out.write(book.getBytes("UTF-8"));
-		out.close();*/
+		out.write(s.getBytes("UTF-8"));
+		out.close();
 		/*String[][] x = bibleLists.numseperator(bibleLists.numpasukim(maker.book_numbers("Chronicles_2")[0]));
 		String l = "";
 		for(int i = 0; i < x.length; i++){
 			l += "verse:" + x[i][0] + "perek:" + x[i][1] + "verse:" + x[i][2] + "\n";
-		}
-		FileOutputStream out = new FileOutputStream("output.txt");
+		}*/
+		/*FileOutputStream out = new FileOutputStream("output.txt");
 		out.write(l.getBytes("UTF-8"));
 		out.close();*/
 		

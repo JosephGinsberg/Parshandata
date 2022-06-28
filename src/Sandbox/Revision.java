@@ -1,5 +1,6 @@
 package Sandbox;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -16,11 +17,27 @@ public class Revision {
 		
 		//String bible = keriUkesiv.keri(keriUkesiv.tachton(maker.twentyOne(), false));
 		String bible = maker.twentyOne();
+		bible = keriUkesiv.keri(bible);
 		String[] books = maker.book_numbers("twentyOne");
 		String[] names = maker.bookNames("twentyOne");
 		//System.out.println(tools.spacer(bible.substring(0, 1000), " "));
 		String[] pasukim = Level_1.bibleLists.pasukim(bible);
-		int paslen  = pasukim.length;
+		//int paslen = pasukim.length;
+		String v = "";
+		for(String pa : pasukim){
+			String[] tropwords = bibleLists.tropWords(pa);
+			String[] trop = tropLists.tropFinder(tropwords);
+			for(int i = 0; i < trop.length; i++){
+				if(trop[i].equals("none")){
+					String c = searcher.num(pa.substring(0, 30), books, names)[0];
+					v += "x = x.replace(\"" + tropwords[i] + "\", \"\"); //" + c + "\n";
+				}
+			}
+		}
+		FileOutputStream out = new FileOutputStream("output.txt");
+		out.write(v.getBytes("UTF-8"));
+		out.close();
+		
 		
 		/*int count = 0;
 		for(int i = 0; i < paslen; i++) {
@@ -86,11 +103,11 @@ public class Revision {
 		
 		//System.out.print(otherBibles.justTrop(bible.substring(0, 1000)));
 	
-		String[] answer = searcher.searchPhrase(pasukim, "֟");
+		/*String[] answer = searcher.searchPhrase(pasukim, "֟");
 		int len = answer.length;
 		for(int i = 0; i < len; i++) {
 			tools.printArray(searcher.num(answer[i], books, names));
-		}
+		}*/
 		//"אֵ֡ת"
 		//"אֵ֠ת"
 		//"אֵ֞ת"

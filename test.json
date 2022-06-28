@@ -9,31 +9,29 @@
 	"keriUkesiv": true,
 	"taamTachton": true,
 	"display": "every",
-	"splitBy": "pasuk",
+	"splitBy": "tropword",
 	"search": [
 		{
 			"param": "condition",
 			"type": "contains",
 			"connector": "none",
-			"level": 1
+			"level": 2
 		},{
 			"param": "input",
-			"type": "trop",
-			"value": "pazair",
-			"count": 2,
-			"counttype": "equal",
-			"connector": "before",
-			"distance": 10,
-			"distancetype": "greater",
-			"level": 1
+			"type": "leer",
+			"value": "׀",
+			"count": 0,
+			"counttype": "greater",
+			"connector": "and",
+			"level": 2
 		},{
 			"param": "input",
-			"type": "trop",
-			"value": "esnachta",
-			"count": 1,
-			"counttype": "equal",
+			"type": "leer",
+			"value": "֣",
+			"count": 0,
+			"counttype": "greater",
 			"connector": "none",
-			"level": 1
+			"level": 2
 		}
 	]
 }

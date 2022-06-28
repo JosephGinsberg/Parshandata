@@ -4,47 +4,47 @@ import java.util.ArrayList;
 
 public class basicLists {
 	private static String[][] chars = {
-		{"א", "Aleph", "Hebrew", "letter"},
-		{"ב", "Beis", "Hebrew", "letter"},
-		{"ג", "Gimmel", "Hebrew", "letter"},
-		{"ד", "Dalet", "Hebrew", "letter"},
-		{"ה", "Hei", "Hebrew", "letter"},
-		{"ו", "Vav", "Hebrew", "letter"},
-		{"ז", "Zayin", "Hebrew", "letter"},
-		{"ח", "Ches", "Hebrew", "letter"},
-		{"ט", "Tes", "Hebrew", "letter"},
-		{"י", "Yud", "Hebrew", "letter"},
-		{"כ", "Chaf", "Hebrew", "letter"},
-		{"ל", "Lamed", "Hebrew", "letter"},
-		{"מ", "Mem", "Hebrew", "letter"},
-		{"נ", "Nun", "Hebrew", "letter"},
-		{"ס", "Samach", "Hebrew", "letter"},
-		{"ע", "Ayin", "Hebrew", "letter"},
-		{"פ", "Pei", "Hebrew", "letter"},
-		{"צ", "Tsadi", "Hebrew", "letter"},
-		{"ק", "Kuf", "Hebrew", "letter"},
-		{"ר", "Reish", "Hebrew", "letter"},
+		{"א", "aleph", "Hebrew", "letter"},
+		{"ב", "beis", "Hebrew", "letter"},
+		{"ג", "gimmel", "Hebrew", "letter"},
+		{"ד", "dalet", "Hebrew", "letter"},
+		{"ה", "hei", "Hebrew", "letter"},
+		{"ו", "vav", "Hebrew", "letter"},
+		{"ז", "zayin", "Hebrew", "letter"},
+		{"ח", "ches", "Hebrew", "letter"},
+		{"ט", "tes", "Hebrew", "letter"},
+		{"י", "yud", "Hebrew", "letter"},
+		{"כ", "chaf", "Hebrew", "letter"},
+		{"ל", "lamed", "Hebrew", "letter"},
+		{"מ", "mem", "Hebrew", "letter"},
+		{"נ", "nun", "Hebrew", "letter"},
+		{"ס", "samach", "Hebrew", "letter"},
+		{"ע", "ayin", "Hebrew", "letter"},
+		{"פ", "pei", "Hebrew", "letter"},
+		{"צ", "tsadi", "Hebrew", "letter"},
+		{"ק", "kuf", "Hebrew", "letter"},
+		{"ר", "reish", "Hebrew", "letter"},
 		{"ש", "shin", "Hebrew", "letter"},
-		{"ת", "Tav", "Hebrew", "letter"},
-		{"ם", "Chaf-Sofit", "Hebrew", "letter"},
-		{"ן", "Mem-Sofit", "Hebrew", "letter"},
-		{"ץ", "Nun-Sofit", "Hebrew", "letter"},
-		{"ף", "Pei-Sofit", "Hebrew", "letter"},
-		{"ך", "Tsadi-Sofit", "Hebrew", "letter"},
-		{"ָ", "Kamatz", "Hebrew", "nekudah"},
-		{"ַ", "Patach", "Hebrew", "nekudah"},
-		{"ֵ", "Tsaray", "Hebrew", "nekudah"},
-		{"ֶ", "Segol (Nakud)", "Hebrew", "nekudah"},
-		{"ֹ", "Cholam", "Hebrew", "nekudah"},
-		{"ֻ", "Shuruk", "Hebrew", "nekudah"},
-		{"ִ", "Chirik", "Hebrew", "nekudah"},
-		{"ְ", "Shva", "Hebrew", "nekudah"},
-		{"ֺ", "Cholam Chaser for Vav", "Hebrew", "nekudah"},
-		{"ֳ", "Chataf-Kamatz", "Hebrew", "nekudah"},
-		{"ֲ", "Chataf-Patach", "Hebrew", "nekudah"},
-		{"ֱ", "Chataf-Segol", "Hebrew", "nekudah"},
-		{"ּ", "Dagesh", "Hebrew", "other"},
-		{"ֿ", "Rafeh", "Hebrew", "other"},
+		{"ת", "tav", "Hebrew", "letter"},
+		{"ם", "chaf-sofit", "Hebrew", "letter"},
+		{"ן", "mem-sofit", "Hebrew", "letter"},
+		{"ץ", "nun-sofit", "Hebrew", "letter"},
+		{"ף", "pei-sofit", "Hebrew", "letter"},
+		{"ך", "tsadi-sofit", "Hebrew", "letter"},
+		{"ָ", "kamatz", "Hebrew", "nekudah"},
+		{"ַ", "patach", "Hebrew", "nekudah"},
+		{"ֵ", "tsaray", "Hebrew", "nekudah"},
+		{"ֶ", "segol", "Hebrew", "nekudah"},
+		{"ֹ", "cholam", "Hebrew", "nekudah"},
+		{"ֻ", "shuruk", "Hebrew", "nekudah"},
+		{"ִ", "chirik", "Hebrew", "nekudah"},
+		{"ְ", "shva", "Hebrew", "nekudah"},
+		{"ֺ", "cholam chaser for vav", "Hebrew", "nekudah"},
+		{"ֳ", "chataf-kamatz", "Hebrew", "nekudah"},
+		{"ֲ", "chataf-patach", "Hebrew", "nekudah"},
+		{"ֱ", "chataf-segol", "Hebrew", "nekudah"},
+		{"ּ", "dagesh", "Hebrew", "other"},
+		{"ֿ", "rafeh", "Hebrew", "other"},
 		{"ׂ", "sin-dot", "Hebrew", "other"},
 		{"ׁ", "shin-dot", "Hebrew", "other"},
 		{"֨" , "kadmah", "Hebrew", "trop"},
@@ -55,7 +55,7 @@ public class basicLists {
 		{"֤" , "mahpach", "Hebrew", "trop"},
 		{"֙" , "pashtah", "Hebrew", "trop"},
 		{"֔" , "zakaif", "Hebrew", "trop"},
-		{"֕" , "zakaif-Gadol", "Hebrew", "trop"},
+		{"֕" , "zakaif-gadol", "Hebrew", "trop"},
 		{"֥" , "mercha", "Hebrew", "trop"},
 		{"֖" , "tipcha", "Hebrew", "trop"},
 		{"֑" , "esnachta", "Hebrew", "trop"},
@@ -77,12 +77,12 @@ public class basicLists {
 		{"֬", "elui", "Hebrew", "trop"},
 		{"֫", "oleh", "Hebrew", "trop"},
 		{"֝", "mugrash", "Hebrew", "trop"},
-		{"׀", "Pesik", "Hebrew", "trop"},
-		{"־", "Makaf", "Hebrew", "trop"},
+		{"׀", "pesik", "Hebrew", "trop"},
+		{"־", "makaf", "Hebrew", "trop"},
 		{"ֽ" , "gaya", "Hebrew", "other"},
 		{"ׄ", "top dots", "Hebrew", "other"},
 		{"ׅ", "bottom dots", "Hebrew", "other"},
-		{"*", "Keri ukesiv marker", "Hebrew", "other"},
+		{"*", "keri ukesiv marker", "Hebrew", "other"},
 		{" ", "space", "Hebrew", "other"}
 	};
 
@@ -118,17 +118,25 @@ public class basicLists {
 		return false;
 	}
 
-	// Search if a char in String exists in a specified group
-	public static Boolean contains(String searched, String group){
-		Boolean has = false;
-		int len = searched.length();
-		for(int i = 0; i < len; i++){
-			if(isCharInGroup(searched.substring(i, i + 1), group)){
-				has = true;
-				break;
+	// Search if any char in String exists in a specified group
+	public static Boolean contains(String input, String group){
+		String[] groupChars = charsByGroup(group);
+		for (String s : groupChars) {
+			if(input.contains(s)){
+				return true;
 			}
 		}
-		return has;
+		return false;
+	}
+	
+	//translates the input character to english
+	public static String translate(String str){
+		for (String[] c : chars) {
+			if(str.equals(c[0])){
+				return c[1];
+			}
+		}
+		return "";
 	}
 
 	public static String[] letterList(){
@@ -157,15 +165,5 @@ public class basicLists {
 
 	public static String[] otherList(){
 		return charsByGroup("other");
-	}
-
-	//translates the input character to english
-	public static String translate(String str){
-		for (String[] c : chars) {
-			if(str.equals(c[0])){
-				return c[1];
-			}
-		}
-		return "";
 	}
 }

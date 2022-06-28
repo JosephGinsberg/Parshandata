@@ -2,6 +2,8 @@ package Level_1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,14 +19,21 @@ public class tools {
 		return result;
 	}
 
-	public static String FileToString(File file) throws FileNotFoundException {
+	public static String FileToString(String filename) throws FileNotFoundException {
+		File file = new File(filename);
 		Scanner sc = new Scanner(file, "UTF-8");
-		String output = "";
+		String contents = "";
 	    while (sc.hasNextLine()){
-			output += sc.nextLine();
+			contents += sc.nextLine();
 		}
 		sc.close();
-		return output;
+		return contents;
+	}
+
+	public static void StringToFile(String data, String filename) throws IOException{
+		FileOutputStream file = new FileOutputStream(filename);
+		file.write(data.getBytes("UTF-8"));
+		file.close();
 	}
 
 	public static void printArray(String[] ar) {

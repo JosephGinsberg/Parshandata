@@ -1,4 +1,3 @@
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,12 +13,11 @@ import Level_1.otherBibles;
 import Level_2.tropLists;
 
 public class App {
-	public static void main(String[] args) throws FileNotFoundException, IOException, JSONException{
+	public static void main(String[] args) throws IOException, JSONException{
 		
 		long startTime = System.currentTimeMillis();
-		
-		File fileJSON = new File("test.json");
-		String JSON = Level_1.tools.FileToString(fileJSON);
+
+		String JSON = Level_1.tools.FileToString("test.json");
 		JSONObject json = new JSONObject(JSON);
 
 		String result = mastersearch(setup(json), json);
@@ -31,10 +29,60 @@ public class App {
 
 		/*long execTime = System.currentTimeMillis() - startTime;
 		System.out.println(execTime);*/
+
+		/*"connector": "before",
+			"distance": 10,
+			"distancetype": "less",
+			"level": 1
+		},{
+			"param": "abstract",
+			"type": "tropword",
+			"connector": "none",
+			"level": 2
+		},{
+			"param": "condition",
+			"type": "contains",
+			"connector": "none",
+			"level": 2
+		},{
+			"param": "input",
+			"type": "leer",
+			"value": "׀",
+			"count": 1,
+			"counttype": "equal",
+			"connector": "and",
+			"level": 2
+		},{
+			"param": "input",
+			"type": "leer",
+			"value": "֣",
+			"count": 1,
+			"counttype": "equal",
+			"connector": "none",
+			"level": 2
+		},{
+			"param": "abstract",
+			"type": "tropword",
+			"connector": "none",
+			"level": 1
+		},{
+			"param": "condition",
+			"type": "contains",
+			"connector": "none",
+			"level": 1
+		},{
+			"param": "input",
+			"type": "leer",
+			"value": "֗",
+			"count": 1,
+			"counttype": "equal",
+			"connector": "none",
+			"level": 1
+		} */
 	}
 
 	public static String mastersearch(String[][][] material, JSONObject json) throws JSONException {
-		String jsonresult = "{\"answers\":[";
+		String jsonresult = "{\"matches\":[";
 		String splitby = json.getString("splitBy");
 		int len = material.length;
 		int total = 0;
@@ -48,6 +96,10 @@ public class App {
 				Boolean value = true;
 				if(splitby.equals("word")){
 					list = bibleLists.words(thispasuk);
+					value = false;
+				}
+				else if(splitby.equals("tropword")){
+					list = bibleLists.tropWords(thispasuk);
 					value = false;
 				}
 				else if(splitby.equals("letter")){
@@ -116,39 +168,30 @@ public class App {
 		JSONObject current = search.getJSONObject(index);
 		String param = current.getString("param");
 		String connector = current.getString("connector");
+		ArrayList<Integer> indexlist = new ArrayList<Integer>();
 
 		if(param.equals("condition")){
 			String type = current.getString("type");
-			int i = 0;
-			if(!connector.equals("none")){
-				int len = search.length();
-				int thislevel = current.getInt("level");
-				for(i = index + 1; i < len; i++){
-					JSONObject nextobject = search.getJSONObject(i);
-					int ilevel = nextobject.getInt("level");
-					if(thislevel == ilevel && nextobject.getString("param").equals("condition")){
-						//System.out.println(i);
-						break;
-					}
-				}
-				if(type.equals("contains")){
-					return logics(connector, searching(search, index + 1, term, trop), searching(search, i, term, trop));
-				}
-				else if(type.equals("does not contain")){
-					return logics(connector, opposite(searching(search, index + 1, term, trop)), searching(search, i, term, trop));
-				}
+			ArrayList<Integer> output = searching(search, index + 1, term, trop);
+			if(type.equals("does not contain")){
+				output = opposite(output);
+			}
+			if(connector.equals("and") || connector.equals("or")){
+				int i = nextFinder(search, index, param);
+				return logics(connector, output, searching(search, i, term, trop));
+			}
+			else if(connector.equals("before") || connector.equals("after")){
+				int i = nextFinder(search, index, param);
+				int dis = current.getInt("distance");
+				String distype = current.getString("distancetype"); 
+				return distance(connector, output, searching(search, i, term, trop), dis, distype);
 			}
 			else{
-				if(type.equals("contains")){
-					return searching(search, index + 1, term, trop);
-				}
-				else if(type.equals("does not contain")){
-					return opposite(searching(search, index + 1, term, trop));
-				}
+				return output;
 			}
 		}
 
-		if(param.equals("abstract")){
+		else if(param.equals("abstract")){
 			String type = current.getString("type");
 			ArrayList<Integer> anyhas = new ArrayList<Integer>();
 			String[] newterms = {term};
@@ -161,29 +204,27 @@ public class App {
 			else if(type.equals("letter")) {
 				newterms = bibleLists.separateLetters(term);
 			}
-			int i = 0;
 			if(!connector.equals("none")){
-				int len = search.length();
-				int thislevel = current.getInt("level");
-				for(i = index + 1; i < len; i++){
-					JSONObject nextobject = search.getJSONObject(i);
-					int ilevel = nextobject.getInt("level");
-					if(thislevel == ilevel && nextobject.getString("param").equals("abstract")){
-						break;
-					}
-				}
-				for(String s : newterms){
-					if(searching(search, index + 1, s, trop).size() != 0){
-						anyhas.add(-1);
+				int i = nextFinder(search, index, param);
+				int newlen = newterms.length;
+				for(int j = 0; j < newlen; j++){
+					String[] newtrop = {trop[j]};
+					if(searching(search, index + 1, newterms[j], newtrop).size() != 0){
+						anyhas.add(j);
+						//System.out.println(j);
 						break;
 					}
 				}
 				return logics(connector, anyhas, searching(search, i, term, trop));
 			}
 			else if(connector.equals("none")){
-				for(String s : newterms){
-					if(searching(search, index + 1, s, trop).size() != 0){
-						anyhas.add(-1);
+				int newlen = newterms.length;
+				for(int j = 0; j < newlen; j++){
+					//System.out.println(trop[i]);
+					String[] newtrop = {trop[j]};
+					if(searching(search, index + 1, newterms[j], newtrop).size() != 0){
+						anyhas.add(j);
+						//System.out.println(j);
 						break;
 					}
 				}
@@ -191,8 +232,7 @@ public class App {
 			return anyhas;
 		}
 
-		ArrayList<Integer> indexlist = new ArrayList<Integer>();
-		if(param.equals("input")){
+		else if(param.equals("input")){
 			String val = current.getString("value");
 			String type = current.getString("type");
 			int totalcount = current.getInt("count");
@@ -314,5 +354,31 @@ public class App {
 			param.add(-1);
 		}
 		return param;
+	}
+
+	public static int nextFinder(JSONArray search, int currentindex, String value) throws JSONException{
+		JSONObject current = search.getJSONObject(currentindex);
+		int thislevel = current.getInt("level");
+		int len = search.length();
+		int i = 0;
+		if(!value.equals("any")){
+			for(i = currentindex + 1; i < len; i++){
+				JSONObject nextobject = search.getJSONObject(i);
+				int ilevel = nextobject.getInt("level");
+				if(thislevel == ilevel && nextobject.getString("param").equals(value)){
+					return i;
+				}
+			}
+		}
+		else{
+			for(i = currentindex + 1; i < len; i++){
+				JSONObject nextobject = search.getJSONObject(i);
+				int ilevel = nextobject.getInt("level");
+				if(thislevel == ilevel){
+					return i;
+				}
+			}
+		}
+		return i;
 	}
 }

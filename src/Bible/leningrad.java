@@ -82,6 +82,13 @@ public class leningrad {
 		x = x.replace(" ׆ס", "");
 		return x;
 	}
+
+	/*public static String addTrop(String bible){
+		String x = bible;
+		x = x.replace("דַּבֶּרְךָ", "");
+
+		return x;
+	}*/
 	
 	public static String replaceTsinor(String bible) {
 		String x = bible;
@@ -101,7 +108,6 @@ public class leningrad {
 		return x;
 	}
 	
-	
 	public static String replacePasuk(String bible, int num, Boolean header) {
 		String x = bible;
 		if(num == 1 && header) {
@@ -120,15 +126,9 @@ public class leningrad {
 		return x;
 	}
 	
-	//why not use replaceAll Aleph?
 	public static String specialCharacter() {
 		String special = "א‍"; //special character is isolated on this aleph.
-	    String justSpecial = "";
-	    for(int i = 0; i < special.length(); i++) {
-			if(!special.substring(i, i + 1).equals("א")) {
-				justSpecial = special.substring(i, i + 1);
-			}
-	    }
+		String justSpecial = special.substring(1, 2);
 	    return justSpecial;
 	}
 }

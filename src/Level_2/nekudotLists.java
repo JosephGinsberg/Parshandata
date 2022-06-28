@@ -2,40 +2,18 @@ package Level_2;
 
 import java.util.ArrayList;
 
+import Level_1.basicLists;
+import Level_1.bibleLists;
+import Level_1.tools;
+
 public class nekudotLists {
 	//should be updated to match tropLists
 	//creates a list of all the nekudos in the input String
 	public static String[] nekudotList(String bible){
 		ArrayList<String> nekudot = new ArrayList<String>();
 		for(int i = 0; i < bible.length(); i++){
-			if(bible.substring(i , i + 1).equals("ָ")){
-    			nekudot.add("kamatz");
-    		}
-    		else if(bible.substring(i , i + 1).equals("ַ")){
-    			nekudot.add("patach");
-    		}
-    		else if(bible.substring(i , i + 1).equals("ֵ")){
-    			nekudot.add("tsaray");
-    		}
-    		else if(bible.substring(i , i + 1).equals("ֶ")){
-    			nekudot.add("segol");
-    		}
-    		else if(bible.substring(i , i + 1).equals("ֻ")){
-    			nekudot.add("shuruk (katan)");
-    		}
-    		else if(bible.substring(i , i + 1).equals("ְ")){
-    			nekudot.add("shva");
-    		}
-    		else if(bible.substring(i , i + 1).equals("ֳ")){
-    			nekudot.add("chataf-kamatz");
-    		}
-    		else if(bible.substring(i , i + 1).equals("ֲ")){
-    			nekudot.add("chataf-patach");
-    		}
-    		else if(bible.substring(i , i + 1).equals("ֱ")){
-    			nekudot.add("chataf-segol");
-    		}
-    		else if(bible.substring(i , i + 1).equals("ֹ")){
+			String now = bible.substring(i , i + 1);
+    		if(now.equals("ֹ")){
     			if(i < bible.length() - 1) {
     				if(bible.substring(i , i + 2).equals("וֹ")){
     	    			nekudot.add("cholam-gadol");
@@ -48,7 +26,7 @@ public class nekudotLists {
     				nekudot.add("cholam-katan");
     			}
     		}
-    		else if(bible.substring(i , i + 1).equals("ִ")){
+    		else if(now.equals("ִ")){
     			if(i < bible.length() - 1) {
     				if(bible.substring(i , i + 2).equals("ִי")){
     	    			nekudot.add("chirik-gadol");
@@ -61,18 +39,16 @@ public class nekudotLists {
     				nekudot.add("chirik-katan");
     			}
     		}
+			else{
+				nekudot.add(basicLists.translate(now));
+			}
 			if(i < bible.length() - 1) {
 	    		if(bible.substring(i , i + 2).equals("וּ")){
 	    			nekudot.add("melupim (shuruk-gadol)");
 	    		}
 			}
 		}
-		String[] nakud = new String[nekudot.size()];
-		int i = 0;
-		for(String j : nekudot){
-			nakud[i] = j;
-			i++;
-		}
+		String[] nakud = tools.ArraylistToArray(nekudot);
 		return nakud;
 	}
 	

@@ -63,11 +63,11 @@ public class bibleLists {
 
 	public static String[] tropWords(String bible){
 		ArrayList<String> words = new ArrayList<String>();
-		int startPos = 1;
+		int startPos = 0;
 		int len = bible.length();
-		for(int i = 1; i < len; i++){
+		for(int i = 0; i < len; i++){
 			String now = bible.substring(i, i + 1);
-			if(now.equals(" ")){
+			if(now.equals(" ") && i != 0){
 				if(!bible.substring(startPos, i).equals("׀")) {
 					words.add(bible.substring(startPos, i));
 				}
@@ -76,9 +76,16 @@ public class bibleLists {
 				}
 				startPos = i + 1;
 			}
-			else if(now.equals("׃") || now.equals("־")) {
+			else if(now.equals(" ") && i == 0){
+				startPos = i + 1;
+			}
+			else if(now.equals("׃")) {
 				words.add(bible.substring(startPos, i + 1));
 				i += 1;
+				startPos = i + 1;
+			}
+			else if(now.equals("־")){
+				words.add(bible.substring(startPos, i + 1));
 				startPos = i + 1;
 			}
 		}

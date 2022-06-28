@@ -7,10 +7,12 @@ An advanced Tanach search engine, allowing for complex, layered searches of the 
 * Trop implementation 
 >	Implementation in function  
 >	Legarmeh and other exceptions (Tropless words)  
+>	Nekudot lists and letter lists for Shin and Sin (which means modifying seperate letters)
 >	Ta'amei Emes  
 
-* Before/after (with distance)
+* Before/after (with distance) /done
 * Begins with/ends with
+* searching for just letters
 
 ### Eventual
 * Statistics
