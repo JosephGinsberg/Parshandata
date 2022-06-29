@@ -17,6 +17,7 @@ import Level_1.basicLists;
 import Level_1.bibleLists;
 import Level_1.otherBibles;
 import Level_1.tools;
+import Level_2.tropLists;
 
 
 public class twentyOneTester {
@@ -31,10 +32,17 @@ public class twentyOneTester {
 		String book = maker.book("Numbers");
 		book = keriUkesiv.tachton(book, true);
 		book = keriUkesiv.keri(book);
-		String[] v = bibleLists.tropWords(book);
+		//String[][] x = bibleLists.numseperator(bibleLists.numpasukim(book), "Numbers");
+		//String s = book;
+		String[] p = bibleLists.pasukim(book);
 		String s = "";
-		for(String u : v){
-			s += u + "\n";
+		for(int j = 0; j < p.length; j++){
+			String[] v = tropLists.tropFinder(bibleLists.tropWords(p[j]));
+			for(int i = 0; i < v.length - 1; i++){
+				if(v[i].equals("legarmeh") /*&& v[i + 1].equals("revie")*/){
+					s += p[j] + "\n";
+				}
+			}
 		}
 		//book = book.replace("‬", "").replaceAll("‫", "");
 		FileOutputStream out = new FileOutputStream("output.txt");

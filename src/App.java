@@ -116,14 +116,19 @@ public class App {
 						String[] nowletter = {list[j]};
 						searchtrop = tropLists.tropFinder(nowletter);
 					}
-					if(searching(json.getJSONArray("search"), 0, list[j], searchtrop).size() != 0){
+					ArrayList<Integer> matches = searching(json.getJSONArray("search"), 0, list[j], searchtrop);
+					if(matches.size() != 0){
 						String listvalue = "same";
 						if(!value){
 							listvalue = list[j];
 						}
 						jsonresult += ",";
+						String v = "";
+						for(int x : matches){
+							v += x + " ";
+						}
 						jsonresult += new JSONStringer().object()
-										.key("splitvalue").value(listvalue)
+										.key("splitvalue").value(/*listvalue*/ v)
 										.key("fullverse").value(thispasuk)
 										.key("bookname").value(thismaterial[i][1])
 										.key("perek").value(thismaterial[i][2])
@@ -165,13 +170,14 @@ public class App {
 	}
 
 	public static ArrayList<Integer> searching(JSONArray search, int index, String term, String[] trop) throws JSONException {
+		
 		JSONObject current = search.getJSONObject(index);
 		String param = current.getString("param");
 		String connector = current.getString("connector");
+		String type = current.getString("type");
 		ArrayList<Integer> indexlist = new ArrayList<Integer>();
 
 		if(param.equals("condition")){
-			String type = current.getString("type");
 			ArrayList<Integer> output = searching(search, index + 1, term, trop);
 			if(type.equals("does not contain")){
 				output = opposite(output);
@@ -181,7 +187,7 @@ public class App {
 				return logics(connector, output, searching(search, i, term, trop));
 			}
 			else if(connector.equals("before") || connector.equals("after")){
-				int i = nextFinder(search, index, param);
+				int i = nextFinder(search, index, "any");
 				int dis = current.getInt("distance");
 				String distype = current.getString("distancetype"); 
 				return distance(connector, output, searching(search, i, term, trop), dis, distype);
@@ -192,7 +198,6 @@ public class App {
 		}
 
 		else if(param.equals("abstract")){
-			String type = current.getString("type");
 			ArrayList<Integer> anyhas = new ArrayList<Integer>();
 			String[] newterms = {term};
 			if(type.equals("word")) {
@@ -204,37 +209,35 @@ public class App {
 			else if(type.equals("letter")) {
 				newterms = bibleLists.separateLetters(term);
 			}
-			if(!connector.equals("none")){
-				int i = nextFinder(search, index, param);
-				int newlen = newterms.length;
-				for(int j = 0; j < newlen; j++){
-					String[] newtrop = {trop[j]};
-					if(searching(search, index + 1, newterms[j], newtrop).size() != 0){
-						anyhas.add(j);
-						//System.out.println(j);
-						break;
-					}
+			int newlen = newterms.length;
+			for(int j = 0; j < newlen; j++){
+				//needs to be fixed
+				String[] newtrop = {trop[j]};
+				if(searching(search, index + 1, newterms[j], newtrop).size() != 0){
+					anyhas.add(j);
+					//System.out.println(j);
+					//break;
 				}
+			}
+			if(connector.equals("and") || connector.equals("or")){
+				int i = nextFinder(search, index, param);
+				//System.out.println(search.getJSONObject(i));
 				return logics(connector, anyhas, searching(search, i, term, trop));
 			}
-			else if(connector.equals("none")){
-				int newlen = newterms.length;
-				for(int j = 0; j < newlen; j++){
-					//System.out.println(trop[i]);
-					String[] newtrop = {trop[j]};
-					if(searching(search, index + 1, newterms[j], newtrop).size() != 0){
-						anyhas.add(j);
-						//System.out.println(j);
-						break;
-					}
-				}
+			else if(connector.equals("before") || connector.equals("after")){
+				int i = nextFinder(search, index, param);
+				//System.out.println(search.getJSONObject(i));
+				int dis = current.getInt("distance");
+				String distype = current.getString("distancetype"); 
+				return distance(connector, anyhas, searching(search, i, term, trop), dis, distype);
 			}
-			return anyhas;
+			else{
+				return anyhas;
+			}
 		}
 
 		else if(param.equals("input")){
 			String val = current.getString("value");
-			String type = current.getString("type");
 			int totalcount = current.getInt("count");
 			String counttype = current.getString("counttype");
 			if(type.equals("letter")){
@@ -248,7 +251,7 @@ public class App {
 			if(!type.equals("trop")){
 				for(int i = 0; i <= (termlen - vallen); i++){
 					if(term.substring(i, i + vallen).equals(val)){
-						indexlist.add(i);
+						indexlist.add(i + vallen);
 					}
 				}
 			}
@@ -326,6 +329,11 @@ public class App {
 							result.add(thisone);
 						}
 					}
+					else if(operation.equals("before") && type.equals("less")){
+						if((thistwo - thisone < distance) && !(thistwo - thisone < 0)){
+							result.add(thisone);
+						}
+					}
 					else if(operation.equals("after") && type.equals("greater")){
 						if((thisone - thistwo > distance)){
 							result.add(thisone);
@@ -336,11 +344,16 @@ public class App {
 							result.add(thisone);
 						}
 					}
+					else if(operation.equals("after") && type.equals("less")){
+						if((thisone - thistwo < distance) && !(thistwo - thisone < 0)){
+							result.add(thisone);
+						}
+					}
 				}
 			}
-			if(!(result.size() == one.size() * two.size())){
+			/*if(!(result.size() == one.size() * two.size())){
 				result.clear();
-			}
+			}*/
 		return result;
 	}
 
@@ -361,22 +374,11 @@ public class App {
 		int thislevel = current.getInt("level");
 		int len = search.length();
 		int i = 0;
-		if(!value.equals("any")){
-			for(i = currentindex + 1; i < len; i++){
-				JSONObject nextobject = search.getJSONObject(i);
-				int ilevel = nextobject.getInt("level");
-				if(thislevel == ilevel && nextobject.getString("param").equals(value)){
-					return i;
-				}
-			}
-		}
-		else{
-			for(i = currentindex + 1; i < len; i++){
-				JSONObject nextobject = search.getJSONObject(i);
-				int ilevel = nextobject.getInt("level");
-				if(thislevel == ilevel){
-					return i;
-				}
+		for(i = currentindex + 1; i < len; i++){
+			JSONObject nextobject = search.getJSONObject(i);
+			int ilevel = nextobject.getInt("level");
+			if(thislevel == ilevel && (nextobject.getString("param").equals(value) || value.equals("any"))){
+				return i;
 			}
 		}
 		return i;

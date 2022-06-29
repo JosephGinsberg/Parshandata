@@ -32,6 +32,7 @@ public class leningrad {
 	    finalB = replaceGeresh(finalB); 
 	    finalB = replaceSpacers(finalB);
 	    finalB = replacePasuk(finalB, 1, true);
+		//finalB = finalB.replaceFirst(" ", "");
 	    return finalB; 
 	}
 
@@ -72,6 +73,7 @@ public class leningrad {
 	    finalB = replaceGeresh(finalB);
 	    finalB = replaceSpacers(finalB);
 	    finalB = replacePasuk(finalB, 1, false);
+		finalB = finalB.replaceFirst(" ", "");
 	    return finalB;
 	}
 	
