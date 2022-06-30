@@ -29,56 +29,7 @@ public class App {
 
 		/*long execTime = System.currentTimeMillis() - startTime;
 		System.out.println(execTime);*/
-
-		/*"connector": "before",
-			"distance": 10,
-			"distancetype": "less",
-			"level": 1
-		},{
-			"param": "abstract",
-			"type": "tropword",
-			"connector": "none",
-			"level": 2
-		},{
-			"param": "condition",
-			"type": "contains",
-			"connector": "none",
-			"level": 2
-		},{
-			"param": "input",
-			"type": "leer",
-			"value": "׀",
-			"count": 1,
-			"counttype": "equal",
-			"connector": "and",
-			"level": 2
-		},{
-			"param": "input",
-			"type": "leer",
-			"value": "֣",
-			"count": 1,
-			"counttype": "equal",
-			"connector": "none",
-			"level": 2
-		},{
-			"param": "abstract",
-			"type": "tropword",
-			"connector": "none",
-			"level": 1
-		},{
-			"param": "condition",
-			"type": "contains",
-			"connector": "none",
-			"level": 1
-		},{
-			"param": "input",
-			"type": "leer",
-			"value": "֗",
-			"count": 1,
-			"counttype": "equal",
-			"connector": "none",
-			"level": 1
-		} */
+	
 	}
 
 	public static String mastersearch(String[][][] material, JSONObject json) throws JSONException {
@@ -113,8 +64,8 @@ public class App {
 						searchtrop = trop;
 					}
 					else if(splitby.equals("letter")){
-						String[] nowletter = {list[j]};
-						searchtrop = tropLists.tropFinder(nowletter);
+						String[] none = {"none"};
+						searchtrop = none;
 					}
 					ArrayList<Integer> matches = searching(json.getJSONArray("search"), 0, list[j], searchtrop);
 					if(matches.size() != 0){
@@ -125,10 +76,11 @@ public class App {
 						jsonresult += ",";
 						String v = "";
 						for(int x : matches){
-							v += x + " ";
+							v += " ," + x;
 						}
+						v = v.replaceFirst(" ,", "");
 						jsonresult += new JSONStringer().object()
-										.key("splitvalue").value(/*listvalue*/ v)
+										.key("splitvalue").value(listvalue + ": " + v)
 										.key("fullverse").value(thispasuk)
 										.key("bookname").value(thismaterial[i][1])
 										.key("perek").value(thismaterial[i][2])
@@ -198,7 +150,8 @@ public class App {
 		}
 
 		else if(param.equals("abstract")){
-			ArrayList<Integer> anyhas = new ArrayList<Integer>();
+			int totalcount = current.getInt("count");
+			String counttype = current.getString("counttype");
 			String[] newterms = {term};
 			if(type.equals("word")) {
 				newterms = bibleLists.words(term);
@@ -212,27 +165,27 @@ public class App {
 			int newlen = newterms.length;
 			for(int j = 0; j < newlen; j++){
 				//needs to be fixed
-				String[] newtrop = {trop[j]};
+				String[] newtrop = {"none"};
+				if(type.equals("tropword")){
+					newtrop[0] = trop[j];
+				}
 				if(searching(search, index + 1, newterms[j], newtrop).size() != 0){
-					anyhas.add(j);
-					//System.out.println(j);
-					//break;
+					indexlist.add(j);
 				}
 			}
+			indexlist = countchecker(indexlist, totalcount, counttype);
 			if(connector.equals("and") || connector.equals("or")){
 				int i = nextFinder(search, index, param);
-				//System.out.println(search.getJSONObject(i));
-				return logics(connector, anyhas, searching(search, i, term, trop));
+				return logics(connector, indexlist, searching(search, i, term, trop));
 			}
 			else if(connector.equals("before") || connector.equals("after")){
 				int i = nextFinder(search, index, param);
-				//System.out.println(search.getJSONObject(i));
 				int dis = current.getInt("distance");
 				String distype = current.getString("distancetype"); 
-				return distance(connector, anyhas, searching(search, i, term, trop), dis, distype);
+				return distance(connector, indexlist, searching(search, i, term, trop), dis, distype);
 			}
 			else{
-				return anyhas;
+				return indexlist;
 			}
 		}
 
@@ -251,7 +204,7 @@ public class App {
 			if(!type.equals("trop")){
 				for(int i = 0; i <= (termlen - vallen); i++){
 					if(term.substring(i, i + vallen).equals(val)){
-						indexlist.add(i + vallen);
+						indexlist.add(i);
 					}
 				}
 			}
@@ -263,27 +216,14 @@ public class App {
 					}
 				}
 			}
-			int listlen = indexlist.size();
-			if(counttype.equals("equal")){
-				if(!(listlen == totalcount)){
-					indexlist.clear();
-				}
-			}
-			else if(counttype.equals("greater")){
-				if(!(listlen > totalcount)){
-					indexlist.clear();
-				}
-			}
-			else if(counttype.equals("less")){
-				if(!(listlen < totalcount)){
-					indexlist.clear();
-				}
-			}
+			indexlist = countchecker(indexlist, totalcount, counttype);
 			if(connector.equals("and") || connector.equals("or")){
 				return logics(connector, indexlist, searching(search, index + 1, term, trop));
 			}
 			if(connector.equals("before") || connector.equals("after")){
-				return distance(connector, indexlist, searching(search, index + 1, term, trop), current.getInt("distance"), current.getString("distancetype"));
+				int dis = current.getInt("distance");
+				String distype = current.getString("distancetype");
+				return distance(connector, indexlist, searching(search, index + 1, term, trop), dis, distype);
 			}
 			else{
 				return indexlist;
@@ -294,18 +234,25 @@ public class App {
 
 	public static ArrayList<Integer> logics(String operation, ArrayList<Integer> one, ArrayList<Integer> two){
 		ArrayList<Integer> result = new ArrayList<Integer>();
-		result.addAll(one);
-		result.addAll(two);
+		Boolean notempty = true;
 		int onesize = one.size();
 		int twosize = two.size();
 		if(operation.equals("and")){
 			if(onesize == 0 || twosize == 0){
-				result.clear();
+				notempty = false;
 			}
 		}
 		else if(operation.equals("or")){
 			if(onesize == 0 && twosize == 0){
-				result.clear();
+				notempty = false;
+			}
+		}
+		if(notempty){
+			result.addAll(one);
+			for(Integer s : two){
+				if(!result.contains(s)){
+					result.add(s);
+				}
 			}
 		}
 		return result;
@@ -321,32 +268,44 @@ public class App {
 					int thistwo = two.get(j);
 					if(operation.equals("before") && type.equals("greater")){
 						if((thistwo - thisone > distance)){
-							result.add(thisone);
+							if(!result.contains(thisone)){
+								result.add(thisone);
+							}
 						}
 					}
 					else if(operation.equals("before") && type.equals("equal")){
 						if((thistwo - thisone == distance)){
-							result.add(thisone);
+							if(!result.contains(thisone)){
+								result.add(thisone);
+							}
 						}
 					}
 					else if(operation.equals("before") && type.equals("less")){
 						if((thistwo - thisone < distance) && !(thistwo - thisone < 0)){
-							result.add(thisone);
+							if(!result.contains(thisone)){
+								result.add(thisone);
+							}
 						}
 					}
 					else if(operation.equals("after") && type.equals("greater")){
 						if((thisone - thistwo > distance)){
-							result.add(thisone);
+							if(!result.contains(thisone)){
+								result.add(thisone);
+							}
 						}
 					}
 					else if(operation.equals("after") && type.equals("equal")){
 						if((thisone - thistwo == distance)){
-							result.add(thisone);
+							if(!result.contains(thisone)){
+								result.add(thisone);
+							}
 						}
 					}
 					else if(operation.equals("after") && type.equals("less")){
 						if((thisone - thistwo < distance) && !(thistwo - thisone < 0)){
-							result.add(thisone);
+							if(!result.contains(thisone)){
+								result.add(thisone);
+							}
 						}
 					}
 				}
@@ -382,5 +341,26 @@ public class App {
 			}
 		}
 		return i;
+	}
+
+	public static ArrayList<Integer> countchecker(ArrayList<Integer> input, int totalcount, String counttype){
+		ArrayList<Integer> output = input;
+		int listlen = output.size();
+			if(counttype.equals("equal")){
+				if(!(listlen == totalcount)){
+					output.clear();
+				}
+			}
+			else if(counttype.equals("greater")){
+				if(!(listlen > totalcount)){
+					output.clear();
+				}
+			}
+			else if(counttype.equals("less")){
+				if(!(listlen < totalcount)){
+					output.clear();
+				}
+			}
+		return output;
 	}
 }

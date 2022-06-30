@@ -81,10 +81,10 @@ public class bibleLists {
 				i += 1;
 				startPos = i + 1;
 			}
-			else if(now.equals("־")){
+			/*else if(now.equals("־")){
 				words.add(bible.substring(startPos, i + 1));
 				startPos = i + 1;
-			}
+			}*/
 		}
 		return tools.ArraylistToArray(words);
 	}
@@ -144,6 +144,7 @@ public class bibleLists {
 		int len = str.length();
 		for(int i = 1; i < len; i++) {
 			//started i at 1, because if it started at 0, it would add "" to the arrayList as the first item as soon as it encountered the first letter, since there is nothing ("") before it.
+			//update?
 			String now = str.substring(i, i + 1);
 			if(basicLists.isaletter(now)){
 				sep.add(str.substring(startPos, i));

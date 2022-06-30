@@ -61,7 +61,7 @@ public class keriUkesiv {
 		return bible;
 	}
 	
-	//replaces the two-trop system with just the tachton.
+	//replaces the two-trop system with just the tachton. Must be done BEFORE KeriUkesiv.
 	public static String tachton(String bible, boolean header){
 		if(!header) {
 			bible = bible.replace("וַיְהִ֗י בִּשְׁכֹּ֤ן יִשְׂרָאֵל֙ בָּאָ֣רֶץ הַהִ֔וא וַיֵּ֣לֶךְ רְאוּבֵ֔ן וַיִּשְׁכַּ֕ב֙ אֶת־בִּלְהָ֖ה֙ פִּילֶ֣גֶשׁ אָבִ֑֔יו וַיִּשְׁמַ֖ע יִשְׂרָאֵֽ֑ל וַיִּֽהְי֥וּ בְנֵֽי־יַעֲקֹ֖ב שְׁנֵ֥ים עָשָֽׂר׃", "וַיְהִ֗י בִּשְׁכֹּ֤ן יִשְׂרָאֵל֙ בָּאָ֣רֶץ הַהִ֔וא וַיֵּ֣לֶךְ רְאוּבֵ֔ן וַיִּשְׁכַּ֕ב אֶת־בִּלְהָ֖ה פִּילֶ֣גֶשׁ אָבִ֑יו וַיִּשְׁמַ֖ע יִשְׂרָאֵֽל׃ וַיִּֽהְי֥וּ בְנֵֽי־יַעֲקֹ֖ב שְׁנֵ֥ים עָשָֽׂר׃");
@@ -77,7 +77,7 @@ public class keriUkesiv {
 	}
 	
 	
-	//replaces the two-trop system with just the elyon.
+	//replaces the two-trop system with just the elyon. Must be done BEFORE KeriUkesiv.
 	public static String elyon(String bible, boolean header){
 		if(!header) {
 			bible = bible.replace("וַיְהִ֗י בִּשְׁכֹּ֤ן יִשְׂרָאֵל֙ בָּאָ֣רֶץ הַהִ֔וא וַיֵּ֣לֶךְ רְאוּבֵ֔ן וַיִּשְׁכַּ֕ב֙ אֶת־בִּלְהָ֖ה֙ פִּילֶ֣גֶשׁ אָבִ֑֔יו וַיִּשְׁמַ֖ע יִשְׂרָאֵֽ֑ל וַיִּֽהְי֥וּ בְנֵֽי־יַעֲקֹ֖ב שְׁנֵ֥ים עָשָֽׂר׃", "וַיְהִ֗י בִּשְׁכֹּ֤ן יִשְׂרָאֵל֙ בָּאָ֣רֶץ הַהִ֔וא וַיֵּ֣לֶךְ רְאוּבֵ֔ן וַיִּשְׁכַּב֙ אֶת־בִּלְהָה֙ פִּילֶ֣גֶשׁ אָבִ֔יו וַיִּשְׁמַ֖ע יִשְׂרָאֵ֑ל וַיִּֽהְי֥וּ בְנֵֽי־יַעֲקֹ֖ב שְׁנֵ֥ים עָשָֽׂר׃");

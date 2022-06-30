@@ -81,11 +81,11 @@ public class maker {
 	
 	public static String[] bookNames(String type) {
 		if(type.equals("torah")) {
-			String[] books = {"Genesis", "Exodus", "Leviticus", "Numbers", "Dueteronomy"};
+			String[] books = {"Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy"};
 			return books;
 		}
 		else if(type.equals("twentyOne")) {
-			String[] books = {"Genesis", "Exodus", "Leviticus", "Numbers", "Dueteronomy", "Joshua", "Judges", "Samuel_1", "Samuel_2", "Kings_1", "Kings_2",
+			String[] books = {"Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua", "Judges", "Samuel_1", "Samuel_2", "Kings_1", "Kings_2",
 				"Isaiah", "Jeremiah", "Ezekiel", "Hosea", "Joel", "Amos", "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi",
 				"Ruth", "Esther", "Song_of_Songs", "Lamentations", "Ecclesiastes", "Daniel", "Ezra", "Nehemiah", "Chronicles_1", "Chronicles_2"};
 			return books;
@@ -95,7 +95,7 @@ public class maker {
 			return books;
 		}
 		else {
-			String[] books = {"Genesis", "Exodus", "Leviticus", "Numbers", "Dueteronomy", "Joshua", "Judges", "Samuel_1", "Samuel_2", "Kings_1", "Kings_2",
+			String[] books = {"Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua", "Judges", "Samuel_1", "Samuel_2", "Kings_1", "Kings_2",
 					"Isaiah", "Jeremiah", "Ezekiel", "Hosea", "Joel", "Amos", "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi",
 					"Ruth", "Esther", "Song_of_Songs", "Lamentations", "Ecclesiastes", "Daniel", "Ezra", "Nehemiah", "Chronicles_1", "Chronicles_2", "Psalms", "Job", "Proverbs"};
 			return books;

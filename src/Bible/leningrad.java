@@ -130,7 +130,6 @@ public class leningrad {
 	
 	public static String specialCharacter() {
 		String special = "א‍"; //special character is isolated on this aleph.
-		String justSpecial = special.substring(1, 2);
-	    return justSpecial;
+	    return special.substring(1, 2);
 	}
 }
