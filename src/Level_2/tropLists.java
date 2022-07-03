@@ -27,7 +27,7 @@ public class tropLists {
 			}
 			else if(now.length() == 2) {
 				if(now.contains("֨") && now.contains("֜")){
-					trope.add("kadmah-veAzlah");
+					trope.add("kadmah-veazlah");
 	    		}
 				else if(now.contains("֔") && now.contains("֨")){
 	    			trope.add("mesiga-zakaif");
@@ -45,6 +45,9 @@ public class tropLists {
 				}
 				else if(now.contains("֣") && now.contains("׀")){
 	    			trope.add("munach-pesik"); 
+	    		}
+				else if(now.contains("֣") && now.contains("֗")){
+	    			trope.add("munach-revie"); 
 	    		}
 				/*else if(now.contains("֓") && now.contains("׀")){
 	    			trope.add("shalsheles gedolah"); 
@@ -70,7 +73,7 @@ public class tropLists {
 			if(trope.get(i).equals("munach-pesik")) {
 				//System.out.println(trope.get(i - 1) + " " + trope.get(i) + " " + trope.get(i + 1));
 				if(i < tropelen - 2){
-					if(trope.get(i + 1).equals("revie") || trope.get(i + 2).equals("revie") || trope.get(i + 1).equals("munach-pesik")) {
+					if(trope.get(i + 1).contains("revie") || trope.get(i + 2).equals("revie") || (trope.get(i + 1).equals("munach-pesik") && (trope.get(i + 1).contains("revie") || trope.get(i + 2).equals("revie") || trope.get(i + 3).contains("revie"))) || (trope.get(i + 3).equals("revie") && trope.get(i + 1).equals("dargah"))) {
 						trope.set(i, "legarmeh");
 					}
 					else{

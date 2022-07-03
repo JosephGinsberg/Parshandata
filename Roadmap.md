@@ -10,9 +10,13 @@ An advanced Tanach search engine, allowing for complex, layered searches of the 
 >	Nekudot lists and letter lists for Shin and Sin (which means modifying seperate letters)
 >	Ta'amei Emes  
 
-* Before/after (with distance) /done
+* Before/after (with distance)
 * Begins with/ends with
 * searching for just letters
+* before/after - must be able to specify before what type: chars? letters? etc.
+* is/is not and contains/does not contain parameter added to input object
+* seperate trop and other searches
+* make the shin/sin dot a letter for just letter searches and check if this has consequences
 
 ### Eventual
 * Statistics

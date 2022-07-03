@@ -32,7 +32,7 @@ public class App {
 	
 	}
 
-	public static String mastersearch(String[][][] material, JSONObject json) throws JSONException {
+	public static String mastersearch(String[][][] material, JSONObject json) throws JSONException, FileNotFoundException {
 		String jsonresult = "{\"matches\":[";
 		String splitby = json.getString("splitBy");
 		int len = material.length;
@@ -59,15 +59,7 @@ public class App {
 				}
 				int listlen = list.length;
 				for(int j = 0; j < listlen; j++){
-					String[] searchtrop = {trop[j]};
-					if(splitby.equals("pasuk")){
-						searchtrop = trop;
-					}
-					else if(splitby.equals("letter")){
-						String[] none = {"none"};
-						searchtrop = none;
-					}
-					ArrayList<Integer> matches = searching(json.getJSONArray("search"), 0, list[j], searchtrop);
+					ArrayList<Integer> matches = searching(json.getJSONArray("search"), 0, list[j], trop);
 					if(matches.size() != 0){
 						String listvalue = "same";
 						if(!value){
@@ -121,7 +113,7 @@ public class App {
 		return material;
 	}
 
-	public static ArrayList<Integer> searching(JSONArray search, int index, String term, String[] trop) throws JSONException {
+	public static ArrayList<Integer> searching(JSONArray search, int index, String term, String[] trop) throws JSONException, FileNotFoundException {
 		
 		JSONObject current = search.getJSONObject(index);
 		String param = current.getString("param");
@@ -140,9 +132,8 @@ public class App {
 			}
 			else if(connector.equals("before") || connector.equals("after")){
 				int i = nextFinder(search, index, "any");
-				int dis = current.getInt("distance");
-				String distype = current.getString("distancetype"); 
-				return distance(connector, output, searching(search, i, term, trop), dis, distype);
+				JSONObject next = search.getJSONObject(index + 1);
+				return distance(next, indexlist, searching(search, i, term, trop));
 			}
 			else{
 				return output;
@@ -165,11 +156,7 @@ public class App {
 			int newlen = newterms.length;
 			for(int j = 0; j < newlen; j++){
 				//needs to be fixed
-				String[] newtrop = {"none"};
-				if(type.equals("tropword")){
-					newtrop[0] = trop[j];
-				}
-				if(searching(search, index + 1, newterms[j], newtrop).size() != 0){
+				if(searching(search, index + 1, newterms[j], trop).size() != 0){
 					indexlist.add(j);
 				}
 			}
@@ -180,12 +167,21 @@ public class App {
 			}
 			else if(connector.equals("before") || connector.equals("after")){
 				int i = nextFinder(search, index, param);
-				int dis = current.getInt("distance");
-				String distype = current.getString("distancetype"); 
-				return distance(connector, indexlist, searching(search, i, term, trop), dis, distype);
+				JSONObject next = search.getJSONObject(index + 1);
+				return distance(next, indexlist, searching(search, i, term, trop));
 			}
 			else{
 				return indexlist;
+			}
+		}
+
+		else if(param.equals("distance")){
+			if(connector.equals("and") || connector.equals("or")){
+				int i = nextFinder(search, index, "input");
+				return logics(connector, searching(search, index + 1, term, trop), searching(search, i, term, trop));
+			}
+			else{
+				return searching(search, index + 1, term, trop);
 			}
 		}
 
@@ -193,6 +189,7 @@ public class App {
 			String val = current.getString("value");
 			int totalcount = current.getInt("count");
 			String counttype = current.getString("counttype");
+			String matchtype = current.getString("matchtype");
 			if(type.equals("letter")){
 				term = otherBibles.justLetters(term);
 			}
@@ -202,9 +199,16 @@ public class App {
 			int termlen = term.length();
 			int vallen = val.length();
 			if(!type.equals("trop")){
-				for(int i = 0; i <= (termlen - vallen); i++){
-					if(term.substring(i, i + vallen).equals(val)){
-						indexlist.add(i);
+				if(matchtype.equals("contains")){
+					for(int i = 0; i <= (termlen - vallen); i++){
+						if(term.substring(i, i + vallen).equals(val)){
+							indexlist.add(i);
+						}
+					}
+				}
+				else if(matchtype.equals("is")){
+					if(term.equals(val)){
+						indexlist.add(0);
 					}
 				}
 			}
@@ -214,16 +218,15 @@ public class App {
 					if(trop[i].equals(val)){
 						indexlist.add(i);
 					}
-				}
+				}	
 			}
 			indexlist = countchecker(indexlist, totalcount, counttype);
 			if(connector.equals("and") || connector.equals("or")){
 				return logics(connector, indexlist, searching(search, index + 1, term, trop));
 			}
-			if(connector.equals("before") || connector.equals("after")){
-				int dis = current.getInt("distance");
-				String distype = current.getString("distancetype");
-				return distance(connector, indexlist, searching(search, index + 1, term, trop), dis, distype);
+			if(connector.equals("distance")){
+				JSONObject next = search.getJSONObject(index + 1);
+				return distance(next, indexlist, searching(search, index + 1, term, trop));
 			}
 			else{
 				return indexlist;
@@ -258,7 +261,11 @@ public class App {
 		return result;
 	}
 
-	public static ArrayList<Integer> distance(String operation, ArrayList<Integer> one, ArrayList<Integer> two, int distance, String type){
+	public static ArrayList<Integer> distance(JSONObject input, ArrayList<Integer> one, ArrayList<Integer> two) throws JSONException{
+	//	String operation, ArrayList<Integer> one, ArrayList<Integer> two, int distance, String type){
+		String operation = input.getString("type");
+		int distance = input.getInt("distance");
+		String type = input.getString("distancetype");
 		ArrayList<Integer> result = new ArrayList<Integer>();
 		int onesize = one.size();
 		int twosize = two.size();
