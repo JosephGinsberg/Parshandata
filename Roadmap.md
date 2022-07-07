@@ -12,7 +12,7 @@ An advanced Tanach search engine, allowing for complex, layered searches of the 
 
 * Before/after (with distance)
 * Begins with/ends with
-* searching for just letters
+* searching for just letters (fontend and backend json)
 * before/after - must be able to specify before what type: chars? letters? etc.
 * is/is not and contains/does not contain parameter added to input object
 * seperate trop and other searches

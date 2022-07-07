@@ -14,22 +14,21 @@ import Level_2.tropLists;
 
 public class App {
 	public static void main(String[] args) throws IOException, JSONException{
-		
-		long startTime = System.currentTimeMillis();
 
 		String JSON = Level_1.tools.FileToString("test.json");
-		JSONObject json = new JSONObject(JSON);
-
-		String result = mastersearch(setup(json), json);
-		result += "\"runtime\": " + (System.currentTimeMillis() - startTime) + "}";
+		String result = searchAll(JSON);
 
 		FileOutputStream out = new FileOutputStream("output.json");
 		out.write(result.getBytes("UTF-8"));
 		out.close();
+	}
 
-		/*long execTime = System.currentTimeMillis() - startTime;
-		System.out.println(execTime);*/
-	
+	public static String searchAll(String JSON) throws JSONException, FileNotFoundException{
+		long startTime = System.currentTimeMillis();
+		JSONObject json = new JSONObject(JSON);
+		String result = mastersearch(setup(json), json);
+		result += "\"runtime\": " + (System.currentTimeMillis() - startTime) + "}";
+		return result;
 	}
 
 	public static String mastersearch(String[][][] material, JSONObject json) throws JSONException, FileNotFoundException {
@@ -42,37 +41,47 @@ public class App {
 			int thismateriallen = thismaterial.length;
 			for(int i = 0; i < thismateriallen; i++){
 				String thispasuk = thismaterial[i][0];
-				String[] trop = tropLists.tropFinder(bibleLists.tropWords(thispasuk));
+				String[] trop = tropLists.tropFinder(bibleLists.tropWords(thispasuk), thismaterial[i][1], Integer.parseInt(thismaterial[i][2]), Integer.parseInt(thismaterial[i][3]));
+				String[] none = {"none"};
 				String list[] = {thispasuk};
 				Boolean value = true;
+				Boolean tropword = false;
 				if(splitby.equals("word")){
 					list = bibleLists.words(thispasuk);
 					value = false;
+					trop = none;
 				}
 				else if(splitby.equals("tropword")){
 					list = bibleLists.tropWords(thispasuk);
 					value = false;
+					tropword = true;
 				}
 				else if(splitby.equals("letter")){
 					list = bibleLists.separateLetters(thispasuk);
 					value = false;
+					trop = none;
 				}
 				int listlen = list.length;
 				for(int j = 0; j < listlen; j++){
+					if(tropword){
+						String[] nowtrop = {trop[j]};
+						trop = nowtrop; 
+					}
 					ArrayList<Integer> matches = searching(json.getJSONArray("search"), 0, list[j], trop);
 					if(matches.size() != 0){
-						String listvalue = "same";
+						String listvalue = "";
 						if(!value){
 							listvalue = list[j];
 						}
 						jsonresult += ",";
 						String v = "";
 						for(int x : matches){
-							v += " ," + x;
+							v += ", " + x;
 						}
-						v = v.replaceFirst(" ,", "");
+						v = v.replaceFirst(", ", "");
 						jsonresult += new JSONStringer().object()
-										.key("splitvalue").value(listvalue + ": " + v)
+										.key("splitvalue").value(listvalue)
+										.key("indices").value(v)
 										.key("fullverse").value(thispasuk)
 										.key("bookname").value(thismaterial[i][1])
 										.key("perek").value(thismaterial[i][2])
@@ -91,6 +100,7 @@ public class App {
 		String searchText = "";
 		Boolean taam = json.getBoolean("taamTachton");
 		Boolean keri = json.getBoolean("keriUkesiv");
+		String include = json.getString("onlyinclude");
 		JSONArray books = json.getJSONArray("books");
 		int bookslen = books.length();
 		String[][][] material = new String[bookslen][][];
@@ -107,6 +117,9 @@ public class App {
 			}
 			else{
 				 searchText = Bible.keriUkesiv.kesiv(searchText);
+			}
+			if(include.equals("letter")){
+				searchText = otherBibles.justLetters(searchText);
 			}
 			material[i] = bibleLists.numseperator(bibleLists.numpasukim(searchText), books.getString(i));
 		}
@@ -130,7 +143,7 @@ public class App {
 				int i = nextFinder(search, index, param);
 				return logics(connector, output, searching(search, i, term, trop));
 			}
-			else if(connector.equals("before") || connector.equals("after")){
+			else if(connector.equals("distance")){
 				int i = nextFinder(search, index, "any");
 				JSONObject next = search.getJSONObject(index + 1);
 				return distance(next, indexlist, searching(search, i, term, trop));
@@ -144,19 +157,26 @@ public class App {
 			int totalcount = current.getInt("count");
 			String counttype = current.getString("counttype");
 			String[] newterms = {term};
+			Boolean hastrop = true;
 			if(type.equals("word")) {
 				newterms = bibleLists.words(term);
+				hastrop = false;
 			}
 			else if(type.equals("tropword")) {
 				newterms = bibleLists.tropWords(term);
 			}
 			else if(type.equals("letter")) {
 				newterms = bibleLists.separateLetters(term);
+				hastrop = false;
 			}
+			String[] none = {"none"};
 			int newlen = newterms.length;
 			for(int j = 0; j < newlen; j++){
-				//needs to be fixed
-				if(searching(search, index + 1, newterms[j], trop).size() != 0){
+				String[] nexttrop = {trop[j]};
+				if(!hastrop){
+					nexttrop = none;
+				}
+				if(searching(search, index + 1, newterms[j], nexttrop).size() != 0){
 					indexlist.add(j);
 				}
 			}
@@ -165,7 +185,7 @@ public class App {
 				int i = nextFinder(search, index, param);
 				return logics(connector, indexlist, searching(search, i, term, trop));
 			}
-			else if(connector.equals("before") || connector.equals("after")){
+			else if(connector.equals("distance")){
 				int i = nextFinder(search, index, param);
 				JSONObject next = search.getJSONObject(index + 1);
 				return distance(next, indexlist, searching(search, i, term, trop));

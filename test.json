@@ -42,6 +42,7 @@
   ],
   "keriUkesiv": true,
   "taamTachton": true,
+  "onlyinclude": "",
   "display": "every",
   "splitBy": "pasuk",
   "search": [

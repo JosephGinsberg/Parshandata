@@ -26,7 +26,7 @@ public class Revision {
 		String v = "";
 		for(String pa : pasukim){
 			String[] tropwords = bibleLists.tropWords(pa);
-			String[] trop = tropLists.tropFinder(tropwords);
+			String[] trop = tropLists.tropFinder(tropwords, "none", 0, 0);
 			for(int i = 0; i < trop.length; i++){
 				if(trop[i].equals("none")){
 					String c = searcher.num(pa.substring(0, 30), books, names)[0];

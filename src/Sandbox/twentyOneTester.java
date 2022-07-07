@@ -37,7 +37,7 @@ public class twentyOneTester {
 		String[] p = bibleLists.pasukim(book);
 		String s = "";
 		for(int j = 0; j < p.length; j++){
-			String[] v = tropLists.tropFinder(bibleLists.tropWords(p[j]));
+			String[] v = tropLists.tropFinder(bibleLists.tropWords(p[j]), "none", 0, 0);
 			for(int i = 0; i < v.length - 1; i++){
 				if(v[i].equals("legarmeh") /*&& v[i + 1].equals("revie")*/){
 					s += p[j] + "\n";
