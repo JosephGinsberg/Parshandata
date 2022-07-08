@@ -29,10 +29,10 @@
 		splitBy: 'pasuk',
 		search: searchJSON
 	},
-	searchResponse: searchResponse = {
+	searchStatus: searchResponse | Promise<searchResponse> = {
 		runtime: 0,
 		matches: [
-			/* {
+			{
 				bookname: "Genesis",
 				fullverse: "וַיַּ֣עַשׂ אֱלֹהִים֩ אֶת־חַיַּ֨ת הָאָ֜רֶץ לְמִינָ֗הּ וְאֶת־הַבְּהֵמָה֙ לְמִינָ֔הּ וְאֵ֛ת כָּל־רֶ֥מֶשׂ הָֽאֲדָמָ֖ה לְמִינֵ֑הוּ וַיַּ֥רְא אֱלֹהִ֖ים כִּי־טֽוֹב׃",
 				pasuk: "25",
@@ -56,28 +56,27 @@
 				pasuk: "1",
 				perek: "1",
 				splitvalue: "דִּבְרֵ֣י עָמ֔וֹס"
-			} */
+			}
 		]
-	}
+	},
+	count: string = '0'
 
-	const getResults = async () => {
-		// const res: any = await fetch(`/sample`, {
+	const fetchSearch = async () => {
+		count = '#'
+		// const res: any = await fetch('/sample', {
 		const res: any = await fetch(`${location.protocol}//localhost:8080/sample`, {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json'
 			},
 			body: JSON.stringify(searchRequest)
-		})
-		const json = await res.json()
-
-		console.log('runtime: %s', searchResponse.runtime)
-		searchResponse = json
+		}),
+		json = await res.json()
+		count = json.matches.length.toString()
+		console.log('runtime: %s', json.runtime)
 		return json
 	}
-
-	const runSearch: any = () => getResults()
-	// const runSearch: any = async() => {searchResponse: any = getResults()}
+	const runSearch: VoidFunction = () => searchStatus = fetchSearch()
 </script>
 
 
@@ -90,9 +89,8 @@
 	<h2>Search Tanach</h2>
 	
 	<div class="row">
-		<SearchContainer search={searchJSON} {runSearch} />
-		<ResultsContainer response={searchResponse.matches} />
-		<!-- <ResultsContainer response={searchResponse.matches} promise={runSearch} /> -->
+		<SearchContainer search={searchRequest} {runSearch} />
+		<ResultsContainer state={searchStatus} {count} />
 	</div>
 </section>
 
