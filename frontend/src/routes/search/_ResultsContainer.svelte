@@ -1,41 +1,63 @@
 <script lang="ts">
-	export let response: searchMatch[]
-	// let promise: any,
+	export let state: searchResponse | Promise<searchResponse> | any,
+	count: string
+
+	const downloadResults: any | VoidFunction = () => {
+		let dataString: string = 'data:text/plain;charset=utf-8,',
+		filename: string = ''
+
+
+		// const data: object = state.then(res: any => res.json())
+		// dataString += JSON.stringify(data))
+
+		// console.log(dataString)
+		
+		// initiate download
+		// let link: HTMLElement = document.createElement('a')
+		// link.setAttribute('href', encodeURI(dataString))
+		// link.setAttribute('download', filename)
+		// link.click()
+		// console.log('')
+	}
 </script>
 
 <div class="container">
 	<div class="header row">
 		<div>
 			Results
-			<span class="subtext">• {response.length}</span>
+			<span class="subtext">• {count}</span>
 		</div>
-		<div class="options">
-			<!-- download icon -->
+		<div class="options row">
+			<!-- <button on:click={downloadResults}>
+				<img class="icon" src="download.svg" alt="download">
+			</button> -->
 		</div>
 	</div>
 	<div class="body">
-		<!-- {#await promise}
-			loading
-		{:then res} 
-			loaded
-			<br>
-			{JSON.stringify(res)}
-		{/await} -->
-
-		{#each response as match}
-			<div class="result">
-				<div class="fullverse">
-					{#if match.splitvalue}
-						{match.fullverse.split(match.splitvalue)[0]}<b>{match.splitvalue}</b>{match.fullverse.split(match.splitvalue)[1]}
-					{:else}
-						{match.fullverse}
-					{/if}
-				</div>
-				<div class="location">{match.bookname.replace('_', ' ')} {match.perek}:{match.pasuk}</div>
-			</div>
-		{:else}
-			<div class="result">No search entered</div>
-		{/each}
+		{#await state}
+			<div class="result">Loading...</div>
+		{:then data}
+			{#if data.runtime}
+				{#each data.matches as match}
+					<div class="result">
+						<div class="fullverse">
+							{#if match.splitvalue}
+								{match.fullverse.split(match.splitvalue)[0]}<b>{match.splitvalue}</b>{match.fullverse.split(match.splitvalue)[1]}
+							{:else}
+								{match.fullverse}
+							{/if}
+						</div>
+						<div class="location">{match.bookname.replace('_', ' ')} {match.perek}:{match.pasuk}</div>
+					</div>
+				{:else}
+					<div class="result">No results found</div>
+				{/each}
+			{:else}
+				<div class="result">No search entered</div>
+			{/if}
+		{:catch error}
+			<div class="result" style="color: red">{error.message}</div>
+		{/await}
 	</div>
 </div>
 
