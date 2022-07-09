@@ -37,7 +37,9 @@
 		{#await state}
 			<div class="result">Loading...</div>
 		{:then data}
-			{#if data.runtime}
+			{#if !data.ok}
+				<div class="result" style="color: red">{data.msg}</div>
+			{:else if data.runtime}
 				{#each data.matches as match}
 					<div class="result">
 						<div class="fullverse">

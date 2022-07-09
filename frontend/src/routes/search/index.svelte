@@ -30,6 +30,8 @@
 		search: searchJSON
 	},
 	searchStatus: searchResponse | Promise<searchResponse> = {
+		ok: true,
+		msg: "",
 		runtime: 0,
 		matches: [
 			{
@@ -63,8 +65,8 @@
 
 	const fetchSearch = async () => {
 		count = '#'
-		// const res: any = await fetch('/sample', {
-		const res: any = await fetch(`${location.protocol}//localhost:8080/sample`, {
+		// const res: any = await fetch('/search', {
+		const res: any = await fetch(`${location.protocol}//localhost:8080/search`, {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json'

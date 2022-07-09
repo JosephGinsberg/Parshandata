@@ -1,4 +1,6 @@
 {
+	"ok": true,
+	"msg": "Search ran successfully",
 	"runtime": 1000,
 	"matches": [
 		{

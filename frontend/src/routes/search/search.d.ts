@@ -17,6 +17,8 @@ interface searchParam{
 }
 
 interface searchResponse{
+	ok: boolean
+	msg: string
 	runtime: number
 	matches: searchMatch[]
 }
