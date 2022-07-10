@@ -37,5 +37,5 @@ RUN ./mvnw package
 
 RUN for FILENAME in /app/backend/target/*.jar ; do mv $FILENAME app.jar ; done 
 
-ENTRYPOINT ["java","-jar","./app.jar"]
+CMD ["java","-jar","./app.jar"]
 # -Dserver.port=$PORT
