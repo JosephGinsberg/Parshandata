@@ -2,8 +2,9 @@
 	import SearchOption from "./_SearchOption.svelte"
 	import Button from "$lib/Button.svelte"
 
-	export let search: searchRequest,
-	runSearch:VoidFunction
+	export let search: searchRequest | JSON | any,
+	updateSearch: Function,
+	runSearch: VoidFunction
 	
 	const validJson = (expectedJson: string) => {
 		try {
@@ -16,7 +17,9 @@
 
 	let isAdvancedMode: boolean = true,
 	request: string = JSON.stringify(search, undefined, 4)
-	// $: if(validJson(request.toString())) search = JSON.parse(request)
+
+	$: if(validJson(request.toString())) updateSearch(JSON.parse(request))
+	// request = JSON.stringify(JSON.parse(request), undefined, 4)
 </script>
 
 <div class="container">
@@ -35,8 +38,8 @@
 	.container{
 		height: 100%;
 		max-height: 100%;
-		width: 45%;
-		max-width: 45%;
+		width: 47.5%;
+		max-width: 47.5%;
 		/* padding: var(--topPadding) 0; */
 		padding: var(--topPadding);
 		box-sizing: border-box;

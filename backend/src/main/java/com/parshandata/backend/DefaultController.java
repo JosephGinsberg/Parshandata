@@ -10,29 +10,29 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-// import com.github.openjson.JSONArray;
-// import com.github.openjson.JSONException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 @RestController
 @CrossOrigin
 public class DefaultController {
-	@PostMapping(path="/search", consumes = MediaType.ALL_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> search(@RequestBody String requestJson) throws FileNotFoundException, InterruptedException{
+	@PostMapping(path="/api/search", consumes = MediaType.ALL_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> search(@RequestBody String requestJson) throws FileNotFoundException, InterruptedException, JSONException{
 		// add serializer
 		String response = "";
 		try {
-			JSONObject req = new JSONObject(requestJson);
-			System.out.println(req.get("books"));
+			// change to GsonHttpMessageConverter
+			// JSONObject req = new JSONObject(requestJson);
+			// System.out.println(req.get("books"));
 
-			URL fileUrl = getClass().getResource("output.json");
-			response = tools.FileToString(fileUrl.getPath());
+			// URL fileUrl = getClass().getResource("output.json");
+			// response = tools.FileToString(fileUrl.getPath());
 		} catch (Exception e) {
 			System.out.println("Invalid JSON was passed in");
 			response = "{\"ok\":false,\"msg\":\"Invalid JSON was passed in\"}";
 		}
-		TimeUnit.SECONDS.sleep(1);
+
+		response = BibleStatistics.App.searchAll(requestJson);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 

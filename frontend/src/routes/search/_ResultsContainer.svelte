@@ -37,11 +37,12 @@
 		{#await state}
 			<div class="result">Loading...</div>
 		{:then data}
-			{#if !data.ok}
+			{#if !data.ok && false}
 				<div class="result" style="color: red">{data.msg}</div>
 			{:else if data.runtime}
-				{#each data.matches as match}
+				{#each data.matches as match, id}
 					<div class="result">
+						<!-- {data.matches[id-1] < data.matches && match.fullverse === data.matches[id-1].fullverse? true: ''} -->
 						<div class="fullverse">
 							{#if match.splitvalue}
 								{match.fullverse.split(match.splitvalue)[0]}<b>{match.splitvalue}</b>{match.fullverse.split(match.splitvalue)[1]}
@@ -49,7 +50,9 @@
 								{match.fullverse}
 							{/if}
 						</div>
-						<div class="location">{match.bookname.replace('_', ' ')} {match.perek}:{match.pasuk}</div>
+						<div class="location">
+							{#if data.matches[id+1] && match.fullverse === data.matches[id+1].fullverse}*{/if}
+							{match.bookname.replace('_', ' ')} {match.perek}:{match.pasuk}</div>
 					</div>
 				{:else}
 					<div class="result">No results found</div>
@@ -58,7 +61,7 @@
 				<div class="result">No search entered</div>
 			{/if}
 		{:catch error}
-			<div class="result" style="color: red">{error.message}</div>
+			<div class="result" style="color: red">Error: {error.message}</div>
 		{/await}
 	</div>
 </div>
@@ -68,8 +71,8 @@
 		height: 100%;
 		max-height: 100%;
 		overflow-y: hidden;
-		width: 45%;
-		max-width: 45%;
+		width: 47.5%;
+		max-width: 47.5%;
 		box-sizing: border-box;
 		background-color: rgb(250, 250, 255);
 		border: 2px solid var(--disabledText);

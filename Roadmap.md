@@ -26,7 +26,10 @@ An advanced Tanach search engine, allowing for complex, layered searches of the 
 ## Frontnend
 
 ### Near Future
-* Get a proof of concept interface running
+* Build out interface
+* dockerize
+* add apache/nginx in front of app for static frontend files
+* return generated search results
 
 ### Eventual
 * More features coming soon

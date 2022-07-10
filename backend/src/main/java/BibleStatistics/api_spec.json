@@ -1,0 +1,130 @@
+{
+	"books": ["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy"],
+	"keriUkesiv": true,
+	"taamTachton": true,
+	"display": "every",
+	"splitBy": "pasuk",
+	"search": [
+	  {
+		"param": "condition",
+		"type": "contains",
+		"connector": "none",
+		"level": 1
+	  },
+	  {
+		"param": "abstract",
+		"type": "tropword",
+		"count": 0,
+		"counttype": "greater",
+		"connector": "before",
+		"distance": 3,
+		"distancetype": "less",
+		"level": 2
+	  },
+	  {
+		"param": "condition",
+		"type": "contains",
+		"connector": "none",
+		"level": 2
+	  },
+	  {
+		"param": "input",
+		"type": "leer",
+		"value": "׀",
+		"count": 1,
+		"counttype": "equal",
+		"connector": "and",
+		"level": 2
+	  },
+	  {
+		"param": "input",
+		"type": "leer",
+		"value": "֣",
+		"count": 1,
+		"counttype": "equal",
+		"connector": "none",
+		"level": 2
+	  },
+	  {
+		"param": "abstract",
+		"type": "tropword",
+		"count": 0,
+		"counttype": "greater",
+		"connector": "or",
+		"level": 2
+	  },
+	  {
+		"param": "condition",
+		"type": "contains",
+		"connector": "none",
+		"level": 2
+	  },
+	  {
+		"param": "input",
+		"type": "leer",
+		"value": "֗",
+		"count": 1,
+		"counttype": "equal",
+		"connector": "none",
+		"level": 2
+	  },
+	  {
+		"param": "abstract",
+		"type": "tropword",
+		"count": 0,
+		"counttype": "greater",
+		"connector": "before",
+		"distance": 3,
+		"distancetype": "less",
+		"level": 2
+	  },
+	  {
+		"param": "condition",
+		"type": "contains",
+		"connector": "none",
+		"level": 2
+	  },
+	  {
+		"param": "input",
+		"type": "leer",
+		"value": "׀",
+		"count": 1,
+		"counttype": "equal",
+		"connector": "and",
+		"level": 2
+	  },
+	  {
+		"param": "input",
+		"type": "leer",
+		"value": "֣",
+		"count": 1,
+		"counttype": "equal",
+		"connector": "none",
+		"level": 2
+	  },
+	  {
+		"param": "abstract",
+		"type": "tropword",
+		"count": 0,
+		"counttype": "greater",
+		"connector": "none",
+		"level": 2
+	  },
+	  {
+		"param": "condition",
+		"type": "contains",
+		"connector": "none",
+		"level": 2
+	  },
+	  {
+		"param": "input",
+		"type": "leer",
+		"value": "֗",
+		"count": 1,
+		"counttype": "equal",
+		"connector": "none",
+		"level": 2
+	  }
+	]
+  }
+  

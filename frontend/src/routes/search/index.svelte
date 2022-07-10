@@ -21,12 +21,13 @@
 			level: 2
 		}
 	],
-	searchRequest : searchRequest = {
+	searchRequest: searchRequest | JSON = {
 		books,
 		keriUkesiv: false,
 		taamTachton: false,
 		display: 'every',
 		splitBy: 'pasuk',
+		onlyinclude: '',
 		search: searchJSON
 	},
 	searchStatus: searchResponse | Promise<searchResponse> = {
@@ -63,10 +64,12 @@
 	},
 	count: string = '0'
 
+	searchRequest = JSON.parse(`{"books":["Genesis","Exodus","Leviticus","Numbers","Deuteronomy"],"keriUkesiv":true,"taamTachton":true,"onlyinclude":"","display":"every","splitBy":"pasuk","search":[{"param":"condition","type":"contains","connector":"none","level":1},{"param":"input","type":"trop","value":"legarmeh","matchtype":"contains","count":1,"counttype":"greater","connector":"distance","level":1},{"param":"distance","type":"before","distancetype":"greater","distance":1,"connector":"and","level":1},{"param":"distance","type":"before","distancetype":"less","distance":5,"connector":"none","level":1},{"param":"input","matchtype":"contains","type":"trop","value":"revie","count":2,"counttype":"equal","connector":"none","level":1}]}`)
+
 	const fetchSearch = async () => {
 		count = '#'
-		// const res: any = await fetch('/search', {
-		const res: any = await fetch(`${location.protocol}//localhost:8080/search`, {
+		// const res: any = await fetch('/api/search', {
+		const res: any = await fetch(`${location.protocol}//localhost:8080/api/search`, {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json'
@@ -79,6 +82,7 @@
 		return json
 	}
 	const runSearch: VoidFunction = () => searchStatus = fetchSearch()
+	const updateSearch = (newRequest: JSON) => searchRequest = newRequest
 </script>
 
 
@@ -91,7 +95,7 @@
 	<h2>Search Tanach</h2>
 	
 	<div class="row">
-		<SearchContainer search={searchRequest} {runSearch} />
+		<SearchContainer search={searchRequest} {runSearch} {updateSearch}/>
 		<ResultsContainer state={searchStatus} {count} />
 	</div>
 </section>
