@@ -1,6 +1,8 @@
 # Build node container
 FROM node:18 AS build
 
+EXPOSE 8080
+
 WORKDIR /app
 
 COPY ./frontend /app/frontend
@@ -27,8 +29,9 @@ RUN chmod +x mvnw
 COPY --from=build /app/frontend/build/_app /app/backend/src/main/resources/public/_app
 COPY --from=build /app/frontend/build /app/backend/src/main/resources/templates
 
-RUN ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=parshandata/latest
+RUN ./mvnw package
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
 
-CMD ["./mvnw", "spring-boot:run"]
+ENTRYPOINT ["java","-jar","/app.jar"]
 # -Dserver.port=$PORT
-EXPOSE 8080
