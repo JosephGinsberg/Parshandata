@@ -28,6 +28,7 @@
 		display: 'every',
 		splitBy: 'pasuk',
 		onlyinclude: '',
+		remove: [],
 		search: searchJSON
 	},
 	searchStatus: searchResponse | Promise<searchResponse> = {
