@@ -4,7 +4,6 @@ interface searchRequest{
 	taamTachton: boolean
 	display: string
 	splitBy: string
-	onlyinclude: string
 	remove: string[]
 	search: searchParam[]
 }

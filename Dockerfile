@@ -19,9 +19,9 @@ WORKDIR /app/backend
 
 # Installs most dependencies
 RUN chmod +x mvnw
-RUN ./mvnw dependency:go-offline
+# RUN ./mvnw dependency:go-offline
 # Installs all dependencies
-# RUN ./mvnw clean install
+RUN ./mvnw clean install
 
 # COPY --from=build /app/frontend/build /app/backend/src/main/resources/public
 COPY --from=build /app/frontend/build/_app /app/backend/src/main/resources/public/_app
