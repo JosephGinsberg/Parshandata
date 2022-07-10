@@ -27,5 +27,6 @@ RUN ./mvnw dependency:go-offline
 COPY --from=build /app/frontend/build/_app /app/backend/src/main/resources/public/_app
 COPY --from=build /app/frontend/build /app/backend/src/main/resources/templates
 
-CMD ["./mvnw", "spring-boot:run", "-Dserver.port=$PORT"]
+CMD ["./mvnw", "spring-boot:run"]
+# -Dserver.port=$PORT
 EXPOSE 8080
