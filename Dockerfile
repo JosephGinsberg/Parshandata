@@ -18,8 +18,8 @@ COPY ./backend /app/backend
 WORKDIR /app/backend
 
 # Installs most dependencies
-# RUN ./mvnw dependency:go-offline
-RUN chmod +x ./mvnw dependency:go-offline
+RUN chmod +x mvnw
+RUN ./mvnw dependency:go-offline
 # Installs all dependencies
 # RUN ./mvnw clean install
 
