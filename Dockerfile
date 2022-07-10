@@ -35,7 +35,7 @@ COPY --from=build /app/frontend/build /app/backend/src/main/resources/templates
 
 RUN ./mvnw package
 
-# RUN for FILENAME in *.jar ; do mv $FILENAME app.jar ; done 
+RUN for FILENAME in /app/backend/target/*.jar ; do mv $FILENAME app.jar ; done 
 
-# ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/app.jar"]
 # -Dserver.port=$PORT
