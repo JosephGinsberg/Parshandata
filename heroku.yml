@@ -1,0 +1,5 @@
+build:
+  docker:
+    web: docker build --tag java-docker .
+run:
+  web: docker run --rm -i -t -p 8080:8080 java-docker:latest
