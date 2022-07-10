@@ -32,4 +32,4 @@ RUN ./mvnw package
 RUN for FILENAME in /app/backend/target/*.jar ; do mv $FILENAME ./target/app.jar ; done 
 
 # CMD ["java", "-Xmx300m", "-Xss512k", "-Dfile.encoding=UTF-8", "-XX:+UseContainerSupport", "-Djava.security.egd=file:/dev/./urandom", "-jar", "./target/app.jar", "--server.port=${PORT:8080}"]
-CMD ["./mvnw", "spring-boot:run", "-Xmx300m", "-Xss512k", "-Dfile.encoding=UTF-8", "-XX:+UseContainerSupport", "-Djava.security.egd=file:/dev/./urandom", "--server.port=${PORT:8080}"]
+CMD ["./mvnw", "spring-boot:run", "-Xmx300m", "-Xss512k", "-Dfile.encoding=UTF-8", "-XX:+UseContainerSupport", "-Djava.security.egd=file:/dev/./urandom", "-Dserver.port=${PORT:8080}"]
