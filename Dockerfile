@@ -12,8 +12,8 @@ RUN cd /app/frontend && npm install && npm run build
 # Latest java image
 FROM ibmjava:sdk-alpine as server
 
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
+# RUN addgroup -S spring && adduser -S spring -G spring
+# USER spring:spring
 
 
 ENV DEBUG 0
