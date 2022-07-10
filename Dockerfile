@@ -16,7 +16,7 @@ FROM ibmjava:sdk-alpine as server
 # USER spring:spring
 
 
-ENV DEBUG 1
+ENV DEBUG 0
 ENV PLATFORM="docker"
 ENV RESOURCE_PATH="/app/backend/src/main/resources/"
 
