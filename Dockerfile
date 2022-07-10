@@ -18,7 +18,6 @@ COPY ./backend /app/backend
 WORKDIR /app/backend
 
 RUN chmod +x mvnw
-RUN ./mvnw spring-boot:build-image
 # Installs most dependencies
 # RUN ./mvnw dependency:go-offline
 # Installs all dependencies
@@ -27,6 +26,8 @@ RUN ./mvnw spring-boot:build-image
 # COPY --from=build /app/frontend/build /app/backend/src/main/resources/public
 COPY --from=build /app/frontend/build/_app /app/backend/src/main/resources/public/_app
 COPY --from=build /app/frontend/build /app/backend/src/main/resources/templates
+
+RUN ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=parshandata/latest
 
 CMD ["./mvnw", "spring-boot:run"]
 # -Dserver.port=$PORT
