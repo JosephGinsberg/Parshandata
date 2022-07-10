@@ -12,6 +12,10 @@ RUN cd /app/frontend && npm install && npm run build
 # Latest java image
 FROM ibmjava:sdk-alpine as server
 
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
+
+
 ENV DEBUG 0
 ENV PLATFORM="docker"
 ENV RESOURCE_PATH="/app/backend/src/main/resources/"
@@ -30,6 +34,7 @@ COPY --from=build /app/frontend/build/_app /app/backend/src/main/resources/publi
 COPY --from=build /app/frontend/build /app/backend/src/main/resources/templates
 
 RUN ./mvnw package
+
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 
