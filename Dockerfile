@@ -27,8 +27,8 @@ COPY --from=build /app/frontend/build/_app /app/backend/src/main/resources/publi
 COPY --from=build /app/frontend/build /app/backend/src/main/resources/templates
 
 RUN chmod +x mvnw
-RUN ./mvnw clean package
-# RUN ./mvnw package
+# RUN ./mvnw 
+RUN ./mvnw -U clean install
 
 RUN for FILENAME in /app/backend/target/*.jar ; do mv $FILENAME ./target/app.jar ; done 
 
