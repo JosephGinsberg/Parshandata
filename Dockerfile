@@ -21,7 +21,6 @@ WORKDIR /app/backend
 COPY --from=build /app/frontend/build /app/backend/src/main/resources/public
 
 RUN chmod +x mvnw
-RUN ./mvnw package
-RUN for FILENAME in /app/backend/target/*.jar ; do mv $FILENAME app.jar ; done
+RUN ./mvnw -o package
 
-CMD ["java", "-Xmx300m", "-Xss512k", "-Dfile.encoding=UTF-8", "-XX:+UseContainerSupport", "-Djava.security.egd=file:/dev/./urandom","-jar", "./app.jar", "--server.port=${PORT:8080}"]
+CMD ["./mvnw", "spring-boot:run", "-Dserver.port=${PORT:8080}"]
