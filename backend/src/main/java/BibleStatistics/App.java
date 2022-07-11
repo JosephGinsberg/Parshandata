@@ -124,21 +124,24 @@ public class App {
 			else{
 				 searchText = keriUkesiv.kesiv(searchText);
 			}
+			material[i] = bibleLists.numseperator(bibleLists.numpasukim(searchText), books.getString(i));
 			for(int j = 0; j < removerlen; j++){
 				if(remover.getString(j).equals("letter")){
-					searchText = otherBibles.noLetters(searchText);
+					material[i][0][0] = otherBibles.noLetters(material[i][0][0]);
 				}
 				else if(remover.getString(j).equals("nekudah")){
-					searchText = otherBibles.noNekudot(searchText);
+					material[i][0][0] = otherBibles.noNekudot(material[i][0][0]);
+					System.out.println("n");
 				}
 				else if(remover.getString(j).equals("trop")){
-					searchText = otherBibles.noTrop(searchText);
+					material[i][0][0] = otherBibles.noTrop(material[i][0][0]);
+					System.out.println("t");
 				}
 				else if(remover.getString(j).equals("other")){
-					searchText = otherBibles.noOther(searchText);
+					material[i][0][0] = otherBibles.noOther(material[i][0][0]);
+					System.out.println("o");
 				}
 			}
-			material[i] = bibleLists.numseperator(bibleLists.numpasukim(searchText), books.getString(i));
 		}
 		return material;
 	}

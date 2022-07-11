@@ -1,1 +1,121 @@
-Temp search page | should be over written
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="./favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="content-security-policy" content=""><title>Search | Parshandata</title><meta name="description" content="A tool to search Tanach the way that you want to." data-svelte="svelte-gk74m8">
+	<link rel="stylesheet" href="/_app/immutable/assets/pages/__layout.svelte-b3c85cbe.css">
+	<link rel="stylesheet" href="/_app/immutable/assets/Button-10d88990.css">
+	<link rel="stylesheet" href="/_app/immutable/assets/pages/search/index.svelte-322967be.css">
+	<link rel="modulepreload" href="/_app/immutable/start-dc9d68fa.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/index-dcd3d23b.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/__layout.svelte-c47635ae.js">
+	<link rel="modulepreload" href="/_app/immutable/chunks/Button-12403de6.js">
+	<link rel="modulepreload" href="/_app/immutable/pages/search/index.svelte-829a4270.js">
+	</head>
+	<body>
+		<div>
+
+
+<header class="svelte-ahig9y"><div class="row"><a href="../" sveltekit:prefetch class="svelte-ahig9y"><h1 id="pageTitle" class="svelte-ahig9y">Parshandata</h1></a>
+		</div></header>
+<div class="prompt svelte-18hq154  warn"><div class="widest">Please understand the search engine is still in alpha testing. </div></div>
+<main class="svelte-13pmy0u">
+
+<section class="fullHeight"><h2>Search Tanach</h2>
+	
+	<div class="row svelte-knvbbt"><div class="container svelte-1kw1cv9"><textarea autocomplete="off" spellcheck="false" class="svelte-1kw1cv9">{
+    "books": [
+        "Genesis",
+        "Exodus",
+        "Leviticus",
+        "Numbers",
+        "Deuteronomy"
+    ],
+    "keriUkesiv": true,
+    "taamTachton": true,
+    "onlyinclude": "",
+    "remove": [],
+    "display": "every",
+    "splitBy": "pasuk",
+    "search": [
+        {
+            "param": "condition",
+            "type": "contains",
+            "connector": "none",
+            "level": 1
+        },
+        {
+            "param": "input",
+            "type": "trop",
+            "value": "legarmeh",
+            "matchtype": "contains",
+            "count": 1,
+            "counttype": "greater",
+            "connector": "distance",
+            "level": 1
+        },
+        {
+            "param": "distance",
+            "type": "before",
+            "distancetype": "greater",
+            "distance": 1,
+            "connector": "and",
+            "level": 1
+        },
+        {
+            "param": "distance",
+            "type": "before",
+            "distancetype": "less",
+            "distance": 5,
+            "connector": "none",
+            "level": 1
+        },
+        {
+            "param": "input",
+            "matchtype": "contains",
+            "type": "trop",
+            "value": "revie",
+            "count": 2,
+            "counttype": "equal",
+            "connector": "none",
+            "level": 1
+        }
+    ]
+}</textarea>
+	<br>
+	<button class="svelte-5bdgoj">Search</button>
+</div>
+		<div class="container svelte-9grgm7"><div class="header row svelte-9grgm7"><div>Results
+			<span class="subtext">• 0</span></div>
+		<div class="options row"></div></div>
+	<div class="body svelte-9grgm7">
+			<div class="result svelte-9grgm7">No search entered</div>
+		</div>
+</div></div>
+</section></main>
+
+
+
+
+		<script type="module" data-sveltekit-hydrate="1korcof">
+		import { start } from "/_app/immutable/start-dc9d68fa.js";
+		start({
+			target: document.querySelector('[data-sveltekit-hydrate="1korcof"]').parentNode,
+			paths: {"base":"","assets":""},
+			session: {},
+			route: true,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [0, 5],
+				params: {},
+				routeId: "search"
+			}
+		});
+	</script></div>
+	</body>
+</html>
