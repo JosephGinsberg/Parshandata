@@ -11,11 +11,11 @@
 		{
 			"title": "Search Tanach",
 			"desc": "With advanced functionality",// any search is possible",
-			"location": "/search"
+			"location": "/search.html"
 		},{
 			"title": "Gemtria calulator",
 			"desc": "Multiple methods at once",
-			"location": "movable"//"/gematria"
+			"location": "movable.html"//"/gematria"
 		}
 	]
 </script>
