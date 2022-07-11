@@ -22,6 +22,6 @@ COPY --from=build /app/frontend/build /app/backend/src/main/resources/public
 
 RUN chmod +x mvnw
 RUN ./mvnw dependency:go-offline
-RUN ./mvnw -o package
+RUN ./mvnw -o verify
 
-CMD ["./mvnw", "spring-boot:run", "-Dserver.port=${PORT:8080}"]
+CMD ["./mvnw", "-o", "spring-boot:run", "-Dserver.port=${PORT:8080}"]
