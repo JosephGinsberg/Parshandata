@@ -68,8 +68,8 @@
 
 	const fetchSearch = async () => {
 		count = '#'
-		// const res: any = await fetch('/api/search', {
-		const res: any = await fetch(`${location.protocol}//localhost:8080/api/search`, {
+		const res: any = await fetch('/api/search', {
+		// const res: any = await fetch(`${location.protocol}//localhost:8080/api/search`, {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json'
