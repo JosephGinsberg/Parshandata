@@ -39,8 +39,32 @@ public class App {
 	public static String mastersearch(String[][][] material, JSONObject json) throws JSONException, FileNotFoundException {
 		String jsonresult = "{\"matches\":[";
 		String splitby = json.getString("splitBy");
+		JSONArray search = json.getJSONArray("search");
 		int len = material.length;
 		int total = 0;
+		JSONArray remover = json.getJSONArray("remove");
+		int removerlen = remover.length();
+		Boolean[] conditions = {true, true, true, true, true, true};
+			for(int j = 0; j < removerlen; j++){
+				if(remover.getString(j).equals("letter")){
+					conditions[0] = false;
+				}
+				else if(remover.getString(j).equals("nekudah")){
+					conditions[1] = false;
+				}
+				else if(remover.getString(j).equals("trop")){
+					conditions[2] = false;
+				}
+				else if(remover.getString(j).equals("other")){
+					conditions[3] = false;
+				}
+				else if(remover.getString(j).equals("space")){
+					conditions[4] = false;
+				}
+				else if(remover.getString(j).equals("makaf")){
+					conditions[5] = false;
+				}
+			}
 		for(int l = 0; l < len; l++){
 			String[][] thismaterial = material[l];
 			int thismateriallen = thismaterial.length;
@@ -72,7 +96,8 @@ public class App {
 						String[] nowtrop = {trop[j]};
 						trop = nowtrop; 
 					}
-					ArrayList<Integer> matches = searching(json.getJSONArray("search"), 0, list[j], trop);
+					String in = otherBibles.choose(list[j], conditions);
+					ArrayList<Integer> matches = searching(search, 0, in, trop);
 					if(matches.size() != 0){
 						String listvalue = "";
 						if(!value){
@@ -97,7 +122,7 @@ public class App {
 				}
 			}
 		}
-		System.out.println("total: " + total);
+		//^CSystem.out.println("total: " + total);
 		return jsonresult.replaceFirst(",", "") + "],";
 	}
 
@@ -105,8 +130,6 @@ public class App {
 		String searchText = "";
 		Boolean taam = json.getBoolean("taamTachton");
 		Boolean keri = json.getBoolean("keriUkesiv");
-		JSONArray remover = json.getJSONArray("remove");
-		int removerlen = remover.length();
 		JSONArray books = json.getJSONArray("books");
 		int bookslen = books.length();
 		String[][][] material = new String[bookslen][][];
@@ -125,23 +148,6 @@ public class App {
 				 searchText = keriUkesiv.kesiv(searchText);
 			}
 			material[i] = bibleLists.numseperator(bibleLists.numpasukim(searchText), books.getString(i));
-			for(int j = 0; j < removerlen; j++){
-				if(remover.getString(j).equals("letter")){
-					material[i][0][0] = otherBibles.noLetters(material[i][0][0]);
-				}
-				else if(remover.getString(j).equals("nekudah")){
-					material[i][0][0] = otherBibles.noNekudot(material[i][0][0]);
-					System.out.println("n");
-				}
-				else if(remover.getString(j).equals("trop")){
-					material[i][0][0] = otherBibles.noTrop(material[i][0][0]);
-					System.out.println("t");
-				}
-				else if(remover.getString(j).equals("other")){
-					material[i][0][0] = otherBibles.noOther(material[i][0][0]);
-					System.out.println("o");
-				}
-			}
 		}
 		return material;
 	}

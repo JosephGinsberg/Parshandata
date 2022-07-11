@@ -4,10 +4,10 @@ public class otherBibles {
 	
 	//Removes all the letters from the given input String
 	public static String noLetters(String bible){
-		String[] nekudot = basicLists.letterList();
-		int len = nekudot.length;
+		String[] letters = basicLists.letterList();
+		int len = letters.length;
 		for(int i = 0; i < len; i++) {
-			bible = bible.replace(nekudot[i] , "");
+			bible = bible.replace(letters[i] , "");
 		}
 		return bible;
 	}
@@ -24,20 +24,31 @@ public class otherBibles {
 	
 	//Removes all the trop from the given input String
 	public static String noTrop(String bible){
-		String[] nekudot = basicLists.tropList();
-		int len = nekudot.length;
+		String[] trop = basicLists.tropList();
+		int len = trop.length;
 		for(int i = 0; i < len; i++) {
-			bible = bible.replace(nekudot[i] , "");
+			bible = bible.replace(trop[i] , "");
 		}
 		return bible;
 	}
 	
 	//Removes all the other from the given input String
-		public static String noOther(String bible){
-			String[] nekudot = basicLists.otherList();
-			int len = nekudot.length;
+		public static String noOther(String bible, Boolean space, Boolean makaf){
+			String[] other = basicLists.otherList();
+			int len = other.length;
 			for(int i = 0; i < len; i++) {
-				bible = bible.replace(nekudot[i] , "");
+				if(other[i].equals("־") && makaf){
+					bible = bible.replace(other[i], " ");
+				}
+				else if(other[i].equals("־") && !makaf){
+					bible = bible.replace(other[i], "");
+				}
+				else if(other[i].equals(" ") && !space){
+					bible = bible.replace(other[i], "");
+				}
+				else{
+					bible = bible.replace(other[i], "");
+				}
 			}
 			return bible;
 		}
@@ -65,7 +76,7 @@ public class otherBibles {
 		bible = noTrop(bible);
 		bible = noNekudot(bible);
 		bible = noLetters(bible);
-		bible = noOther(bible);
+		bible = noOther(bible, false, false);
 		return bible;
 		
 		//bible = bible.replace("�" , "");
@@ -81,7 +92,7 @@ public class otherBibles {
 	public static String justLetters(String bible){
 		bible = noTrop(bible);
 		bible = noNekudot(bible);
-		bible = noOther(bible);
+		bible = noOther(bible, false, false);
 		return bible;
 	}
 	
@@ -104,7 +115,7 @@ public class otherBibles {
 	public static String justNekudot(String bible){
 		bible = noTrop(bible);
 		bible = noLetters(bible);
-		bible = noOther(bible);
+		bible = noOther(bible, false, false);
 		return bible;
 	}	
 	
@@ -112,22 +123,22 @@ public class otherBibles {
 	public static String justTrop(String bible){
 		bible = noNekudot(bible);
 		bible = noLetters(bible);
-		bible = noOther(bible);
+		bible = noOther(bible, false, false);
 		return bible;
 	}
 	
-	public static String choose(String bible, Boolean letter, Boolean nikud, Boolean trop, Boolean other) {
-		if(!letter) {
+	public static String choose(String bible, Boolean[] conditions) {
+		if(!conditions[0]) {
 			bible = noLetters(bible);
 		}
-		if(!nikud) {
+		if(!conditions[1]) {
 			bible = noNekudot(bible);
 		}
-		if(!trop) {
+		if(!conditions[2]) {
 			bible = noTrop(bible);
 		}
-		if(!other) {
-			bible = noOther(bible);
+		if(!conditions[3]) {
+			bible = noOther(bible, conditions[4], conditions[5]);
 		}
 		return bible;
 	}
