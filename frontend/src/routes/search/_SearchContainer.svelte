@@ -61,6 +61,8 @@
 
 <style>
 	.container{
+		display: flex;
+		flex-direction: column;
 		height: 100%;
 		max-height: 100%;
 		width: 47.5%;
@@ -77,9 +79,7 @@
 	}
 	textarea{
 		width: 100%;
-		height: calc(100% - 70px);
-		margin-bottom: .55rem;
-		/* padding: var(--topPadding) 0; */
+		height: 100%;
 		background-color: transparent;
 		border: none;
 		outline: none;
