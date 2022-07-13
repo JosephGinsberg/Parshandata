@@ -16,7 +16,7 @@
 <style>
 	main{
 		position: relative;
-		min-height: 85%;
+		height: calc(100% - (var(--headerHeight) + 150px));
 		z-index: 1;
 	}
 </style>

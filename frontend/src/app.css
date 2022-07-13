@@ -6,6 +6,7 @@
 	--lightText: #aab0b8;
 
 	--defaultBackground: #fff;
+	/* --default-bg-color: #fff; */
 	--blue-background: #e8f0ff;
 	--blue-primary: #1657b1;
 	--orange-background: #fee9d7;/* #ffe9d6; */
@@ -16,8 +17,10 @@
 	--red-primary: #862424;
 	--offBlack: #202124;
 	--fadedOffBlack: #313337;
-	--offWhite: #f7f7f8;
+	--offWhite: #ececf1;/* #f7f7f8; */
 	--fadedOffWhite: #fff;
+
+	--headerHeight: 60px;
 	--sidePadding: 2.5rem;
 	--topPadding: calc(var(--sidePadding) / 2);
 	--borderRadius: 6px;
@@ -29,8 +32,7 @@
 html, body, body > div, main, .fullHeight {
 	position: relative;
 	width: 100%;
-	height: 94%;
-	max-height: 100%;
+	height: 100%;
 }
 body {
 	margin: 0;
@@ -39,28 +41,33 @@ body {
 	color: var(--offBlack);
 	background-color: var(--defaultBackground);
 }
-header > .row, main > section, .widest{
+main > section, .widest {
 	max-width: 1200px;
 	margin: 0 auto;
 	box-sizing: border-box;
 }
-
-section{
-	padding: calc(var(--topPadding) / 2) 0;
+.fullWidth {
+	max-width: unset;
 }
-main > section{
+main > section {
 	padding: calc(var(--topPadding) / 2) var(--sidePadding);
 }
 
-h2{
+h2, .title{
+    margin: 0;
+    padding: 1.5rem 0 1rem;
 	font-family: 'Google Sans',Roboto,Arial,sans-serif;
     font-size: 1.25rem;
     font-weight: 400;
     letter-spacing: 0;
     line-height: 1.5rem;
     color: #202124;
-    margin: 0;
-    padding: 1.5rem 0 1rem;
+}
+h3, .title{
+	padding: 0;
+    font-size: 18px;
+    line-height: 1.33;
+	font-weight: 700;
 }
 .card{
 	padding: var(--topPadding);

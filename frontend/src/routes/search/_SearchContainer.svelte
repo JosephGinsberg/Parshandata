@@ -31,7 +31,7 @@
 		{/each}
 	{/if}
 	<br>
-	<Button text="Search" on:click={runSearch} />
+	<Button text="Search" style='default' on:click={runSearch} />
 </div>
 
 <style>
@@ -42,6 +42,7 @@
 		max-width: 47.5%;
 		/* padding: var(--topPadding) 0; */
 		padding: var(--topPadding);
+		padding-right: 0;
 		box-sizing: border-box;
 		/* overflow-y: auto; */
 		background-color: var(--defaultBackground);
@@ -53,7 +54,8 @@
 	}
 	textarea{
 		width: 100%;
-		height: calc(100% - 40px);
+		height: calc(100% - 45px);
+		margin-bottom: .55rem;
 		/* padding: var(--topPadding) 0; */
 		background-color: transparent;
 		border: none;

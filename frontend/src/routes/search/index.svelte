@@ -1,6 +1,7 @@
 <script lang="ts">
 	import SearchContainer from "./_SearchContainer.svelte"
 	import ResultsContainer from "./_ResultsContainer.svelte"
+	import ParameterPanel from "./_ParameterPanel.svelte"
 
 	let books: string[] = [
 		"Genesis",
@@ -68,8 +69,8 @@
 
 	const fetchSearch = async () => {
 		count = '#'
-		const res: any = await fetch('/api/search', {
-		// const res: any = await fetch(`${location.protocol}//localhost:8080/api/search`, {
+		// const res: any = await fetch('/api/search', {
+		const res: any = await fetch(`${location.protocol}//localhost:8080/api/search`, {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json'
@@ -91,16 +92,21 @@
 	<meta name="description" content="A tool to search Tanach the way that you want to." />
 </svelte:head>
 
-<section class="fullHeight">
-	<h2>Search Tanach</h2>
+<section class="fullHeight" class:fullWidth={false}>
+	<h3>Search Tanach</h3>
 	
 	<div class="row">
 		<SearchContainer search={searchRequest} {runSearch} {updateSearch}/>
 		<ResultsContainer state={searchStatus} {count} />
+		<ParameterPanel search={searchRequest} />
 	</div>
 </section>
 
 <style>
+	section{
+		padding-top: 0;
+		padding-bottom: 0;
+	}
 	.row{
 		align-items: flex-start;
 		justify-content: space-between;
@@ -108,5 +114,8 @@
 		width: 100%;
 		max-width: 100%;
 		flex: 1 1 0;
+	}
+	.row :nth-child(1n+1){
+		flex-basis: calc((100% / 3) - 20px);
 	}
 </style>

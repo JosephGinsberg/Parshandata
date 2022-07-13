@@ -5,11 +5,17 @@
 <style>
 	header{
 		position: relative;
-		padding: calc(var(--topPadding) / 1.5) var(--sidePadding);
+		height: var(--headerHeight);
+		/* padding: calc(var(--topPadding) / 1.5) var(--sidePadding); */
+		padding: 0 var(--sidePadding);
+		box-sizing: border-box;
 		justify-content: space-between;
 		background-color: var(--defaultBackground);
 		box-shadow: 0 1px 3px rgb(0 0 0 / 6%), 0 1px 2px rgb(0 0 0 / 12%);
 		z-index: 10;
+	}
+	header .row{
+		height: 100%;
 	}
 	a:hover{
 		text-decoration: none;

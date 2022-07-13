@@ -1,19 +1,88 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte'
-	// const dispatch: dispatch = createEventDispatcher()
+	import Icon from "$lib/Icon.svelte"
+
 	const dispatch: any = createEventDispatcher()
 	const transferClick = () => dispatch('click')
 
-	export let text: string, icon: string = '', size: string = '', style: string = ''
-	const button: buttonType = {text, icon, size, style}
+	export let style: string = 'default',
+	icon: string = '',
+	text: string
 </script>
+
+{#if text || icon}
+<button class='{style}' on:click={transferClick}>
+	{#if icon!==''}
+		<Icon name={icon} height='1.15em' width='1.15em' margin='.5em' />
+	{/if}
+	<span class:leadingIcon={icon!==''}>{text}</span>
+</button>
+{/if}
 
 <style>
 	button{
+		position: relative;
+		display: flex;
+		align-items: center;
+		padding: 0 .75rem;
+		border: none;
+		border-radius: 6px;
+		text-align: center;
+		font-size: 1rem;
+		line-height: 2rem;
+		white-space: nowrap;
+		cursor: pointer;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	button:hover{
+		transition: background-color 0.12s ease-out;
+	}
+	button.small{
+		font-size: .875rem;
+		padding: 0 .5rem;
+	}
+	/* button.bold{
+		font-weight: 700;
+	} */
+
+	button.default{
+		background-color: var(--offWhite);
+		/* box-shadow:
+			0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+			0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+			0px 1px 3px 0px rgba(0, 0, 0, 0.12); */
+	}
+	button.default:hover{
+		background-color: #d9d9e3;
+	}
+	button.default:active{
+		background-color: #c5c5d2;
+	}
+
+	button.minimal{
+		/* border: 1px solid rgba(208,215,222,0.32); */
+		border: none;
+		background-color: transparent;
+		color: var(--fadedOffBlack);
+		fill: var(--fadedOffBlack);
+	}
+	button.minimal:hover{
+		color: rgb(36, 41, 47);
+		fill: rgb(36, 41, 47);
+		background: rgba(208,215,222,0.32);
+	}
+
+
+
+
+
+	/* button{
 		display: inline-flex;
 		align-items: center;
 		padding: .4rem 1rem;
-		/* background-color: -internal-light-dark(#efefef, #3b3b3b); */
+		/* background-color: -internal-light-dark(#efefef, #3b3b3b); *
 		background-color: var(--offBlack);
 		color: var(--offWhite);
 		border-radius: var(--borderRadius);
@@ -61,7 +130,7 @@
 	}
 	button.secondary:not(:disabled):active{
 		background-color: var(--offWhite);
-	}
+	} */
 
 
 	/* openAI */
@@ -191,7 +260,3 @@
 		font-family: var(--sans-serif);
 	} */
 </style>
-
-{#if button.text}
-<button class:secondary={style==='secondary'} class:minimal={style==='minimal'} on:click={transferClick}>{button.text}</button>
-{/if}
