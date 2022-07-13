@@ -7,13 +7,15 @@
 
 	export let style: string = 'default',
 	icon: string = '',
-	text: string
+	text: string = ''
 </script>
 
 {#if text || icon}
 <button class='{style}' on:click={transferClick}>
-	{#if icon!==''}
+	{#if icon!=='' && text}
 		<Icon name={icon} height='1.15em' width='1.15em' margin='.5em' />
+	{:else if icon!==''}
+		<Icon name={icon} height='1.15em' width='1.15em' />
 	{/if}
 	<span class:leadingIcon={icon!==''}>{text}</span>
 </button>
@@ -22,7 +24,7 @@
 <style>
 	button{
 		position: relative;
-		display: flex;
+		display: inline-flex;
 		align-items: center;
 		padding: 0 .75rem;
 		border: none;
@@ -37,7 +39,7 @@
 		user-select: none;
 	}
 	button:hover{
-		transition: background-color 0.12s ease-out;
+		transition: background-color 0.12s ease-out, color 0.12s ease-out;
 	}
 	button.small{
 		font-size: .875rem;
@@ -48,16 +50,29 @@
 	} */
 
 	button.default{
-		background-color: var(--offWhite);
+		background-color: #0969da;
+		color: #fff;
 		/* box-shadow:
 			0px 2px 1px -1px rgba(0, 0, 0, 0.2),
 			0px 1px 1px 0px rgba(0, 0, 0, 0.14),
 			0px 1px 3px 0px rgba(0, 0, 0, 0.12); */
 	}
 	button.default:hover{
-		background-color: #d9d9e3;
+		background-color: #1065c5;
+		color: var(--offWhite);
 	}
 	button.default:active{
+		background-color: #0a52a4;
+		color: #fff;
+	}
+
+	button.muted{
+		background-color: var(--offWhite);
+	}
+	button.muted:hover{
+		background-color: #d9d9e3;
+	}
+	button.muted:active{
 		background-color: #c5c5d2;
 	}
 
