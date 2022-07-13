@@ -52,7 +52,7 @@
 	<div class="buttonsContainer row">
 		<Button style='default' text="Search" on:click={runSearch} />
 		<div>
-			<Button style='minimal small' icon='download' text='Download' on:click={downloadSearch} />
+			<Button style='minimal small' icon='save' text='Save search' on:click={downloadSearch} />
 			<Button style='minimal small' icon='upload' text='Upload' on:click={() => fileSelector.click()} />
 			<input type="file" bind:this={fileSelector} on:change={uploadSearch} accept=".json" />
 		</div>
