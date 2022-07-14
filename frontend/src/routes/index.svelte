@@ -1,6 +1,4 @@
 <script lang="ts">
-	// import Counter from '$lib/Counter.svelte';
-
 	interface Example{
 		title: string
 		desc: string
@@ -11,11 +9,11 @@
 		{
 			"title": "Search Tanach",
 			"desc": "With advanced functionality",// any search is possible",
-			"location": "/search"//.html"
+			"location": "/search.html"
 		},{
 			"title": "Gemtria calulator",
 			"desc": "Multiple methods at once",
-			"location": "movable"//.html"//"/gematria"
+			"location": "movable.html"//"/gematria"
 		}
 	]
 </script>

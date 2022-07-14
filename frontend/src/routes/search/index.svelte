@@ -69,8 +69,7 @@
 
 	const fetchSearch = async () => {
 		count = '#'
-		// const res: any = await fetch('/api/search', {
-		const res: any = await fetch(`${location.protocol}//localhost:8080/api/search`, {
+		const res: any = await fetch(window.location.protocol==='https:'? '/api/search': 'http://localhost:8080/api/search', {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json'
@@ -114,8 +113,5 @@
 		width: 100%;
 		max-width: 100%;
 		flex: 1 1 0;
-	}
-	.row :nth-child(1n+1){
-		flex-basis: calc((100% / 3) - 20px);
 	}
 </style>
