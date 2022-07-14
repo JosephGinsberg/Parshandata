@@ -55,7 +55,11 @@
 							{/if}
 						</div>
 						<div class="location">
-							{#if data.matches[id+1] && match.fullverse === data.matches[id+1].fullverse}*{/if}
+							{#if data.matches[id+1] &&
+							match.fullverse === data.matches[id+1].fullverse &&
+							match.bookname 	=== data.matches[id+1].bookname	 &&
+							match.chapter 	=== data.matches[id+1].chapter	 &&
+							match.verse 	=== data.matches[id+1].verse		 }*{/if}
 							{match.bookname.replace('_', ' ')} {match.perek}:{match.pasuk}</div>
 					</div>
 				{:else}

@@ -22,14 +22,14 @@ An advanced Tanach search engine, allowing for complex, layered searches of the 
 * Statistics
 * Ranges of Pasukim
 * Gemmatriah/Ciphers
+* write-up documentation
 
 ## Frontnend
 
 ### Near Future
-* Build out interface
-* dockerize
+* Build input interface
 * add apache/nginx in front of app for static frontend files
-* return generated search results
+* 
 
 ### Eventual
 * More features coming soon
