@@ -114,7 +114,4 @@
 		max-width: 100%;
 		flex: 1 1 0;
 	}
-	.row :nth-child(1n+1){
-		flex-basis: calc((100% / 3) - 20px);
-	}
 </style>
