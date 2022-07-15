@@ -6,11 +6,18 @@
 	updateSearch: Function,
 	runSearch: VoidFunction
 
-	let isAdvancedMode: boolean = true,
+	let isDevMode: boolean = true,
+	lastClicks: string[] = [],
 	request: string = JSON.stringify(search, undefined, 4),
 	fileSelector: HTMLInputElement
 
-	const validateJson = (expectedJson: string) => {
+	const changeToDEV = (e: KeyboardEvent) => {
+		lastClicks.push(e.key)
+		if(lastClicks.length > 3) lastClicks.shift()
+		if (lastClicks.join('') === 'dev') isDevMode = !isDevMode
+		console.log(isDevMode)
+	},
+	validateJson = (expectedJson: string) => {
 		try {
 			JSON.parse(expectedJson)
 			return true
@@ -40,20 +47,30 @@
 	// request = JSON.stringify(JSON.parse(request), undefined, 4)
 </script>
 
-<div class="container">
-	{#if isAdvancedMode}
-		<textarea class:error={!validateJson(request.toString())} bind:value={request} autocomplete="off" spellcheck="false"></textarea>
+<div class="container" on:keyup={changeToDEV}>
+	{#if !isDevMode}
+		<div class='optionsContaioner'>
+			<div>Display <span style="display: none;">Search</span> every {search.splitBy}</div>
+
+			{#each search.search as element, i (element)}
+				<SearchOption {element} index={i} />
+			{/each}
+		</div>
 	{:else}
-		{#each search.search as searchOption, i (searchOption)}
-			<SearchOption props={searchOption} index={i} />
-		{/each}
+		<!-- <div style="position: absolute;top: var(--topPadding);right: var(--topPadding);">
+			<Button classes='minimal small' icon='library_add' text='Add element' />
+		</div> -->
+
+		<textarea class:error={!validateJson(request.toString())} bind:value={request} autocomplete="off" spellcheck="false"></textarea>
 	{/if}
+	<!-- <textarea class:error={!validateJson(request.toString())} bind:value={request} autocomplete="off" spellcheck="false"></textarea> -->
 
 	<div class="buttonsContainer row">
 		<Button style='default' text="Search" on:click={runSearch} />
 		<div>
-			<Button style='minimal small' icon='save' text='Save search' on:click={downloadSearch} />
-			<Button style='minimal small' icon='upload' text='Upload' on:click={() => fileSelector.click()} />
+			<!-- <Button classes='muted small' icon='save' text='Save search' on:click={downloadSearch} /> -->
+			<Button classes='minimal small' icon='save' on:click={downloadSearch} />
+			<Button classes='minimal small' icon='upload' text='Upload' on:click={() => fileSelector.click()} />
 			<input type="file" bind:this={fileSelector} on:change={uploadSearch} accept=".json" />
 		</div>
 	</div>
@@ -65,8 +82,8 @@
 		flex-direction: column;
 		height: 100%;
 		max-height: 100%;
-		width: 47.5%;
-		max-width: 47.5%;
+		width: calc(50% - var(--sidePadding));
+		margin-inline-end: var(--sidePadding);
 		padding-right: 0;
 		box-sizing: border-box;
 		/* overflow-y: auto; */
@@ -76,6 +93,10 @@
 	}
 	.container:focus-within, .container:focus-within .buttonsContainer{
 		border-color: var(--supportText);
+	}
+	.container .optionsContaioner{
+		padding: calc(var(--topPadding) / 1.5) var(--topPadding);
+		height: 100%;
 	}
 	textarea{
 		width: 100%;

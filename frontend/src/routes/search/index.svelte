@@ -91,7 +91,7 @@
 	<meta name="description" content="A tool to search Tanach the way that you want to." />
 </svelte:head>
 
-<section class="fullHeight" class:fullWidth={false}>
+<section class="fullHeight fullWidth" class:fullWidth={true}>
 	<h3>Search Tanach</h3>
 	
 	<div class="row">
@@ -112,6 +112,5 @@
 		height: 100%;
 		width: 100%;
 		max-width: 100%;
-		flex: 1 1 0;
 	}
 </style>

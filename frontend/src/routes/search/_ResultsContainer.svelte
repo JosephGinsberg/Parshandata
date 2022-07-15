@@ -34,7 +34,7 @@
 			<span class="subtext">• {count}</span>
 		</div>
 		<div class="options row">
-			<Button style='minimal small' icon='download' text='Download' on:click={downloadResults} />
+			<Button classes='minimal small' icon='download' text='Download' on:click={downloadResults} />
 		</div>
 	</div>
 	<div class="body">
@@ -79,8 +79,7 @@
 		height: 100%;
 		max-height: 100%;
 		overflow-y: hidden;
-		width: 47.5%;
-		max-width: 47.5%;
+		width: calc(50% - var(--sidePadding));
 		box-sizing: border-box;
 		background-color: rgb(250, 250, 255);
 		border: 2px solid var(--disabledText);
