@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from '$lib/button.svelte'
+	import Button from '$lib/Button.svelte'
 
 	export let element: searchParam,
 	index: number
