@@ -12,12 +12,12 @@
 	update: boolean = true,
 	fileSelector: HTMLInputElement
 
-	const changeToDEV = (e: KeyboardEvent) => {
+	const changeToDEV = (e: KeyboardEvent): void => {
 		lastClicks.push(e.key)
 		if(lastClicks.length > 3) lastClicks.shift()
 		if (lastClicks.join('') === 'dev') isDevMode = !isDevMode
 	},
-	validateJson = (expectedJson: string) => {
+	validateJson = (expectedJson: string): boolean => {
 		try {
 			JSON.parse(expectedJson)
 			return true
@@ -26,7 +26,6 @@
 		}
 	},
 	formatJSON = (event: any) => {
-		// on:input={formatJSON}
 		const { selectionStart, selectionEnd, value } = event.target
 
 		request = JSON.stringify(JSON.parse(request), undefined, 4)
@@ -34,13 +33,13 @@
 		event.target.selectionStart = selectionStart
 		event.target.selectionEnd = selectionEnd
 	},
-	uploadSearch: VoidFunction = async () => {
+	uploadSearch = async (): Promise<void> => {
 		if(!fileSelector.files) return
 
 		const savedSearch = await fileSelector.files[0].text()
 		search = JSON.parse(savedSearch)
 	},
-	downloadSearch: VoidFunction = () => {
+	downloadSearch = (): void => {
 		let dataString: string = JSON.stringify(JSON.parse(request), undefined, 4),
 		filename: string = 'Search | Parshandata.json'
 
@@ -59,7 +58,11 @@
 
 <div class="container" on:keyup={changeToDEV}>
 	{#if !isDevMode}
-		<div class='optionsContaioner'>
+		<!-- <div style="position: absolute;top: var(--topPadding);right: var(--topPadding);">
+			<Button classes='minimal small' icon='library_add' text='Add element' />
+		</div> -->
+
+		<div class='optionsContainer'>
 			<div>Display <span style="display: none;">Search</span> every {search.splitBy}</div>
 
 			{#each search.search as element, i (element)}
@@ -67,18 +70,12 @@
 			{/each}
 		</div>
 	{:else}
-		<!-- <div style="position: absolute;top: var(--topPadding);right: var(--topPadding);">
-			<Button classes='minimal small' icon='library_add' text='Add element' />
-		</div> -->
-
-		<textarea class:error={!validateJson(request)} bind:value={request} on:focus={() => update = !update} on:blur={() => update = !update} autocomplete="off" spellcheck="false"></textarea>
+		<textarea class:error={!validateJson(request)} bind:value={request} on:focus={() => update = !update} on:blur={() => update = !update} on:input={formatJSON} autocomplete="off" spellcheck="false"></textarea>
 	{/if}
-	<!-- <textarea class:error={!validateJson(request)} bind:value={request} on:focus={() => update = !update} on:blur={() => update = !update} autocomplete="off" spellcheck="false"></textarea> -->
 
 	<div class="buttonsContainer row">
 		<Button style='default' text="Search" on:click={runSearch} />
 		<div>
-			<!-- <Button classes='muted small' icon='save' text='Save search' on:click={downloadSearch} /> -->
 			<Button classes='minimal small' icon='save' on:click={downloadSearch} />
 			<Button classes='minimal small' icon='upload' text='Upload' on:click={() => fileSelector.click()} />
 			<input type="file" bind:this={fileSelector} on:change={uploadSearch} accept=".json" />
@@ -104,7 +101,7 @@
 	.container:focus-within, .container:focus-within .buttonsContainer{
 		border-color: var(--supportText);
 	}
-	.container .optionsContaioner{
+	.container .optionsContainer{
 		padding: calc(var(--topPadding) / 1.5) var(--topPadding);
 		height: 100%;
 	}

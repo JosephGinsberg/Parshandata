@@ -1,6 +1,6 @@
 interface searchRequest{
 	books: string[]
-	keriUkesiv: boolean
+	useKeri: boolean
 	taamTachton: boolean
 	display: string
 	splitBy: string

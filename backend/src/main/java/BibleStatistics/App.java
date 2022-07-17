@@ -129,7 +129,7 @@ public class App {
 	public static String[][][] setup(JSONObject json) throws JSONException, FileNotFoundException {
 		String searchText = "";
 		Boolean taam = json.getBoolean("taamTachton");
-		Boolean keri = json.getBoolean("keriUkesiv");
+		Boolean keri = json.getBoolean("useKeri");
 		JSONArray books = json.getJSONArray("books");
 		int bookslen = books.length();
 		String[][][] material = new String[bookslen][][];

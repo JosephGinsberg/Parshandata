@@ -193,9 +193,9 @@
 
 	<div class='option'>
 		<h3 class="title">Use <i>keri</i> instead of <i>kesiv</i></h3>
-		<Button classes='small {search.keriUkesiv? 'default': 'muted'}' text='Yes' on:click={() => updateSearchByKey('keriUkesiv', true)} />
-		<Button classes='small {!search.keriUkesiv? 'default': 'muted'}' text='No' on:click={() => updateSearchByKey('keriUkesiv', false)} />
-		<!-- {search.keriUkesiv} -->
+		<Button classes='small {search.useKeri? 'default': 'muted'}' text='Yes' on:click={() => updateSearchByKey('useKeri', true)} />
+		<Button classes='small {!search.useKeri? 'default': 'muted'}' text='No' on:click={() => updateSearchByKey('useKeri', false)} />
+		<!-- {search.useKeri} -->
 	</div>
 
 	<div class='option'>
