@@ -67,7 +67,7 @@ h2, .title{
     color: #202124;
 }
 h3, .title{
-	padding: 0 0 .5rem 0;
+	padding: 0;
 	color: var(--supportText);
     font-size: 1rem;
 	font-weight: 700;

@@ -31,3 +31,9 @@ interface searchMatch{
 	perek: string
 	splitvalue: string
 }
+
+interface tanachBook{
+	bookname: string
+	inSet: string
+	hebrew: string
+}

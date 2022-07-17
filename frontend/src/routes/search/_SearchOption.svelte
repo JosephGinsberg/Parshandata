@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from '$lib/Button.svelte'
+	import Dropdown from '$lib/Dropdown.svelte'
 
 	export let element: searchParam,
 	index: number
@@ -11,7 +11,8 @@
 
 	{#if element.param === 'condition'}
 		that
-		<Button
+		<Dropdown classes='small' text='does not contain' style='margin-left: 8px;' />
+		<!-- <Button
 			classes='small {element.type==='contains'? 'default': 'muted'}'
 			text='contains'
 			style='margin-inline-start: 8px;'
@@ -20,7 +21,7 @@
 			classes='small {element.type==='does not contain'? 'default': 'muted'}'
 			text='does not contain'
 			style='margin-inline-start: 8px;'
-			on:click={() => element.type='does not contain'} />
+			on:click={() => element.type='does not contain'} /> -->
 	{:else if element.param === 'abstract'}
 		<div>every word containing a ח</div>
 	{:else if element.param === 'distance'}
@@ -44,8 +45,10 @@
 		width: 24px;
 		margin-inline-end: .5rem;
 		cursor: pointer;
-
 		opacity: 0;
+	}
+	.option:hover .handle{
+		opacity: 1;
 	}
 	.temp{
 		display: none;
