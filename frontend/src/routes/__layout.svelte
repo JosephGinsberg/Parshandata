@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import Header from '$lib/Header.svelte';
+	import Header from '$lib/header.svelte';
 	import NotificationBar from '$lib/NotificationBar.svelte';
 	import '../app.css';
 </script>
