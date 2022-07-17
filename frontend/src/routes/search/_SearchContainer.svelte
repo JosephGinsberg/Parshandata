@@ -16,7 +16,6 @@
 		lastClicks.push(e.key)
 		if(lastClicks.length > 3) lastClicks.shift()
 		if (lastClicks.join('') === 'dev') isDevMode = !isDevMode
-		console.log(isDevMode)
 	},
 	validateJson = (expectedJson: string) => {
 		try {
@@ -26,11 +25,20 @@
 			return false
 		}
 	},
+	formatJSON = (event: any) => {
+		// on:input={formatJSON}
+		const { selectionStart, selectionEnd, value } = event.target
+
+		request = JSON.stringify(JSON.parse(request), undefined, 4)
+
+		event.target.selectionStart = selectionStart
+		event.target.selectionEnd = selectionEnd
+	},
 	uploadSearch: VoidFunction = async () => {
 		if(!fileSelector.files) return
 
 		const savedSearch = await fileSelector.files[0].text()
-		request = savedSearch
+		search = JSON.parse(savedSearch)
 	},
 	downloadSearch: VoidFunction = () => {
 		let dataString: string = JSON.stringify(JSON.parse(request), undefined, 4),
@@ -44,6 +52,7 @@
 		link.click()
 	}
 
+	// $: if(validateJson(request) && !update) search = JSON.parse(request)
 	$: if(validateJson(request)) updateSearch(JSON.parse(request))
 	$: if(request !== search && update && validateJson(request)) request = JSON.stringify(search, undefined, 4)
 </script>

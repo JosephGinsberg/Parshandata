@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Button from "$lib/Button.svelte";
-	import Icon from "$lib/Icon.svelte";
+	import Button from "$lib/Button.svelte"
+	import Dropdown from "$lib/Dropdown.svelte"
 
 	export let search: searchRequest,
 	updateSearchByKey: any
@@ -15,12 +15,10 @@
 <aside>
 	<div class="option">
 		<h3 class="title">Books to search</h3>
-		<div class="tempDropdown row">
-			{`${search.books[0]}, ${search.books[1]}, ${search.books[0][0]}...`}
-			<!-- {search.books.length} Books -->
-			<!-- {search.books.length} Selected -->
-			<Icon name='expand' />
-		</div>
+		<!-- <Dropdown text={`${search.books[0]}, ${search.books[1]}, ${search.books[0][0]}...`} /> -->
+		<Dropdown text='{search.books.length} Book{search.books.length > 1? 's': ''} selected' />
+		<!-- <Dropdown text='{search.books.length} Book{search.books.length > 1? 's': ''}' /> -->
+		<!-- <Dropdown text='{search.books.length} Selected' /> -->
 		<!-- {JSON.stringify(search.books)} -->
 	</div>
 
@@ -43,23 +41,18 @@
 		<Button classes='small {search.remove.indexOf('letter') >= 0? 'default': 'muted'}' text='Letter' on:click={updateSearchByKey('remove', changeArray(search.remove, 'letter'))} />
 		<Button classes='small {search.remove.indexOf('nekudah') >= 0? 'default': 'muted'}' text='Nekudah' on:click={updateSearchByKey('remove', changeArray(search.remove, 'nekudah'))} />
 		<Button classes='small {search.remove.indexOf('trop') >= 0? 'default': 'muted'}'  text='Trop' on:click={updateSearchByKey('remove', changeArray(search.remove, 'trop'))} />
+		<Button classes='small {search.remove.indexOf('other') >= 0? 'default': 'muted'}'  text='Other' on:click={updateSearchByKey('remove', changeArray(search.remove, 'other'))} />
 		<!-- {JSON.stringify(search.remove)} -->
 	</div>
 	
 	<div class="option">
 		<h3 class="title">Display</h3>
-		<div class="tempDropdown row">
-			{search.display}
-			<Icon name='expand' />
-		</div>
+		<Dropdown text={search.display} />
 	</div>
-
+	
 	<div class="option">
 		<h3 class="title">Split results by</h3>
-		<div class="tempDropdown row">
-			{search.splitBy}
-			<Icon name='expand' />
-		</div>
+		<Dropdown text={search.splitBy} />
 	</div>
 </aside>
 
@@ -75,12 +68,5 @@
 	}
 	.title{
 		font-weight: 500;
-	}
-	.tempDropdown{
-		padding: 0 8px;
-		border: solid 1px var(--lightText);
-		border-radius: var(--borderRadius);
-		line-height: 32px;
-		text-transform: capitalize;
 	}
 </style>
