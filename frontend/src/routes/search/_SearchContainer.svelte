@@ -9,6 +9,7 @@
 	let isDevMode: boolean = true,
 	lastClicks: string[] = [],
 	request: string = JSON.stringify(search, undefined, 4),
+	update: boolean = true,
 	fileSelector: HTMLInputElement
 
 	const changeToDEV = (e: KeyboardEvent) => {
@@ -43,8 +44,8 @@
 		link.click()
 	}
 
-	$: if(validateJson(request.toString())) updateSearch(JSON.parse(request))
-	// request = JSON.stringify(JSON.parse(request), undefined, 4)
+	$: if(validateJson(request)) updateSearch(JSON.parse(request))
+	$: if(request !== search && update && validateJson(request)) request = JSON.stringify(search, undefined, 4)
 </script>
 
 <div class="container" on:keyup={changeToDEV}>
@@ -61,9 +62,9 @@
 			<Button classes='minimal small' icon='library_add' text='Add element' />
 		</div> -->
 
-		<textarea class:error={!validateJson(request.toString())} bind:value={request} autocomplete="off" spellcheck="false"></textarea>
+		<textarea class:error={!validateJson(request)} bind:value={request} on:focus={() => update = !update} on:blur={() => update = !update} autocomplete="off" spellcheck="false"></textarea>
 	{/if}
-	<!-- <textarea class:error={!validateJson(request.toString())} bind:value={request} autocomplete="off" spellcheck="false"></textarea> -->
+	<!-- <textarea class:error={!validateJson(request)} bind:value={request} on:focus={() => update = !update} on:blur={() => update = !update} autocomplete="off" spellcheck="false"></textarea> -->
 
 	<div class="buttonsContainer row">
 		<Button style='default' text="Search" on:click={runSearch} />

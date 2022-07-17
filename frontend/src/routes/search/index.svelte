@@ -22,7 +22,7 @@
 			level: 2
 		}
 	],
-	searchRequest: searchRequest | JSON = {
+	searchRequest: searchRequest = {
 		books,
 		keriUkesiv: false,
 		taamTachton: false,
@@ -82,7 +82,9 @@
 		return json
 	}
 	const runSearch: VoidFunction = () => searchStatus = fetchSearch()
-	const updateSearch = (newRequest: JSON) => searchRequest = newRequest
+	const updateSearch = (newRequest: searchRequest) => searchRequest = newRequest
+	const updateSearchByKey = (key: string, value: any) => searchRequest[key] = value
+	//boolean | string | string[] | searchParam[]
 </script>
 
 
@@ -97,7 +99,7 @@
 	<div class="row">
 		<SearchContainer search={searchRequest} {runSearch} {updateSearch}/>
 		<ResultsContainer state={searchStatus} {count} />
-		<ParameterPanel search={searchRequest} />
+		<ParameterPanel search={searchRequest} {updateSearchByKey} />
 	</div>
 </section>
 
