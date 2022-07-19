@@ -60,7 +60,9 @@ public class keriUkesiv {
 		}
 		return bible;
 	}
-	
+
+	//תַֽעֲשֶׂ֨ה־לְךָ֣ ???
+		
 	//replaces the two-trop system with just the tachton. Must be done BEFORE KeriUkesiv.
 	public static String tachton(String bible, boolean header){
 		if(!header) {

@@ -1,42 +1,52 @@
 {
-    "books": [
-        "Genesis",
-        "Exodus",
-        "Leviticus",
-        "Numbers",
-        "Deuteronomy"
-    ],
-    "keriUkesiv": true,
-    "taamTachton": true,
-    "remove": ["trop", "other", "nekudah"],
-    "display": "every",
-    "splitBy": "word",
-    "search": [
-        {
-            "param": "condition",
-            "type": "contains",
-            "connector": "none",
-            "level": 1
-        },
-        {
-            "param": "input",
-            "type": "value",
-            "value": "משׁה",
-            "matchtype": "contains",
-            "count": 0,
-            "counttype": "greater",
-            "connector": "or",
-            "level": 1
-        },
-        {
-            "param": "input",
-            "type": "value",
-            "value": "משׂה",
-            "matchtype": "is",
-            "count": 0,
-            "counttype": "greater",
-            "connector": "none",
-            "level": 1
-        }
-    ]
+  "books": ["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy"],
+  "useKeri": true,
+  "taamTachton": true,
+  "remove": ["trop", "other", "nekudah"],
+  "display": "every",
+  "splitBy": "word",
+  "search": [
+    {
+      "param": "condition",
+      "type": "contains",
+      "connector": "none",
+      "level": 1
+    },
+    {
+      "param": "input",
+      "type": "value",
+      "value": "משׁה",
+      "matchtype": "contains",
+      "count": 0,
+      "counttype": "greater",
+      "connector": "and",
+      "level": 1
+    },
+    {
+      "param": "condition",
+      "type": "does not contain",
+      "connector": "none",
+      "level": 1
+    },
+    {
+      "param": "input",
+      "type": "letter",
+      "value": "ח",
+      "matchtype": "contains",
+      "count": 1,
+      "counttype": "equal",
+      "connector": "or",
+      "level": 1
+    },
+    {
+      "param": "input",
+      "type": "letter",
+      "value": "י",
+      "matchtype": "contains",
+      "count": 1,
+      "counttype": "equal",
+      "connector": "none",
+      "level": 1
+    }
+  ]
 }

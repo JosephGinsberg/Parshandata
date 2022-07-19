@@ -2,7 +2,7 @@
     "books": [
         "Genesis"
     ],
-    "keriUkesiv": true,
+    "useKeri": true,
     "taamTachton": true,
     "remove": [
         "trop",

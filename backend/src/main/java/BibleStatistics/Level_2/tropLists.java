@@ -34,7 +34,7 @@ public class tropLists {
 				}
 				else if(now.length() == 2) {
 					if(now.contains("֨") && now.contains("֜")){
-						trope.add("kadmah-veazlah");
+						trope.add("kadmah-azlah");
 					}
 					else if(now.contains("֔") && now.contains("֨")){
 						trope.add("mesiga-zakaif");
@@ -60,14 +60,14 @@ public class tropLists {
 						trope.add("shalsheles gedolah"); 
 					}*/
 					else if(now.substring(0, 1).equals(now.substring(1, 2))){
-						trope.add(basicLists.translate(now.substring(0, 1)));
+						trope.add(basicLists.translate(now.substring(0, 1)) + "2");
 					}
 					else if(!now.substring(0, 1).equals("֣") && now.substring(1, 2).equals("׀")){
 						trope.add(basicLists.translate(now.substring(0, 1)));
 					}
 					else {
-						trope.add(basicLists.translate(now.substring(0, 1)) + " " + basicLists.translate(now.substring(1, 2)) + " * ");
-						//System.out.println(words[j] + " two trop error");
+						trope.add(basicLists.translate(now.substring(0, 1)) + "*" + basicLists.translate(now.substring(1, 2)));
+						//System.out.println(words[j] + " two trop error" + " \"" + basicLists.translate(now.substring(0, 1)) + " " + basicLists.translate(now.substring(1, 2)) + " *" + "\"");
 					}
 					
 				}

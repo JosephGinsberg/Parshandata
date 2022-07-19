@@ -166,4 +166,8 @@ public class basicLists {
 	public static String[] otherList(){
 		return charsByGroup("other");
 	}
+
+	public static Boolean isaother(String term) {
+		return isCharInGroup(term, "other");
+	}
 }

@@ -1,4 +1,4 @@
-{
+﻿{
     "books": [
         "Genesis",
         "Exodus",
@@ -42,7 +42,11 @@
     ],
     "useKeri": true,
     "taamTachton": true,
-    "remove": ["trop", "other"],
+    "remove": [
+        "trop",
+        "other",
+        "nekudah"
+    ],
     "display": "every",
     "splitBy": "word",
     "search": [
@@ -55,8 +59,8 @@
         {
             "param": "input",
             "type": "value",
-            "value": "מָשָׁל",
-            "matchtype": "is",
+            "value": "מלאך",
+            "matchtype": "contains",
             "count": 0,
             "counttype": "greater",
             "connector": "none",

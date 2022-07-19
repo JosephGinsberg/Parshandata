@@ -15,15 +15,14 @@ import BibleStatistics.Bible.maker;
 import BibleStatistics.Level_1.bibleLists;
 import BibleStatistics.Level_1.otherBibles;
 import BibleStatistics.Level_1.tools;
-import BibleStatistics.Level_2.tropLists;
 
 public class App {
 	public static void main(String[] args) throws IOException, JSONException{
 
-		String JSON = tools.FileToString("test.json");
+		String JSON = tools.FileToString("backend/src/main/java/BibleStatistics/test.json");
 		String result = searchAll(JSON);
 
-		FileOutputStream out = new FileOutputStream("output.json");
+		FileOutputStream out = new FileOutputStream("backend/src/main/java/BibleStatistics/output.json");
 		out.write(result.getBytes("UTF-8"));
 		out.close();
 	}
@@ -41,8 +40,8 @@ public class App {
 		String splitby = json.getString("splitBy");
 		JSONArray search = json.getJSONArray("search");
 		int len = material.length;
-		int total = 0;
-		JSONArray remover = json.getJSONArray("remove");
+		//int total = 0;
+		/*JSONArray remover = json.getJSONArray("remove");
 		int removerlen = remover.length();
 		Boolean[] conditions = {true, true, true, true, true, true};
 			for(int j = 0; j < removerlen; j++){
@@ -64,44 +63,30 @@ public class App {
 				else if(remover.getString(j).equals("makaf")){
 					conditions[5] = false;
 				}
-			}
+			}*/
 		for(int l = 0; l < len; l++){
 			String[][] thismaterial = material[l];
 			int thismateriallen = thismaterial.length;
 			for(int i = 0; i < thismateriallen; i++){
 				String thispasuk = thismaterial[i][0];
-				String[] trop = tropLists.tropFinder(bibleLists.tropWords(thispasuk), thismaterial[i][1], Integer.parseInt(thismaterial[i][2]), Integer.parseInt(thismaterial[i][3]));
-				String[] none = {"none"};
-				String list[] = {thispasuk};
-				Boolean value = true;
-				Boolean tropword = false;
-				if(splitby.equals("word")){
-					list = bibleLists.words(thispasuk);
-					value = false;
-					trop = none;
-				}
-				else if(splitby.equals("tropword")){
-					list = bibleLists.tropWords(thispasuk);
-					value = false;
-					tropword = true;
-				}
-				else if(splitby.equals("letter")){
-					list = bibleLists.separateLetters(thispasuk);
-					value = false;
-					trop = none;
-				}
+				String[] place = {thismaterial[i][1], thismaterial[i][2], thismaterial[i][3]};
+				//System.out.println(thismaterial[i][1] + " "  + thismaterial[i][2] + ":" + thismaterial[i][3]);
+				String[][] both = AppFunctions.splitter(splitby, thispasuk, place);
+				String[] list = both[0];
+				String[] trop = both[1];
 				int listlen = list.length;
 				for(int j = 0; j < listlen; j++){
-					if(tropword){
-						String[] nowtrop = {trop[j]};
-						trop = nowtrop; 
+					//String in = otherBibles.choose(list[j], conditions);
+					String in = list[j];
+					String[] searchtrop = {trop[j]};
+					if(splitby.equals("pasuk")){
+						searchtrop = trop;
 					}
-					String in = otherBibles.choose(list[j], conditions);
-					ArrayList<Integer> matches = searching(search, 0, in, trop);
+					ArrayList<Integer> matches = searching(search, 0, in, place, searchtrop);
 					if(matches.size() != 0){
 						String listvalue = "";
-						if(!value){
-							listvalue = list[j];
+						if(!splitby.equals("pasuk")){
+							listvalue = in;
 						}
 						jsonresult += ",";
 						String v = "";
@@ -117,7 +102,7 @@ public class App {
 										.key("perek").value(thismaterial[i][2])
 										.key("pasuk").value(thismaterial[i][3])
 										.endObject().toString();
-						total++;
+						//total++;
 					}
 				}
 			}
@@ -152,7 +137,7 @@ public class App {
 		return material;
 	}
 
-	public static ArrayList<Integer> searching(JSONArray search, int index, String term, String[] trop) throws JSONException, FileNotFoundException {
+	public static ArrayList<Integer> searching(JSONArray search, int index, String term, String[] place, String[] trop) throws JSONException, FileNotFoundException {
 		
 		JSONObject current = search.getJSONObject(index);
 		String param = current.getString("param");
@@ -161,18 +146,18 @@ public class App {
 		ArrayList<Integer> indexlist = new ArrayList<Integer>();
 
 		if(param.equals("condition")){
-			ArrayList<Integer> output = searching(search, index + 1, term, trop);
+			ArrayList<Integer> output = searching(search, index + 1, term, place, trop);
 			if(type.equals("does not contain")){
-				output = opposite(output);
+				output = AppFunctions.opposite(output);
 			}
 			if(connector.equals("and") || connector.equals("or")){
-				int i = nextFinder(search, index, param);
-				return logics(connector, output, searching(search, i, term, trop));
+				int i = AppFunctions.nextFinder(search, index, param);
+				return AppFunctions.logics(connector, output, searching(search, i, term, place, trop));
 			}
 			else if(connector.equals("distance")){
-				int i = nextFinder(search, index, "any");
+				int i = AppFunctions.nextFinder(search, index, "any");
 				JSONObject next = search.getJSONObject(index + 1);
-				return distance(next, indexlist, searching(search, i, term, trop));
+				return AppFunctions.distance(next, indexlist, searching(search, i, term, place, trop));
 			}
 			else{
 				return output;
@@ -182,39 +167,25 @@ public class App {
 		else if(param.equals("abstract")){
 			int totalcount = current.getInt("count");
 			String counttype = current.getString("counttype");
-			String[] newterms = {term};
-			Boolean hastrop = true;
-			if(type.equals("word")) {
-				newterms = bibleLists.words(term);
-				hastrop = false;
-			}
-			else if(type.equals("tropword")) {
-				newterms = bibleLists.tropWords(term);
-			}
-			else if(type.equals("letter")) {
-				newterms = bibleLists.separateLetters(term);
-				hastrop = false;
-			}
-			String[] none = {"none"};
+			String[][] both = AppFunctions.splitter(type, term, place);
+			String[] newterms = both[0];
+			String[] nexttrop = both[1];
 			int newlen = newterms.length;
 			for(int j = 0; j < newlen; j++){
-				String[] nexttrop = {trop[j]};
-				if(!hastrop){
-					nexttrop = none;
-				}
-				if(searching(search, index + 1, newterms[j], nexttrop).size() != 0){
+				String[] newtrop = {nexttrop[j]};
+				if(searching(search, index + 1, newterms[j], place, newtrop).size() != 0){
 					indexlist.add(j);
 				}
 			}
-			indexlist = countchecker(indexlist, totalcount, counttype);
+			indexlist = AppFunctions.countchecker(indexlist, totalcount, counttype);
 			if(connector.equals("and") || connector.equals("or")){
-				int i = nextFinder(search, index, param);
-				return logics(connector, indexlist, searching(search, i, term, trop));
+				int i = AppFunctions.nextFinder(search, index, param);
+				return AppFunctions.logics(connector, indexlist, searching(search, i, term, place, trop));
 			}
 			else if(connector.equals("distance")){
-				int i = nextFinder(search, index, param);
+				int i = AppFunctions.nextFinder(search, index, param);
 				JSONObject next = search.getJSONObject(index + 1);
-				return distance(next, indexlist, searching(search, i, term, trop));
+				return AppFunctions.distance(next, indexlist, searching(search, i, term, place, trop));
 			}
 			else{
 				return indexlist;
@@ -223,11 +194,11 @@ public class App {
 
 		else if(param.equals("distance")){
 			if(connector.equals("and") || connector.equals("or")){
-				int i = nextFinder(search, index, "input");
-				return logics(connector, searching(search, index + 1, term, trop), searching(search, i, term, trop));
+				int i = AppFunctions.nextFinder(search, index, "input");
+				return AppFunctions.logics(connector, searching(search, index + 1, term, place, trop), searching(search, i, term, place, trop));
 			}
 			else{
-				return searching(search, index + 1, term, trop);
+				return searching(search, index + 1, term, place, trop);
 			}
 		}
 
@@ -261,158 +232,23 @@ public class App {
 			else{
 				int troplen = trop.length;
 				for(int i = 0; i < troplen; i++){
-					if(trop[i].equals(val)){
+					if(trop[i].contains(val)){
 						indexlist.add(i);
 					}
 				}	
 			}
-			indexlist = countchecker(indexlist, totalcount, counttype);
+			indexlist = AppFunctions.countchecker(indexlist, totalcount, counttype);
 			if(connector.equals("and") || connector.equals("or")){
-				return logics(connector, indexlist, searching(search, index + 1, term, trop));
+				return AppFunctions.logics(connector, indexlist, searching(search, index + 1, term, place, trop));
 			}
 			if(connector.equals("distance")){
 				JSONObject next = search.getJSONObject(index + 1);
-				return distance(next, indexlist, searching(search, index + 1, term, trop));
+				return AppFunctions.distance(next, indexlist, searching(search, index + 1, term, place, trop));
 			}
 			else{
 				return indexlist;
 			}
 		}
 		return indexlist;
-	}
-
-	public static ArrayList<Integer> logics(String operation, ArrayList<Integer> one, ArrayList<Integer> two){
-		ArrayList<Integer> result = new ArrayList<Integer>();
-		Boolean notempty = true;
-		int onesize = one.size();
-		int twosize = two.size();
-		if(operation.equals("and")){
-			if(onesize == 0 || twosize == 0){
-				notempty = false;
-			}
-		}
-		else if(operation.equals("or")){
-			if(onesize == 0 && twosize == 0){
-				notempty = false;
-			}
-		}
-		if(notempty){
-			result.addAll(one);
-			for(Integer s : two){
-				if(!result.contains(s)){
-					result.add(s);
-				}
-			}
-		}
-		return result;
-	}
-
-	public static ArrayList<Integer> distance(JSONObject input, ArrayList<Integer> one, ArrayList<Integer> two) throws JSONException{
-		String operation = input.getString("type");
-		int distance = input.getInt("distance");
-		String type = input.getString("distancetype");
-		ArrayList<Integer> result = new ArrayList<Integer>();
-		int onesize = one.size();
-		int twosize = two.size();
-			for(int i = 0; i < onesize; i++){
-				int thisone = one.get(i);
-				for(int j = 0; j < twosize; j++){
-					int thistwo = two.get(j);
-					if(operation.equals("before") && type.equals("greater")){
-						if((thistwo - thisone > distance)){
-							if(!result.contains(thisone)){
-								result.add(thisone);
-							}
-						}
-					}
-					else if(operation.equals("before") && type.equals("equal")){
-						if((thistwo - thisone == distance)){
-							if(!result.contains(thisone)){
-								result.add(thisone);
-							}
-						}
-					}
-					else if(operation.equals("before") && type.equals("less")){
-						if((thistwo - thisone < distance) && !(thistwo - thisone < 0)){
-							if(!result.contains(thisone)){
-								result.add(thisone);
-							}
-						}
-					}
-					else if(operation.equals("after") && type.equals("greater")){
-						if((thisone - thistwo > distance)){
-							if(!result.contains(thisone)){
-								result.add(thisone);
-							}
-						}
-					}
-					else if(operation.equals("after") && type.equals("equal")){
-						if((thisone - thistwo == distance)){
-							if(!result.contains(thisone)){
-								result.add(thisone);
-							}
-						}
-					}
-					else if(operation.equals("after") && type.equals("less")){
-						if((thisone - thistwo < distance) && !(thistwo - thisone < 0)){
-							if(!result.contains(thisone)){
-								result.add(thisone);
-							}
-						}
-					}
-				}
-			}
-			/*if(!(result.size() == one.size() * two.size())){
-				result.clear();
-			}*/
-		return result;
-	}
-
-	public static ArrayList<Integer> opposite(ArrayList<Integer> input){
-		ArrayList<Integer> param = input;
-		int paramlen = param.size();
-		if(paramlen > 0){
-			param.clear();
-		}
-		else{
-			param.add(-1);
-		}
-		return param;
-	}
-
-	public static int nextFinder(JSONArray search, int currentindex, String value) throws JSONException{
-		JSONObject current = search.getJSONObject(currentindex);
-		int thislevel = current.getInt("level");
-		int len = search.length();
-		int i = 0;
-		for(i = currentindex + 1; i < len; i++){
-			JSONObject nextobject = search.getJSONObject(i);
-			int ilevel = nextobject.getInt("level");
-			if(thislevel == ilevel && (nextobject.getString("param").equals(value) || value.equals("any"))){
-				return i;
-			}
-		}
-		return i;
-	}
-
-	public static ArrayList<Integer> countchecker(ArrayList<Integer> input, int totalcount, String counttype){
-		ArrayList<Integer> output = input;
-		int listlen = output.size();
-			if(counttype.equals("equal")){
-				if(!(listlen == totalcount)){
-					output.clear();
-				}
-			}
-			else if(counttype.equals("greater")){
-				if(!(listlen > totalcount)){
-					output.clear();
-				}
-			}
-			else if(counttype.equals("less")){
-				if(!(listlen < totalcount)){
-					output.clear();
-				}
-			}
-		return output;
 	}
 }
