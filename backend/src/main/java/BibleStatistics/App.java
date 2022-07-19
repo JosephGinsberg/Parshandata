@@ -86,7 +86,7 @@ public class App {
 					if(matches.size() != 0){
 						String listvalue = "";
 						if(!splitby.equals("pasuk")){
-							listvalue = in;
+							listvalue = list[j];
 						}
 						jsonresult += ",";
 						String v = "";
