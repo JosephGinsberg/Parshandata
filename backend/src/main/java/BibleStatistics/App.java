@@ -41,7 +41,7 @@ public class App {
 		JSONArray search = json.getJSONArray("search");
 		int len = material.length;
 		//int total = 0;
-		/*JSONArray remover = json.getJSONArray("remove");
+		JSONArray remover = json.getJSONArray("remove");
 		int removerlen = remover.length();
 		Boolean[] conditions = {true, true, true, true, true, true};
 			for(int j = 0; j < removerlen; j++){
@@ -63,7 +63,7 @@ public class App {
 				else if(remover.getString(j).equals("makaf")){
 					conditions[5] = false;
 				}
-			}*/
+			}
 		for(int l = 0; l < len; l++){
 			String[][] thismaterial = material[l];
 			int thismateriallen = thismaterial.length;
@@ -76,8 +76,8 @@ public class App {
 				String[] trop = both[1];
 				int listlen = list.length;
 				for(int j = 0; j < listlen; j++){
-					//String in = otherBibles.choose(list[j], conditions);
-					String in = list[j];
+					String in = otherBibles.choose(list[j], conditions);
+					//String in = list[j];
 					String[] searchtrop = {trop[j]};
 					if(splitby.equals("pasuk")){
 						searchtrop = trop;

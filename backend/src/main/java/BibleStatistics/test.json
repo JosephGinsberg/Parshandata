@@ -40,7 +40,7 @@
     "Job",
     "Proverbs"
   ],
-  "keriUkesiv": true,
+  "useKeri": true,
   "taamTachton": true,
   "remove": [],
   "display": "every",
