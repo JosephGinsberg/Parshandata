@@ -1,0 +1,105 @@
+﻿{
+    "books": [
+        "Genesis",
+        "Exodus",
+        "Leviticus",
+        "Numbers",
+        "Deuteronomy",
+        "Joshua",
+        "Judges",
+        "Samuel_1",
+        "Samuel_2",
+        "Kings_1",
+        "Kings_2",
+        "Isaiah",
+        "Jeremiah",
+        "Ezekiel",
+        "Hosea",
+        "Joel",
+        "Amos",
+        "Obadiah",
+        "Jonah",
+        "Micah",
+        "Nahum",
+        "Habakkuk",
+        "Zephaniah",
+        "Haggai",
+        "Zechariah",
+        "Malachi",
+        "Ruth",
+        "Esther",
+        "Song_of_Songs",
+        "Lamentations",
+        "Ecclesiastes",
+        "Daniel",
+        "Ezra",
+        "Nehemiah",
+        "Chronicles_1",
+        "Chronicles_2"
+    ],
+    "useKeri": true,
+    "taamTachton": true,
+    "display": "every",
+    "splitBy": "pasuk",
+    "search": [
+        {
+            "param": "condition",
+            "connector": "none",
+            "level": 1
+        },
+        {
+            "param": "abstract",
+            "type": "tropword",
+            "count": 0,
+            "counttype": "greater",
+            "matchtype": "contains",
+            "connector": "none",
+            "level": 1
+        },
+        {
+            "param": "condition",
+            "connector": "none",
+            "level": 2
+        },
+        {
+            "param": "input",
+            "type": "trop",
+            "value": "telisha-gedolah*gershayim",
+            "matchtype": "contains",
+            "count": 0,
+            "counttype": "greater",
+            "connector": "or",
+            "level": 2
+        },
+        {
+            "param": "input",
+            "type": "trop",
+            "value": "gershayim*telisha-gedolah",
+            "matchtype": "contains",
+            "count": 0,
+            "counttype": "greater",
+            "connector": "or",
+            "level": 2
+        },
+        {
+            "param": "input",
+            "type": "trop",
+            "value": "azlah-geiresh*telisha-gedolah",
+            "matchtype": "contains",
+            "count": 0,
+            "counttype": "greater",
+            "connector": "or",
+            "level": 2
+        },
+        {
+            "param": "input",
+            "type": "trop",
+            "value": "telisha-gedolah*azlah-geiresh",
+            "matchtype": "contains",
+            "count": 0,
+            "counttype": "greater",
+            "connector": "none",
+            "level": 2
+        }
+    ]
+}

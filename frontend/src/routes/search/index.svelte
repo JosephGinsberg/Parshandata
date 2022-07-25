@@ -28,7 +28,6 @@
 		taamTachton: true,
 		display: 'every',
 		splitBy: 'pasuk',
-		remove: [],
 		search: searchJSON
 	},
 	searchStatus: searchResponse | Promise<searchResponse> = {
@@ -65,11 +64,11 @@
 	},
 	count: string = '0'
 
-	searchRequest = JSON.parse(`{"books":["Genesis","Exodus","Leviticus","Numbers","Deuteronomy"],"useKeri":false,"taamTachton":true,"remove":[],"display":"every","splitBy":"pasuk","search":[{"param":"condition","type":"contains","connector":"none","level":1},{"param":"input","type":"trop","value":"legarmeh","matchtype":"contains","count":1,"counttype":"greater","connector":"distance","level":1},{"param":"distance","type":"before","distancetype":"greater","distance":1,"connector":"and","level":1},{"param":"distance","type":"before","distancetype":"less","distance":5,"connector":"none","level":1},{"param":"input","matchtype":"contains","type":"trop","value":"revie","count":2,"counttype":"equal","connector":"none","level":1}]}`)
+	searchRequest = JSON.parse(`{"books":["Genesis","Exodus","Leviticus","Numbers","Deuteronomy"],"useKeri":false,"taamTachton":true,"display":"every","splitBy":"pasuk","search":[{"param":"condition","type":"contains","connector":"none","level":1},{"param":"input","type":"trop","value":"legarmeh","matchtype":"contains","count":1,"counttype":"greater","connector":"distance","level":1},{"param":"distance","type":"before","distancetype":"greater","distance":1,"connector":"and","level":1},{"param":"distance","type":"before","distancetype":"less","distance":5,"connector":"none","level":1},{"param":"input","matchtype":"contains","type":"trop","value":"revie","count":2,"counttype":"equal","connector":"none","level":1}]}`)
 
 	const fetchSearch = async () => {
 		count = '#'
-		const res: any = await fetch(window.location.protocol==='https:'? '/api/search': 'http://localhost:8080/api/search', {
+		const res: any = await fetch(window.location.protocol==='https:'? 'https://parshandata.herokuapp.com/api/search': 'http://localhost:8080/api/search', {
 			method: 'POST',
 			headers: {
 				'content-type': 'application/json'

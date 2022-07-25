@@ -1,0 +1,72 @@
+﻿{
+    "books": [
+        "Genesis",
+        "Exodus",
+        "Leviticus",
+        "Numbers",
+        "Deuteronomy",
+        "Joshua",
+        "Judges",
+        "Samuel_1",
+        "Samuel_2",
+        "Kings_1",
+        "Kings_2",
+        "Isaiah",
+        "Jeremiah",
+        "Ezekiel",
+        "Hosea",
+        "Joel",
+        "Amos",
+        "Obadiah",
+        "Jonah",
+        "Micah",
+        "Nahum",
+        "Habakkuk",
+        "Zephaniah",
+        "Haggai",
+        "Zechariah",
+        "Malachi",
+        "Ruth",
+        "Esther",
+        "Song_of_Songs",
+        "Lamentations",
+        "Ecclesiastes",
+        "Daniel",
+        "Ezra",
+        "Nehemiah",
+        "Chronicles_1",
+        "Chronicles_2"
+    ],
+    "useKeri": true,
+    "taamTachton": true,
+    "display": "every",
+    "splitBy": "word",
+    "search": [
+        {
+            "param": "condition",
+            "type": "contains",
+            "connector": "none",
+            "level": 1
+        },
+        {
+            "param": "input",
+            "type": "value",
+            "value": "נח",
+            "matchtype": "is",
+            "count": 0,
+            "counttype": "greater",
+            "connector": "and",
+            "level": 1
+        },
+        {
+            "param": "input",
+            "type": "trop",
+            "value": "revie",
+            "matchtype": "contains",
+            "count": 0,
+            "counttype": "greater",
+            "connector": "none",
+            "level": 1
+        }
+    ]
+}

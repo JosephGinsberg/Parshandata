@@ -36,34 +36,24 @@ public class App {
 	}
 
 	public static String mastersearch(String[][][] material, JSONObject json) throws JSONException, FileNotFoundException {
-		String jsonresult = "{\"matches\":[";
-		String splitby = json.getString("splitBy");
-		JSONArray search = json.getJSONArray("search");
-		int len = material.length;
-		//int total = 0;
-		JSONArray remover = json.getJSONArray("remove");
-		int removerlen = remover.length();
-		Boolean[] conditions = {true, true, true, true, true, true};
-			for(int j = 0; j < removerlen; j++){
-				if(remover.getString(j).equals("letter")){
-					conditions[0] = false;
-				}
-				else if(remover.getString(j).equals("nekudah")){
-					conditions[1] = false;
-				}
-				else if(remover.getString(j).equals("trop")){
-					conditions[2] = false;
-				}
-				else if(remover.getString(j).equals("other")){
-					conditions[3] = false;
-				}
-				else if(remover.getString(j).equals("space")){
-					conditions[4] = false;
-				}
-				else if(remover.getString(j).equals("makaf")){
-					conditions[5] = false;
-				}
+		String[] values = {"splitBy", "search"};
+		AppFunctions.errorChecker(values, json);
+		String jsonresult = "{\"ok\":true,\"msg\":\"searched successfully\",\"matches\":[";
+		String splitby = json.getString(values[0]);
+		JSONArray search = json.getJSONArray(values[1]);
+		int len = search.length();
+		for(int i = 0; i < len; i++){
+			JSONObject current = search.getJSONObject(i);
+			if(current.getString("param").equals("input")){
+				JSONArray removing = AppFunctions.removeSet(current.getString("value"));
+				//System.out.println(removing.getBoolean(0));
+				current.put("remove", removing);
+				//System.out.println("doing");
+				search.put(i, current);
 			}
+		}
+		len = material.length;
+		//int total = 0;
 		for(int l = 0; l < len; l++){
 			String[][] thismaterial = material[l];
 			int thismateriallen = thismaterial.length;
@@ -76,24 +66,26 @@ public class App {
 				String[] trop = both[1];
 				int listlen = list.length;
 				for(int j = 0; j < listlen; j++){
-					String in = otherBibles.choose(list[j], conditions);
-					//String in = list[j];
+					String in = list[j];
 					String[] searchtrop = {trop[j]};
 					if(splitby.equals("pasuk")){
 						searchtrop = trop;
 					}
 					ArrayList<Integer> matches = searching(search, 0, in, place, searchtrop);
 					if(matches.size() != 0){
-						String listvalue = "";
-						if(!splitby.equals("pasuk")){
-							listvalue = list[j];
-						}
 						jsonresult += ",";
+						String listvalue = "";
 						String v = "";
-						for(int x : matches){
-							v += ", " + x;
+						if(!splitby.equals("pasuk")){
+							listvalue = list[j].replace("׀", " ׀");
+							v += j;
 						}
-						v = v.replaceFirst(", ", "");
+						else{
+							for(int x : matches){
+								v += ", " + x;
+							}
+							v = v.replaceFirst(", ", "");
+						}
 						jsonresult += new JSONStringer().object()
 										.key("splitvalue").value(listvalue)
 										.key("indices").value(v)
@@ -107,15 +99,17 @@ public class App {
 				}
 			}
 		}
-		//^CSystem.out.println("total: " + total);
-		return jsonresult.replaceFirst(",", "") + "],";
+		//System.out.println("total: " + total);
+		return jsonresult.replace("[,{", "[{") + "],";
 	}
 
 	public static String[][][] setup(JSONObject json) throws JSONException, FileNotFoundException {
+		String[] values = {"taamTachton", "useKeri", "books"};
+		AppFunctions.errorChecker(values, json);
 		String searchText = "";
-		Boolean taam = json.getBoolean("taamTachton");
-		Boolean keri = json.getBoolean("useKeri");
-		JSONArray books = json.getJSONArray("books");
+		Boolean taam = json.getBoolean(values[0]);
+		Boolean keri = json.getBoolean(values[1]);
+		JSONArray books = json.getJSONArray(values[2]);
 		int bookslen = books.length();
 		String[][][] material = new String[bookslen][][];
 		for (int i = 0; i < bookslen; i++) {
@@ -138,18 +132,16 @@ public class App {
 	}
 
 	public static ArrayList<Integer> searching(JSONArray search, int index, String term, String[] place, String[] trop) throws JSONException, FileNotFoundException {
-		
+
 		JSONObject current = search.getJSONObject(index);
-		String param = current.getString("param");
-		String connector = current.getString("connector");
-		String type = current.getString("type");
+		String[] values = {"param", "connector"};
+		AppFunctions.errorChecker(values, current);
+		String param = current.getString(values[0]);
+		String connector = current.getString(values[1]);
 		ArrayList<Integer> indexlist = new ArrayList<Integer>();
 
 		if(param.equals("condition")){
 			ArrayList<Integer> output = searching(search, index + 1, term, place, trop);
-			if(type.equals("does not contain")){
-				output = AppFunctions.opposite(output);
-			}
 			if(connector.equals("and") || connector.equals("or")){
 				int i = AppFunctions.nextFinder(search, index, param);
 				return AppFunctions.logics(connector, output, searching(search, i, term, place, trop));
@@ -165,17 +157,30 @@ public class App {
 		}
 
 		else if(param.equals("abstract")){
-			int totalcount = current.getInt("count");
-			String counttype = current.getString("counttype");
+			String[] nextvalues = {"count", "counttype", "matchtype", "type"};
+			AppFunctions.errorChecker(nextvalues, current);
+			int totalcount = current.getInt(nextvalues[0]);
+			String counttype = current.getString(nextvalues[1]);
+			String matchtype = current.getString(nextvalues[2]);
+			String type = current.getString(nextvalues[3]);
 			String[][] both = AppFunctions.splitter(type, term, place);
 			String[] newterms = both[0];
 			String[] nexttrop = both[1];
 			int newlen = newterms.length;
 			for(int j = 0; j < newlen; j++){
+				if(matchtype.equals("ends")){
+					j = newterms.length - 1;
+				}
 				String[] newtrop = {nexttrop[j]};
 				if(searching(search, index + 1, newterms[j], place, newtrop).size() != 0){
 					indexlist.add(j);
 				}
+				if(matchtype.equals("begins")){
+					j = newterms.length;
+				}
+			}
+			if(matchtype.equals("does not contain")){
+				indexlist = AppFunctions.opposite(indexlist);
 			}
 			indexlist = AppFunctions.countchecker(indexlist, totalcount, counttype);
 			if(connector.equals("and") || connector.equals("or")){
@@ -203,40 +208,17 @@ public class App {
 		}
 
 		else if(param.equals("input")){
-			String val = current.getString("value");
-			int totalcount = current.getInt("count");
-			String counttype = current.getString("counttype");
-			String matchtype = current.getString("matchtype");
-			if(type.equals("letter")){
-				term = otherBibles.justLetters(term);
-			}
-			else if(type.equals("nekudah")){
-				term = otherBibles.justNekudot(term);
-			}
-			int termlen = term.length();
-			int vallen = val.length();
-			if(!type.equals("trop")){
-				if(matchtype.equals("contains")){
-					for(int i = 0; i <= (termlen - vallen); i++){
-						if(term.substring(i, i + vallen).equals(val)){
-							indexlist.add(i);
-						}
-					}
-				}
-				else if(matchtype.equals("is")){
-					if(term.equals(val)){
-						indexlist.add(0);
-					}
-				}
-			}
-			else{
-				int troplen = trop.length;
-				for(int i = 0; i < troplen; i++){
-					if(trop[i].contains(val)){
-						indexlist.add(i);
-					}
-				}	
-			}
+			String[] nextvalues = {"value", "count", "counttype", "matchtype", "remove", "type"};
+			AppFunctions.errorChecker(nextvalues, current);
+			String val = current.getString(nextvalues[0]);
+			int totalcount = current.getInt(nextvalues[1]);
+			String counttype = current.getString(nextvalues[2]);
+			String matchtype = current.getString(nextvalues[3]);
+			JSONArray conditions = current.getJSONArray(nextvalues[4]);
+			String type = current.getString(nextvalues[5]);
+			Boolean[] array = {conditions.getBoolean(0), conditions.getBoolean(1), conditions.getBoolean(2), conditions.getBoolean(3), conditions.getBoolean(4), conditions.getBoolean(5)};
+			term = otherBibles.choose(term, array);
+			indexlist = AppFunctions.finder(term, val, type, matchtype, trop);                           
 			indexlist = AppFunctions.countchecker(indexlist, totalcount, counttype);
 			if(connector.equals("and") || connector.equals("or")){
 				return AppFunctions.logics(connector, indexlist, searching(search, index + 1, term, place, trop));

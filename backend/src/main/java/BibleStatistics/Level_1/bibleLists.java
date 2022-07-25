@@ -89,7 +89,6 @@ public class bibleLists {
 		return tools.ArraylistToArray(words);
 	}
 	
-
 	/*Outputs a String array containing all the Pesukim in the given input String*/
 	public static String[] pasukim(String bible){
 		ArrayList<String> pasuk = new ArrayList<String>();

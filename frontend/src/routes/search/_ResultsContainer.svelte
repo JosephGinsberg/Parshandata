@@ -8,15 +8,22 @@
 		let dataString: string = 'VERSE,MATCH,BOOK,PEREK,PASUK\n',
 		filename: string = 'Results | Parshandata.csv'
 
-		await state.then((res: searchResponse) => {
-			res.matches.forEach((match: searchMatch) => {
-				dataString += match.fullverse + ','
-				dataString += match.splitvalue != match.fullverse? match.splitvalue + ',': 'N/A,'
-				dataString += match.bookname.replace('_', ' ') + ','
-				dataString += match.perek + ','
-				dataString += match.pasuk + '\n'
+		// if(!state) return
+		try{
+			await state.then((res: searchResponse) => {
+				if(!res.matches) return
+				res.matches.forEach((match: searchMatch) => {
+					dataString += match.fullverse + ','
+					dataString += match.splitvalue != match.fullverse? match.splitvalue + ',': 'N/A,'
+					dataString += match.bookname.replace('_', ' ') + ','
+					dataString += match.perek + ','
+					dataString += match.pasuk + '\n'
+				})
 			})
-		})
+		}catch{
+			console.error('Error: no results w/ error')
+			return
+		}
 
 		// initiate download
 		let universalBOM: string = "\uFEFF",
@@ -41,9 +48,9 @@
 		{#await state}
 			<div class="result">Loading...</div>
 		{:then data}
-			{#if !data.ok && false}
-				<div class="result" style="color: red">{data.msg}</div>
-			{:else if data.runtime}
+			{#if !data.ok}
+				<div class="result" style="color: red">Server error: {data.msg}</div>
+			{:else if data.runtime && data.ok}
 				{#each data.matches as match, id}
 					<div class="result">
 						<!-- {data.matches[id-1] < data.matches && match.fullverse === data.matches[id-1].fullverse? true: ''} -->
@@ -59,7 +66,7 @@
 							match.fullverse === data.matches[id+1].fullverse &&
 							match.bookname 	=== data.matches[id+1].bookname	 &&
 							match.chapter 	=== data.matches[id+1].chapter	 &&
-							match.verse 	=== data.matches[id+1].verse		 }*{/if}
+							match.verse 	=== data.matches[id+1].verse		}*{/if}
 							{match.bookname.replace('_', ' ')} {match.perek}:{match.pasuk}</div>
 					</div>
 				{:else}
@@ -69,7 +76,7 @@
 				<div class="result">No search entered</div>
 			{/if}
 		{:catch error}
-			<div class="result" style="color: red">Error: {error.message}</div>
+			<div class="result" style="color: red">Local error: {error.message}</div>
 		{/await}
 	</div>
 </div>
@@ -107,7 +114,7 @@
 		padding-top: calc(var(--topPadding) / 2);
 	}
 	.container .fullverse{
-		font-family: 'david';
+		font-family: 'david', 'Noto Sans Hebrew', serif;
 		font-size: 20px;
 		text-align: right;
 		padding-bottom: calc(var(--topPadding) / 2.5);

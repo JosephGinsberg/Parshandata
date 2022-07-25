@@ -25,14 +25,6 @@
 			return false
 		}
 	},
-	formatJSON = (event: any) => {
-		const { selectionStart, selectionEnd, value } = event.target
-
-		request = JSON.stringify(JSON.parse(request), undefined, 4)
-
-		event.target.selectionStart = selectionStart
-		event.target.selectionEnd = selectionEnd
-	},
 	uploadSearch = async (): Promise<void> => {
 		if(!fileSelector.files) return
 
@@ -70,7 +62,7 @@
 			{/each}
 		</div>
 	{:else}
-		<textarea class:error={!validateJson(request)} bind:value={request} on:focus={() => update = !update} on:blur={() => update = !update} on:input={formatJSON} autocomplete="off" spellcheck="false"></textarea>
+		<textarea class:error={!validateJson(request)} bind:value={request} on:focus={() => update = !update} on:blur={() => update = !update} autocomplete="off" spellcheck="false"></textarea>
 	{/if}
 
 	<div class="buttonsContainer row">

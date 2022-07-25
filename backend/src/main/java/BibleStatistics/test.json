@@ -1,92 +1,48 @@
 {
-  "books": [
-    "Genesis",
-    "Exodus",
-    "Leviticus",
-    "Numbers",
-    "Deuteronomy",
-    "Joshua",
-    "Judges",
-    "Samuel_1",
-    "Samuel_2",
-    "Kings_1",
-    "Kings_2",
-    "Isaiah",
-    "Jeremiah",
-    "Ezekiel",
-    "Hosea",
-    "Joel",
-    "Amos",
-    "Obadiah",
-    "Jonah",
-    "Micah",
-    "Nahum",
-    "Habakkuk",
-    "Zephaniah",
-    "Haggai",
-    "Zechariah",
-    "Malachi",
-    "Ruth",
-    "Esther",
-    "Song_of_Songs",
-    "Lamentations",
-    "Ecclesiastes",
-    "Daniel",
-    "Ezra",
-    "Nehemiah",
-    "Chronicles_1",
-    "Chronicles_2",
-    "Psalms",
-    "Job",
-    "Proverbs"
-  ],
-  "useKeri": true,
-  "taamTachton": true,
-  "remove": [],
-  "display": "every",
-  "splitBy": "pasuk",
-  "search": [
-    {
-      "param": "condition",
-      "type": "contains",
-      "connector": "none",
-      "level": 1
-    },
-    {
-      "param": "input",
-      "type": "trop",
-      "value": "legarmeh",
-      "matchtype": "contains",
-      "count": 1,
-      "counttype": "greater",
-      "connector": "distance",
-      "level": 1
-    },
-    {
-      "param": "distance",
-      "type": "before",
-      "distancetype": "greater",
-      "distance": 1,
-      "connector": "and",
-      "level": 1
-    },
-    {
-      "param": "distance",
-      "type": "before",
-      "distancetype": "less",
-      "distance": 5,
-      "connector": "none",
-      "level": 1
-    },
-    {
-      "param": "input",
-      "matchtype": "contains",
-      "type": "trop",
-      "value": "revie",
-      "count": 2,
-      "counttype": "equal",
-      "connector": "none",
-      "level": 1
-    }
-  ]
+	"books": ["Jeremiah"],
+	"useKeri": true,
+	"taamTachton": true,
+	"display": "every",
+	"splitBy": "pasuk",
+	"search": [
+		{
+			"param": "condition",
+			"connector": "and",
+			"level": 1
+		},
+		{
+			"param": "abstract",
+			"type": "tropword",
+			"count": 0,
+			"counttype": "greater",
+			"matchtype":"begins",
+			"connector": "none",
+			"level": 1
+		},
+		{
+			"param": "input",
+			"type": "letter",
+			"value": "כה",
+			"matchtype": "is",
+			"count": 0,
+			"counttype": "greater",
+			"connector": "none",
+			"level": 1
+		},
+		{
+			"param": "condition",
+			"connector": "none",
+			"level": 1
+		},
+		{
+			"param": "input",
+			"type": "trop",
+			"value": "legarmeh",
+			"matchtype": "contains",
+			"count": 0,
+			"counttype": "greater",
+			"connector": "none",
+			"level": 1
+		}
+	]
 }

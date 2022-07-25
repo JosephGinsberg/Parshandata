@@ -10,8 +10,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONString;
 
 @RestController
 @CrossOrigin
@@ -25,14 +27,15 @@ public class DefaultController {
 			// JSONObject req = new JSONObject(requestJson);
 			// System.out.println(req.get("books"));
 
+			response = BibleStatistics.App.searchAll(requestJson);
 			// URL fileUrl = getClass().getResource("output.json");
 			// response = tools.FileToString(fileUrl.getPath());
-		} catch (Exception e) {
-			System.out.println("Invalid JSON was passed in");
-			response = "{\"ok\":false,\"msg\":\"Invalid JSON was passed in\"}";
+		} catch (Exception err) {
+			String errorMessage = err.getMessage().replaceAll("\"", "''");
+			response = "{\"ok\":false,\"msg\":\"" + errorMessage + "\",\"matches\":[],\"runtime\":0}";
 		}
 
-		response = BibleStatistics.App.searchAll(requestJson);
+		// response = BibleStatistics.App.searchAll(requestJson);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
 	}
 

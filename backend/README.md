@@ -10,7 +10,7 @@ Param
 ```json
 {
 	"param": "condition",
-	"type": "contains | does not contain",
+	//"type": "contains | does not contain",
 	"connector": "none | and | or | distance",
 	"level": 1 //, 2, 3 ...
 }
@@ -23,6 +23,7 @@ Param
 	"type": "letter | word | tropword",
 	"count": 0, //, 1, 2 ...
 	"counttype": "equal | greater | less",
+	"matchtype":"contains | does not contain | begins | ends",
 	"connector": "none | and | or | distance",
 	"level": 1 //, 2, 3 ...
 }
@@ -45,8 +46,8 @@ Param
 {
 	"param": "input",
 	"type": "value | letter | nekudah | trop",
-	"value": "string (by trop it's the name)",
-	"matchtype": "contains | is",
+	"value": "String (by trop it's the name)",
+	"matchtype": "contains | does not contain | is | is not | begins | ends",
 	"count": 0,  //, 1, 2 ...
 	"counttype": "equal | greater | less",
 	"connector": "none | and | or | distance",
