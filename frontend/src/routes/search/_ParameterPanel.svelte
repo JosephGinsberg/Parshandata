@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Button from "$lib/Button.svelte"
 	import Dropdown from "$lib/Dropdown.svelte"
+import { each, loop_guard } from "svelte/internal"
 
 	export let search: searchRequest,
 	updateSearchByKey: any
@@ -111,6 +112,18 @@
 			inSet: 'Nevi\'im',
 			hebrew: ''
 		},{
+			bookname: 'Psalms',
+			inSet: 'Ketuvim',
+			hebrew: ''
+		},{
+			bookname: 'Proverbs',
+			inSet: 'Ketuvim',
+			hebrew: ''
+		},{
+			bookname: 'Job',
+			inSet: 'Ketuvim',
+			hebrew: ''
+		},{
 			bookname: 'Ruth',
 			inSet: 'Ketuvim',
 			hebrew: ''
@@ -150,20 +163,14 @@
 			bookname: 'Chronicles_2',
 			inSet: 'Ketuvim',
 			hebrew: ''
-		},{
-			bookname: 'Psalms',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		},{
-			bookname: 'Job',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		},{
-			bookname: 'Proverbs',
-			inSet: 'Ketuvim',
-			hebrew: ''
 		}
 	]
+	// Tanach
+	// Torah
+	// Nevi'im
+	// Ketuvim
+	// Prose books | Tanach exculding psalms, job, proverbs
+	// Poetic books | psalms, job, proverbs
 
 	const changeArray: Function = (array: string[], value: string) => {
 		if(array.indexOf(value) > -1) array = array.filter(item => item !== value)
@@ -175,19 +182,31 @@
 
 		selectedBooks.forEach(book => {
 			const bookDetails: tanachBook = tanachBooks.filter(each => each.bookname === book)[0]
-			if(groupName.indexOf(bookDetails.inSet)===-1) groupName.push(bookDetails.inSet)
+			if(bookDetails?.inSet && groupName.indexOf(bookDetails.inSet)===-1) groupName.push(bookDetails.inSet)
 		})
-		
+
 		if(selectedBooks.length === tanachBooks.length) return 'Tanach'
 		else if(groupName.length === 1 && selectedBooks.length === tanachBooks.filter(each => each.inSet === groupName[0]).length) return groupName[0]
-		else return selectedBooks.length!==1? selectedBooks.length + ' Books': '1 Book'
+		else return selectedBooks.length!==1? selectedBooks.length + ' Books': selectedBooks[0]
 	}
+
+	let bookOptions: dropdownInput[]
+	$: {bookOptions = []
+		for (const book of tanachBooks){
+		// check user's language preference
+		bookOptions.push({ 
+			checked: search.books.indexOf(book.bookname) >= 0,
+			value: book.bookname,
+			text: book.bookname.replaceAll('_', ' ')
+		})
+	}}
 </script>
 
 <aside>
 	<div class="option">
 		<h3 class="title">Books to search</h3>
-		<Dropdown text='{displayBooks(search.books)} selected' />
+		<Dropdown placeholder='{displayBooks(search.books)} selected' options={bookOptions} multiple on:change={e => updateSearchByKey('books', e.detail.value)} />
+		<!-- updateSearchByKey('books', JSON.parse(booksSelected)) -->
 		<!-- {JSON.stringify(search.books)} -->
 	</div>
 
@@ -205,23 +224,22 @@
 		<!-- {search.taamTachton} -->
 	</div>
 
-	<div class="option">
+	<!-- <div class="option">
 		<h3 class="title">Exclude chachter group(s) from search</h3>
-		<Button classes='small {search.remove.indexOf('letter') >= 0? 'default': 'muted'}' text='Letter' on:click={updateSearchByKey('remove', changeArray(search.remove, 'letter'))} />
-		<Button classes='small {search.remove.indexOf('nekudah') >= 0? 'default': 'muted'}' text='Nekudah' on:click={updateSearchByKey('remove', changeArray(search.remove, 'nekudah'))} />
-		<Button classes='small {search.remove.indexOf('trop') >= 0? 'default': 'muted'}'  text='Trop' on:click={updateSearchByKey('remove', changeArray(search.remove, 'trop'))} />
-		<Button classes='small {search.remove.indexOf('other') >= 0? 'default': 'muted'}'  text='Other' on:click={updateSearchByKey('remove', changeArray(search.remove, 'other'))} />
-		<!-- {JSON.stringify(search.remove)} -->
-	</div>
-	
+		{#each ['letter', 'nekudah', 'trop', 'other'] as removeOption}
+			<Button classes='small {search.remove.indexOf(removeOption) >= 0? 'default': 'muted'}' style='text-transform: capitalize;margin-inline-end: .3rem;' text={removeOption} on:click={updateSearchByKey('remove', changeArray(search.remove, removeOption))} />
+		{/each}
+		{JSON.stringify(search.remove)}
+	</div> -->
+
 	<div class="option">
 		<h3 class="title">Display</h3>
-		<Dropdown text={search.display} />
+		<Dropdown placeholder={search.display} />
 	</div>
-	
+
 	<div class="option">
 		<h3 class="title">Split results by</h3>
-		<Dropdown text={search.splitBy} />
+		<Dropdown placeholder={search.splitBy} options={['Pasuk', 'Perek']} on:change={e => updateSearchByKey('splitBy', e.detail.value.toLowerCase())} />
 	</div>
 </aside>
 
