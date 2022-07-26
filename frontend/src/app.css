@@ -110,16 +110,19 @@ h3, .title{
 }
 
 a {
-	color: rgb(0,100,200);
+	/* color: rgb(0,100,200); */
+	color: #0969da;
 	text-decoration: none;
+	transition: all ease-in-out 75ms;
 }
-
 a:hover {
-	text-decoration: underline;
+	color: #0a52a4;
+	/* color: #1065c5; */
+	/* text-decoration: underline; */
 }
-
 a:visited {
-	color: rgb(0,80,160);
+	/* color: rgb(0,80,160); */
+	color: #1065c5;
 }
 
 label {
