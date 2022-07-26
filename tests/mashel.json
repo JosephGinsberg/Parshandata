@@ -42,7 +42,6 @@
     ],
     "useKeri": true,
     "taamTachton": true,
-    "remove": ["trop", "other"],
     "display": "every",
     "splitBy": "word",
     "search": [

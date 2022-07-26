@@ -61,13 +61,13 @@
 								{match.fullverse}
 							{/if}
 						</div>
-						<a class="location" href="https://www.sefaria.org/{match.bookname.replace('1', 'I')}.{match.perek}.{match.pasuk}">
+						<a class="location" href="https://www.sefaria.org/{match.bookname.replace('1', 'I')}.{match.perek}.{match.pasuk}?lang=he" target="_blank">
 							{#if data.matches[id+1] &&
 							match.fullverse === data.matches[id+1].fullverse &&
 							match.bookname 	=== data.matches[id+1].bookname	 &&
 							match.perek 	=== data.matches[id+1].perek	 &&
 							match.pasuk 	=== data.matches[id+1].pasuk		}*{/if}
-							{match.bookname.replace('_', ' ')} {match.perek}:{match.pasuk}</a>
+							{match.bookname.replaceAll('_', ' ')} {match.perek}:{match.pasuk}</a>
 					</div>
 				{:else}
 					<div class="result">No results found</div>

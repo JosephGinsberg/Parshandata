@@ -27,7 +27,6 @@ An advanced Tanach search engine, allowing for complex, layered searches of the 
 ## Frontend
 
 ### Near Future
-* Hyperlink results location to source (sefaria) | https://www.sefaria.org/Samuel_I.1.5 | https://www.sefaria.org/I_Samuel.1.5
 * Build _paramPanel on interface
 * Design/Build input options to manipuate search on interface
 * Have interface manipulate json properly
