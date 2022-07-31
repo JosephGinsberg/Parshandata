@@ -14,7 +14,6 @@
 <!-- {$page.url.pathname} -->
 <style>
 	main {
-		position: relative;
 		height: calc(100% - (var(--headerHeight) + 150px));
 		z-index: 1;
 	}

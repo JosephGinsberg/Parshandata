@@ -252,7 +252,6 @@
 		<Dropdown
 			placeholder="{displayBooks(search.books)} selected"
 			options={bookOptions}
-			multiple
 			on:change={e => updateSearchByKey('books', e.detail.value)}
 		/>
 		<!-- updateSearchByKey('books', JSON.parse(booksSelected)) -->
@@ -304,11 +303,19 @@
 
 	<div class="option">
 		<h3 class="title">Split results by</h3>
-		<Dropdown
+		<select
+			bind:value={search.splitBy}
 			placeholder={search.splitBy}
-			options={['Pasuk', 'Perek']}
+			on:change={e => updateSearchByKey('splitBy', e.target?.value)}
+		>
+			<option value="pasuk">Pasuk</option>
+			<option value="perek">Perek</option>
+		</select>
+		<!-- <Dropdown
+			placeholder={search.splitBy}
+			options={[{checked: true, value: 'Pasuk'}, {checked: false, value: 'Perek'}]}
 			on:change={e => updateSearchByKey('splitBy', e.detail.value.toLowerCase())}
-		/>
+		/> -->
 	</div>
 </aside>
 
