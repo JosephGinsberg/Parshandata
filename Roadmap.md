@@ -33,5 +33,6 @@ An advanced Tanach search engine, allowing for complex, layered searches of the 
 * Serialize json input on spring boot server
 
 ### Eventual
-* add apache/nginx in front of app for static frontend files
+* Toggle search into scentence view
+* Add apache/nginx in front of app for static frontend files
 * More features coming soon
