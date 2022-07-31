@@ -1,51 +1,53 @@
 <script lang="ts">
-	import SearchOption from "./_SearchOption.svelte"
-	import Button from "$lib/Button.svelte"
+	import SearchOption from './_SearchOption.svelte'
+	import Button from '$lib/Button.svelte'
 
-	export let search: searchRequest | JSON | any,
-	updateSearch: Function,
-	runSearch: VoidFunction
+	export let search: searchRequest | JSON | any, updateSearch: Function, runSearch: VoidFunction
 
 	let isDevMode: boolean = true,
-	lastClicks: string[] = [],
-	request: string = JSON.stringify(search, undefined, 4),
-	update: boolean = true,
-	fileSelector: HTMLInputElement
+		lastClicks: string[] = [],
+		request: string = JSON.stringify(search, undefined, 4),
+		update: boolean = true,
+		fileSelector: HTMLInputElement
 
 	const changeToDEV = (e: KeyboardEvent): void => {
-		lastClicks.push(e.key)
-		if(lastClicks.length > 3) lastClicks.shift()
-		if (lastClicks.join('') === 'dev') isDevMode = !isDevMode
-	},
-	validateJson = (expectedJson: string): boolean => {
-		try {
-			JSON.parse(expectedJson)
-			return true
-		} catch {
-			return false
+			lastClicks.push(e.key)
+			if (lastClicks.length > 3) lastClicks.shift()
+			if (lastClicks.join('') === 'dev') isDevMode = !isDevMode
+		},
+		validateJson = (expectedJson: string): boolean => {
+			try {
+				JSON.parse(expectedJson)
+				return true
+			} catch {
+				return false
+			}
+		},
+		uploadSearch = async (): Promise<void> => {
+			if (!fileSelector.files) return
+
+			const savedSearch = await fileSelector.files[0].text()
+			search = JSON.parse(savedSearch)
+		},
+		downloadSearch = (): void => {
+			let dataString: string = JSON.stringify(JSON.parse(request), undefined, 4),
+				filename: string = 'Search | Parshandata.json'
+
+			// initiate download
+			let universalBOM: string = '\uFEFF',
+				link: HTMLElement = document.createElement('a')
+			link.setAttribute(
+				'href',
+				'data:text/csv;charset=utf-8,' + encodeURIComponent(universalBOM + dataString)
+			)
+			link.setAttribute('download', filename)
+			link.click()
 		}
-	},
-	uploadSearch = async (): Promise<void> => {
-		if(!fileSelector.files) return
-
-		const savedSearch = await fileSelector.files[0].text()
-		search = JSON.parse(savedSearch)
-	},
-	downloadSearch = (): void => {
-		let dataString: string = JSON.stringify(JSON.parse(request), undefined, 4),
-		filename: string = 'Search | Parshandata.json'
-
-		// initiate download
-		let universalBOM: string = "\uFEFF",
-		link: HTMLElement = document.createElement('a')
-		link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(universalBOM+dataString));
-		link.setAttribute('download', filename)
-		link.click()
-	}
 
 	// $: if(validateJson(request) && !update) search = JSON.parse(request)
-	$: if(validateJson(request)) updateSearch(JSON.parse(request))
-	$: if(request !== search && update && validateJson(request)) request = JSON.stringify(search, undefined, 4)
+	$: if (validateJson(request)) updateSearch(JSON.parse(request))
+	$: if (request !== search && update && validateJson(request))
+		request = JSON.stringify(search, undefined, 4)
 </script>
 
 <div class="container" on:keyup={changeToDEV}>
@@ -54,7 +56,7 @@
 			<Button classes='minimal small' icon='library_add' text='Add element' />
 		</div> -->
 
-		<div class='optionsContainer'>
+		<div class="optionsContainer">
 			<div>Display <span style="display: none;">Search</span> every {search.splitBy}</div>
 
 			{#each search.search as element, i (element)}
@@ -62,21 +64,33 @@
 			{/each}
 		</div>
 	{:else}
-		<textarea class:error={!validateJson(request)} bind:value={request} on:focus={() => update = !update} on:blur={() => update = !update} autocomplete="off" spellcheck="false"></textarea>
+		<textarea
+			class:error={!validateJson(request)}
+			bind:value={request}
+			on:focus={() => (update = !update)}
+			on:blur={() => (update = !update)}
+			autocomplete="off"
+			spellcheck="false"
+		/>
 	{/if}
 
 	<div class="buttonsContainer row">
-		<Button style='default' text="Search" on:click={runSearch} />
+		<Button style="default" text="Search" on:click={runSearch} />
 		<div>
-			<Button classes='minimal small' icon='save' on:click={downloadSearch} />
-			<Button classes='minimal small' icon='upload' text='Upload' on:click={() => fileSelector.click()} />
+			<Button classes="minimal small" icon="save" on:click={downloadSearch} />
+			<Button
+				classes="minimal small"
+				icon="upload"
+				text="Upload"
+				on:click={() => fileSelector.click()}
+			/>
 			<input type="file" bind:this={fileSelector} on:change={uploadSearch} accept=".json" />
 		</div>
 	</div>
 </div>
 
 <style>
-	.container{
+	.container {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
@@ -90,14 +104,15 @@
 		border: 2px solid var(--lightText);
 		border-radius: var(--borderRadius);
 	}
-	.container:focus-within, .container:focus-within .buttonsContainer{
+	.container:focus-within,
+	.container:focus-within .buttonsContainer {
 		border-color: var(--supportText);
 	}
-	.container .optionsContainer{
+	.container .optionsContainer {
 		padding: calc(var(--topPadding) / 1.5) var(--topPadding);
 		height: 100%;
 	}
-	textarea{
+	textarea {
 		width: 100%;
 		height: 100%;
 		background-color: transparent;
@@ -105,15 +120,15 @@
 		outline: none;
 		resize: none;
 	}
-	textarea.error{
+	textarea.error {
 		color: red;
 	}
-	.buttonsContainer{
+	.buttonsContainer {
 		align-items: center;
 		padding: calc(var(--topPadding) / 1.5) var(--topPadding);
 		border-top: 2px solid var(--lightText);
 	}
-	input[type=file]{
+	input[type='file'] {
 		display: none;
 	}
 </style>

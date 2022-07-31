@@ -1,9 +1,7 @@
 <script lang="ts">
 	import Dropdown from '$lib/Dropdown.svelte'
 
-	export let element: searchParam,
-	index: number
-	
+	export let element: searchParam, index: number
 </script>
 
 <div class="option row {element.param}" id={index.toString()}>
@@ -11,7 +9,7 @@
 
 	{#if element.param === 'condition'}
 		that
-		<Dropdown classes='small' text='does not contain' style='margin-left: 8px;' />
+		<Dropdown classes="small" text="does not contain" style="margin-left: 8px;" />
 		<!-- <Button
 			classes='small {element.type==='contains'? 'default': 'muted'}'
 			text='contains'
@@ -32,25 +30,27 @@
 	<!-- <div>every word containing a ח</div> -->
 </div>
 
-<span class='temp'>{element.type} {element.connector} {element.value} {element.count} {element.level}</span>
+<span class="temp"
+	>{element.type} {element.connector} {element.value} {element.count} {element.level}</span
+>
 
 <style>
-	.option{
-		margin-block-start: .5rem;
+	.option {
+		margin-block-start: 0.5rem;
 		justify-content: flex-start;
 	}
-	.option .handle{
+	.option .handle {
 		display: inline-block;
 		height: 24px;
 		width: 24px;
-		margin-inline-end: .5rem;
+		margin-inline-end: 0.5rem;
 		cursor: pointer;
 		opacity: 0;
 	}
-	.option:hover .handle{
+	.option:hover .handle {
 		opacity: 1;
 	}
-	.temp{
+	.temp {
 		display: none;
 	}
 </style>

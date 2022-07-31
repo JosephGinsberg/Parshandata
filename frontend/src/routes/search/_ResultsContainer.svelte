@@ -1,34 +1,36 @@
 <script lang="ts">
-	import Button from "$lib/Button.svelte"
+	import Button from '$lib/Button.svelte'
 
-	export let state: searchResponse | Promise<searchResponse> | any,
-	count: string
+	export let state: searchResponse | Promise<searchResponse> | any, count: string
 
 	const downloadResults: any | VoidFunction = async () => {
 		let dataString: string = 'VERSE,MATCH,BOOK,PEREK,PASUK\n',
-		filename: string = 'Results | Parshandata.csv'
+			filename: string = 'Results | Parshandata.csv'
 
 		// if(!state) return
-		try{
+		try {
 			await state.then((res: searchResponse) => {
-				if(!res.matches) return
+				if (!res.matches) return
 				res.matches.forEach((match: searchMatch) => {
 					dataString += match.fullverse + ','
-					dataString += match.splitvalue != match.fullverse? match.splitvalue + ',': 'N/A,'
+					dataString += match.splitvalue != match.fullverse ? match.splitvalue + ',' : 'N/A,'
 					dataString += match.bookname.replace('_', ' ') + ','
 					dataString += match.perek + ','
 					dataString += match.pasuk + '\n'
 				})
 			})
-		}catch{
+		} catch {
 			console.error('Error: no results w/ error')
 			return
 		}
 
 		// initiate download
-		let universalBOM: string = "\uFEFF",
-		link: HTMLElement = document.createElement('a')
-		link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(universalBOM+dataString));
+		let universalBOM: string = '\uFEFF',
+			link: HTMLElement = document.createElement('a')
+		link.setAttribute(
+			'href',
+			'data:text/csv;charset=utf-8,' + encodeURIComponent(universalBOM + dataString)
+		)
 		link.setAttribute('download', filename)
 		link.click()
 	}
@@ -41,7 +43,7 @@
 			<span class="subtext">• {count}</span>
 		</div>
 		<div class="options row">
-			<Button classes='minimal small' icon='download' text='Download' on:click={downloadResults} />
+			<Button classes="minimal small" icon="download" text="Download" on:click={downloadResults} />
 		</div>
 	</div>
 	<div class="body">
@@ -56,18 +58,24 @@
 						<!-- {data.matches[id-1] < data.matches && match.fullverse === data.matches[id-1].fullverse? true: ''} -->
 						<div class="fullverse">
 							{#if match.splitvalue}
-								{match.fullverse.split(match.splitvalue)[0]}<b>{match.splitvalue}</b>{match.fullverse.split(match.splitvalue)[1]}
+								{match.fullverse.split(match.splitvalue)[0]}<b>{match.splitvalue}</b
+								>{match.fullverse.split(match.splitvalue)[1]}
 							{:else}
 								{match.fullverse}
 							{/if}
 						</div>
-						<a class="location" href="https://www.sefaria.org/{match.bookname.replace('1', 'I')}.{match.perek}.{match.pasuk}?lang=he" target="_blank">
-							{#if data.matches[id+1] &&
-							match.fullverse === data.matches[id+1].fullverse &&
-							match.bookname 	=== data.matches[id+1].bookname	 &&
-							match.perek 	=== data.matches[id+1].perek	 &&
-							match.pasuk 	=== data.matches[id+1].pasuk		}*{/if}
-							{match.bookname.replaceAll('_', ' ')} {match.perek}:{match.pasuk}</a>
+						<a
+							class="location"
+							href="https://www.sefaria.org/{match.bookname.replace(
+								'1',
+								'I'
+							)}.{match.perek}.{match.pasuk}?lang=he"
+							target="_blank"
+						>
+							{#if data.matches[id + 1] && match.fullverse === data.matches[id + 1].fullverse && match.bookname === data.matches[id + 1].bookname && match.perek === data.matches[id + 1].perek && match.pasuk === data.matches[id + 1].pasuk}*{/if}
+							{match.bookname.replaceAll('_', ' ')}
+							{match.perek}:{match.pasuk}</a
+						>
 					</div>
 				{:else}
 					<div class="result">No results found</div>
@@ -82,7 +90,7 @@
 </div>
 
 <style>
-	.container{
+	.container {
 		height: 100%;
 		max-height: 100%;
 		overflow-y: hidden;
@@ -93,27 +101,27 @@
 		border-radius: var(--borderRadius);
 		/* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='%23f1f5f9'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e"); */
 	}
-	.container .header{
+	.container .header {
 		padding: calc(var(--topPadding) / 1.5) var(--topPadding);
 	}
-	.container .body{
+	.container .body {
 		padding: var(--topPadding);
 	}
-	.container .header{
+	.container .header {
 		border-bottom: 2px solid var(--disabledText);
 	}
-	.container .body{
+	.container .body {
 		max-height: 84%;
 		overflow-y: auto;
 	}
-	.container .result:not(:last-of-type){
+	.container .result:not(:last-of-type) {
 		padding-bottom: calc(var(--topPadding) / 2);
 		border-bottom: 2px solid var(--disabledText);
 	}
-	.container .result:not(:first-of-type){
+	.container .result:not(:first-of-type) {
 		padding-top: calc(var(--topPadding) / 2);
 	}
-	.container .fullverse{
+	.container .fullverse {
 		font-family: 'david', 'Noto Sans Hebrew', serif;
 		font-size: 20px;
 		text-align: right;

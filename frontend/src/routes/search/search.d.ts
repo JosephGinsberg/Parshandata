@@ -1,4 +1,4 @@
-interface searchRequest{
+interface searchRequest {
 	books: string[]
 	useKeri: boolean
 	taamTachton: boolean
@@ -7,7 +7,7 @@ interface searchRequest{
 	search: searchParam[]
 }
 
-interface searchParam{
+interface searchParam {
 	param: string
 	type: string
 	connector: string
@@ -16,14 +16,14 @@ interface searchParam{
 	level: number
 }
 
-interface searchResponse{
+interface searchResponse {
 	ok: boolean
 	msg: string
 	runtime: number
 	matches: searchMatch[]
 }
 
-interface searchMatch{
+interface searchMatch {
 	bookname: string
 	fullverse: string
 	pasuk: string
@@ -31,7 +31,7 @@ interface searchMatch{
 	splitvalue: string
 }
 
-interface tanachBook{
+interface tanachBook {
 	bookname: string
 	inSet: string
 	hebrew: string

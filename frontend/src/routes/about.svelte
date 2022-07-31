@@ -36,7 +36,7 @@
 	</p>
 
 	<p>
-		The _TODOs_ page illustrates SvelteKit's data loading and form handling. Try using
-		it with JavaScript disabled!
+		The _TODOs_ page illustrates SvelteKit's data loading and form handling. Try using it with
+		JavaScript disabled!
 	</p>
 </section>

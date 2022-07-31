@@ -1,19 +1,19 @@
 <script>
 	let list = [
-		{ id: 1, value: "red" },
-		{ id: 2, value: "green" },
-		{ id: 3, value: "blue" },
-		{ id: 4, value: "cyan" },
-	];
+		{ id: 1, value: 'red' },
+		{ id: 2, value: 'green' },
+		{ id: 3, value: 'blue' },
+		{ id: 4, value: 'cyan' }
+	]
 
-	let mouseYCoordinate = null; // pointer y coordinate within client
-	let distanceTopGrabbedVsPointer = null;
+	let mouseYCoordinate = null // pointer y coordinate within client
+	let distanceTopGrabbedVsPointer = null
 
-	let draggingItem = null;
-	let draggingItemId = null;
-	let draggingItemIndex = null;
+	let draggingItem = null
+	let draggingItemId = null
+	let draggingItemIndex = null
 
-	let hoveredItemIndex = null;
+	let hoveredItemIndex = null
 
 	// $: {
 	//     // prevents the ghost flickering at the top
@@ -29,24 +29,26 @@
 			draggingItemIndex != hoveredItemIndex
 		) {
 			// swap items
-			[list[draggingItemIndex], list[hoveredItemIndex]] = [
+			;[list[draggingItemIndex], list[hoveredItemIndex]] = [
 				list[hoveredItemIndex],
-				list[draggingItemIndex],
-			];
+				list[draggingItemIndex]
+			]
 
 			// balance
-			draggingItemIndex = hoveredItemIndex;
+			draggingItemIndex = hoveredItemIndex
 		}
 	}
 
-	let container = null;
+	let container = null
 </script>
 
 <div class="container" bind:this={container}>
 	{#if mouseYCoordinate}
 		<div
 			class="item ghost"
-			style="top: {mouseYCoordinate + distanceTopGrabbedVsPointer}px; background: {draggingItem.value};">
+			style="top: {mouseYCoordinate +
+				distanceTopGrabbedVsPointer}px; background: {draggingItem.value};"
+		>
 			{draggingItem.value}
 		</div>
 	{/if}
@@ -56,39 +58,46 @@
 			class="item {draggingItemId == item.id ? 'invisible' : ''}"
 			style="background: {item.value};"
 			draggable="true"
-			on:dragstart={(e) => {
-				mouseYCoordinate = e.clientY;
+			on:dragstart={e => {
+				mouseYCoordinate = e.clientY
 				//console.log('dragstart', mouseYCoordinate);
 
-				draggingItem = item;
-				draggingItemIndex = index;
-				draggingItemId = item.id;
+				draggingItem = item
+				draggingItemIndex = index
+				draggingItemId = item.id
 
-				distanceTopGrabbedVsPointer = 
+				distanceTopGrabbedVsPointer =
 					e.target.getBoundingClientRect().y -
 					e.target.parentElement.getBoundingClientRect().y -
 					e.clientY
 			}}
-			on:drag={(e) => {
+			on:drag={e => {
 				const parentPosition = e.target.parentElement.getBoundingClientRect()
-				if(e.clientY > parentPosition.top && e.clientY < parentPosition.bottom){
-					mouseYCoordinate = e.clientY;
+				if (e.clientY > parentPosition.top && e.clientY < parentPosition.bottom) {
+					mouseYCoordinate = e.clientY
 				}
-				console.log('drag', mouseYCoordinate, parentPosition.top, parentPosition.bottom, draggingItemId);
+				console.log(
+					'drag',
+					mouseYCoordinate,
+					parentPosition.top,
+					parentPosition.bottom,
+					draggingItemId
+				)
 			}}
-			on:dragover={(e) => {
-				hoveredItemIndex = index;
+			on:dragover={e => {
+				hoveredItemIndex = index
 			}}
-			on:dragend={(e) => {
-				console.log('dragend', mouseYCoordinate);
+			on:dragend={e => {
+				console.log('dragend', mouseYCoordinate)
 				//console.log('\n');
 
 				// mouseYCoordinate = e.clientY;
-				mouseYCoordinate = 0;
+				mouseYCoordinate = 0
 
-				draggingItemId = null; // makes item visible
-				hoveredItemIndex = null; // prevents instant swap
-			}}>
+				draggingItemId = null // makes item visible
+				hoveredItemIndex = null // prevents instant swap
+			}}
+		>
 			{item.value}
 		</div>
 	{/each}
