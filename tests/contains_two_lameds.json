@@ -13,12 +13,6 @@
     "splitBy": "word",
     "search": [
         {
-            "param": "condition",
-            "type": "contains",
-            "connector": "none",
-            "level": 1
-        },
-        {
             "param": "input",
             "type": "value",
             "value": "ל",
