@@ -11,7 +11,7 @@ temp
 !.env.example
 .vercel
 .output
-
+maker.*
 output.*
 *.temp.*
 target

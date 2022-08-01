@@ -1,6 +1,5 @@
 package BibleStatistics;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import org.json.*;
 import BibleStatistics.Level_1.*;
@@ -35,7 +34,7 @@ public class AppFunctions {
 	}
 
 	public static ArrayList<Integer> distance(JSONObject input, ArrayList<Integer> one, ArrayList<Integer> two) throws JSONException{
-		String[] values = {"type", "distance", "distancetype"};
+		String[] values = {"type", "distance", "count"};
 		AppFunctions.errorChecker(values, input);
 		String operation = input.getString(values[0]);
 		int distance = input.getInt(values[1]);
