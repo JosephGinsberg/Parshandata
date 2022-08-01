@@ -43,11 +43,6 @@
     "splitBy": "pasuk",
     "search": [
         {
-            "param": "condition",
-            "connector": "none",
-            "level": 1
-        },
-        {
             "param": "abstract",
             "type": "tropword",
             "count": 0,
@@ -57,17 +52,12 @@
             "level": 1
         },
         {
-            "param": "condition",
-            "connector": "none",
-            "level": 2
-        },
-        {
             "param": "input",
             "type": "trop",
             "value": "telisha-gedolah*gershayim",
-            "matchtype": "contains",
-            "count": 0,
-            "counttype": "greater",
+            "matchtype": "is",
+            "count": 1,
+            "counttype": "equal",
             "connector": "or",
             "level": 2
         },
@@ -75,9 +65,9 @@
             "param": "input",
             "type": "trop",
             "value": "gershayim*telisha-gedolah",
-            "matchtype": "contains",
-            "count": 0,
-            "counttype": "greater",
+            "matchtype": "is",
+            "count": 1,
+            "counttype": "equal",
             "connector": "or",
             "level": 2
         },
@@ -85,9 +75,9 @@
             "param": "input",
             "type": "trop",
             "value": "azlah-geiresh*telisha-gedolah",
-            "matchtype": "contains",
-            "count": 0,
-            "counttype": "greater",
+            "matchtype": "is",
+            "count": 1,
+            "counttype": "equal",
             "connector": "or",
             "level": 2
         },
@@ -95,9 +85,9 @@
             "param": "input",
             "type": "trop",
             "value": "telisha-gedolah*azlah-geiresh",
-            "matchtype": "contains",
-            "count": 0,
-            "counttype": "greater",
+            "matchtype": "is",
+            "count": 1,
+            "counttype": "equal",
             "connector": "none",
             "level": 2
         }

@@ -1,4 +1,3 @@
-
 .DS_Store
 .vscode
 temp
@@ -14,4 +13,4 @@ temp
 maker.*
 output.*
 *.temp.*
-target
+/backend/target
