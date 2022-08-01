@@ -40,6 +40,7 @@ public class keriUkesiv {
 	//Make sure to replace all  finalB = finalB.replace("ֺ", "ָ");
 	
 	//Replaces all keri in the input String with the kesiv	
+	//if kesiv is at end of pasuk it doesn't replace it properly
 	public static String kesiv(String bible){
 		int len = bible.length();
 		for(int i = 0; i < len; i++) {
@@ -51,6 +52,11 @@ public class keriUkesiv {
 				for(int j = i; j < i + 50; j++) {
 					if(bible.substring(j, j + 1).equals(" ") || bible.substring(j, j + 1).equals("־")) {
 						bible = bible.substring(0, i) + bible.substring(j + 1);
+						i -= (j - i);
+						break;
+					}
+					else if(bible.substring(j, j + 1).equals("׃")) {
+						bible = bible.substring(0, i - 1) + bible.substring(j);
 						i -= (j - i);
 						break;
 					}
