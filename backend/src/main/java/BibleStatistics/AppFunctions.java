@@ -34,7 +34,7 @@ public class AppFunctions {
 	}
 
 	public static ArrayList<Integer> distance(JSONObject input, ArrayList<Integer> one, ArrayList<Integer> two) throws JSONException{
-		String[] values = {"type", "distance", "count"};
+		String[] values = {"type", "count", "distancetype"};
 		AppFunctions.errorChecker(values, input);
 		String operation = input.getString(values[0]);
 		int distance = input.getInt(values[1]);
