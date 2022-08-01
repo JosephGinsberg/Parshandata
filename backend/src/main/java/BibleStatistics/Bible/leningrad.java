@@ -87,7 +87,7 @@ public class leningrad {
 
 	/*public static String addTrop(String bible){
 		String x = bible;
-		x = x.replace("דַּבֶּרְךָ", "");
+		x = x.replace("דַּבֶּרְךָ", "דַּבֶּרְךָ֖");
 
 		return x;
 	}*/
