@@ -33,6 +33,7 @@ public class AppFunctions {
 		return result;
 	}
 
+	//when "and" is used for in between it just finds to different trop instead of comparing them to one
 	public static ArrayList<Integer> distance(JSONObject input, ArrayList<Integer> one, ArrayList<Integer> two) throws JSONException{
 		String[] values = {"type", "count", "distancetype"};
 		AppFunctions.errorChecker(values, input);
