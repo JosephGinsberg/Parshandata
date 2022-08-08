@@ -1,13 +1,24 @@
 <script lang="ts">
+	import { globalState } from '../../globalState'
 	import SearchOption from './_SearchOption.svelte'
 	import Button from '$lib/Button.svelte'
 
-	export let search: searchRequest | JSON | any, updateSearch: Function, runSearch: VoidFunction
+	export let runSearch: any
 
-	let isDevMode: boolean = true,
+	let searchRequest: SearchRequest  = {
+		books: [],
+		useKeri: true,
+		taamTachton: true,
+		display: 'every',
+		splitBy: 'word',
+		search: []
+	}
+	globalState.subscribe(value => ({ searchRequest } = value))
+
+	let isDevMode = true,
 		lastClicks: string[] = [],
-		request: string = JSON.stringify(search, undefined, 4),
-		update: boolean = true,
+		request = JSON.stringify(searchRequest, undefined, 4),
+		update = true,
 		fileSelector: HTMLInputElement
 
 	const changeToDEV = (e: KeyboardEvent): void => {
@@ -27,7 +38,7 @@
 			if (!fileSelector.files) return
 
 			const savedSearch = await fileSelector.files[0].text()
-			search = JSON.parse(savedSearch)
+			searchRequest = JSON.parse(savedSearch)
 		},
 		downloadSearch = (): void => {
 			let dataString: string = JSON.stringify(JSON.parse(request), undefined, 4),
@@ -42,27 +53,70 @@
 			)
 			link.setAttribute('download', filename)
 			link.click()
+		},
+		addBlock = (): void => {
+			searchRequest.search[searchRequest.search.length-1].connector = 'or'
+			const tempBlock: SearchParam = {
+				'param': 'input',
+				'type': 'letter',
+				'value': '',
+				'matchtype': 'contains',
+				'count': 1,
+				'counttype': 'equal',
+				'connector': 'none',
+				'level': 1
+			}
+
+			globalState.update(state => {
+				state.searchRequest.search = [...searchRequest.search, tempBlock]
+				return state
+			})
 		}
 
-	// $: if(validateJson(request) && !update) search = JSON.parse(request)
-	$: if (validateJson(request)) updateSearch(JSON.parse(request))
-	$: if (request !== search && update && validateJson(request))
-		request = JSON.stringify(search, undefined, 4)
+	// $: if(validateJson(request) && !update) searchRequest = JSON.parse(request)
+	$: if (validateJson(request)) globalState.update(state => {
+		state.searchRequest = JSON.parse(request)
+		return state
+	})
+	$: if (JSON.parse(request) !== searchRequest && update && validateJson(request))
+		request = JSON.stringify(searchRequest, undefined, 4)
+	
 </script>
 
 <div class="container" on:keyup={changeToDEV}>
-	{#if !isDevMode}
-		<!-- <div style="position: absolute;top: var(--topPadding);right: var(--topPadding);">
-			<Button classes='minimal small' icon='library_add' text='Add element' />
-		</div> -->
+	{#if isDevMode}
+		<div class="row" style="position: absolute;top: var(--topPadding);right: var(--topPadding);flex-direction: column;">
+			<Button classes='minimal small' style='width: 100%;margin-bottom: 6px;' icon='library_add' text='Add block' on:click={addBlock} />
+		</div>
 
 		<div class="optionsContainer">
-			<div>Display <span style="display: none;">Search</span> every {search.splitBy}</div>
+			<div>
+				Return every 
+				<select
+					class="small"
+					style="display: inline-block;width: 125px;margin-inline-start: .5rem;"
+					placeholder={searchRequest.splitBy}
+					bind:value={searchRequest.splitBy}
+					on:change={e => searchRequest = {...searchRequest, splitBy: e.target?.value}}
+				>
+					<option value="pasuk">Pasuk</option>
+					<option value="word">Word</option>
+					<option value="tropword">Tropword</option>
+				</select>
+			</div>
 
-			{#each search.search as element, i (element)}
+			{#each searchRequest.search as element, i (element)}
 				<SearchOption {element} index={i} />
 			{/each}
 		</div>
+		<textarea
+			class:error={!validateJson(request)}
+			bind:value={request}
+			on:focus={() => (update = !update)}
+			on:blur={() => (update = !update)}
+			autocomplete="off"
+			spellcheck="false"
+		/>
 	{:else}
 		<textarea
 			class:error={!validateJson(request)}
@@ -96,6 +150,7 @@
 		height: 100%;
 		max-height: 100%;
 		width: calc(50% - var(--sidePadding));
+		max-width: calc(42.5% - var(--sidePadding));/** TEMP FIX **/
 		margin-inline-end: var(--sidePadding);
 		padding-right: 0;
 		box-sizing: border-box;
@@ -104,10 +159,10 @@
 		border: 2px solid var(--lightText);
 		border-radius: var(--borderRadius);
 	}
-	.container:focus-within,
+	/* .container:focus-within,
 	.container:focus-within .buttonsContainer {
 		border-color: var(--supportText);
-	}
+	} */
 	.container .optionsContainer {
 		padding: calc(var(--topPadding) / 1.5) var(--topPadding);
 		height: 100%;

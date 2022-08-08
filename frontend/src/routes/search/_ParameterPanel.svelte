@@ -1,11 +1,16 @@
 <script lang="ts">
+	import { globalState } from '../../globalState'
 	import Button from '$lib/Button.svelte'
 	import Dropdown from '$lib/Dropdown.svelte'
-	import { each, loop_guard } from 'svelte/internal'
 
-	export let search: searchRequest, updateSearchByKey: any
+	let searchRequest: SearchRequest
+	globalState.subscribe(value => ({ searchRequest } = value))
+	$: globalState.update(state => {
+		state.searchRequest = searchRequest
+		return state
+	})
 
-	let tanachBooks: tanachBook[] = [
+	let tanachBooks: TanachBook[] = [
 		{
 			bookname: 'Genesis',
 			inSet: 'Torah',
@@ -218,7 +223,7 @@
 			let groupName: string[] = []
 
 			selectedBooks.forEach(book => {
-				const bookDetails: tanachBook = tanachBooks.filter(each => each.bookname === book)[0]
+				const bookDetails: TanachBook = tanachBooks.filter(each => each.bookname === book)[0]
 				if (bookDetails?.inSet && groupName.indexOf(bookDetails.inSet) === -1)
 					groupName.push(bookDetails.inSet)
 			})
@@ -230,7 +235,8 @@
 			)
 				return groupName[0]
 			else return selectedBooks.length !== 1 ? selectedBooks.length + ' Books' : selectedBooks[0]
-		}
+		},
+		updateChange = (e: any) => searchRequest.splitBy = e.target?.value
 
 	let bookOptions: dropdownInput[]
 	$: {
@@ -238,7 +244,7 @@
 		for (const book of tanachBooks) {
 			// check user's language preference
 			bookOptions.push({
-				checked: search.books.indexOf(book.bookname) >= 0,
+				checked: searchRequest.books.indexOf(book.bookname) >= 0,
 				value: book.bookname,
 				text: book.bookname.replaceAll('_', ' ')
 			})
@@ -250,72 +256,65 @@
 	<div class="option">
 		<h3 class="title">Books to search</h3>
 		<Dropdown
-			placeholder="{displayBooks(search.books)} selected"
+			placeholder="{displayBooks(searchRequest.books)} selected"
 			options={bookOptions}
-			on:change={e => updateSearchByKey('books', e.detail.value)}
+			on:change={e => searchRequest.books = e.detail.value}
 		/>
-		<!-- updateSearchByKey('books', JSON.parse(booksSelected)) -->
-		<!-- {JSON.stringify(search.books)} -->
+		<!-- searchRequest.books = JSON.parse(booksSelected) -->
 	</div>
 
 	<div class="option">
 		<h3 class="title">Use <i>keri</i> instead of <i>kesiv</i></h3>
 		<Button
-			classes="small {search.useKeri ? 'default' : 'muted'}"
+			classes="small {searchRequest.useKeri ? 'default' : 'muted'}"
 			text="Yes"
-			on:click={() => updateSearchByKey('useKeri', true)}
+			on:click={() => searchRequest.useKeri = true}
 		/>
 		<Button
-			classes="small {!search.useKeri ? 'default' : 'muted'}"
+			classes="small {!searchRequest.useKeri ? 'default' : 'muted'}"
 			text="No"
-			on:click={() => updateSearchByKey('useKeri', false)}
+			on:click={() => searchRequest.useKeri = false}
 		/>
-		<!-- {search.useKeri} -->
 	</div>
 
 	<div class="option">
 		<h3 class="title">Use <i>taam tachton</i></h3>
 		<Button
-			classes="small {search.taamTachton ? 'default' : 'muted'}"
+			classes="small {searchRequest.taamTachton ? 'default' : 'muted'}"
 			text="Yes"
-			on:click={() => updateSearchByKey('taamTachton', true)}
+			on:click={() => searchRequest.taamTachton = true}
 		/>
 		<Button
-			classes="small {!search.taamTachton ? 'default' : 'muted'}"
+			classes="small {!searchRequest.taamTachton ? 'default' : 'muted'}"
 			text="No"
-			on:click={() => updateSearchByKey('taamTachton', false)}
+			on:click={() => searchRequest.taamTachton = false}
 		/>
-		<!-- {search.taamTachton} -->
 	</div>
 
 	<!-- <div class="option">
 		<h3 class="title">Exclude chachter group(s) from search</h3>
 		{#each ['letter', 'nekudah', 'trop', 'other'] as removeOption}
-			<Button classes='small {search.remove.indexOf(removeOption) >= 0? 'default': 'muted'}' style='text-transform: capitalize;margin-inline-end: .3rem;' text={removeOption} on:click={updateSearchByKey('remove', changeArray(search.remove, removeOption))} />
+			<Button classes='small {search.remove.indexOf(removeOption) >= 0? 'default': 'muted'}' style='text-transform: capitalize;margin-inline-end: .3rem;' text={removeOption} on:click={() => searchRequest.remove = changeArray(searchRequest.remove, removeOption)} />
 		{/each}
-		{JSON.stringify(search.remove)}
+		{JSON.stringify(searchRequest.remove)}
 	</div> -->
 
 	<div class="option">
 		<h3 class="title">Display</h3>
-		<Dropdown placeholder={search.display} />
+		<Dropdown placeholder={searchRequest.display} options={[]} />
 	</div>
 
 	<div class="option">
 		<h3 class="title">Split results by</h3>
 		<select
-			bind:value={search.splitBy}
-			placeholder={search.splitBy}
-			on:change={e => updateSearchByKey('splitBy', e.target?.value)}
+			placeholder={searchRequest.splitBy}
+			bind:value={searchRequest.splitBy}
+			on:change={updateChange}
 		>
 			<option value="pasuk">Pasuk</option>
-			<option value="perek">Perek</option>
+			<option value="word">Word</option>
+			<option value="tropword">Tropword</option>
 		</select>
-		<!-- <Dropdown
-			placeholder={search.splitBy}
-			options={[{checked: true, value: 'Pasuk'}, {checked: false, value: 'Perek'}]}
-			on:change={e => updateSearchByKey('splitBy', e.detail.value.toLowerCase())}
-		/> -->
 	</div>
 </aside>
 

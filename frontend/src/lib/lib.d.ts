@@ -7,4 +7,5 @@ interface dropdownInput {
 	checked: boolean
 	value: string
 	text?: string
+	disabled?: boolean
 }

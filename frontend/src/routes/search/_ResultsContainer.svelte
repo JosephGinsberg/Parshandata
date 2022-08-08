@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte'
 
-	export let state: searchResponse | Promise<searchResponse> | any, count: string
+	export let state: SearchResponse | Promise<SearchResponse> | any,
+		count: string
 
 	const downloadResults: any | VoidFunction = async () => {
 		let dataString: string = 'VERSE,MATCH,BOOK,PEREK,PASUK\n',
@@ -9,9 +10,9 @@
 
 		// if(!state) return
 		try {
-			await state.then((res: searchResponse) => {
+			await state.then((res: SearchResponse) => {
 				if (!res.matches) return
-				res.matches.forEach((match: searchMatch) => {
+				res.matches.forEach((match: SearchMatch) => {
 					dataString += match.fullverse + ','
 					dataString += match.splitvalue != match.fullverse ? match.splitvalue + ',' : 'N/A,'
 					dataString += match.bookname.replace('_', ' ') + ','
