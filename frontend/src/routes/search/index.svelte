@@ -5,13 +5,13 @@
 	import ParameterPanel from './_ParameterPanel.svelte'
 
 	let searchRequest: SearchRequest,
-	searchStatus: SearchResponse | Promise<SearchResponse> = {
-		ok: true,
-		msg: '',
-		runtime: 0,
-		matches: []
-	},
-	count = '0'
+		searchStatus: SearchResponse | Promise<SearchResponse> = {
+			ok: true,
+			msg: '',
+			runtime: 0,
+			matches: []
+		},
+		count = '0'
 	globalState.subscribe(value => ({ searchRequest } = value))
 
 	const fetchSearch = async () => {
@@ -28,12 +28,12 @@
 					body: JSON.stringify(searchRequest)
 				}
 			),
-		json = await res.json()
+			json = await res.json()
 		count = json.matches.length.toString()
 		console.log('runtime: %s', json.runtime)
 		return json
 	}
-	const runSearch = () => searchStatus = fetchSearch()
+	const runSearch = () => (searchStatus = fetchSearch())
 </script>
 
 <svelte:head>

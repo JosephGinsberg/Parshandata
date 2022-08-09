@@ -236,7 +236,7 @@
 				return groupName[0]
 			else return selectedBooks.length !== 1 ? selectedBooks.length + ' Books' : selectedBooks[0]
 		},
-		updateChange = (e: any) => searchRequest.splitBy = e.target?.value
+		updateChange = (e: any) => (searchRequest.splitBy = e.target?.value)
 
 	let bookOptions: dropdownInput[]
 	$: {
@@ -258,7 +258,7 @@
 		<Dropdown
 			placeholder="{displayBooks(searchRequest.books)} selected"
 			options={bookOptions}
-			on:change={e => searchRequest.books = e.detail.value}
+			on:change={e => (searchRequest.books = e.detail.value)}
 		/>
 		<!-- searchRequest.books = JSON.parse(booksSelected) -->
 	</div>
@@ -268,12 +268,12 @@
 		<Button
 			classes="small {searchRequest.useKeri ? 'default' : 'muted'}"
 			text="Yes"
-			on:click={() => searchRequest.useKeri = true}
+			on:click={() => (searchRequest.useKeri = true)}
 		/>
 		<Button
 			classes="small {!searchRequest.useKeri ? 'default' : 'muted'}"
 			text="No"
-			on:click={() => searchRequest.useKeri = false}
+			on:click={() => (searchRequest.useKeri = false)}
 		/>
 	</div>
 
@@ -282,12 +282,12 @@
 		<Button
 			classes="small {searchRequest.taamTachton ? 'default' : 'muted'}"
 			text="Yes"
-			on:click={() => searchRequest.taamTachton = true}
+			on:click={() => (searchRequest.taamTachton = true)}
 		/>
 		<Button
 			classes="small {!searchRequest.taamTachton ? 'default' : 'muted'}"
 			text="No"
-			on:click={() => searchRequest.taamTachton = false}
+			on:click={() => (searchRequest.taamTachton = false)}
 		/>
 	</div>
 

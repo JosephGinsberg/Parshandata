@@ -7,15 +7,15 @@
 	let searchRequest: SearchRequest
 	globalState.subscribe(value => ({ searchRequest } = value))
 	const updateEl = () => {
-		globalState.update(state => {
-			state.searchRequest.search[index] = element
-			return state
-		})
-	},
-	updateChange = (e: any) => {
-		element.count = Number(e.target?.value)
-		updateEl()
-	}
+			globalState.update(state => {
+				state.searchRequest.search[index] = element
+				return state
+			})
+		},
+		updateChange = (e: any) => {
+			element.count = Number(e.target?.value)
+			updateEl()
+		}
 </script>
 
 <div class="option row {element.param}" id={index.toString()}>
@@ -26,74 +26,86 @@
 		<!-- that
 		<Dropdown classes="small" placeholder="does not contain" style="margin-left: 8px;" options={[]} /> -->
 	{:else if element.param === 'input'}
-		<div class="row">
-			that 
-			<select
-				class="small"
-				style="display: inline-block;width: 145px;margin-inline-start: .5rem;"
-				placeholder={element.matchtype}
-				bind:value={searchRequest.search[index].matchtype}
-				on:change={updateEl}
-			>
-				<option value="contains">contains</option>
-				<option value="does not contain">does not contain</option>
-				<option value="is">is</option>
-				<option value="is not">is not</option>
-				<option value="begins">begins with</option>
-				<option value="ends">ends with</option>
-			</select>
-			
-			{#if element.matchtype === 'contains' || element.matchtype === 'does not contain'}
-				<!-- <input type="text" bind:value={element.count}> -->
-				<select
-					class="small"
-					style="display: inline-block;width: 120px;margin-inline-start: .5rem;"
-					placeholder={element.counttype}
-					bind:value={element.counttype}
-					on:change={updateEl}
-				>
-					<option value="equal">equal to</option>
-					<option value="greater">greater than</option>
-					<option value="less">less than</option>
-				</select>
-				<select
-					class="small"
-					style="display: inline-block;width: 55px;margin-inline-start: .5rem;"
-					placeholder={element.count?.toString()}
-					value={element.count?.toString()}
-					on:change={updateChange}
-				>
-					<option value='0'>0</option>
-					<option value='1'>1</option>
-					<option value='2'>2</option>
-					<option value='3'>3</option>
-					<option value='4'>4</option>
-					<option value='5'>5</option>
-					<option value='6'>6</option>
-					<option value='7'>7</option>
-				</select>
-			{:else}
-				&nbsp;a
-			{/if}
+		that
+		<select
+			class="small"
+			style="display: inline-block;width: 145px;margin-inline-start: .5rem;
+			margin-block-end: .5rem;"
+			placeholder={element.matchtype}
+			bind:value={searchRequest.search[index].matchtype}
+			on:change={updateEl}
+		>
+			<option value="contains">contains</option>
+			<option value="does not contain">does not contain</option>
+			<option value="is">is</option>
+			<option value="is not">is not</option>
+			<option value="begins">begins with</option>
+			<option value="ends">ends with</option>
+		</select>
 
-			<Dropdown classes="small" placeholder={element.value} style="margin-left: 8px;" options={[]} />
+		{#if element.matchtype === 'contains' || element.matchtype === 'does not contain'}
+			<!-- <input type="text" bind:value={element.count}> -->
 			<select
 				class="small"
-				style="display: inline-block;width: 120px;margin-inline-start: .5rem;"
-				placeholder={element.connector}
-				bind:value={element.connector}
+				style="display: inline-block;width: 120px;margin-inline-start: .5rem;
+				margin-block-end: .5rem;"
+				placeholder={element.counttype}
+				bind:value={element.counttype}
 				on:change={updateEl}
 			>
-				<option value="none">no connector</option>
-				<option value="and">and</option>
-				<option value="or">or</option>
-				<!-- <option value="distance">distance</option> -->
+				<option value="equal">equal to</option>
+				<option value="greater">greater than</option>
+				<option value="less">less than</option>
 			</select>
-		</div>
+			<select
+				class="small"
+				style="display: inline-block;width: 55px;margin-inline-start: .5rem;
+				margin-block-end: .5rem;"
+				placeholder={element.count?.toString()}
+				value={element.count?.toString()}
+				on:change={updateChange}
+			>
+				<option value="0">0</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+			</select>
+		{:else}
+			&nbsp;a
+		{/if}
+
+		<Dropdown
+			classes="small"
+			placeholder={element.value}
+			style="margin-left: 8px;
+		margin-block-end: .5rem;"
+			options={[]}
+		/>
+		<select
+			class="small"
+			style="display: inline-block;width: 120px;margin-inline-start: .5rem;
+			margin-block-end: .5rem;"
+			placeholder={element.connector}
+			bind:value={element.connector}
+			on:change={updateEl}
+		>
+			<option value="none">no connector</option>
+			<option value="and">and</option>
+			<option value="or">or</option>
+			<!-- <option value="distance">distance</option> -->
+		</select>
 	{:else if element.param === 'abstract'}
 		<div>abstract</div>
 	{:else if element.param === 'distance'}
-		<div>at a distance of {element.count} {element.type} {#if element.connector != 'none'}{element.connector}{/if}</div>
+		<div>
+			at a distance of {element.count}
+			{element.type}
+			{#if element.connector != 'none'}{element.connector}{/if}
+		</div>
 	{/if}
 </div>
 
@@ -102,6 +114,7 @@
 		/* display: inline-flex; */
 		margin-block-start: 1rem;
 		justify-content: flex-start;
+		flex-wrap: wrap;
 	}
 	/* .option .handle {
 		display: inline-block;

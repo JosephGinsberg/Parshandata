@@ -21,9 +21,9 @@
 	}
 </script>
 
-<div class="closeMenu" class:display={openDropdown} on:click={() => openDropdown = false} />
+<div class="closeMenu" class:display={openDropdown} on:click={() => (openDropdown = false)} />
 
-<div class="container" on:click={() => openDropdown = true}>
+<div class="container" on:click={() => (openDropdown = true)}>
 	<div class="dropdown row {classes}" {style}>
 		<span>{placeholder}</span>
 		<Icon name="expand" />
@@ -36,12 +36,12 @@
 				<div class="option row">
 					<input
 						type="checkbox"
-						id={id.toString()+'~'}
+						id={id.toString() + '~'}
 						value={option.value ?? option}
 						bind:checked={option.checked}
 						on:change={valueChange}
 					/>
-					<label for={id.toString()+'~'}>{option.text ?? option}</label>
+					<label for={id.toString() + '~'}>{option.text ?? option}</label>
 				</div>
 			{/each}
 		</div>
@@ -68,7 +68,7 @@
 		border-radius: var(--borderRadius);
 		cursor: pointer;
 		user-select: none;
-		
+
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}

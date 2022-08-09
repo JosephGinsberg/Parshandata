@@ -1,8 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/Button.svelte'
 
-	export let state: SearchResponse | Promise<SearchResponse> | any,
-		count: string
+	export let state: SearchResponse | Promise<SearchResponse> | any, count: string
 
 	const downloadResults: any | VoidFunction = async () => {
 		let dataString: string = 'VERSE,MATCH,BOOK,PEREK,PASUK\n',

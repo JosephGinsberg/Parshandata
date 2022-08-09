@@ -5,7 +5,7 @@
 
 	export let runSearch: any
 
-	let searchRequest: SearchRequest  = {
+	let searchRequest: SearchRequest = {
 		books: [],
 		useKeri: true,
 		taamTachton: true,
@@ -21,7 +21,9 @@
 		update = true,
 		fileSelector: HTMLInputElement
 
-	const changeToDEV = (e: KeyboardEvent): void => {
+	const updateSplitBy = (e: any) =>
+			(searchRequest = { ...searchRequest, splitBy: e.target?.value }),
+		changeToDEV = (e: KeyboardEvent): void => {
 			lastClicks.push(e.key)
 			if (lastClicks.length > 3) lastClicks.shift()
 			if (lastClicks.join('') === 'dev') isDevMode = !isDevMode
@@ -55,16 +57,16 @@
 			link.click()
 		},
 		addBlock = (): void => {
-			searchRequest.search[searchRequest.search.length-1].connector = 'or'
+			searchRequest.search[searchRequest.search.length - 1].connector = 'or'
 			const tempBlock: SearchParam = {
-				'param': 'input',
-				'type': 'letter',
-				'value': '',
-				'matchtype': 'contains',
-				'count': 1,
-				'counttype': 'equal',
-				'connector': 'none',
-				'level': 1
+				param: 'input',
+				type: 'letter',
+				value: '',
+				matchtype: 'contains',
+				count: 1,
+				counttype: 'equal',
+				connector: 'none',
+				level: 1
 			}
 
 			globalState.update(state => {
@@ -74,30 +76,39 @@
 		}
 
 	// $: if(validateJson(request) && !update) searchRequest = JSON.parse(request)
-	$: if (validateJson(request)) globalState.update(state => {
-		state.searchRequest = JSON.parse(request)
-		return state
-	})
+	$: if (validateJson(request))
+		globalState.update(state => {
+			state.searchRequest = JSON.parse(request)
+			return state
+		})
 	$: if (JSON.parse(request) !== searchRequest && update && validateJson(request))
 		request = JSON.stringify(searchRequest, undefined, 4)
-	
 </script>
 
 <div class="container" on:keyup={changeToDEV}>
 	{#if isDevMode}
-		<div class="row" style="position: absolute;top: var(--topPadding);right: var(--topPadding);flex-direction: column;">
-			<Button classes='minimal small' style='width: 100%;margin-bottom: 6px;' icon='library_add' text='Add block' on:click={addBlock} />
+		<div
+			class="row"
+			style="position: absolute;top: var(--topPadding);right: var(--topPadding);flex-direction: column;"
+		>
+			<Button
+				classes="minimal small"
+				style="width: 100%;margin-bottom: 6px;"
+				icon="library_add"
+				text="Add block"
+				on:click={addBlock}
+			/>
 		</div>
 
-		<div class="optionsContainer">
+		<div class="optionsContainer" style="padding-top: var(--topPadding);overflow: auto;">
 			<div>
-				Return every 
+				Return every
 				<select
 					class="small"
 					style="display: inline-block;width: 125px;margin-inline-start: .5rem;"
 					placeholder={searchRequest.splitBy}
 					bind:value={searchRequest.splitBy}
-					on:change={e => searchRequest = {...searchRequest, splitBy: e.target?.value}}
+					on:change={updateSplitBy}
 				>
 					<option value="pasuk">Pasuk</option>
 					<option value="word">Word</option>
@@ -150,7 +161,7 @@
 		height: 100%;
 		max-height: 100%;
 		width: calc(50% - var(--sidePadding));
-		max-width: calc(42.5% - var(--sidePadding));/** TEMP FIX **/
+		max-width: calc(42.5% - var(--sidePadding)); /** TEMP FIX **/
 		margin-inline-end: var(--sidePadding);
 		padding-right: 0;
 		box-sizing: border-box;
