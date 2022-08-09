@@ -5,9 +5,14 @@
 	import ParameterPanel from './_ParameterPanel.svelte'
 
 	let searchRequest: SearchRequest,
-	searchStatus: SearchResponse | Promise<SearchResponse>,
+	searchStatus: SearchResponse | Promise<SearchResponse> = {
+		ok: true,
+		msg: '',
+		runtime: 0,
+		matches: []
+	},
 	count = '0'
-	globalState.subscribe(value => ({ searchRequest, searchStatus } = value))
+	globalState.subscribe(value => ({ searchRequest } = value))
 
 	const fetchSearch = async () => {
 		count = '#'
