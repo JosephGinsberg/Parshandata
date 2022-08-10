@@ -85,7 +85,7 @@
 		margin-block-end: .5rem;"
 			options={[]}
 		/>
-		{#if searchRequest.search.length -1 !== index}
+		{#if searchRequest.search.length - 1 !== index}
 			<select
 				class="small"
 				style="display: inline-block;width: 120px;margin-inline-start: .5rem;

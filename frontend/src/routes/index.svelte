@@ -10,7 +10,7 @@
 			title: 'Search Tanach',
 			desc: 'With advanced functionality', // any search is possible",
 			location: '/search'
-		}//,
+		} //,
 		// {
 		// 	title: 'Gemtria calulator',
 		// 	desc: 'Multiple methods at once',

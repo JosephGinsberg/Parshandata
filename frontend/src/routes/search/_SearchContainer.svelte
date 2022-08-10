@@ -17,7 +17,7 @@
 
 	let isDevMode = true,
 		lastClicks: string[] = [],
-		request = JSON.stringify(searchRequest, undefined, 4),
+		request = JSON.stringify($globalState.searchRequest, undefined, 4),
 		update = true,
 		fileSelector: HTMLInputElement
 
@@ -73,16 +73,12 @@
 				state.searchRequest.search = [...searchRequest.search, tempBlock]
 				return state
 			})
+		},
+		updateSearch = (): void => {
+			if (validateJson(request)) $globalState.searchRequest = JSON.parse(request)
 		}
 
-	// $: if(validateJson(request) && !update) searchRequest = JSON.parse(request)
-	$: if (validateJson(request))
-		globalState.update(state => {
-			state.searchRequest = JSON.parse(request)
-			return state
-		})
-	$: if (JSON.parse(request) !== searchRequest && update && validateJson(request))
-		request = JSON.stringify(searchRequest, undefined, 4)
+	$: if (update) request = JSON.stringify($globalState.searchRequest, undefined, 4)
 </script>
 
 <div class="container" on:keyup={changeToDEV}>
@@ -106,8 +102,8 @@
 				<select
 					class="small"
 					style="display: inline-block;width: 125px;margin-inline-start: .5rem;"
-					placeholder={searchRequest.splitBy}
-					bind:value={searchRequest.splitBy}
+					placeholder={$globalState.searchRequest.splitBy}
+					bind:value={$globalState.searchRequest.splitBy}
 					on:change={updateSplitBy}
 				>
 					<option value="pasuk">Pasuk</option>
@@ -116,12 +112,14 @@
 				</select>
 			</div>
 
-			{#each searchRequest.search as element, i (element)}
+			{#each $globalState.searchRequest.search as element, i (element)}
 				<SearchOption {element} index={i} />
 			{/each}
 		</div>
+
 		<textarea
 			class:error={!validateJson(request)}
+			on:keyup={updateSearch}
 			bind:value={request}
 			on:focus={() => (update = !update)}
 			on:blur={() => (update = !update)}
