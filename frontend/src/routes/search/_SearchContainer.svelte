@@ -5,25 +5,13 @@
 
 	export let runSearch: any
 
-	let searchRequest: SearchRequest = {
-		books: [],
-		useKeri: true,
-		taamTachton: true,
-		display: 'every',
-		splitBy: 'word',
-		search: []
-	}
-	globalState.subscribe(value => ({ searchRequest } = value))
-
 	let isDevMode = true,
 		lastClicks: string[] = [],
 		request = JSON.stringify($globalState.searchRequest, undefined, 4),
 		update = true,
 		fileSelector: HTMLInputElement
 
-	const updateSplitBy = (e: any) =>
-			(searchRequest = { ...searchRequest, splitBy: e.target?.value }),
-		changeToDEV = (e: KeyboardEvent): void => {
+	const changeToDEV = (e: KeyboardEvent): void => {
 			lastClicks.push(e.key)
 			if (lastClicks.length > 3) lastClicks.shift()
 			if (lastClicks.join('') === 'dev') isDevMode = !isDevMode
@@ -40,7 +28,7 @@
 			if (!fileSelector.files) return
 
 			const savedSearch = await fileSelector.files[0].text()
-			searchRequest = JSON.parse(savedSearch)
+			$globalState.searchRequest = JSON.parse(savedSearch)
 		},
 		downloadSearch = (): void => {
 			let dataString: string = JSON.stringify(JSON.parse(request), undefined, 4),
@@ -57,7 +45,7 @@
 			link.click()
 		},
 		addBlock = (): void => {
-			searchRequest.search[searchRequest.search.length - 1].connector = 'or'
+			$globalState.searchRequest.search[$globalState.searchRequest.search.length - 1].connector = 'or'
 			const tempBlock: SearchParam = {
 				param: 'input',
 				type: 'letter',
@@ -69,10 +57,7 @@
 				level: 1
 			}
 
-			globalState.update(state => {
-				state.searchRequest.search = [...searchRequest.search, tempBlock]
-				return state
-			})
+			$globalState.searchRequest.search = [...$globalState.searchRequest.search, tempBlock]
 		},
 		updateSearch = (): void => {
 			if (validateJson(request)) $globalState.searchRequest = JSON.parse(request)
@@ -104,7 +89,6 @@
 					style="display: inline-block;width: 125px;margin-inline-start: .5rem;"
 					placeholder={$globalState.searchRequest.splitBy}
 					bind:value={$globalState.searchRequest.splitBy}
-					on:change={updateSplitBy}
 				>
 					<option value="pasuk">Pasuk</option>
 					<option value="word">Word</option>
