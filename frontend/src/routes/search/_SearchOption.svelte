@@ -53,7 +53,7 @@
 				bind:value={element.counttype}
 				on:change={updateEl}
 			>
-				<option value="equal">equal to</option>
+				<option value="equal">exactly</option>
 				<option value="greater">greater than</option>
 				<option value="less">less than</option>
 			</select>
@@ -85,19 +85,21 @@
 		margin-block-end: .5rem;"
 			options={[]}
 		/>
-		<select
-			class="small"
-			style="display: inline-block;width: 120px;margin-inline-start: .5rem;
-			margin-block-end: .5rem;"
-			placeholder={element.connector}
-			bind:value={element.connector}
-			on:change={updateEl}
-		>
-			<option value="none">no connector</option>
-			<option value="and">and</option>
-			<option value="or">or</option>
-			<!-- <option value="distance">distance</option> -->
-		</select>
+		{#if searchRequest.search.length -1 !== index}
+			<select
+				class="small"
+				style="display: inline-block;width: 120px;margin-inline-start: .5rem;
+				margin-block-end: .5rem;"
+				placeholder={element.connector}
+				bind:value={element.connector}
+				on:change={updateEl}
+			>
+				<option value="none">no connector</option>
+				<option value="and">and</option>
+				<option value="or">or</option>
+				<!-- <option value="distance">distance</option> -->
+			</select>
+		{/if}
 	{:else if element.param === 'abstract'}
 		<div>abstract</div>
 	{:else if element.param === 'distance'}

@@ -304,7 +304,7 @@
 		<Dropdown placeholder={searchRequest.display} options={[]} />
 	</div>
 
-	<div class="option">
+	<!-- <div class="option">
 		<h3 class="title">Split results by</h3>
 		<select
 			placeholder={searchRequest.splitBy}
@@ -315,7 +315,7 @@
 			<option value="word">Word</option>
 			<option value="tropword">Tropword</option>
 		</select>
-	</div>
+	</div> -->
 </aside>
 
 <style>
