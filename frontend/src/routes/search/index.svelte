@@ -38,11 +38,16 @@
 
 <svelte:head>
 	<title>Search | Parshandata</title>
-	<meta name="description" content="A tool to search Tanach the way that you want to." />
+	<meta
+		name="description"
+		content="A tool enabling you to search Tanach the way that you want to."
+	/>
 </svelte:head>
 
 <section class="fullHeight fullWidth" class:fullWidth={true}>
-	<h3>Search Tanach</h3>
+	<h2 style="text-transform: unset;color: var(--supportText);margin: 0;padding: 1.25rem 0 1rem">
+		Search Tanach
+	</h2>
 
 	<div class="row">
 		<SearchContainer {runSearch} />

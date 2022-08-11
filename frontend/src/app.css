@@ -57,29 +57,49 @@ main > section,
 	max-width: unset;
 }
 main > section {
-	padding: calc(var(--topPadding) / 2) var(--sidePadding);
+	padding: var(--sidePadding);
+}
+main > section:first-of-type {
+	padding-top: 0;
 }
 .container {
 	position: relative;
 }
+.spacedContainer {
+	padding-top: 1.5rem;
+}
 
-h2,
-.title {
+h2 {
 	margin: 0;
-	padding: 1.5rem 0 1rem;
+	padding: 1rem 0 1rem;
 	font-family: 'Google Sans', Roboto, Arial, sans-serif;
-	font-size: 1.25rem;
+	font-size: 1.33rem;
 	font-weight: 400;
 	letter-spacing: 0;
 	line-height: 1.5rem;
 	color: #202124;
 }
-h3,
+h3 {
+	max-width: 450px;
+	margin: 0 0 0.75rem;
+	padding: 0;
+	color: var(--offBlack);
+	font-size: 1.75rem;
+	line-height: 2.25rem;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+h3 span {
+	color: #777a7d;
+}
 .title {
+	letter-spacing: 0;
+	line-height: 1.5rem;
 	padding: 0;
 	color: var(--supportText);
-	font-size: 1rem;
-	font-weight: 700;
+	padding-bottom: 0.5rem;
+	font-weight: 500;
+	font-size: 1em;
 }
 .card {
 	padding: var(--topPadding);

@@ -8,8 +8,8 @@
 			<a href="../" sveltekit:prefetch>
 				<h1 id="pageTitle">Parshandata</h1>
 			</a>
-			<a href="/search" class="page">Search Tanach</a>
-			<a href="/about" class="page">About</a>
+			<a href="/search" class="page" sveltekit:prefetch>Search Tanach</a>
+			<a href="/about" class="page" sveltekit:prefetch>About</a>
 		</div>
 		<Button text="" style="secondary" on:click={() => alert('testing')} />
 	</div>
@@ -24,7 +24,8 @@
 		box-sizing: border-box;
 		justify-content: space-between;
 		background-color: var(--defaultBackground);
-		box-shadow: 0 1px 3px rgb(0 0 0 / 6%), 0 1px 2px rgb(0 0 0 / 12%);
+		/* box-shadow: 0 1px 3px rgb(0 0 0 / 6%), 0 1px 2px rgb(0 0 0 / 12%); */
+		box-shadow: 0 0 15px 0 rgb(0 0 0 / 10%);
 		z-index: 10;
 	}
 	header > .row {

@@ -2,7 +2,7 @@
 	export let path: string
 	let prompt: notification = {
 		urgency: 1,
-		msg: 'The search engine is currently open in beta development'
+		msg: 'The search engine is currently in alpha development.'
 	}
 </script>
 

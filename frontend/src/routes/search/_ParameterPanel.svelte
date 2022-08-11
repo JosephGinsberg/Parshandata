@@ -254,7 +254,7 @@
 
 <aside>
 	<div class="option">
-		<h3 class="title">Books to search</h3>
+		<div class="title">Books to search</div>
 		<Dropdown
 			placeholder="{displayBooks(searchRequest.books)} selected"
 			options={bookOptions}
@@ -264,7 +264,7 @@
 	</div>
 
 	<div class="option">
-		<h3 class="title">Use <i>keri</i> instead of <i>kesiv</i></h3>
+		<div class="title">Use <i>keri</i> instead of <i>kesiv</i></div>
 		<Button
 			classes="small {searchRequest.useKeri ? 'default' : 'muted'}"
 			text="Yes"
@@ -278,7 +278,7 @@
 	</div>
 
 	<div class="option">
-		<h3 class="title">Use <i>taam tachton</i></h3>
+		<div class="title">Use <i>taam tachton</i></div>
 		<Button
 			classes="small {searchRequest.taamTachton ? 'default' : 'muted'}"
 			text="Yes"
@@ -292,7 +292,7 @@
 	</div>
 
 	<!-- <div class="option">
-		<h3 class="title">Exclude chachter group(s) from search</h3>
+		<div class="title">Exclude chachter group(s) from search</div>
 		{#each ['letter', 'nekudah', 'trop', 'other'] as removeOption}
 			<Button classes='small {search.remove.indexOf(removeOption) >= 0? 'default': 'muted'}' style='text-transform: capitalize;margin-inline-end: .3rem;' text={removeOption} on:click={() => searchRequest.remove = changeArray(searchRequest.remove, removeOption)} />
 		{/each}
@@ -300,12 +300,12 @@
 	</div> -->
 
 	<div class="option">
-		<h3 class="title">Display</h3>
+		<div class="title">Display</div>
 		<Dropdown placeholder={searchRequest.display} options={[]} />
 	</div>
 
 	<!-- <div class="option">
-		<h3 class="title">Split results by</h3>
+		<div class="title">Split results by</div>
 		<select
 			placeholder={searchRequest.splitBy}
 			bind:value={searchRequest.splitBy}

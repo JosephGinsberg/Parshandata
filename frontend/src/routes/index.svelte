@@ -25,9 +25,23 @@
 </svelte:head>
 
 <section>
-	<h2>The basics</h2>
+	<h3>
+		OUR CURRENT PLAN.
+		<span> FOR THE FUTURE </span>
+	</h3>
+	<p>
+		<b>WRITE SOMETHING HERE.</b> We are a small team with not a lot of time. Therefore, we are prioritizing
+		out time to bring the tools that improve the market the most first.
+	</p>
+</section>
 
-	<div class="row">
+<section>
+	<h3>
+		THE BASICS.
+		<span> AND EVERYTHING IN BETWEEN </span>
+	</h3>
+
+	<div class="row spacedContainer">
 		<!-- <a sveltekit:prefetch href="/search">About</a> -->
 
 		{#each examples as example}
