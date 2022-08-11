@@ -27,7 +27,7 @@
 <section>
 	<h3>
 		OUR CURRENT PLAN.
-		<span> FOR THE FUTURE </span>
+		<span> LOOKING INTO THE FUTURE </span>
 	</h3>
 	<p>
 		<b>WRITE SOMETHING HERE.</b> We are a small team with not a lot of time. Therefore, we are prioritizing
