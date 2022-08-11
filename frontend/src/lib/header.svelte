@@ -4,9 +4,13 @@
 
 <header>
 	<div class="row">
-		<a href="../" sveltekit:prefetch>
-			<h1 id="pageTitle">Parshandata</h1>
-		</a>
+		<div class="links">
+			<a href="../" sveltekit:prefetch>
+				<h1 id="pageTitle">Parshandata</h1>
+			</a>
+			<a href="/search" class="page">Search Tanach</a>
+			<a href="/about" class="page">About</a>
+		</div>
 		<Button text="" style="secondary" on:click={() => alert('testing')} />
 	</div>
 </header>
@@ -23,11 +27,11 @@
 		box-shadow: 0 1px 3px rgb(0 0 0 / 6%), 0 1px 2px rgb(0 0 0 / 12%);
 		z-index: 10;
 	}
-	header .row {
-		height: 100%;
+	header > .row {
+		height: var(--headerHeight);
 	}
-	a:hover {
-		text-decoration: none;
+	.links > a {
+		display: inline-block;
 	}
 	#pageTitle {
 		color: var(--offBlack);
@@ -35,5 +39,14 @@
 		font-size: 22px;
 		line-height: 1.75;
 		font-weight: 700;
+	}
+	.links > a {
+		margin-inline-end: 20px;
+		padding: 10px 0;
+		color: #6e6e80;
+		font-size: 0.875rem;
+	}
+	a.page:hover {
+		color: #353740;
 	}
 </style>

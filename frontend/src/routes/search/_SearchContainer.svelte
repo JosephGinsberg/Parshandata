@@ -45,7 +45,8 @@
 			link.click()
 		},
 		addBlock = (): void => {
-			$globalState.searchRequest.search[$globalState.searchRequest.search.length - 1].connector = 'or'
+			$globalState.searchRequest.search[$globalState.searchRequest.search.length - 1].connector =
+				'or'
 			const tempBlock: SearchParam = {
 				param: 'input',
 				type: 'letter',

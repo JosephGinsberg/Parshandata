@@ -6,12 +6,11 @@
 </script>
 
 <Header />
-<NotificationBar />
+<NotificationBar path={$page.url.pathname} />
 <main>
 	<slot />
 </main>
 
-<!-- {$page.url.pathname} -->
 <style>
 	main {
 		height: calc(100% - (var(--headerHeight) + 150px));

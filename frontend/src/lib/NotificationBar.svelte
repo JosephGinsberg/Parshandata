@@ -1,13 +1,14 @@
 <script lang="ts">
+	export let path: string
 	let prompt: notification = {
 		urgency: 1,
-		msg: 'Please understand the search engine is still in alpha testing.'
+		msg: 'The search engine is currently open in beta development'
 	}
 </script>
 
 <div
 	class="prompt"
-	class:clear={!prompt.msg}
+	class:clear={!prompt.msg || path !== '/search'}
 	class:warn={prompt.urgency === 1}
 	class:error={prompt.urgency === 2}
 >
