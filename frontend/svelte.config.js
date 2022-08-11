@@ -10,9 +10,9 @@ const config = {
 
 	kit: {
 		adapter: adapter({
-			out: 'build',
-			fallback: null, //'200.html'
-			precompress: false
+			out: 'build' //,
+			// fallback: null, //'200.html'
+			// precompress: false
 		}),
 
 		prerender: {
