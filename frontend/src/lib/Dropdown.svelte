@@ -23,7 +23,7 @@
 
 <div class="closeMenu" class:display={openDropdown} on:click={() => (openDropdown = false)} />
 
-<div on:click={() => (openDropdown = true)}>
+<div class="container" on:click={() => (openDropdown = true)}>
 	<div class="dropdown row {classes}" {style}>
 		<span>{placeholder}</span>
 		<Icon name="expand" />
