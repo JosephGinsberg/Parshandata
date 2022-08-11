@@ -1,4 +1,3 @@
-// import adapter from '@sveltejs/adapter-static'
 import adapter from '@sveltejs/adapter-auto'
 import preprocess from 'svelte-preprocess'
 
@@ -9,23 +8,12 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		adapter: adapter({
-			out: 'build' //,
-			// fallback: null, //'200.html'
-			// precompress: false
-		}),
-
-		prerender: {
-			// This can be false if you're using a fallback (i.e. SPA mode)
-			default: true
-		},
-		// trailingSlash: 'never',
-
-		// Override http methods in the Todo forms
-		methodOverride: {
-			allowed: ['PATCH', 'DELETE']
-		}
-	}
+		adapter: adapter({ out: 'build' })
+	},
+	prerender: {
+		// This can be false if you're using a fallback (i.e. SPA mode)
+		default: true
+	},
 }
 
 export default config
