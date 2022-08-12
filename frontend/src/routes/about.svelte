@@ -7,7 +7,7 @@
 </svelte:head>
 
 <section>
-	<h1>About the project</h1>
+	<h3>About the project</h3>
 
 	<p>This page is still being worked on, hang in there.</p>
 </section>

@@ -4,7 +4,7 @@
 
 <header>
 	<div class="row">
-		<div class="links">
+		<div class="links row">
 			<a href="../" sveltekit:prefetch>
 				<h1 id="pageTitle">Parshandata</h1>
 			</a>
