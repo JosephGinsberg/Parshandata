@@ -5,7 +5,7 @@
 		location: string
 	}
 
-	const examples: Array<Example> = [
+	const examples: Example[] = [
 		{
 			title: 'Search Tanach',
 			desc: 'With advanced functionality', // any search is possible",

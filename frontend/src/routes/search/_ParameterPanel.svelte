@@ -280,12 +280,18 @@
 	<div class="option">
 		<div class="title">Use <i>taam tachton</i></div>
 		<Button
-			classes="small {searchRequest.taamTachton ? 'default' : 'muted'}"
+			classes="small {searchRequest.taamTachton &&
+			!!searchRequest.books.join('').match(/Exodus|Deuteronomy/)
+				? 'default'
+				: 'muted'}"
 			text="Yes"
 			on:click={() => (searchRequest.taamTachton = true)}
 		/>
 		<Button
-			classes="small {!searchRequest.taamTachton ? 'default' : 'muted'}"
+			classes="small {!searchRequest.taamTachton &&
+			!!searchRequest.books.join('').match(/Exodus|Deuteronomy/)
+				? 'default'
+				: 'muted'}"
 			text="No"
 			on:click={() => (searchRequest.taamTachton = false)}
 		/>
@@ -299,10 +305,10 @@
 		{JSON.stringify(searchRequest.remove)}
 	</div> -->
 
-	<div class="option">
+	<!-- <div class="option">
 		<div class="title">Display</div>
 		<Dropdown placeholder={searchRequest.display} options={[]} />
-	</div>
+	</div> -->
 
 	<!-- <div class="option">
 		<div class="title">Split results by</div>
