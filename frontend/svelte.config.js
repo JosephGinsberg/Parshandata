@@ -1,5 +1,4 @@
-// import adapter from '@sveltejs/adapter-auto'
-import adapter from '@sveltejs/adapter-static' // use for deploying on heroku
+import adapter from '@sveltejs/adapter-auto'
 import preprocess from 'svelte-preprocess'
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -19,8 +18,6 @@ const config = {
 			// This can be false if you're using a fallback (i.e. SPA mode)
 			default: true
 		},
-
-		trailingSlash: 'never',
 
 		// Override http methods in the Todo forms
 		methodOverride: {
