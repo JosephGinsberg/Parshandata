@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 :root {
 	--primaryColor: #fff;
@@ -17,6 +17,7 @@
 	--purple-primary: #7934b3;
 	--red-background: #fad2cf;
 	--red-primary: #862424;
+	--darkBlack: #161618;
 	--offBlack: #202124;
 	--fadedOffBlack: #313337;
 	--offWhite: #ececf1; /* #f7f7f8; */
@@ -65,8 +66,40 @@ main > section {
 .spacedContainer {
 	padding-top: 1.5rem;
 }
-
+h1,
+h2,
+h3 {
+	font-family: 'Inter', Arial, Helvetica, sans-serif;
+	font-weight: 600;
+	line-height: 1.25;
+	color: var(--darkBlack);
+}
+h1::first-letter,
+h2::first-letter {
+	text-transform: capitalize;
+}
+h1 {
+	float: none;
+	font-size: 60px;
+	margin: 0 0 18px;
+}
 h2 {
+	max-width: 55%;
+	font-size: 40px;
+	margin: 0 0 24px;
+	text-transform: uppercase;
+}
+h2 span {
+	color: #777a7d;
+}
+h3 {
+	font-size: 28px;
+	margin: 0 0 12px;
+	font-weight: 400;
+	color: var(--fadedOffBlack);
+}
+
+/* h2 {
 	margin: 1rem 0 1rem;
 	font-family: 'Google Sans', Roboto, Arial, sans-serif;
 	font-size: 1.33rem;
@@ -74,6 +107,7 @@ h2 {
 	letter-spacing: 0;
 	line-height: 1.5rem;
 	color: #202124;
+	content: 'h2';
 }
 h3 {
 	max-width: 450px;
@@ -91,7 +125,7 @@ h2:first-child,
 h3:first-child {
 	margin-top: 0px;
 	padding-top: 0px;
-}
+} */
 .title {
 	letter-spacing: 0;
 	line-height: 1.5rem;

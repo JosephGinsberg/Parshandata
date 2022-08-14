@@ -42,12 +42,16 @@
 		name="description"
 		content="A tool enabling you to search Tanach the way that you want to."
 	/>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew&display=swap"
+		rel="stylesheet"
+	/>
 </svelte:head>
 
 <section class="fullHeight fullWidth" class:fullWidth={true}>
-	<h2 style="text-transform: unset;color: var(--supportText);margin: 0;padding: 1.25rem 0 1rem">
+	<div style="text-transform: unset;color: var(--supportText);margin: 0;padding: 1.25rem 0 1rem">
 		Search Tanach
-	</h2>
+	</div>
 
 	<div class="row">
 		<SearchContainer {runSearch} />

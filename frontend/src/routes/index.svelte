@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Button from '$lib/Button.svelte'
+
 	interface Example {
 		title: string
 		desc: string
@@ -24,11 +26,22 @@
 	<meta name="description" content="Have the ability to search Tanach with great control" />
 </svelte:head>
 
-<section>
-	<h3>
+<section id="hero">
+	<h1>Ready to start searching?</h1>
+	<h3>Have greater access to <i>Tanach</i> with our easier tooling at your finger tips.</h3>
+	<Button
+		style="margin-top: 1.5rem;"
+		text="Check out our tooling"
+		on:click={() => (window.location.href = '/search')}
+	/>
+</section>
+<br /><br /><br />
+
+<!-- <section>
+	<h2>
 		OUR CURRENT PLAN.
 		<span> LOOKING INTO THE FUTURE </span>
-	</h3>
+	</h2>
 	<p>
 		<b>WRITE SOMETHING HERE.</b> We are a small team with not a lot of time. Therefore, we are prioritizing
 		out time to bring the tools that improve the market the most first.
@@ -36,14 +49,12 @@
 </section>
 
 <section>
-	<h3>
+	<h2>
 		THE BASICS.
 		<span> AND EVERYTHING IN BETWEEN </span>
-	</h3>
+	</h2>
 
 	<div class="row spacedContainer">
-		<!-- <a sveltekit:prefetch href="/search">About</a> -->
-
 		{#each examples as example}
 			<div class="card" on:click={() => (window.location.href = `${example.location}`)}>
 				<div>
@@ -73,7 +84,20 @@
 	</div>
 </section>
 
+<section style="text-align: center;">
+	<h2 style="margin: 0 auto;">our mission</h2>
+	<p>"Our goal is to break the barrier for an average Shloimy to be able to search with minimal know-how."</p>
+</section> -->
 <style>
+	section#hero {
+		padding-bottom: calc(75px + var(--sidePadding));
+		margin-bottom: var(--sidePadding);
+		border-bottom: 2px solid #000;
+	}
+	section#hero h1,
+	section#hero h3 {
+		max-width: 600px;
+	}
 	section .row {
 		justify-content: left;
 	}

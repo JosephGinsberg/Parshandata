@@ -18,13 +18,18 @@
 		}
 </script>
 
-<div class="option row {element.param}" id={index.toString()}>
+<div
+	class="option row {element.param}"
+	id={index.toString()}
+	tabindex="0"
+	on:focus={() => console.log('focused')}
+	on:blur={() => console.log('blur')}
+>
 	<!-- <img class="handle" src="/move.svg" alt="" /> -->
 
 	{#if element.param === 'condition'}
-		<div>that {element.type} a</div>
-		<!-- that
-		<Dropdown classes="small" placeholder="does not contain" style="margin-left: 8px;" options={[]} /> -->
+		<!-- <div>that {element.connector} a</div> -->
+		* condition
 	{:else if element.param === 'input'}
 		that
 		<select
