@@ -3,19 +3,6 @@
 	import Dropdown from '$lib/Dropdown.svelte'
 
 	export let element: SearchParam, index: number
-
-	let searchRequest: SearchRequest
-	globalState.subscribe(value => ({ searchRequest } = value))
-	const updateEl = () => {
-			globalState.update(state => {
-				state.searchRequest.search[index] = element
-				return state
-			})
-		},
-		updateChange = (e: any) => {
-			element.count = Number(e.target?.value)
-			updateEl()
-		}
 </script>
 
 <div
@@ -37,8 +24,7 @@
 			style="display: inline-block;width: 145px;margin-inline-start: .5rem;
 			margin-block-end: .5rem;"
 			placeholder={element.matchtype}
-			bind:value={searchRequest.search[index].matchtype}
-			on:change={updateEl}
+			bind:value={$globalState.searchRequest.search[index].matchtype}
 		>
 			<option value="contains">contains</option>
 			<option value="does not contain">does not contain</option>
@@ -56,29 +42,12 @@
 				margin-block-end: .5rem;"
 				placeholder={element.counttype}
 				bind:value={element.counttype}
-				on:change={updateEl}
 			>
 				<option value="equal">exactly</option>
 				<option value="greater">greater than</option>
 				<option value="less">less than</option>
 			</select>
-			<select
-				class="small"
-				style="display: inline-block;width: 55px;margin-inline-start: .5rem;
-				margin-block-end: .5rem;"
-				placeholder={element.count?.toString()}
-				value={element.count?.toString()}
-				on:change={updateChange}
-			>
-				<option value="0">0</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-			</select>
+			<input type="text" bind:value={$globalState.searchRequest.search[index].count} style="width: 50px;" placeholder="count">
 		{:else}
 			&nbsp;a
 		{/if}
@@ -90,14 +59,13 @@
 		margin-block-end: .5rem;"
 			options={[]}
 		/>
-		{#if searchRequest.search.length - 1 !== index}
+		{#if $globalState.searchRequest.search.length - 1 !== index}
 			<select
 				class="small"
 				style="display: inline-block;width: 120px;margin-inline-start: .5rem;
 				margin-block-end: .5rem;"
 				placeholder={element.connector}
 				bind:value={element.connector}
-				on:change={updateEl}
 			>
 				<option value="none">no connector</option>
 				<option value="and">and</option>

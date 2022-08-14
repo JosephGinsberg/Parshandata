@@ -6,17 +6,11 @@
 	export let runSearch: any
 
 	let isDevMode = true,
-		lastClicks: string[] = [],
 		request = JSON.stringify($globalState.searchRequest, undefined, 4),
 		update = true,
 		fileSelector: HTMLInputElement
 
-	const changeToDEV = (e: KeyboardEvent): void => {
-			lastClicks.push(e.key)
-			if (lastClicks.length > 3) lastClicks.shift()
-			if (lastClicks.join('') === 'dev') isDevMode = !isDevMode
-		},
-		validateJson = (expectedJson: string): boolean => {
+	const validateJson = (expectedJson: string): boolean => {
 			try {
 				JSON.parse(expectedJson)
 				return true
@@ -67,7 +61,7 @@
 	$: if (update) request = JSON.stringify($globalState.searchRequest, undefined, 4)
 </script>
 
-<div class="container" on:keyup={changeToDEV}>
+<div class="container" on:dblclick={() => isDevMode = !isDevMode}>
 	{#if isDevMode}
 		<div
 			class="row"
@@ -84,8 +78,8 @@
 
 		<div class="optionsContainer" style="padding-top: var(--topPadding);overflow: auto;">
 			<div>
-				Return every
-				<select
+				Return every {$globalState.searchRequest.splitBy}
+				<!-- <select
 					class="small"
 					style="display: inline-block;width: 125px;margin-inline-start: .5rem;"
 					placeholder={$globalState.searchRequest.splitBy}
@@ -94,26 +88,17 @@
 					<option value="pasuk">Pasuk</option>
 					<option value="word">Word</option>
 					<option value="tropword">Tropword</option>
-				</select>
+				</select> -->
 			</div>
 
 			{#each $globalState.searchRequest.search as element, i (element)}
 				<SearchOption {element} index={i} />
 			{/each}
 		</div>
-
-		<textarea
-			class:error={!validateJson(request)}
-			on:keyup={updateSearch}
-			bind:value={request}
-			on:focus={() => (update = !update)}
-			on:blur={() => (update = !update)}
-			autocomplete="off"
-			spellcheck="false"
-		/>
 	{:else}
 		<textarea
 			class:error={!validateJson(request)}
+			on:keyup={updateSearch}
 			bind:value={request}
 			on:focus={() => (update = !update)}
 			on:blur={() => (update = !update)}
@@ -148,15 +133,10 @@
 		margin-inline-end: var(--sidePadding);
 		padding-right: 0;
 		box-sizing: border-box;
-		/* overflow-y: auto; */
 		background-color: var(--defaultBackground);
 		border: 2px solid var(--lightText);
 		border-radius: var(--borderRadius);
 	}
-	/* .container:focus-within,
-	.container:focus-within .buttonsContainer {
-		border-color: var(--supportText);
-	} */
 	.container .optionsContainer {
 		padding: calc(var(--topPadding) / 1.5) var(--topPadding);
 		height: 100%;
