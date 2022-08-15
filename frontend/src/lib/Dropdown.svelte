@@ -47,7 +47,7 @@
 	</div>
 
 	<!-- append passed in children -->
-	{#if openDropdown || !openDropdown}
+	{#if openDropdown}
 		<div class="menu card">
 			{#if search}
 				<input type="text" bind:value={searchTerm} on:keyup={filter} placeholder="search">
