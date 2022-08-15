@@ -32,7 +32,7 @@
 	<Button
 		style="margin-top: 1.5rem;"
 		text="Check out our tooling"
-		on:click={() => (window.location.href = '/search')}
+		href="/search"
 	/>
 </section>
 <br /><br /><br />

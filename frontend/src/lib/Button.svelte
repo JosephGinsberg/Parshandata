@@ -5,25 +5,37 @@
 	const dispatch: any = createEventDispatcher()
 	const transferClick = () => dispatch('click')
 
-	export let classes: string = 'default',
-		style: string = '',
-		icon: string = '',
-		text: string = ''
+	export let classes = 'default',
+		style = '',
+		icon = '',
+		text = '',
+		href = ''
 </script>
 
 {#if text || icon}
-	<button class={classes} {style} on:click={transferClick}>
-		{#if icon !== '' && text}
-			<Icon name={icon} height="1.15em" width="1.15em" margin=".5em" />
-		{:else if icon !== ''}
-			<Icon name={icon} height="1.15em" width="1.15em" />
-		{/if}
-		<span class:leadingIcon={icon !== ''}>{text}</span>
-	</button>
+	{#if !href}
+		<button class={classes} {style} on:click={transferClick}>
+			{#if icon !== '' && text}
+				<Icon name={icon} height="1.15em" width="1.15em" margin=".5em" />
+			{:else if icon !== ''}
+				<Icon name={icon} height="1.15em" width="1.15em" />
+			{/if}
+			<span class:leadingIcon={icon !== ''}>{text}</span>
+		</button>
+	{:else}
+		<a class={classes} {style} {href} sveltekit:prefetch>
+			{#if icon !== '' && text}
+				<Icon name={icon} height="1.15em" width="1.15em" margin=".5em" />
+			{:else if icon !== ''}
+				<Icon name={icon} height="1.15em" width="1.15em" />
+			{/if}
+			<span class:leadingIcon={icon !== ''}>{text}</span>
+		</a>
+	{/if}
 {/if}
 
 <style>
-	button {
+	button, a {
 		position: relative;
 		display: inline-flex;
 		align-items: center;
@@ -39,18 +51,18 @@
 		-ms-user-select: none;
 		user-select: none;
 	}
-	button:hover {
+	button:hover, a:hover {
 		transition: background-color 0.12s ease-out, color 0.12s ease-out;
 	}
-	button.small {
+	button.small, a.small {
 		font-size: 0.875rem;
 		padding: 0 0.5rem;
 	}
-	/* button.bold{
+	/* button.bold, a.bold{
 		font-weight: 700;
 	} */
 
-	button.default {
+	button.default, a.default {
 		background-color: #0969da;
 		color: #fff;
 		fill: #fff;
@@ -59,43 +71,43 @@
 			0px 1px 1px 0px rgba(0, 0, 0, 0.14),
 			0px 1px 3px 0px rgba(0, 0, 0, 0.12); */
 	}
-	button.default:hover {
+	button.default:hover, a.default:hover {
 		background-color: #1065c5;
 		color: var(--offWhite);
 	}
-	button.default:active {
+	button.default:active, a.default:active {
 		background-color: #0a52a4;
 		color: #fff;
 	}
 
-	button.muted {
+	button.muted, a.muted {
 		/* background-color: var(--offWhite); */
 		background-color: rgba(208, 215, 222, 0.32);
 		color: var(--offBlack);
 		fill: var(--offBlack);
 	}
-	button.muted:hover {
+	button.muted:hover, a.muted:hover {
 		/* background-color: #d9d9e3; */
 		background-color: rgba(180, 186, 192, 0.32);
 	}
-	button.muted:active {
+	button.muted:active, a.muted:active {
 		/* background-color: #c5c5d2; */
 		background-color: rgba(159, 164, 170, 0.32);
 	}
 
-	button.minimal {
+	button.minimal, a.minimal {
 		/* border: 1px solid rgba(208,215,222,0.32); */
 		border: none;
 		background-color: transparent;
 		color: var(--fadedOffBlack);
 		fill: var(--fadedOffBlack);
 	}
-	button.minimal:hover {
+	button.minimal:hover, a.minimal:hover {
 		color: rgb(36, 41, 47);
 		fill: rgb(36, 41, 47);
 		background-color: rgba(208, 215, 222, 0.32);
 	}
-	button.minimal:active {
+	button.minimal:active, a.minimal:active {
 		background-color: rgba(180, 186, 192, 0.32);
 	}
 

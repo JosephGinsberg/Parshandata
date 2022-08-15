@@ -2,7 +2,6 @@
 	import { globalState } from '../../globalState'
 	import Button from '$lib/Button.svelte'
 	import Dropdown from '$lib/Dropdown.svelte'
-	// import MulitLevelDropdown from '$lib/MulitLevelDropdown.svelte'
 
 	let searchRequest: SearchRequest
 	globalState.subscribe(value => ({ searchRequest } = value))
@@ -39,107 +38,107 @@
 			},
 			{
 				bookname: 'Joshua',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Judges',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Samuel_1',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Samuel_2',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Kings_1',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Kings_2',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Isaiah',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Jeremiah',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Ezekiel',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Hosea',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Joel',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Amos',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Obadiah',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Jonah',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Micah',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Nahum',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Habakkuk',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Zephaniah',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Haggai',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Zechariah',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Malachi',
-				grouping: ['Tanakh', "Prophets", 'Prose books'],
+				grouping: ['Tanakh', 'Prophets', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
@@ -247,7 +246,7 @@
 			searchRequest.books = [...new Set(selectedValue)]
 		},
 		displayBookSelection = (selectedBooks: string[]) => {
-			const groups = ['Tanakh', 'Torah', "Prophets", 'Prose books', 'Writings', 'Poetic books']
+			const groups = ['Tanakh', 'Torah', 'Prophets', 'Prose books', 'Writings', 'Poetic books']
 
 			if (selectedBooks.length === TanakhBooks.length) return 'Tanakh'
 
@@ -262,8 +261,13 @@
 				groupName = group
 			})
 
-			if (groupCount === 2 && compareGroups(selectedBooks, booksByGroup('Writings'))) return 'Writings'
-			else if (groupCount === 1 || groupCount && compareGroups(selectedBooks, booksByGroup(groupName))) return groupName
+			if (groupCount === 2 && compareGroups(selectedBooks, booksByGroup('Writings')))
+				return 'Writings'
+			else if (
+				groupCount === 1 ||
+				(groupCount && compareGroups(selectedBooks, booksByGroup(groupName)))
+			)
+				return groupName
 			else return selectedBooks.length !== 1 ? selectedBooks.length + ' Books' : selectedBooks[0]
 		},
 		checker = (groupName: string) => {
@@ -290,10 +294,10 @@
 				grouping: []
 			},
 			{
-				checked: checker("Prophets"),
-				text: "Prophets",
-				value: "Prophets",
-				originalValue: checker("Prophets"),
+				checked: checker('Prophets'),
+				text: 'Prophets',
+				value: 'Prophets',
+				originalValue: checker('Prophets'),
 				grouping: []
 			},
 			{

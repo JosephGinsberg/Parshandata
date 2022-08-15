@@ -11,32 +11,32 @@
 
 	const dispatch: any = createEventDispatcher()
 	let openDropdown: boolean = false,
-	searchTerm = ''
+		searchTerm = ''
 
 	const valueChange = () => {
-		let value: string[] | dropdownInput[] | any
-		if (returnOriginal) {
-			value = options
-		} else {
-			value = []
-			options.forEach(option => {
-				if (!option.checked) return
-				value.push(option.value)
+			let value: string[] | dropdownInput[] | any
+			if (returnOriginal) {
+				value = options
+			} else {
+				value = []
+				options.forEach(option => {
+					if (!option.checked) return
+					value.push(option.value)
+				})
+			}
+			dispatch('change', { value })
+		},
+		filter = (choices: dropdownInput[]) => {
+			const tempRegex = new RegExp(searchTerm, 'i')
+			choices.forEach(choice => {
+				const tempRegex = new RegExp('^' + searchTerm, 'i')
+				const searchValues = choice?.text + '|' + choice?.value ?? ''
+				choice.display = searchValues.match(tempRegex) ? true : false
 			})
+			return choices
 		}
-		dispatch('change', { value })
-	},
-	filter = (choices: dropdownInput[]) => {
-		const tempRegex = new RegExp(searchTerm, 'i')
-		choices.forEach(choice => {
-			const tempRegex = new RegExp('^'+searchTerm, 'i')
-			const searchValues = choice?.text + '|' + choice?.value ?? ''
-			choice.display = searchValues.match(tempRegex)? true: false
-		})
-		return choices
-	}
 	// if user chose an option, keep search results
-	$: if(searchTerm) options = filter(options)
+	$: if (searchTerm) options = filter(options)
 </script>
 
 <div class="closeMenu" class:display={openDropdown} on:click={() => (openDropdown = false)} />
@@ -51,8 +51,13 @@
 	{#if openDropdown}
 		<div class="menu card">
 			{#if search}
-				<input type="text" bind:value={searchTerm} on:keyup={() => options = filter(options)} placeholder="search">
-				<div class="spacer"></div>
+				<input
+					type="text"
+					bind:value={searchTerm}
+					on:keyup={() => (options = filter(options))}
+					placeholder="search"
+				/>
+				<div class="spacer" />
 			{/if}
 			{#each options as option, id (option)}
 				{#if option.text && (option.display === undefined || option.display)}
@@ -120,13 +125,13 @@
 		background-color: var(--defaultBackground);
 		z-index: 10;
 	}
-	.menu input[type=text]{
+	.menu input[type='text'] {
 		max-width: 100%;
 		margin: 0;
 		padding: 0;
 		border: 0px;
 	}
-	.menu input[type=text]:focus{
+	.menu input[type='text']:focus {
 		outline: none;
 	}
 	.menu .option {
@@ -146,7 +151,8 @@
 		margin: 0.5rem;
 		border-bottom: 2px solid var(--disabledText);
 	}
-	.spacer + .spacer, .spacer:last-child {
+	.spacer + .spacer,
+	.spacer:last-child {
 		display: none;
 	}
 </style>
