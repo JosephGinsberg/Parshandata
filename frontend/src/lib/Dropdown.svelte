@@ -27,7 +27,11 @@
 			dispatch('change', { value })
 		},
 		filter = (choices: dropdownInput[]) => {
-			const tempRegex = new RegExp(searchTerm, 'i')
+			try {
+				const tempRegex = new RegExp(searchTerm, 'i')
+			} catch {
+				return choices
+			}
 			choices.forEach(choice => {
 				const tempRegex = new RegExp('^' + searchTerm, 'i')
 				const searchValues = choice?.text + '|' + choice?.value ?? ''
@@ -53,9 +57,10 @@
 			{#if search}
 				<input
 					type="text"
+					placeholder="search"
+					autocomplete="off"
 					bind:value={searchTerm}
 					on:keyup={() => (options = filter(options))}
-					placeholder="search"
 				/>
 				<div class="spacer" />
 			{/if}

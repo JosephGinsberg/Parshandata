@@ -29,11 +29,7 @@
 <section id="hero">
 	<h1>Ready to start searching?</h1>
 	<h3>Have greater access to <i>Tanach</i> with our easier tooling at your finger tips.</h3>
-	<Button
-		style="margin-top: 1.5rem;"
-		text="Check out our tooling"
-		href="/search"
-	/>
+	<Button style="margin-top: 1.5rem;" text="Check out our tooling" href="/search" />
 </section>
 <br /><br /><br />
 
