@@ -11,206 +11,206 @@
 		return state
 	})
 
-	const tanachBooks: TanachBook[] = [
+	const TanakhBooks: TanachBook[] = [
 			{
 				bookname: 'Genesis',
-				grouping: ['Tanach', 'Torah', 'Prose books'],
+				grouping: ['Tanakh', 'Torah', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Exodus',
-				grouping: ['Tanach', 'Torah', 'Prose books'],
+				grouping: ['Tanakh', 'Torah', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Leviticus',
-				grouping: ['Tanach', 'Torah', 'Prose books'],
+				grouping: ['Tanakh', 'Torah', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Numbers',
-				grouping: ['Tanach', 'Torah', 'Prose books'],
+				grouping: ['Tanakh', 'Torah', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Deuteronomy',
-				grouping: ['Tanach', 'Torah', 'Prose books'],
+				grouping: ['Tanakh', 'Torah', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Joshua',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Judges',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Samuel_1',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Samuel_2',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Kings_1',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Kings_2',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Isaiah',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Jeremiah',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Ezekiel',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Hosea',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Joel',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Amos',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Obadiah',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Jonah',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Micah',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Nahum',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Habakkuk',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Zephaniah',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Haggai',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Zechariah',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Malachi',
-				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				grouping: ['Tanakh', "Prophets", 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Psalms',
-				grouping: ['Tanach', 'Ketuvim', 'Poetic books'],
+				grouping: ['Tanakh', 'Writings', 'Poetic books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Proverbs',
-				grouping: ['Tanach', 'Ketuvim', 'Poetic books'],
+				grouping: ['Tanakh', 'Writings', 'Poetic books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Job',
-				grouping: ['Tanach', 'Ketuvim', 'Poetic books'],
+				grouping: ['Tanakh', 'Writings', 'Poetic books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Ruth',
-				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				grouping: ['Tanakh', 'Writings', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Esther',
-				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				grouping: ['Tanakh', 'Writings', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Song_of_Songs',
-				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				grouping: ['Tanakh', 'Writings', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Lamentations',
-				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				grouping: ['Tanakh', 'Writings', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Ecclesiastes',
-				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				grouping: ['Tanakh', 'Writings', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Daniel',
-				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				grouping: ['Tanakh', 'Writings', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Ezra',
-				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				grouping: ['Tanakh', 'Writings', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Nehemiah',
-				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				grouping: ['Tanakh', 'Writings', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Chronicles_1',
-				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				grouping: ['Tanakh', 'Writings', 'Prose books'],
 				hebrew_name: ''
 			},
 			{
 				bookname: 'Chronicles_2',
-				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				grouping: ['Tanakh', 'Writings', 'Prose books'],
 				hebrew_name: ''
 			}
 		],
 		booksByGroup = (group: string) => {
 			const books: string[] = []
-			tanachBooks.forEach(book => {
+			TanakhBooks.forEach(book => {
 				if (book.grouping.indexOf(group) >= 0) books.push(book.bookname)
 			})
 			return books
@@ -247,9 +247,9 @@
 			searchRequest.books = [...new Set(selectedValue)]
 		},
 		displayBookSelection = (selectedBooks: string[]) => {
-			const groups = ['Tanach', 'Torah', "Nevi'im", 'Prose books', 'Ketuvim', 'Poetic books']
+			const groups = ['Tanakh', 'Torah', "Prophets", 'Prose books', 'Writings', 'Poetic books']
 
-			if (selectedBooks.length === tanachBooks.length) return 'Tanach'
+			if (selectedBooks.length === TanakhBooks.length) return 'Tanakh'
 
 			let groupCount = 0,
 				groupName = ''
@@ -262,7 +262,7 @@
 				groupName = group
 			})
 
-			if (groupCount === 2 && compareGroups(selectedBooks, booksByGroup('Ketuvim'))) return 'Ketuvim'
+			if (groupCount === 2 && compareGroups(selectedBooks, booksByGroup('Writings'))) return 'Writings'
 			else if (groupCount === 1 || groupCount && compareGroups(selectedBooks, booksByGroup(groupName))) return groupName
 			else return selectedBooks.length !== 1 ? selectedBooks.length + ' Books' : selectedBooks[0]
 		},
@@ -276,10 +276,10 @@
 	$: {
 		bookOptions = [
 			{
-				checked: checker('Tanach'),
-				text: 'Tanach',
-				value: 'Tanach',
-				originalValue: checker('Tanach'),
+				checked: checker('Tanakh'),
+				text: 'Tanakh',
+				value: 'Tanakh',
+				originalValue: checker('Tanakh'),
 				grouping: []
 			},
 			{
@@ -290,17 +290,17 @@
 				grouping: []
 			},
 			{
-				checked: checker("Nevi'im"),
-				text: "Nevi'im",
-				value: "Nevi'im",
-				originalValue: checker("Nevi'im"),
+				checked: checker("Prophets"),
+				text: "Prophets",
+				value: "Prophets",
+				originalValue: checker("Prophets"),
 				grouping: []
 			},
 			{
-				checked: checker('Ketuvim'),
-				text: 'Ketuvim',
-				value: 'Ketuvim',
-				originalValue: checker('Ketuvim'),
+				checked: checker('Writings'),
+				text: 'Writings',
+				value: 'Writings',
+				originalValue: checker('Writings'),
 				grouping: []
 			},
 			{
@@ -323,7 +323,7 @@
 				value: ''
 			}
 		]
-		for (const book of tanachBooks) {
+		for (const book of TanakhBooks) {
 			// check user's language preference
 
 			bookOptions.push({

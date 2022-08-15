@@ -29,7 +29,7 @@
 	filter = () => {
 		const tempRegex = new RegExp(searchTerm, 'i')
 		options.forEach(option => {
-			const tempRegex = new RegExp(searchTerm, 'i')
+			const tempRegex = new RegExp('^'+searchTerm, 'i')
 			const searchValues = option?.text + '|' + option?.value ?? ''
 			option.display = searchValues.match(tempRegex)? true: false
 		})
