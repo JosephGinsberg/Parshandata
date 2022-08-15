@@ -26,16 +26,17 @@
 		}
 		dispatch('change', { value })
 	},
-	filter = () => {
+	filter = (choices: dropdownInput[]) => {
 		const tempRegex = new RegExp(searchTerm, 'i')
-		options.forEach(option => {
+		choices.forEach(choice => {
 			const tempRegex = new RegExp('^'+searchTerm, 'i')
-			const searchValues = option?.text + '|' + option?.value ?? ''
-			option.display = searchValues.match(tempRegex)? true: false
+			const searchValues = choice?.text + '|' + choice?.value ?? ''
+			choice.display = searchValues.match(tempRegex)? true: false
 		})
-		// force svelte to re-render
-		options = options
+		return choices
 	}
+	// if user chose an option, keep search results
+	$: if(searchTerm) options = filter(options)
 </script>
 
 <div class="closeMenu" class:display={openDropdown} on:click={() => (openDropdown = false)} />
@@ -50,7 +51,7 @@
 	{#if openDropdown}
 		<div class="menu card">
 			{#if search}
-				<input type="text" bind:value={searchTerm} on:keyup={filter} placeholder="search">
+				<input type="text" bind:value={searchTerm} on:keyup={() => options = filter(options)} placeholder="search">
 				<div class="spacer"></div>
 			{/if}
 			{#each options as option, id (option)}

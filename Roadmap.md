@@ -27,19 +27,16 @@ An advanced Tanach search engine, allowing for complex, layered searches of the 
 ## Frontend
 
 ### Near Future
-0.	✔ Add Global_State to read/set data easier ✔
-1.	Add dropdown to add new blocks
-2.	Make the _Option blocks fully customizable through UI
-3.	Remove JSON editor
-4.	Frontend reached V1
-5.	Go back and work on the usablity of _Option UI
-
-*	- Build _paramPanel on interface
-*	- Design/Build input options to manipuate search on interface
-*	- Have interface manipulate json properly
-*	Serialize json input on spring boot server
+-	✔ Add Global_State to read/set data easier
+-	Buy Coffee
+-	tropword/word toggle
+-	Create a dark mode
+-	Add Hebrew support
+-	Add dropdown to add new blocks
+-	Make the _Option blocks fully customizable through UI
+-	Frontend reached V1
+-	Go back and work on the usablity of _Option UI
 
 ### Eventual
 *	? Toggle search into scentence view
-*	Add apache/nginx in front of app for static frontend files
-*	More features coming soon
+*	Serialize json input on spring boot server
