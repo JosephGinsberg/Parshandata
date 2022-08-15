@@ -47,7 +47,12 @@
 				<option value="greater">greater than</option>
 				<option value="less">less than</option>
 			</select>
-			<input type="text" bind:value={$globalState.searchRequest.search[index].count} style="width: 50px;" placeholder="count">
+			<input
+				type="text"
+				bind:value={$globalState.searchRequest.search[index].count}
+				style="width: 50px;"
+				placeholder="count"
+			/>
 		{:else}
 			&nbsp;a
 		{/if}
@@ -67,7 +72,7 @@
 				placeholder={element.connector}
 				bind:value={element.connector}
 			>
-				<option value="none">no connector</option>
+				<!-- <option value="none">no connector</option> -->
 				<option value="and">and</option>
 				<option value="or">or</option>
 				<!-- <option value="distance">distance</option> -->

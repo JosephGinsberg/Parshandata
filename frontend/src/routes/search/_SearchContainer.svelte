@@ -61,7 +61,7 @@
 	$: if (update) request = JSON.stringify($globalState.searchRequest, undefined, 4)
 </script>
 
-<div class="container" on:dblclick={() => isDevMode = !isDevMode}>
+<div class="container" on:dblclick={() => (isDevMode = !isDevMode)}>
 	{#if isDevMode}
 		<div
 			class="row"

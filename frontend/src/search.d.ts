@@ -35,6 +35,6 @@ interface SearchMatch {
 
 interface TanachBook {
 	bookname: string
-	inSet: string
-	hebrew: string
+	grouping: string[]
+	hebrew_name: string
 }
