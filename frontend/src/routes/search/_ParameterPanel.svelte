@@ -343,6 +343,7 @@
 			placeholder="{displayBookSelection(searchRequest.books)} selected"
 			options={bookOptions}
 			returnOriginal={true}
+			search={true}
 			on:change={e => updateBookSelection(e.detail.value)}
 		/>
 	</div>

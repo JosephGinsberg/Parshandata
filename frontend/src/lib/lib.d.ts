@@ -10,4 +10,5 @@ interface dropdownInput {
 	originalValue?: boolean
 	grouping?: string[]
 	disabled?: boolean
+	display?: boolean
 }

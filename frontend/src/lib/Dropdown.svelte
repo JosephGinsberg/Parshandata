@@ -7,10 +7,11 @@
 		options: dropdownInput[],
 		placeholder: string = 'Select an option',
 		returnOriginal: boolean = false,
-		filter: boolean = false
+		search: boolean = false
 
 	const dispatch: any = createEventDispatcher()
-	let openDropdown: boolean = false
+	let openDropdown: boolean = false,
+	searchTerm = ''
 
 	const valueChange = () => {
 		let value: string[] | dropdownInput[] | any
@@ -24,6 +25,16 @@
 			})
 		}
 		dispatch('change', { value })
+	},
+	filter = () => {
+		const tempRegex = new RegExp(searchTerm, 'i')
+		options.forEach(option => {
+			const tempRegex = new RegExp(searchTerm, 'i')
+			const searchValues = option?.text + '|' + option?.value ?? ''
+			option.display = searchValues.match(tempRegex)? true: false
+		})
+		// force svelte to re-render
+		options = options
 	}
 </script>
 
@@ -36,10 +47,14 @@
 	</div>
 
 	<!-- append passed in children -->
-	{#if openDropdown}
+	{#if openDropdown || !openDropdown}
 		<div class="menu card">
+			{#if search}
+				<input type="text" bind:value={searchTerm} on:keyup={filter} placeholder="search">
+				<div class="spacer"></div>
+			{/if}
 			{#each options as option, id (option)}
-				{#if option.text}
+				{#if option.text && (option.display === undefined || option.display)}
 					<div class="option row">
 						<input
 							type="checkbox"
@@ -50,7 +65,7 @@
 						/>
 						<label for={id.toString() + '~'}>{option.text ?? option.value}</label>
 					</div>
-				{:else}
+				{:else if !option.text && !searchTerm}
 					<div class="spacer" />
 				{/if}
 			{/each}
@@ -104,6 +119,15 @@
 		background-color: var(--defaultBackground);
 		z-index: 10;
 	}
+	.menu input[type=text]{
+		max-width: 100%;
+		margin: 0;
+		padding: 0;
+		border: 0px;
+	}
+	.menu input[type=text]:focus{
+		outline: none;
+	}
 	.menu .option {
 		justify-content: flex-start;
 	}
@@ -120,5 +144,8 @@
 	.spacer {
 		margin: 0.5rem;
 		border-bottom: 2px solid var(--disabledText);
+	}
+	.spacer + .spacer, .spacer:last-child {
+		display: none;
 	}
 </style>
