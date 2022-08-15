@@ -2,6 +2,7 @@
 	import { globalState } from '../../globalState'
 	import Button from '$lib/Button.svelte'
 	import Dropdown from '$lib/Dropdown.svelte'
+	import MulitLevelDropdown from '$lib/MulitLevelDropdown.svelte'
 
 	let searchRequest: SearchRequest
 	globalState.subscribe(value => ({ searchRequest } = value))
@@ -10,243 +11,320 @@
 		return state
 	})
 
-	let tanachBooks: TanachBook[] = [
-		{
-			bookname: 'Genesis',
-			inSet: 'Torah',
-			hebrew: ''
+	const tanachBooks: TanachBook[] = [
+			{
+				bookname: 'Genesis',
+				grouping: ['Tanach', 'Torah', 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Exodus',
+				grouping: ['Tanach', 'Torah', 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Leviticus',
+				grouping: ['Tanach', 'Torah', 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Numbers',
+				grouping: ['Tanach', 'Torah', 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Deuteronomy',
+				grouping: ['Tanach', 'Torah', 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Joshua',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Judges',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Samuel_1',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Samuel_2',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Kings_1',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Kings_2',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Isaiah',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Jeremiah',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Ezekiel',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Hosea',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Joel',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Amos',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Obadiah',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Jonah',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Micah',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Nahum',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Habakkuk',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Zephaniah',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Haggai',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Zechariah',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Malachi',
+				grouping: ['Tanach', "Nevi'im", 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Psalms',
+				grouping: ['Tanach', 'Ketuvim', 'Poetic books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Proverbs',
+				grouping: ['Tanach', 'Ketuvim', 'Poetic books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Job',
+				grouping: ['Tanach', 'Ketuvim', 'Poetic books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Ruth',
+				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Esther',
+				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Song_of_Songs',
+				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Lamentations',
+				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Ecclesiastes',
+				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Daniel',
+				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Ezra',
+				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Nehemiah',
+				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Chronicles_1',
+				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				hebrew_name: ''
+			},
+			{
+				bookname: 'Chronicles_2',
+				grouping: ['Tanach', 'Ketuvim', 'Prose books'],
+				hebrew_name: ''
+			}
+		],
+		booksByGroup = (group: string) => {
+			const books: string[] = []
+			tanachBooks.forEach(book => {
+				if (book.grouping.indexOf(group) >= 0) books.push(book.bookname)
+			})
+			return books
 		},
-		{
-			bookname: 'Exodus',
-			inSet: 'Torah',
-			hebrew: ''
-		},
-		{
-			bookname: 'Leviticus',
-			inSet: 'Torah',
-			hebrew: ''
-		},
-		{
-			bookname: 'Numbers',
-			inSet: 'Torah',
-			hebrew: ''
-		},
-		{
-			bookname: 'Deuteronomy',
-			inSet: 'Torah',
-			hebrew: ''
-		},
-		{
-			bookname: 'Joshua',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Judges',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Samuel_1',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Samuel_2',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Kings_1',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Kings_2',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Isaiah',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Jeremiah',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Ezekiel',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Hosea',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Joel',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Amos',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Obadiah',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Jonah',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Micah',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Nahum',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Habakkuk',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Zephaniah',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Haggai',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Zechariah',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Malachi',
-			inSet: "Nevi'im",
-			hebrew: ''
-		},
-		{
-			bookname: 'Psalms',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		},
-		{
-			bookname: 'Proverbs',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		},
-		{
-			bookname: 'Job',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		},
-		{
-			bookname: 'Ruth',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		},
-		{
-			bookname: 'Esther',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		},
-		{
-			bookname: 'Song_of_Songs',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		},
-		{
-			bookname: 'Lamentations',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		},
-		{
-			bookname: 'Ecclesiastes',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		},
-		{
-			bookname: 'Daniel',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		},
-		{
-			bookname: 'Ezra',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		},
-		{
-			bookname: 'Nehemiah',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		},
-		{
-			bookname: 'Chronicles_1',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		},
-		{
-			bookname: 'Chronicles_2',
-			inSet: 'Ketuvim',
-			hebrew: ''
-		}
-	]
-	// Tanach
-	// Torah
-	// Nevi'im
-	// Ketuvim
-	// Prose books | Tanach exculding psalms, job, proverbs
-	// Poetic books | psalms, job, proverbs
+		updateBookSelection = (selectedBooks: dropdownInput[]) => {
+			const exceptions: dropdownInput[] = []
+			let selectedValue: string[] = []
 
-	const changeArray: Function = (array: string[], value: string) => {
-			if (array.indexOf(value) > -1) array = array.filter(item => item !== value)
-			else array.push(value)
-			return array
-		},
-		displayBooks = (selectedBooks: string[]) => {
-			let groupName: string[] = []
-
+			// add individually selected books
 			selectedBooks.forEach(book => {
-				const bookDetails: TanachBook = tanachBooks.filter(each => each.bookname === book)[0]
-				if (bookDetails?.inSet && groupName.indexOf(bookDetails.inSet) === -1)
-					groupName.push(bookDetails.inSet)
+				if (!book.grouping?.length && book.checked !== book.originalValue) {
+					exceptions.push(book)
+					return
+				} else if (!book.checked || book.checked === book.originalValue) return
+				selectedValue.push(book.value)
 			})
 
+			// add/remove groups
+			exceptions.forEach(group => {
+				const bookGroup = booksByGroup(group.value)
+				if (group.checked && !group.originalValue) {
+					selectedValue = [...selectedValue, ...bookGroup]
+				} else if (!group.checked && group.originalValue) {
+					selectedValue = selectedValue.filter(singleBook => bookGroup.indexOf(singleBook) === -1)
+				}
+			})
+
+			// update globalState and avoid doubles
+			searchRequest.books = [...new Set(selectedValue)]
+		},
+		displayBookSelection = (selectedBooks: string[]) => {
+			const groups = ['Tanach', 'Torah', "Nevi'im", 'Ketuvim', 'Prose books', 'Poetic books']
+
 			if (selectedBooks.length === tanachBooks.length) return 'Tanach'
-			else if (
-				groupName.length === 1 &&
-				selectedBooks.length === tanachBooks.filter(each => each.inSet === groupName[0]).length
-			)
-				return groupName[0]
+
+			let groupCount = 0,
+				groupName = ''
+
+			groups.forEach(group => {
+				const checkerResult = checker(group)
+				if (!checkerResult) return
+
+				groupCount++
+				groupName = group
+			})
+
+			if (groupCount === 1 || groupName === 'Prose books') return groupName
 			else return selectedBooks.length !== 1 ? selectedBooks.length + ' Books' : selectedBooks[0]
 		},
-		updateChange = (e: any) => (searchRequest.splitBy = e.target?.value)
+		checker = (groupName: string) => {
+			const bookGroup = booksByGroup(groupName)
+			const matchCount = bookGroup.filter(book => searchRequest.books.indexOf(book) >= 0)
+			return matchCount.length === bookGroup.length
+		}
 
 	let bookOptions: dropdownInput[]
 	$: {
-		bookOptions = []
+		bookOptions = [
+			{
+				checked: checker('Tanach'),
+				text: 'Tanach',
+				value: 'Tanach',
+				originalValue: checker('Tanach'),
+				grouping: []
+			},
+			{
+				checked: checker('Torah'),
+				text: 'Torah',
+				value: 'Torah',
+				originalValue: checker('Torah'),
+				grouping: []
+			},
+			{
+				checked: checker("Nevi'im"),
+				text: "Nevi'im",
+				value: "Nevi'im",
+				originalValue: checker("Nevi'im"),
+				grouping: []
+			},
+			{
+				checked: checker('Ketuvim'),
+				text: 'Ketuvim',
+				value: 'Ketuvim',
+				originalValue: checker('Ketuvim'),
+				grouping: []
+			},
+			{
+				checked: checker('Prose books'),
+				text: 'Prose books',
+				value: 'Prose books',
+				originalValue: checker('Prose books'),
+				grouping: []
+			},
+			{
+				checked: checker('Poetic books'),
+				text: 'Poetic books',
+				value: 'Poetic books',
+				originalValue: checker('Poetic books'),
+				grouping: []
+			},
+			{
+				checked: false,
+				text: '',
+				value: ''
+			}
+		]
 		for (const book of tanachBooks) {
 			// check user's language preference
+
 			bookOptions.push({
 				checked: searchRequest.books.indexOf(book.bookname) >= 0,
 				value: book.bookname,
-				text: book.bookname.replaceAll('_', ' ')
+				text: book.bookname.replaceAll('_', ' '),
+				grouping: book.grouping
 			})
 		}
 	}
@@ -256,11 +334,11 @@
 	<div class="option">
 		<div class="title">Books to search</div>
 		<Dropdown
-			placeholder="{displayBooks(searchRequest.books)} selected"
+			placeholder="{displayBookSelection(searchRequest.books)} selected"
 			options={bookOptions}
-			on:change={e => (searchRequest.books = e.detail.value)}
+			returnOriginal={true}
+			on:change={e => updateBookSelection(e.detail.value)}
 		/>
-		<!-- searchRequest.books = JSON.parse(booksSelected) -->
 	</div>
 
 	<div class="option">
@@ -281,7 +359,7 @@
 		<div class="title">Use <i>taam tachton</i></div>
 		<Button
 			classes="small {searchRequest.taamTachton &&
-			!!searchRequest.books.join('').match(/Exodus|Deuteronomy/)
+			!!searchRequest.books.join('').match(/Genesis|Exodus|Deuteronomy/)
 				? 'default'
 				: 'muted'}"
 			text="Yes"
@@ -289,39 +367,13 @@
 		/>
 		<Button
 			classes="small {!searchRequest.taamTachton &&
-			!!searchRequest.books.join('').match(/Exodus|Deuteronomy/)
+			!!searchRequest.books.join('').match(/Genesis|Exodus|Deuteronomy/)
 				? 'default'
 				: 'muted'}"
 			text="No"
 			on:click={() => (searchRequest.taamTachton = false)}
 		/>
 	</div>
-
-	<!-- <div class="option">
-		<div class="title">Exclude chachter group(s) from search</div>
-		{#each ['letter', 'nekudah', 'trop', 'other'] as removeOption}
-			<Button classes='small {search.remove.indexOf(removeOption) >= 0? 'default': 'muted'}' style='text-transform: capitalize;margin-inline-end: .3rem;' text={removeOption} on:click={() => searchRequest.remove = changeArray(searchRequest.remove, removeOption)} />
-		{/each}
-		{JSON.stringify(searchRequest.remove)}
-	</div> -->
-
-	<!-- <div class="option">
-		<div class="title">Display</div>
-		<Dropdown placeholder={searchRequest.display} options={[]} />
-	</div> -->
-
-	<!-- <div class="option">
-		<div class="title">Split results by</div>
-		<select
-			placeholder={searchRequest.splitBy}
-			bind:value={searchRequest.splitBy}
-			on:change={updateChange}
-		>
-			<option value="pasuk">Pasuk</option>
-			<option value="word">Word</option>
-			<option value="tropword">Tropword</option>
-		</select>
-	</div> -->
 </aside>
 
 <style>

@@ -5,18 +5,24 @@
 	export let classes: string = 'default',
 		style: string = '',
 		options: dropdownInput[],
-		placeholder: string = 'Select an option'
+		placeholder: string = 'Select an option',
+		returnOriginal: boolean = false,
+		filter: boolean = false
 
 	const dispatch: any = createEventDispatcher()
 	let openDropdown: boolean = false
 
 	const valueChange = () => {
-		const value: string[] = []
-		options.forEach(option => {
-			if (!option.checked) return
-			value.push(option.value)
-		})
-
+		let value: string[] | dropdownInput[] | any
+		if (returnOriginal) {
+			value = options
+		} else {
+			value = []
+			options.forEach(option => {
+				if (!option.checked) return
+				value.push(option.value)
+			})
+		}
 		dispatch('change', { value })
 	}
 </script>
@@ -33,16 +39,20 @@
 	{#if openDropdown}
 		<div class="menu card">
 			{#each options as option, id (option)}
-				<div class="option row">
-					<input
-						type="checkbox"
-						id={id.toString() + '~'}
-						value={option.value ?? option}
-						bind:checked={option.checked}
-						on:change={valueChange}
-					/>
-					<label for={id.toString() + '~'}>{option.text ?? option}</label>
-				</div>
+				{#if option.text}
+					<div class="option row">
+						<input
+							type="checkbox"
+							id={id.toString() + '~'}
+							value={option.value ?? option}
+							bind:checked={options[id].checked}
+							on:change={valueChange}
+						/>
+						<label for={id.toString() + '~'}>{option.text ?? option.value}</label>
+					</div>
+				{:else}
+					<div class="spacer" />
+				{/if}
 			{/each}
 		</div>
 	{/if}
@@ -106,5 +116,9 @@
 		padding: calc(var(--topPadding) / 5) 0 calc(var(--topPadding) / 5) 8px;
 		cursor: pointer;
 		user-select: none;
+	}
+	.spacer {
+		margin: 0.5rem;
+		border-bottom: 2px solid var(--disabledText);
 	}
 </style>
