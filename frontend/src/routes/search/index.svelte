@@ -43,7 +43,7 @@
 		content="A tool enabling you to search Tanach the way that you want to."
 	/>
 	<link
-		href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew&display=swap"
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;700&display=swap"
 		rel="stylesheet"
 	/>
 </svelte:head>
