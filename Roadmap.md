@@ -33,6 +33,7 @@ An advanced Tanach search engine, allowing for complex, layered searches of the 
 -	Create a dark mode
 -	Add Hebrew support
 -	Add dropdown to add new blocks
+-	Hover _paramPanel options for instuction cards
 -	Make the _Option blocks fully customizable through UI
 -	Frontend reached V1
 -	Go back and work on the usablity of _Option UI
