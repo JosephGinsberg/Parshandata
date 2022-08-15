@@ -2,7 +2,7 @@
 	import { globalState } from '../../globalState'
 	import Button from '$lib/Button.svelte'
 	import Dropdown from '$lib/Dropdown.svelte'
-	import MulitLevelDropdown from '$lib/MulitLevelDropdown.svelte'
+	// import MulitLevelDropdown from '$lib/MulitLevelDropdown.svelte'
 
 	let searchRequest: SearchRequest
 	globalState.subscribe(value => ({ searchRequest } = value))
@@ -215,6 +215,11 @@
 			})
 			return books
 		},
+		compareGroups = (a: any, b: any) => {
+			a = JSON.stringify(a.sort())
+			b = JSON.stringify(b.sort())
+			return a === b
+		},
 		updateBookSelection = (selectedBooks: dropdownInput[]) => {
 			const exceptions: dropdownInput[] = []
 			let selectedValue: string[] = []
@@ -242,7 +247,7 @@
 			searchRequest.books = [...new Set(selectedValue)]
 		},
 		displayBookSelection = (selectedBooks: string[]) => {
-			const groups = ['Tanach', 'Torah', "Nevi'im", 'Ketuvim', 'Prose books', 'Poetic books']
+			const groups = ['Tanach', 'Torah', "Nevi'im", 'Prose books', 'Ketuvim', 'Poetic books']
 
 			if (selectedBooks.length === tanachBooks.length) return 'Tanach'
 
@@ -257,7 +262,8 @@
 				groupName = group
 			})
 
-			if (groupCount === 1 || groupName === 'Prose books') return groupName
+			if (groupCount === 2 && compareGroups(selectedBooks, booksByGroup('Ketuvim'))) return 'Ketuvim'
+			else if (groupCount === 1 || groupCount && compareGroups(selectedBooks, booksByGroup(groupName))) return groupName
 			else return selectedBooks.length !== 1 ? selectedBooks.length + ' Books' : selectedBooks[0]
 		},
 		checker = (groupName: string) => {
