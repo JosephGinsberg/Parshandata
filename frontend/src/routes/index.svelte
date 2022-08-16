@@ -94,7 +94,7 @@
 	section#hero h3 {
 		max-width: 600px;
 	}
-	section .row {
+	/* section .row {
 		justify-content: left;
 	}
 	.card {
@@ -129,5 +129,5 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-	}
+	} */
 </style>

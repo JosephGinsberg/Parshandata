@@ -49,6 +49,11 @@
 	.button:hover {
 		transition: background-color 0.12s ease-out, color 0.12s ease-out;
 	}
+	.button:focus {
+		box-shadow: inset 0 0 0 2px var(--gray-shade-6);
+		/* border: 2px solid var(--gray-shade-6); */
+		outline: none;
+	}
 	.small {
 		font-size: 0.875rem;
 		padding: 0 0.5rem;
@@ -78,8 +83,8 @@
 	.muted {
 		/* background-color: var(--offWhite); */
 		background-color: rgba(208, 215, 222, 0.32);
-		color: var(--offBlack);
-		fill: var(--offBlack);
+		color: var(--primary-txt-color);
+		fill: var(--primary-txt-color);
 	}
 	.muted:hover {
 		/* background-color: #d9d9e3; */
@@ -92,10 +97,10 @@
 
 	.minimal {
 		/* border: 1px solid rgba(208,215,222,0.32); */
-		border: none;
+		border-color: transparent;
 		background-color: transparent;
-		color: var(--fadedOffBlack);
-		fill: var(--fadedOffBlack);
+		color: var(--secondary-txt-color);
+		fill: var(--secondary-txt-color);
 	}
 	.minimal:hover {
 		color: rgb(36, 41, 47);

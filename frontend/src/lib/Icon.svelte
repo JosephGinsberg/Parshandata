@@ -1,10 +1,11 @@
 <script lang="ts">
 	export let name: string,
-		width: string = '24px',
-		height: string = '24px',
-		margin: string = '0px'
+		width = '24px',
+		height = '24px',
+		margin = '0px',
+		style = ''
 </script>
 
-<svg {width} {height} style="margin-right: {margin}">
+<svg {width} {height} style="margin-right: {margin};{style}">
 	<use href="/icons.svg#{name}" />
 </svg>

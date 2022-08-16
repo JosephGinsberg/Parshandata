@@ -37,8 +37,11 @@
 		max-height: 26px;
 		padding-right: 0.4rem;
 	}
+	.dark a.row img {
+		filter: invert(1);
+	}
 	#logo {
-		color: var(--offBlack);
+		color: var(--primary-txt-color);
 		font-size: 22px;
 		font-weight: 700;
 	}
@@ -46,6 +49,7 @@
 		margin-inline-end: 20px;
 		padding: 10px 0;
 		color: #6e6e80;
+		color: var(--secondary-txt-color);
 		font-size: 0.875rem;
 	}
 	a.page:hover {

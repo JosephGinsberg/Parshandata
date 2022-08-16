@@ -96,10 +96,9 @@
 		overflow-y: hidden;
 		width: calc(50% - var(--sidePadding));
 		box-sizing: border-box;
-		background-color: rgb(250, 250, 255);
-		border: 2px solid var(--disabledText);
+		background-color: var(--secondary-bg-color);
+		border: 2px solid var(--gray-shade-2);
 		border-radius: var(--borderRadius);
-		/* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='%23f1f5f9'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e"); */
 	}
 	.container .header {
 		padding: calc(var(--topPadding) / 1.5) var(--topPadding);
@@ -108,7 +107,7 @@
 		padding: var(--topPadding);
 	}
 	.container .header {
-		border-bottom: 2px solid var(--disabledText);
+		border-bottom: 2px solid var(--gray-shade-2);
 	}
 	.container .body {
 		max-height: 84%;
@@ -116,7 +115,7 @@
 	}
 	.container .result:not(:last-of-type) {
 		padding-bottom: calc(var(--topPadding) / 2);
-		border-bottom: 2px solid var(--disabledText);
+		border-bottom: 2px solid var(--gray-shade-2);
 	}
 	.container .result:not(:first-of-type) {
 		padding-top: calc(var(--topPadding) / 2);

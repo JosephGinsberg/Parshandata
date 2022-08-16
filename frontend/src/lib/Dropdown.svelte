@@ -69,7 +69,7 @@
 <div class="container" on:click={toggleDropdown}>
 	<div class="dropdown row {classes}" {style}>
 		<span>{placeholder}</span>
-		<Icon name="expand" />
+		<Icon name="expand" style="fill: var(--primary-txt-color);" />
 	</div>
 
 	<!-- append passed in children -->
@@ -107,22 +107,11 @@
 </div>
 
 <style>
-	.closeMenu {
-		user-select: none;
-	}
-	.closeMenu.display {
-		position: absolute;
-		top: 0px;
-		left: 0px;
-		width: 100%;
-		height: 100%;
-		z-index: 10;
-		background-color: transparent;
-	}
 	.dropdown {
 		height: 2em;
 		padding: 0 8px;
-		border: solid 1px var(--lightText);
+		background-color: var(--secondary-bg-color);
+		border: 2px solid var(--gray-shade-2);
 		border-radius: var(--borderRadius);
 		cursor: pointer;
 		user-select: none;
@@ -149,7 +138,7 @@
 		box-sizing: border-box;
 		margin-top: 2px;
 		padding: calc(var(--topPadding) / 2) var(--topPadding);
-		background-color: var(--defaultBackground);
+		background-color: var(--secondary-bg-color);
 		z-index: 10;
 	}
 	.menu input[type='text'] {
@@ -157,6 +146,7 @@
 		margin: 0;
 		padding: 0;
 		border: 0px;
+		background-color: var(--secondary-bg-color);
 	}
 	.menu input[type='text']:focus {
 		outline: none;
@@ -176,7 +166,7 @@
 	}
 	.spacer {
 		margin: 0.5rem;
-		border-bottom: 2px solid var(--disabledText);
+		border-bottom: 2px solid var(--gray-shade-1);
 	}
 	.spacer + .spacer,
 	.spacer:last-child {

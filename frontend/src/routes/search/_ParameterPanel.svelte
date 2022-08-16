@@ -385,20 +385,40 @@
 			on:click={() => (searchRequest.taamTachton = false)}
 		/>
 	</div>
+
+	<div id="bottom">
+		<Button
+			classes="muted small"
+			icon="darkmode"
+			style="position: absolute;bottom: 0px;right: 0px;"
+			on:click={() =>
+				document.documentElement.classList.contains('dark')
+					? document.documentElement.classList.remove('dark')
+					: document.documentElement.classList.add('dark')}
+		/>
+	</div>
 </aside>
 
 <style>
 	aside {
-		display: grid;
-		grid-template-columns: 100%;
-		gap: 16px;
+		position: relative;
+		display: flex;
+		flex-direction: column;
 		width: 240px;
 		min-width: 240px;
+		height: 100%;
 		padding-inline-start: var(--sidePadding);
-		/* padding-inline-end: var(--sidePadding); */
 	}
 	.title {
 		padding-bottom: 0.5rem;
 		font-weight: 500;
+	}
+	.option {
+		padding-bottom: 1rem;
+	}
+	#bottom {
+		position: absolute;
+		bottom: 0;
+		right: 0px;
 	}
 </style>

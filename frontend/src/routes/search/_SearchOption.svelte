@@ -8,7 +8,7 @@
 <div
 	class="option row {element.param}"
 	id={index.toString()}
-	tabindex="0"
+	tabindex="-1"
 	on:focus={() => console.log('focused')}
 	on:blur={() => console.log('blur')}
 >

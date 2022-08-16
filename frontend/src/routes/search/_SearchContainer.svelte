@@ -65,7 +65,7 @@
 	{#if isDevMode}
 		<div
 			class="row"
-			style="position: absolute;top: var(--topPadding);right: var(--topPadding);flex-direction: column;"
+			style="position: absolute;top: calc(var(--topPadding) / 1.5);right: var(--topPadding);flex-direction: column;"
 		>
 			<Button
 				classes="minimal small"
@@ -133,8 +133,8 @@
 		margin-inline-end: var(--sidePadding);
 		padding-right: 0;
 		box-sizing: border-box;
-		background-color: var(--defaultBackground);
-		border: 2px solid var(--lightText);
+		background-color: var(--primary-bg-color);
+		border: 2px solid var(--gray-shade-2);
 		border-radius: var(--borderRadius);
 	}
 	.container .optionsContainer {
@@ -155,7 +155,7 @@
 	.buttonsContainer {
 		align-items: center;
 		padding: calc(var(--topPadding) / 1.5) var(--topPadding);
-		border-top: 2px solid var(--lightText);
+		border-top: 2px solid var(--gray-shade-2);
 	}
 	input[type='file'] {
 		display: none;
