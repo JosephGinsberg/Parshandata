@@ -21,10 +21,26 @@
 
 <section>
 	<h2>color swatches</h2>
-	<div class="swatch" style="background-color: var(--primary-bg-color);" />
-	<div class="swatch" style="background-color: var(--secondary-bg-color);" />
-	<div class="swatch" style="background-color: var(--tertiary-bg-color);" />
-	<div class="swatch" style="background-color: var(--quaternary-bg-color);" />
+	<div>
+		<div class="swatch" style="background-color: var(--primary-bg-color);" />
+		<div class="swatch" style="background-color: var(--secondary-bg-color);" />
+		<div class="swatch" style="background-color: var(--tertiary-bg-color);" />
+		<div class="swatch" style="background-color: var(--quaternary-bg-color);" />
+	</div>
+	<div>
+		<div class="swatch" style="background-color: var(--primary-txt-color);" />
+		<div class="swatch" style="background-color: var(--secondary-txt-color);" />
+		<div class="swatch" style="background-color: var(--tertiary-txt-color);" />
+		<div class="swatch" style="background-color: var(--quaternary-txt-color);" />
+	</div>
+	<div>
+		<div class="swatch" style="background-color: var(--gray-shade-1);" />
+		<div class="swatch" style="background-color: var(--gray-shade-2);" />
+		<div class="swatch" style="background-color: var(--gray-shade-3);" />
+		<div class="swatch" style="background-color: var(--gray-shade-4);" />
+		<div class="swatch" style="background-color: var(--gray-shade-5);" />
+		<div class="swatch" style="background-color: var(--gray-shade-6);" />
+	</div>
 </section>
 
 <style>
