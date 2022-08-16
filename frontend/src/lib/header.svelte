@@ -53,6 +53,6 @@
 		font-size: 0.875rem;
 	}
 	a.page:hover {
-		color: #353740;
+		color: var(--primary-txt-color);
 	}
 </style>

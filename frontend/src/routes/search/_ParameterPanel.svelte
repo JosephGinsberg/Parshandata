@@ -276,7 +276,8 @@
 			return matchCount.length === bookGroup.length
 		}
 
-	let bookOptions: dropdownInput[]
+	let bookOptions: dropdownInput[],
+		isLightMode = true
 	$: {
 		bookOptions = [
 			{
@@ -389,12 +390,14 @@
 	<div id="bottom">
 		<Button
 			classes="muted small"
-			icon="darkmode"
+			icon={isLightMode ? 'darkmode' : 'lightmode'}
 			style="position: absolute;bottom: 0px;right: 0px;"
-			on:click={() =>
+			on:click={() => {
 				document.documentElement.classList.contains('dark')
 					? document.documentElement.classList.remove('dark')
-					: document.documentElement.classList.add('dark')}
+					: document.documentElement.classList.add('dark')
+				isLightMode = !isLightMode
+			}}
 		/>
 	</div>
 </aside>

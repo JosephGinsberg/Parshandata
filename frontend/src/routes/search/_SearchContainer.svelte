@@ -5,7 +5,7 @@
 
 	export let runSearch: any
 
-	let isDevMode = true,
+	let isDevMode = false,
 		request = JSON.stringify($globalState.searchRequest, undefined, 4),
 		update = true,
 		fileSelector: HTMLInputElement
@@ -19,10 +19,11 @@
 			}
 		},
 		uploadSearch = async (): Promise<void> => {
-			if (!fileSelector.files) return
+			if (!fileSelector.files?.[0]) return
 
-			const savedSearch = await fileSelector.files[0].text()
-			$globalState.searchRequest = JSON.parse(savedSearch)
+			const savedSearch = await fileSelector.files[0].text(),
+				formattedFile = JSON.parse(savedSearch)
+			$globalState.searchRequest = { ...$globalState.searchRequest, ...formattedFile }
 		},
 		downloadSearch = (): void => {
 			let dataString: string = JSON.stringify(JSON.parse(request), undefined, 4),
@@ -58,11 +59,11 @@
 			if (validateJson(request)) $globalState.searchRequest = JSON.parse(request)
 		}
 
-	$: if (update) request = JSON.stringify($globalState.searchRequest, undefined, 4)
+	$: if (update && isDevMode) request = JSON.stringify($globalState.searchRequest, undefined, 4)
 </script>
 
 <div class="container" on:contextmenu|preventDefault={() => (isDevMode = !isDevMode)}>
-	{#if isDevMode}
+	{#if !isDevMode}
 		<div
 			class="row"
 			style="position: absolute;top: calc(var(--topPadding) / 1.5);right: var(--topPadding);flex-direction: column;"
