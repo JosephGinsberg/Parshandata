@@ -86,16 +86,17 @@
 				<div class="spacer" />
 			{/if}
 			{#each options as option, id (option)}
+				{@const idString = String.fromCharCode(id + 64)}
 				{#if option.text && (option.display === undefined || option.display)}
 					<div class="option row">
 						<input
 							type="checkbox"
-							id={id.toString() + '~'}
+							id={idString}
 							value={option.value ?? option}
 							bind:checked={options[id].checked}
 							on:change={valueChange}
 						/>
-						<label for={id.toString() + '~'}>{option.text ?? option.value}</label>
+						<label for={idString}>{option.text ?? option.value}</label>
 					</div>
 				{:else if !option.text && !searchTerm}
 					<div class="spacer" />
