@@ -12,7 +12,7 @@
 			<a href="/search" class="page" sveltekit:prefetch>Search Tanach</a>
 			<a href="/about" class="page" sveltekit:prefetch>About</a>
 		</div>
-		<Button text="" style="secondary" on:click={() => alert('testing')} />
+		<Button classes="minimal small" icon="" text="" />
 	</div>
 </header>
 

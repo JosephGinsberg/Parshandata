@@ -13,30 +13,23 @@
 </script>
 
 {#if text || icon}
-	{#if !href}
-		<button class={classes} {style} on:click={transferClick}>
-			{#if icon !== '' && text}
-				<Icon name={icon} height="1.15em" width="1.15em" margin=".5em" />
-			{:else if icon !== ''}
-				<Icon name={icon} height="1.15em" width="1.15em" />
-			{/if}
-			<span class:leadingIcon={icon !== ''}>{text}</span>
-		</button>
-	{:else}
-		<a class={classes} {style} {href} sveltekit:prefetch>
-			{#if icon !== '' && text}
-				<Icon name={icon} height="1.15em" width="1.15em" margin=".5em" />
-			{:else if icon !== ''}
-				<Icon name={icon} height="1.15em" width="1.15em" />
-			{/if}
-			<span class:leadingIcon={icon !== ''}>{text}</span>
-		</a>
-	{/if}
+	<svelte:element
+		this={!href ? 'button' : 'a'}
+		class="button {classes}"
+		{style}
+		on:click={transferClick}
+	>
+		{#if icon !== '' && text}
+			<Icon name={icon} height="1.15em" width="1.15em" margin=".5em" />
+		{:else if icon !== ''}
+			<Icon name={icon} height="1.15em" width="1.15em" />
+		{/if}
+		<span class:leadingIcon={icon !== ''}>{text}</span>
+	</svelte:element>
 {/if}
 
 <style>
-	button,
-	a {
+	.button {
 		position: relative;
 		display: inline-flex;
 		align-items: center;
@@ -52,21 +45,18 @@
 		-ms-user-select: none;
 		user-select: none;
 	}
-	button:hover,
-	a:hover {
+	.button:hover {
 		transition: background-color 0.12s ease-out, color 0.12s ease-out;
 	}
-	button.small,
-	a.small {
+	.small {
 		font-size: 0.875rem;
 		padding: 0 0.5rem;
 	}
-	/* button.bold, a.bold{
+	/* button.bold {
 		font-weight: 700;
 	} */
 
-	button.default,
-	a.default {
+	.default {
 		background-color: #0969da;
 		color: #fff;
 		fill: #fff;
@@ -75,51 +65,43 @@
 			0px 1px 1px 0px rgba(0, 0, 0, 0.14),
 			0px 1px 3px 0px rgba(0, 0, 0, 0.12); */
 	}
-	button.default:hover,
-	a.default:hover {
+	.default:hover {
 		background-color: #1065c5;
 		color: var(--offWhite);
 	}
-	button.default:active,
-	a.default:active {
+	.default:active {
 		background-color: #0a52a4;
 		color: #fff;
 	}
 
-	button.muted,
-	a.muted {
+	.muted {
 		/* background-color: var(--offWhite); */
 		background-color: rgba(208, 215, 222, 0.32);
 		color: var(--offBlack);
 		fill: var(--offBlack);
 	}
-	button.muted:hover,
-	a.muted:hover {
+	.muted:hover {
 		/* background-color: #d9d9e3; */
 		background-color: rgba(180, 186, 192, 0.32);
 	}
-	button.muted:active,
-	a.muted:active {
+	.muted:active {
 		/* background-color: #c5c5d2; */
 		background-color: rgba(159, 164, 170, 0.32);
 	}
 
-	button.minimal,
-	a.minimal {
+	.minimal {
 		/* border: 1px solid rgba(208,215,222,0.32); */
 		border: none;
 		background-color: transparent;
 		color: var(--fadedOffBlack);
 		fill: var(--fadedOffBlack);
 	}
-	button.minimal:hover,
-	a.minimal:hover {
+	.minimal:hover {
 		color: rgb(36, 41, 47);
 		fill: rgb(36, 41, 47);
 		background-color: rgba(208, 215, 222, 0.32);
 	}
-	button.minimal:active,
-	a.minimal:active {
+	.minimal:active {
 		background-color: rgba(180, 186, 192, 0.32);
 	}
 
