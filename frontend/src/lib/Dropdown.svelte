@@ -10,8 +10,10 @@
 		search: boolean = false
 
 	const dispatch: any = createEventDispatcher()
-	let openDropdown: boolean = false,
-		searchTerm = ''
+	let openDropdown = false,
+		searchTerm = '',
+		menuEl: HTMLDivElement,
+		listenerStarted = 0
 
 	const valueChange = () => {
 			let value: string[] | dropdownInput[] | any
@@ -38,14 +40,33 @@
 				choice.display = searchValues.match(tempRegex) ? true : false
 			})
 			return choices
+		},
+		isChild = (child: any, parent: Node) => {
+			while ((child = child?.parentNode)) {
+				if (child.tagName.toUpperCase() === 'BODY') return false
+				else if (child === parent) return true
+			}
+			return false
+		},
+		clickedOutside = (e: any) => {
+			if (isChild(e.target, menuEl) || menuEl === e.target || !listenerStarted) {
+				listenerStarted = 1
+				return
+			}
+			// close dropdown menu
+			listenerStarted = 0
+			openDropdown = false
+			window.removeEventListener('click', clickedOutside)
+		},
+		toggleDropdown = () => {
+			openDropdown = true
+			window.addEventListener('click', clickedOutside)
 		}
 	// if user chose an option, keep search results
 	$: if (searchTerm) options = filter(options)
 </script>
 
-<div class="closeMenu" class:display={openDropdown} on:click={() => (openDropdown = false)} />
-
-<div class="container" on:click={() => (openDropdown = true)}>
+<div class="container" on:click={toggleDropdown}>
 	<div class="dropdown row {classes}" {style}>
 		<span>{placeholder}</span>
 		<Icon name="expand" />
@@ -53,7 +74,7 @@
 
 	<!-- append passed in children -->
 	{#if openDropdown}
-		<div class="menu card">
+		<div class="menu card" bind:this={menuEl}>
 			{#if search}
 				<input
 					type="text"
