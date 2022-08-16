@@ -126,6 +126,7 @@
 	.dropdown.small {
 		font-size: 0.875rem;
 		padding: 0 0.5rem;
+		box-sizing: border-box;
 	}
 
 	.menu {

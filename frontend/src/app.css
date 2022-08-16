@@ -253,7 +253,7 @@ label {
 input,
 select,
 textarea {
-	height: 1.9em;
+	height: 2em;
 	font-family: inherit;
 	font-size: inherit;
 	/* -webkit-padding: 0.4em 0; */
@@ -267,6 +267,10 @@ textarea {
 	border-radius: var(--borderRadius);
 	color: var(--primary-txt-color);
 }
+input.small {
+	font-size: 0.875rem;
+	padding: 0 0.5rem;
+}
 input:focus,
 select:focus,
 textarea:focus {
@@ -275,7 +279,7 @@ textarea:focus {
 }
 select {
 	width: 100%;
-	height: calc(2em * 1.0625);
+	height: 2em;
 	-moz-appearance: none;
 	-webkit-appearance: none;
 	appearance: none;

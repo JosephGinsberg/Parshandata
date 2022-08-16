@@ -49,9 +49,10 @@
 			</select>
 			<input
 				type="text"
-				bind:value={$globalState.searchRequest.search[index].count}
+				class="small"
 				style="width: 50px;"
 				placeholder="count"
+				bind:value={$globalState.searchRequest.search[index].count}
 			/>
 		{:else}
 			&nbsp;a
