@@ -17,6 +17,7 @@
 		this={!href ? 'button' : 'a'}
 		class="button {classes}"
 		{style}
+		{href}
 		on:click={transferClick}
 	>
 		{#if icon !== '' && text}
