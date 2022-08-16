@@ -17,17 +17,12 @@
 	--gray-shade-4: #c7c7cc;
 	--gray-shade-5: #aeaeb2;
 	--gray-shade-6: #76767a;
-	/* --gray-shade-6: #8e8e93; */
 
+	--header-bg-color: var(--primary-bg-color);
 	--orange-background: rgba(255, 149, 0, 0.3);
 	--orange-primary: var(--primary-txt-color);
 
-	/* 	--primaryColor: #fff;
-	--accentColor: #fff;
-	--disabledText: #ededf1; /* #cbd4dd *
-	--supportText: #4a4d52;
-	--lightText: #aab0b8;
-	
+	/*
 	grid-background
 	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='%23f1f5f9'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
 
@@ -54,15 +49,10 @@
 }
 
 :root.dark {
-	--color-shades-dark: #191919;
-	--color-shades-dim: #202124;
-	--color-shades-charcoal: #303136;
-	--color-shades-gray: #585b63;
-
-	--primary-bg-color: var(--color-shades-dark);
-	--secondary-bg-color: var(--color-shades-dim);
-	--tertiary-bg-color: var(--color-shades-charcoal);
-	--quaternary-bg-color: var(--color-shades-gray);
+	--primary-bg-color: #202124;
+	--secondary-bg-color: #303136;
+	--tertiary-bg-color: #3C4043;
+	--quaternary-bg-color: #585b63;
 
 	--primary-txt-color: #f2f2f7;
 	--secondary-txt-color: #989899;
@@ -75,8 +65,8 @@
 	--gray-shade-4: #48484a;
 	--gray-shade-5: #636366;
 	--gray-shade-6: #c0c0c7;
-	/* --gray-shade-6: #8e8e93; */
 
+	--header-bg-color: rgba(32,33,36,0.96);
 	--orange-background: rgba(255, 157, 10, 0.3);
 }
 
@@ -201,7 +191,7 @@ h3 {
 	letter-spacing: 0;
 	line-height: 1.5rem;
 	padding: 0;
-	color: var(--supportText);
+	color: var(--secondary-txt-color);
 	padding-bottom: 0.5rem;
 	font-weight: 500;
 	font-size: 1em;
@@ -292,8 +282,7 @@ select {
 	/* background-image: url('icons.svg#expand');
 	background-size: contain; */
 	fill: var(--primary-txt-color);
-	background: url("data:image/svg+xml,<svg height='24px' width='24px' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'><path d='m24 30.75-12-12 2.15-2.15L24 26.5l9.85-9.85L36 18.8Z'/></svg>")
-		no-repeat;
+	background: url("data:image/svg+xml,<svg height='24px' width='24px' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'><path d='m24 30.75-12-12 2.15-2.15L24 26.5l9.85-9.85L36 18.8Z'/></svg>") var(--secondary-bg-color) no-repeat;
 	background-position: calc(100% - 8px) center !important;
 }
 select.small {

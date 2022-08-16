@@ -49,7 +49,7 @@
 </svelte:head>
 
 <section class="fullHeight fullWidth" class:fullWidth={true}>
-	<div style="text-transform: unset;color: var(--supportText);margin: 0;padding: 1.25rem 0 1rem">
+	<div style="text-transform: unset;color: var(--secondary-txt-color);margin: 0;padding: 1.25rem 0 1rem">
 		Search Tanach
 	</div>
 

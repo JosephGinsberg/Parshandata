@@ -23,8 +23,9 @@
 		padding: 0 var(--sidePadding);
 		box-sizing: border-box;
 		justify-content: space-between;
+		/* box-shadow: 0 2 6px 0 rgb(0 0 0 / 45%); for dark mode */
 		box-shadow: 0 0 15px 0 rgb(0 0 0 / 10%);
-		background-color: var(--defaultBackground);
+		background-color: var(--primary-bg-color);
 		z-index: 10;
 	}
 	header > .row {

@@ -277,7 +277,7 @@
 		}
 
 	let bookOptions: dropdownInput[],
-		isLightMode = true
+		isLightMode = !document.documentElement.classList.contains('dark')
 	$: {
 		bookOptions = [
 			{

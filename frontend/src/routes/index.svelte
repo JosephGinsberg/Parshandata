@@ -88,7 +88,7 @@
 	section#hero {
 		padding-bottom: calc(75px + var(--sidePadding));
 		margin-bottom: var(--sidePadding);
-		border-bottom: 2px solid #000;
+		border-bottom: 2px solid var(--secondary-txt-color);
 	}
 	section#hero h1,
 	section#hero h3 {
