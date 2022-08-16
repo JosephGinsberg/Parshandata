@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte'
 	import { globalState } from '../../globalState'
 	import Button from '$lib/Button.svelte'
 	import Dropdown from '$lib/Dropdown.svelte'
@@ -277,7 +278,8 @@
 		}
 
 	let bookOptions: dropdownInput[],
-		isLightMode = !document.documentElement.classList.contains('dark')
+		isDarkMode = false
+		onMount(() => isDarkMode = document?.documentElement.classList.contains('dark'))
 	$: {
 		bookOptions = [
 			{
@@ -390,13 +392,13 @@
 	<div id="bottom">
 		<Button
 			classes="muted small"
-			icon={isLightMode ? 'darkmode' : 'lightmode'}
+			icon={isDarkMode ? 'lightmode' : 'darkmode'}
 			style="position: absolute;bottom: 0px;right: 0px;"
 			on:click={() => {
 				document.documentElement.classList.contains('dark')
 					? document.documentElement.classList.remove('dark')
 					: document.documentElement.classList.add('dark')
-				isLightMode = !isLightMode
+				isDarkMode = !isDarkMode
 			}}
 		/>
 	</div>
