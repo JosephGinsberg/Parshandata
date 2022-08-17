@@ -12,12 +12,7 @@
 			title: 'Search Tanach',
 			desc: 'With advanced functionality', // any search is possible",
 			location: '/search'
-		} //,
-		// {
-		// 	title: 'Gemtria calulator',
-		// 	desc: 'Multiple methods at once',
-		// 	location: 'movable' //"/gematria"
-		// }
+		}
 	]
 </script>
 
@@ -28,16 +23,19 @@
 
 <section id="hero">
 	<h1>Ready to start searching?</h1>
-	<h3>Have greater access to <i>Tanach</i> with our easier tooling at your finger tips.</h3>
-	<Button style="margin-top: 1.5rem;" text="Check out our tooling" href="/search" />
+	<h4>
+		An intuitive, simple - and free - interface that affords scholar and student alike the ability
+		to search Tanakh with ease.
+	</h4>
+	<Button style="margin-top: 1.5rem;" text="Start searching" href="/search" />
 </section>
 <br /><br /><br />
 
 <!-- <section>
-	<h2>
+	<h3>
 		OUR CURRENT PLAN.
 		<span> LOOKING INTO THE FUTURE </span>
-	</h2>
+	</h3>
 	<p>
 		<b>WRITE SOMETHING HERE.</b> We are a small team with not a lot of time. Therefore, we are prioritizing
 		out time to bring the tools that improve the market the most first.
@@ -45,10 +43,10 @@
 </section>
 
 <section>
-	<h2>
+	<h3>
 		THE BASICS.
 		<span> AND EVERYTHING IN BETWEEN </span>
-	</h2>
+	</h3>
 
 	<div class="row spacedContainer">
 		{#each examples as example}
@@ -81,7 +79,7 @@
 </section>
 
 <section style="text-align: center;">
-	<h2 style="margin: 0 auto;">our mission</h2>
+	<h3 style="margin: 0 auto;">our mission</h3>
 	<p>"Our goal is to break the barrier for an average Shloimy to be able to search with minimal know-how."</p>
 </section> -->
 <style>
@@ -91,7 +89,8 @@
 		border-bottom: 2px solid var(--secondary-txt-color);
 	}
 	section#hero h1,
-	section#hero h3 {
+	section#hero h4 {
+		margin-top: 0;
 		max-width: 600px;
 	}
 	/* section .row {

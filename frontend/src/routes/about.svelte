@@ -89,10 +89,6 @@
 		padding-bottom: 1rem;
 		border-bottom: 0.25rem solid var(--primary-txt-color);
 	}
-	h3 {
-		padding-top: 1rem;
-		font-weight: 700;
-	}
 	li + li {
 		padding-top: 1rem;
 	}
