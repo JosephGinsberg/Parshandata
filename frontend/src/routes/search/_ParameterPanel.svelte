@@ -279,7 +279,7 @@
 
 	let bookOptions: dropdownInput[],
 		isDarkMode = false
-		onMount(() => isDarkMode = document?.documentElement.classList.contains('dark'))
+	onMount(() => (isDarkMode = document?.documentElement.classList.contains('dark')))
 	$: {
 		bookOptions = [
 			{
@@ -356,7 +356,8 @@
 	</div>
 
 	<div class="option">
-		<div class="title">Use <i>keri</i> instead of <i>kesiv</i></div>
+		<div class="title"><i>Keri</i> instead of <i>kesiv</i></div>
+		<div class="support"></div>
 		<Button
 			classes="small {searchRequest.useKeri ? 'default' : 'muted'}"
 			text="Yes"
@@ -370,7 +371,7 @@
 	</div>
 
 	<div class="option">
-		<div class="title">Use <i>taam tachton</i></div>
+		<div class="title"><i>Taam tachton</i></div>
 		<Button
 			classes="small {searchRequest.taamTachton &&
 			!!searchRequest.books.join('').match(/Genesis|Exodus|Deuteronomy/)
@@ -390,6 +391,13 @@
 	</div>
 
 	<div id="bottom">
+		<!-- <Button
+			classes="muted small"
+			icon="language"
+			text="Hebrew"
+			on:click={() =>
+				(document.documentElement.lang = document.documentElement.lang === 'en' ? 'he' : 'en')}
+		/> -->
 		<Button
 			classes="muted small"
 			icon={isDarkMode ? 'lightmode' : 'darkmode'}
@@ -401,6 +409,12 @@
 				isDarkMode = !isDarkMode
 			}}
 		/>
+		<!-- <Button
+			classes="muted small"
+			icon="coffee"
+			text="Sponsor coffee"
+			href="https://www.buymeacoffee.com/parshandata"
+		/> -->
 	</div>
 </aside>
 

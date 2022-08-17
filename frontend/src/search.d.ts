@@ -14,6 +14,7 @@ interface SearchParam {
 	value?: string
 	count?: number
 	counttype?: string
+	distancetype?: string
 	matchtype?: string
 	level: number
 }

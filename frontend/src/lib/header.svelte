@@ -18,7 +18,9 @@
 
 <style>
 	header {
-		position: relative;
+		position: -webkit-sticky;
+		position: sticky;
+		top: 0px;
 		height: var(--headerHeight);
 		padding: 0 var(--sidePadding);
 		box-sizing: border-box;

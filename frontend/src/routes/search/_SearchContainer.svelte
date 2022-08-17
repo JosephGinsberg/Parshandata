@@ -68,17 +68,17 @@
 			class="row"
 			style="position: absolute;top: calc(var(--topPadding) / 1.5);right: var(--topPadding);flex-direction: column;"
 		>
-			<Button
+			<!-- <Button
 				classes="minimal small"
 				style="width: 100%;margin-bottom: 6px;"
 				icon="library_add"
 				text="Add block"
 				on:click={addBlock}
-			/>
+			/> -->
 		</div>
 
-		<div class="optionsContainer" style="padding-top: var(--topPadding);overflow: auto;">
-			<div>
+		<div class="optionsContainer" style="padding-top: calc(var(--topPadding) / 2);overflow: auto;">
+			<div style="padding: .5rem calc(var(--topPadding) / 1);">
 				Return every {$globalState.searchRequest.splitBy}
 				<!-- <select
 					class="small"
@@ -139,7 +139,6 @@
 		border-radius: var(--borderRadius);
 	}
 	.container .optionsContainer {
-		padding: calc(var(--topPadding) / 1.5) var(--topPadding);
 		height: 100%;
 	}
 	textarea {
