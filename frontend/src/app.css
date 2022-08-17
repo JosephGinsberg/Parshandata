@@ -51,7 +51,7 @@
 :root.dark {
 	--primary-bg-color: #202124;
 	--secondary-bg-color: #303136;
-	--tertiary-bg-color: #3C4043;
+	--tertiary-bg-color: #3c4043;
 	--quaternary-bg-color: #585b63;
 
 	--primary-txt-color: #f2f2f7;
@@ -66,7 +66,7 @@
 	--gray-shade-5: #636366;
 	--gray-shade-6: #c0c0c7;
 
-	--header-bg-color: rgba(32,33,36,0.96);
+	--header-bg-color: rgba(32, 33, 36, 0.96);
 	--orange-background: rgba(255, 157, 10, 0.3);
 }
 
@@ -286,7 +286,8 @@ select {
 	/* background-image: url('icons.svg#expand');
 	background-size: contain; */
 	fill: var(--primary-txt-color);
-	background: url("data:image/svg+xml,<svg height='24px' width='24px' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'><path d='m24 30.75-12-12 2.15-2.15L24 26.5l9.85-9.85L36 18.8Z'/></svg>") var(--secondary-bg-color) no-repeat;
+	background: url("data:image/svg+xml,<svg height='24px' width='24px' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'><path d='m24 30.75-12-12 2.15-2.15L24 26.5l9.85-9.85L36 18.8Z'/></svg>")
+		var(--secondary-bg-color) no-repeat;
 	background-position: calc(100% - 8px) center !important;
 }
 select.small {
