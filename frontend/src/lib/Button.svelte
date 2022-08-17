@@ -73,11 +73,13 @@
 	}
 	.default:hover {
 		background-color: #1065c5;
-		color: var(--offWhite);
+		color: #f5f5fa;
+		fill: #f5f5fa;
 	}
 	.default:active {
 		background-color: #0a52a4;
-		color: #fff;
+		color: #fafaff;
+		fill: #fafaff;
 	}
 
 	.muted {
