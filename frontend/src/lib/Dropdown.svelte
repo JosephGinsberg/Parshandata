@@ -78,7 +78,7 @@
 			{#if search}
 				<input
 					type="text"
-					placeholder="search"
+					placeholder="Search"
 					autocomplete="off"
 					bind:value={searchTerm}
 					on:keyup={() => (options = filter(options))}

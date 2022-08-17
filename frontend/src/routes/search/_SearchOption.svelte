@@ -1,11 +1,87 @@
 <script lang="ts">
 	import { globalState } from '../../globalState'
-	import Dropdown from '$lib/Dropdown.svelte'
 
 	export let element: SearchParam, index: number
 </script>
 
+<div class="option">
+	{#if element.param === 'input'}
+		{ element.matchtype }
+
+		{#if element.matchtype === 'is' || element.matchtype === 'is not'}
+			a
+		{:else if element.counttype === 'greater' && element.count === 0}
+			any count of a
+		{:else if element.counttype === 'greater'}
+			greater than { element.count }
+		{:else if element.counttype === 'less'}
+			less than { element.count }
+		{:else if element.count === 1}
+			a
+		{:else}
+			{ element.count }
+		{/if}
+
+		<!-- { element.type } -->
+		<span class="highlight">&nbsp;{ element.value }&nbsp;</span>
+
+		{#if element.connector !== 'none'}
+			{ element.connector }
+		{/if}
+	{:else if element.param === 'abstract'}
+		{#if element.matchtype === 'begins' || element.matchtype === 'ends'}
+			that { element.matchtype } with
+		{:else if element.matchtype === 'contains' || element.matchtype === 'does not contain'}
+			that { element.matchtype } within
+		{:else}
+			{ element.matchtype }
+		{/if}
+
+		{#if element.counttype === 'greater' && element.count === 0}
+			any count of a
+		{:else if element.counttype === 'greater'}
+			greater than { element.count }
+		{:else if element.counttype === 'less'}
+			less than { element.count }
+		{:else if element.count === 1}
+			a
+		{:else}
+			{ element.count }
+		{/if}
+
+		{ element.type },
+		which
+
+		{#if element.connector !== 'none'}
+			{ element.connector }
+		{/if}
+	{:else if element.param === 'distance'}
+		{ element.count }
+
+		{ element.type }
+		{ element.distancetype }
+		{ element.count }
+		
+		{#if element.connector !== 'none'}
+			{ element.connector }
+		{/if}
+	{:else if element.param === ''}
+		&nbsp;
+	{:else}
+		{ element.param } is not a valid param value
+	{/if}
+
+	{#if typeof $globalState.searchRequest.search?.[index + 1] !== 'undefined' && $globalState.searchRequest.search[index + 1].level !== element.level}
+		is either
+	{/if}
+</div>
+
+{#if typeof $globalState.searchRequest.search?.[index + 1] !== 'undefined' && $globalState.searchRequest.search[index + 1].level !== element.level}
+	<div class="spacer"></div>
+{/if}
+
 <div
+	style="display: none;"
 	class="option row {element.param}"
 	id={index.toString()}
 	tabindex="-1"
@@ -58,13 +134,13 @@
 			&nbsp;a
 		{/if}
 
-		<Dropdown
+		<!-- <Dropdown
 			classes="small"
 			placeholder={element.value}
 			style="margin-left: 8px;
 		margin-block-end: .5rem;"
 			options={[]}
-		/>
+		/> -->
 		{#if $globalState.searchRequest.search.length - 1 !== index}
 			<select
 				class="small"
@@ -91,21 +167,30 @@
 </div>
 
 <style>
-	.option {
-		/* display: inline-flex; */
+	/* .option {
+		/* display: inline-flex; *
 		margin-block-start: 1rem;
 		justify-content: flex-start;
 		flex-wrap: wrap;
-	}
-	/* .option .handle {
-		display: inline-block;
-		height: 24px;
-		width: 24px;
-		margin-inline-end: 0.5rem;
-		cursor: pointer;
-		opacity: 0;
-	}
-	.option:hover .handle {
-		opacity: 1;
 	} */
+
+	.option {
+		margin: .25rem calc(var(--topPadding) / 2);
+		padding: .5rem calc(var(--topPadding) / 2);
+		cursor: pointer;
+	}
+	.option:hover {
+		background-color: var(--tertiary-bg-color);
+		background-color: var(--secondary-bg-color);
+		border-radius: var(--borderRadius);
+	}
+	.highlight {
+		background-color: var(--gray-shade-1);
+		border-radius: var(--borderRadius);
+		padding: 4px;
+	}
+	.spacer {
+		margin: 0 4rem 0.5rem;
+		border-bottom: 2px solid var(--tertiary-bg-color);
+	}
 </style>
