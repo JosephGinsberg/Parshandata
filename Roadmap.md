@@ -6,7 +6,7 @@ An advanced Tanach search engine, allowing for complex, layered searches of the 
 ### Near future
 * Trop implementation 
 >	Implementation in function | done
->	Legarmeh and other exceptions (Tropless words)  
+>	Legarmeh and other exceptions (Tropless words) | done 
 >	Nekudot lists and letter lists for Shin and Sin (which means modifying seperate letters) | done
 >	Ta'amei Emes  
 
