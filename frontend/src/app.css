@@ -293,20 +293,13 @@ p {
 	color: var(--secondary-txt-color);
 }
 
-a {
-	color: #005ebc;
-	/* color: #0852a8; */
+a, a:visited {
+	color: #0969da;
 	text-decoration: none;
 	transition: all ease-in-out 50ms;
 }
 a:hover {
-	color: #07305e;
-	/* color: #1065c5; */
-	/* text-decoration: underline; */
-}
-a:visited {
-	/* color: rgb(0,80,160); */
-	color: #07305e;
+	color: #1065c5;
 }
 
 label {

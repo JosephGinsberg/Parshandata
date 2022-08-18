@@ -102,18 +102,22 @@
 	<p>"Our goal is to break the barrier for an average Shloimy to be able to search with minimal know-how."</p>
 </section> -->
 <style>
-	section#hero {
-		padding-bottom: calc(75px + var(--sidePadding));
-		/* margin-bottom: var(--sidePadding); */
-		border-bottom: 2px solid var(--gray-shade-2);
-	}
 	section#hero h1,
 	section#hero h4 {
 		margin-top: 0;
 		max-width: 600px;
 	}
 	.header {
-		padding: 2rem 0;
+		padding-bottom: 2rem;
+	}
+	.header::before {
+		display: block;
+		background: #0052cc;
+		background: var(--gray-shade-2);
+		height: 4px;
+		width: 160px;
+		content: '';
+		margin-bottom: 4rem;
 	}
 	.header h3, .header h5{
 		margin-top: 0px;
@@ -132,12 +136,6 @@
 		max-height: 0px;
 		overflow: hidden;
 		/* transition: max-height ease-in-out 200ms; */
-	}
-	.answer a, .answer a:visited {
-		color: #0969da;
-	}
-	.answer a:hover {
-		color: #1065c5;
 	}
 	input[type=checkbox]:checked + .answer {
 		max-height: unset;

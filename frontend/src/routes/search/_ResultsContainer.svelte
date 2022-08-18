@@ -127,4 +127,17 @@
 		text-align: right;
 		padding-bottom: calc(var(--topPadding) / 2.5);
 	}
+	a {
+		color: #005ebc;
+		/* color: #0852a8; */
+	}
+	a:hover {
+		color: #07305e;
+		/* color: #1065c5; */
+		/* text-decoration: underline; */
+	}
+	a:visited {
+		/* color: rgb(0,80,160); */
+		color: #07305e;
+	}
 </style>
