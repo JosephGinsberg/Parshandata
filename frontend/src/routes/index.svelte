@@ -40,9 +40,9 @@
 	<input type="checkbox" id="zero">
 	<div class="answer">Parshandata is an advanced search engine for Tanakh that was created by Yosef Ginsberg (engine) and Nosson Frankel (interface).</div>
 
-	<label class="question" for="one">How is this software different from Sefaria, whose site also has a search?</label>
+	<label class="question" for="one">How is this software different from others that offer search?</label>
 	<input type="checkbox" id="one">
-	<div class="answer">One can search on Sefaria for words, phrases, books, and all of them combined. On our platform, we are expanding the level of search one can perform. One can now search for pasukim or words based on a pattern. The most suitable analogy is that our tool delivers the power of a regex with the UI/UX of Google search. <a href="/about">Learn more</a></div>
+	<div class="answer">On other platforms one can search for words, phrases, books, and all of them combined. On our platform, we are expanding the level of search one can perform. One can now search for pasukim or words based on a pattern. The most suitable analogy is that our tool delivers the power of a regex with the UI/UX of Google search. <a href="/about">Learn more</a></div>
 
 	<label class="question" for="two">What is the future of Parshandata?</label>
 	<input type="checkbox" id="two">
