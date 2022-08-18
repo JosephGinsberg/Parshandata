@@ -243,6 +243,12 @@
 				}
 			})
 
+			// sort book selection based on tanach's book order
+			selectedValue = selectedValue.sort((a: string, b: string) => {
+				const TanakhBooksAsString = JSON.stringify(selectedValue)
+				return TanakhBooksAsString.search(a) > TanakhBooksAsString.search(b)? 1: -1
+			})
+
 			// update globalState and avoid doubles
 			searchRequest.books = [...new Set(selectedValue)]
 		},
