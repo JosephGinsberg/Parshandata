@@ -278,6 +278,14 @@ p {
 
 	box-shadow: rgb(0 0 0 / 25%) 0px 25px 50px -12px; */
 }
+.bold {
+	font-weight: 700;
+	font-weight: 600;
+}
+.center {
+	max-width: 600px;
+	margin: 0 auto;
+}
 
 .subtext {
 	/* padding-left: .2rem; */

@@ -29,7 +29,26 @@
 	</h4>
 	<Button style="margin-top: 1.5rem;" text="Start searching" href="/search" />
 </section>
-<br /><br /><br />
+
+<section>
+	<div class="header">
+		<h3>Frequently asked questions</h3>
+		<h5>Get answers to common questions about Parshandata.</h5>
+	</div>
+
+	<label class="question" for="zero">What is Parshandata?</label>
+	<input type="checkbox" id="zero">
+	<div class="answer">Parshandata is an advanced search engine for Tanakh that was created by Yosef Ginsberg (engine) and Nosson Frankel (interface).</div>
+
+	<label class="question" for="one">How is this software different from Sefaria, whose site also has a search?</label>
+	<input type="checkbox" id="one">
+	<div class="answer">One can search on Sefaria for words, phrases, books, and all of them combined. On our platform, we are expanding the level of search one can perform. One can now search for pasukim or words based on a pattern. The most suitable analogy is that our tool delivers the power of a regex with the UI/UX of Google search. <a href="/about">Learn more</a></div>
+
+	<label class="question" for="two">What is the future of Parshandata?</label>
+	<input type="checkbox" id="two">
+	<div class="answer">We hope to continue to expand this project to include other Tanakh-based research tools, and constantly update and improve the current apparatus. To facilitate this, if you find Parshandata particularly helpful or inspiring, please consider expressing your appreciation by donating to the project!</div>
+</section>
+<br><br><br>
 
 <!-- <section>
 	<h3>
@@ -85,14 +104,47 @@
 <style>
 	section#hero {
 		padding-bottom: calc(75px + var(--sidePadding));
-		margin-bottom: var(--sidePadding);
-		border-bottom: 2px solid var(--secondary-txt-color);
+		/* margin-bottom: var(--sidePadding); */
+		border-bottom: 2px solid var(--gray-shade-2);
 	}
 	section#hero h1,
 	section#hero h4 {
 		margin-top: 0;
 		max-width: 600px;
 	}
+	.header {
+		padding: 2rem 0;
+	}
+	.header h3, .header h5{
+		margin-top: 0px;
+	}
+	input[type=checkbox] {
+		display: none;
+	}
+	.question {
+		padding-top: 1rem;
+		font-size: 1.333rem;
+		font-weight: 700;
+		user-select: none;
+	}
+	.answer {
+		margin: 1rem 0 0;
+		max-height: 0px;
+		overflow: hidden;
+		/* transition: max-height ease-in-out 200ms; */
+	}
+	.answer a, .answer a:visited {
+		color: #0969da;
+	}
+	.answer a:hover {
+		color: #1065c5;
+	}
+	input[type=checkbox]:checked + .answer {
+		max-height: unset;
+		padding-bottom: 1rem;
+		border-bottom: 1px solid var(--gray-shade-2);
+	}
+
 	/* section .row {
 		justify-content: left;
 	}
