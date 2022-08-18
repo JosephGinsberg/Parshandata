@@ -79,7 +79,10 @@
 		</div>
 
 		<div class="optionsContainer" style="padding-top: calc(var(--topPadding) / 2);overflow: auto;">
-			<div style="padding: .5rem calc(var(--topPadding) / 1);" on:click={() => editSplitBy = !editSplitBy}>
+			<div
+				style="padding: .5rem calc(var(--topPadding) / 1);"
+				on:click={() => (editSplitBy = !editSplitBy)}
+			>
 				Return every
 				{#if !editSplitBy}
 					{$globalState.searchRequest.splitBy}

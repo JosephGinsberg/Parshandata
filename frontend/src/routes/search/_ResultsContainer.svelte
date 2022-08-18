@@ -58,9 +58,9 @@
 						<!-- {data.matches[id-1] < data.matches && match.fullverse === data.matches[id-1].fullverse? true: ''} -->
 						<div class="fullverse">
 							{#if match.splitvalue}
-								{match.fullverse.split(match.splitvalue)[0]}
-								<b>{match.splitvalue}</b>
-								{match.fullverse.split(match.splitvalue).slice(1).join(match.splitvalue)}
+								<!-- everything is connected to avoid unwanted whitespace -->
+								{match.fullverse.split(match.splitvalue)[0]}<b>{match.splitvalue}</b
+								>{match.fullverse.split(match.splitvalue).slice(1).join(match.splitvalue)}
 							{:else}
 								{match.fullverse}
 							{/if}

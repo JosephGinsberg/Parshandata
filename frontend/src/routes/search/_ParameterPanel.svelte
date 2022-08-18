@@ -357,7 +357,7 @@
 
 	<div class="option">
 		<div class="title"><i>Keri</i> instead of <i>kesiv</i></div>
-		<div class="support"></div>
+		<div class="support" />
 		<Button
 			classes="small {searchRequest.useKeri ? 'default' : 'muted'}"
 			text="Yes"

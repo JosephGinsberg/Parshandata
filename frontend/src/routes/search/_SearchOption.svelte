@@ -6,69 +6,68 @@
 
 <div class="option">
 	{#if element.param === 'input'}
-		{ element.matchtype }
+		{element.matchtype}
 
 		{#if element.matchtype === 'is' || element.matchtype === 'is not'}
 			a
 		{:else if element.counttype === 'greater' && element.count === 0}
 			any count of a
 		{:else if element.counttype === 'greater'}
-			greater than { element.count }
+			greater than {element.count}
 		{:else if element.counttype === 'less'}
-			less than { element.count }
+			less than {element.count}
 		{:else if element.count === 1}
 			a
 		{:else}
-			{ element.count }
+			{element.count}
 		{/if}
 
 		<!-- { element.type } -->
-		<span class="highlight">&nbsp;{ element.value }&nbsp;</span>
+		<span class="highlight">&nbsp;{element.value}&nbsp;</span>
 
 		{#if element.connector !== 'none'}
-			{ element.connector }
+			{element.connector}
 		{/if}
 	{:else if element.param === 'abstract'}
 		{#if element.matchtype === 'begins' || element.matchtype === 'ends'}
-			that { element.matchtype } with
+			that {element.matchtype} with
 		{:else if element.matchtype === 'contains' || element.matchtype === 'does not contain'}
-			that { element.matchtype } within
+			that {element.matchtype} within
 		{:else}
-			{ element.matchtype }
+			{element.matchtype}
 		{/if}
 
 		{#if element.counttype === 'greater' && element.count === 0}
 			any count of a
 		{:else if element.counttype === 'greater'}
-			greater than { element.count }
+			greater than {element.count}
 		{:else if element.counttype === 'less'}
-			less than { element.count }
+			less than {element.count}
 		{:else if element.count === 1}
 			a
 		{:else}
-			{ element.count }
+			{element.count}
 		{/if}
 
-		{ element.type },
-		which
+		{element.type}, which
 
 		{#if element.connector !== 'none'}
-			{ element.connector }
+			{element.connector}
 		{/if}
 	{:else if element.param === 'distance'}
-		{ element.count }
+		{element.count}
 
-		{ element.type }
-		{ element.distancetype }
-		{ element.count }
-		
+		{element.type}
+		{element.distancetype}
+		{element.count}
+
 		{#if element.connector !== 'none'}
-			{ element.connector }
+			{element.connector}
 		{/if}
 	{:else if element.param === ''}
 		&nbsp;
 	{:else}
-		{ element.param } is not a valid param value
+		{element.param} is not a valid param value
 	{/if}
 
 	{#if typeof $globalState.searchRequest.search?.[index + 1] !== 'undefined' && $globalState.searchRequest.search[index + 1].level !== element.level}
@@ -77,7 +76,7 @@
 </div>
 
 {#if typeof $globalState.searchRequest.search?.[index + 1] !== 'undefined' && $globalState.searchRequest.search[index + 1].level !== element.level}
-	<div class="spacer"></div>
+	<div class="spacer" />
 {/if}
 
 <div
@@ -175,8 +174,8 @@
 	} */
 
 	.option {
-		margin: .25rem calc(var(--topPadding) / 2);
-		padding: .5rem calc(var(--topPadding) / 2);
+		margin: 0.25rem calc(var(--topPadding) / 2);
+		padding: 0.5rem calc(var(--topPadding) / 2);
 		cursor: pointer;
 	}
 	.option:hover {

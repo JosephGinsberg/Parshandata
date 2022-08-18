@@ -30,11 +30,12 @@
 	<p>In a similar vein, we hope Parshandata will:</p>
 	<ul>
 		<li>
-			Streamline research on Hebrew accentuation (Ta'amei HaMikra, or Trop). The system that governs
-			accentuation in Tanakh is complex and opaque, and very often certain formations have only been
-			partially understood. This is especially true regarding the poetic accents (Ta'amei Emes)
-			which are used only in the non-prosaic books of Psalms, Proverbs, and Job. Parshandata, as a
-			fine-toothed research tool, allows for proper and critical analysis of such accentuation.
+			Streamline research on Hebrew accentuation (<i>Ta'amei HaMikra</i>, or Trop). The system that
+			governs accentuation in Tanakh is complex and opaque, and very often certain formations have
+			only been partially understood. This is especially true regarding the poetic accents (<i
+				>Ta'amei Emes</i
+			>) which are used only in the non-prosaic books of Psalms, Proverbs, and Job. Parshandata, as
+			a fine-toothed research tool, allows for proper and critical analysis of such accentuation.
 		</li>
 		<li>
 			Facilitate investigation into the Masorah. The Masorah is a collection of comments and glosses
@@ -47,19 +48,20 @@
 		</li>
 	</ul>
 	<p>
-		A relatively simple example: the Masorah states that the word "כֹּה" with the legarmeh accent
-		("׀ כֹּ֣ה") appears 18 times in the book of Jeremiah (this note has been misinterpreted several
+		A relatively simple example: the Masorah states that the word "כֹּה" with the <i>legarmeh</i>
+		accent ("כֹּ֣ה ׀") appears 18 times in the book of Jeremiah (this note has been misinterpreted several
 		times by different scholars). But what exactly are these 18 occurrences? Scholars have struggled
-		to identify them for one reason or another. The popular Biblia Hebraica Stuttgartensia (BHS)
-		fails to note an accurate list, and C. D. Ginsburg in “The Massorah” attempts to list 18 places,
-		but one of them is erroneous (he mistakenly lists 33:4 instead of 47:2).
+		to identify them for one reason or another. The popular Biblia Hebraica Stuttgartensia (BHS) fails
+		to note an accurate list, and C. D. Ginsburg in “The Massorah” attempts to list 18 places, but one
+		of them is erroneous (he mistakenly lists 33:4 instead of 47:2).
 	</p>
+	<p>/This/ simple search on Parshandata easily reveals all 18 occurrences.</p>
 	<p>
-		/This/ simple search on Parshandata easily reveals all 18 occurrences. Parshandata uses the
-		open-source text provided by the Wesminster Leningrad Codex (WLC) project, which is based on the
-		Leningrad Codex, the oldest complete Tanakh manuscript extant. Though the text has slight
-		idiosyncrasies (which we have tried to mitigate), as it is based entirely on a single codex, it
-		is highly accurate and is generally the standard critical text of Tanakh used on the web.
+		Parshandata uses the open-source text provided by the Wesminster Leningrad Codex (WLC) project,
+		which is based on the Leningrad Codex, the oldest complete Tanakh manuscript extant. Though the
+		text has slight idiosyncrasies (which we have tried to mitigate), as it is based entirely on a
+		single codex, it is highly accurate and is generally the standard critical text of Tanakh used
+		on the web.
 	</p>
 
 	<h3>What else can one do with Parshandata?</h3>
