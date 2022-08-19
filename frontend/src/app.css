@@ -293,7 +293,8 @@ p {
 	color: var(--secondary-txt-color);
 }
 
-a, a:visited {
+a,
+a:visited {
 	color: #0969da;
 	text-decoration: none;
 	transition: all ease-in-out 50ms;

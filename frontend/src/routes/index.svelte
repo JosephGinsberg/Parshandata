@@ -37,18 +37,33 @@
 	</div>
 
 	<label class="question" for="zero">What is Parshandata?</label>
-	<input type="checkbox" id="zero">
-	<div class="answer">Parshandata is an advanced search engine for Tanakh that was created by Yosef Ginsberg (engine) and Nosson Frankel (interface).</div>
+	<input type="checkbox" id="zero" />
+	<div class="answer">
+		Parshandata is an advanced search engine for Tanakh that was created by Yosef Ginsberg (engine)
+		and Nosson Frankel (interface).
+	</div>
 
-	<label class="question" for="one">How is this software different from others that offer search?</label>
-	<input type="checkbox" id="one">
-	<div class="answer">On other platforms one can search for words, phrases, books, and all of them combined. On our platform, we are expanding the level of search one can perform. One can now search for pasukim or words based on a pattern. The most suitable analogy is that our tool delivers the power of a regex with the UI/UX of Google search. <a href="/about">Learn more</a></div>
+	<label class="question" for="one"
+		>How is this software different from others that offer search?</label
+	>
+	<input type="checkbox" id="one" />
+	<div class="answer">
+		On other platforms one can search for words, phrases, books, and all of them combined. On our
+		platform, we are expanding the level of search one can perform. One can now search for pasukim
+		or words based on a pattern. The most suitable analogy is that our tool delivers the power of a
+		regex with the UI/UX of Google search. <a href="/about">Learn more</a>
+	</div>
 
 	<label class="question" for="two">What is the future of Parshandata?</label>
-	<input type="checkbox" id="two">
-	<div class="answer">We hope to continue to expand this project to include other Tanakh-based research tools, and constantly update and improve the current apparatus. To facilitate this, if you find Parshandata particularly helpful or inspiring, please consider expressing your appreciation by donating to the project!</div>
+	<input type="checkbox" id="two" />
+	<div class="answer">
+		We hope to continue to expand this project to include other Tanakh-based research tools, and
+		constantly update and improve the current apparatus. To facilitate this, if you find Parshandata
+		particularly helpful or inspiring, please consider expressing your appreciation by donating to
+		the project!
+	</div>
 </section>
-<br><br><br>
+<br /><br /><br />
 
 <!-- <section>
 	<h3>
@@ -119,10 +134,11 @@
 		content: '';
 		margin-bottom: 4rem;
 	}
-	.header h3, .header h5{
+	.header h3,
+	.header h5 {
 		margin-top: 0px;
 	}
-	input[type=checkbox] {
+	input[type='checkbox'] {
 		display: none;
 	}
 	.question {
@@ -137,7 +153,7 @@
 		overflow: hidden;
 		/* transition: max-height ease-in-out 200ms; */
 	}
-	input[type=checkbox]:checked + .answer {
+	input[type='checkbox']:checked + .answer {
 		max-height: unset;
 		padding-bottom: 1rem;
 		border-bottom: 1px solid var(--gray-shade-2);
