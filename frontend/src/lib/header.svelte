@@ -6,7 +6,7 @@
 	<div class="row">
 		<div class="links row">
 			<a href="../" class="row" id="logo" sveltekit:prefetch>
-				<img src="/favicon.png" alt="logo" />
+				<img src="/images/favicon.png" alt="logo" />
 				<span>Parshandata</span>
 			</a>
 			<a href="/search" class="page" sveltekit:prefetch>Search Tanach</a>
