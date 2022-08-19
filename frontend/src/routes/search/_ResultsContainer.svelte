@@ -91,6 +91,17 @@
 </div>
 
 <style>
+	@font-face {
+		font-family: taamey frank;
+		src: url('/fonts/TaameyFrankCLM-Medium.ttf');
+	}
+
+	@font-face {
+		font-family: taamey frank;
+		src: url('/fonts/TaameyFrankCLM-Bold.ttf');
+		font-weight: 700;
+	}
+
 	.container {
 		height: 100%;
 		max-height: 100%;
@@ -122,7 +133,7 @@
 		padding-top: calc(var(--topPadding) / 2);
 	}
 	.container .fullverse {
-		font-family: 'david', 'Noto Sans Hebrew', serif;
+		font-family: 'Taamey Frank', 'david', serif;
 		font-size: 20px;
 		text-align: right;
 		padding-bottom: calc(var(--topPadding) / 2.5);

@@ -7,5 +7,5 @@
 </script>
 
 <svg {width} {height} style="margin-right: {margin};{style}">
-	<use href="/icons.svg#{name}" />
+	<use href="/images/icons.svg#{name}" />
 </svg>
