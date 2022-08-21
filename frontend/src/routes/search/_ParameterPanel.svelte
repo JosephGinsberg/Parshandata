@@ -244,6 +244,7 @@
 			})
 
 			// sort book selection based on tanach's book order
+			// TanakhBooks.filter(book => selectedValue.indexOf(book.bookname) >= 0)
 			selectedValue = selectedValue.sort((a: string, b: string) => {
 				const TanakhBooksAsString = JSON.stringify(TanakhBooks)
 				return TanakhBooksAsString.search(a) > TanakhBooksAsString.search(b) ? 1 : -1
@@ -429,8 +430,8 @@
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		width: 240px;
-		min-width: 240px;
+		width: 275px;
+		min-width: 275px;
 		height: 100%;
 		padding-inline-start: var(--sidePadding);
 	}

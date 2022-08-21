@@ -17,9 +17,11 @@
 
 <style>
 	.prompt {
+		height: calc(var(--headerHeight) / 1.25);
 		width: 100%;
 		margin-top: 1px;
-		padding: calc(var(--topPadding) / 1.3) var(--sidePadding);
+		padding: 0 var(--sidePadding);
+		line-height: calc(var(--headerHeight) / 1.25);
 		box-sizing: border-box;
 		background-color: var(--blue-background);
 		color: var(--blue-primary);
@@ -34,5 +36,8 @@
 	.prompt.error {
 		background-color: var(--red-background);
 		color: var(--red-primary);
+	}
+	.prompt.clear {
+		display: none;
 	}
 </style>

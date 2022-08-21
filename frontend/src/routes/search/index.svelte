@@ -42,6 +42,7 @@
 		name="description"
 		content="A tool enabling you to search Tanach the way that you want to."
 	/>
+	<link rel="icon" href="http://parshandata.herokuapp.com/images/favicon.png" />
 </svelte:head>
 
 <section class="fullHeight fullWidth" class:fullWidth={true}>
@@ -60,8 +61,11 @@
 
 <style>
 	section {
-		padding-top: 0;
-		padding-bottom: 0;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		max-height: 100%;
+		padding-bottom: var(--topPadding);
 	}
 	.row {
 		align-items: flex-start;

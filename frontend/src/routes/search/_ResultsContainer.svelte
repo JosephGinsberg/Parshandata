@@ -92,38 +92,38 @@
 
 <style>
 	@font-face {
-		font-family: taamey frank;
-		src: url('/fonts/TaameyFrankCLM-Medium.ttf');
+		font-family: 'Taamey Ashkenaz';
+		src: url('/fonts/TaameyAshkenaz-Medium.ttf');
 	}
 
 	@font-face {
-		font-family: taamey frank;
-		src: url('/fonts/TaameyFrankCLM-Bold.ttf');
+		font-family: 'Taamey Ashkenaz';
+		src: url('/fonts/TaameyAshkenaz-Bold.ttf');
 		font-weight: 700;
 	}
 
 	.container {
+		display: flex;
+		flex-direction: column;
 		height: 100%;
 		max-height: 100%;
-		overflow-y: hidden;
+		overflow: hidden;
 		width: calc(50% - var(--sidePadding));
-		box-sizing: border-box;
 		background-color: var(--secondary-bg-color);
 		border: 2px solid var(--gray-shade-2);
 		border-radius: var(--borderRadius);
 	}
 	.container .header {
 		padding: calc(var(--topPadding) / 1.5) var(--topPadding);
-	}
-	.container .body {
-		padding: var(--topPadding);
-	}
-	.container .header {
 		border-bottom: 2px solid var(--gray-shade-2);
 	}
 	.container .body {
-		max-height: 84%;
-		overflow-y: auto;
+		position: relative;
+		height: 100%;
+		max-height: 100%;
+		height: 503px;
+		overflow: auto;
+		padding: var(--topPadding);
 	}
 	.container .result:not(:last-of-type) {
 		padding-bottom: calc(var(--topPadding) / 2);
@@ -133,22 +133,22 @@
 		padding-top: calc(var(--topPadding) / 2);
 	}
 	.container .fullverse {
-		font-family: 'Taamey Frank', 'david', serif;
-		font-size: 20px;
 		text-align: right;
+		font-family: 'Taamey Ashkenaz', 'david', serif;
+		font-size: 22px;
+		line-height: 1.25;
 		padding-bottom: calc(var(--topPadding) / 2.5);
+	}
+	.location {
+		font-size: 0.875rem;
 	}
 	a {
 		color: #005ebc;
-		/* color: #0852a8; */
 	}
 	a:hover {
 		color: #07305e;
-		/* color: #1065c5; */
-		/* text-decoration: underline; */
 	}
 	a:visited {
-		/* color: rgb(0,80,160); */
 		color: #07305e;
 	}
 </style>

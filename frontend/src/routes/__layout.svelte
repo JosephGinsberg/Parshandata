@@ -13,7 +13,8 @@
 
 <style>
 	main {
-		height: calc(100% - (var(--headerHeight) + 150px));
+		/* height: calc(100% - var(--headerHeight)); */
+		height: 100%;
 		z-index: 1;
 	}
 </style>
