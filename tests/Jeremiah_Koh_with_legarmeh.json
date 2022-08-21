@@ -8,16 +8,11 @@
     "splitBy": "pasuk",
     "search": [
         {
-            "param": "condition",
-            "connector": "none",
-            "level": 1
-        },
-        {
             "param": "abstract",
             "type": "tropword",
             "count": 0,
             "counttype": "greater",
-            "matchtype": "begins",
+            "matchtype": "contains",
             "connector": "none",
             "level": 1
         },
@@ -35,7 +30,7 @@
             "param": "input",
             "type": "trop",
             "value": "legarmeh",
-            "matchtype": "contains",
+            "matchtype": "is",
             "count": 0,
             "counttype": "greater",
             "connector": "none",
