@@ -79,6 +79,7 @@ public class leningrad {
 	    return finalB;
 	}
 	
+	//removes charachters that indicate textual breaks.
 	public static String replaceSpacers(String bible) {
 		String x = bible;
 		x = x.replace(" פ ", " ");
@@ -87,6 +88,7 @@ public class leningrad {
 		return x;
 	}
 
+	//Adds the correct Trop to words which have none.
 	public static String addTrop(String bible){
 		String x = bible;
 		x = x.replace("מֵאָ֥ז דַּבֶּרְךָ אֶל־עַבְדֶּ֑ךָ", "מֵאָ֥ז דַּבֶּרְךָ֖ אֶל־עַבְדֶּ֑ךָ");
@@ -127,6 +129,7 @@ public class leningrad {
 		return x;
 	}
 	
+	//Fixes the Zarka trop on a Lamed.
 	public static String replaceTsinor(String bible) {
 		String x = bible;
 		x = x.replace("וּֽלְיִשְׁמָעֵ֘אל", "וּֽלְיִשְׁמָעֵאל֮");
@@ -138,6 +141,7 @@ public class leningrad {
 		return x;
 	}
 	
+	//Fixes the Trop of a rare formation.
 	public static String replaceGeresh(String bible) {
 		String x = bible;
 		x = x.replace("פֶּ֝תַח", "פֶּ֜תַח");
@@ -145,6 +149,7 @@ public class leningrad {
 		return x;
 	}
 	
+	//Properly deals with Pasukim which accidentally begin at the Esnachta of the previous Pasuk.
 	public static String replacePasuk(String bible, int num, Boolean header) {
 		String x = bible;
 		if(num == 1 && header) {
@@ -163,8 +168,9 @@ public class leningrad {
 		return x;
 	}
 	
+	//Removes several zero-width joiners from the text.
 	public static String specialCharacter() {
-		String special = "א‍"; //special character is isolated on this aleph.
+		String special = "א‍"; //special character (zero-width joiner) is isolated on this aleph.
 	    return special.substring(1, 2);
 	}
 }

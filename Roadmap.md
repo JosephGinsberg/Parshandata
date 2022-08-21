@@ -5,10 +5,10 @@ An advanced Tanach search engine, allowing for complex, layered searches of the 
 
 ### Near future
 * Trop implementation 
->	Implementation in function | done
->	Legarmeh and other exceptions (Tropless words) | done 
->	Nekudot lists and letter lists for Shin and Sin (which means modifying seperate letters) | done
->	Ta'amei Emes  
+    *	Implementation in function | done
+    *	Legarmeh and other exceptions (Tropless words) | done 
+    *	Nekudot lists and letter lists for Shin and Sin (which means modifying seperate letters) | done
+    *   Ta'amei Emes  
 
 * Before/after (with distance) | done
 * Begins with/ends with | done
@@ -35,7 +35,7 @@ An advanced Tanach search engine, allowing for complex, layered searches of the 
 -	Frontend reached V1
 -	Go back and work on the usablity of _Option UI
 
-### Imporve
+### Improve
 -	Create a dark mode
 
 ### Eventual
