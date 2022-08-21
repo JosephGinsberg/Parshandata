@@ -254,28 +254,17 @@
 			searchRequest.books = [...new Set(selectedValue)]
 		},
 		displayBookSelection = (selectedBooks: string[]) => {
-			const groups = ['Tanakh', 'Torah', 'Prophets', 'Prose books', 'Writings', 'Poetic books']
+			const groups = ['Tanakh', 'Torah', 'Prophets', 'Writings', 'Prose books', 'Poetic books']
 
-			if (selectedBooks.length === TanakhBooks.length) return 'Tanakh'
-
-			let groupCount = 0,
-				groupName = ''
+			let groupName = ''
 
 			groups.forEach(group => {
-				const checkerResult = checker(group)
+				const checkerResult = checker(group) && booksByGroup(group).length === selectedBooks.length
 				if (!checkerResult) return
-
-				groupCount++
 				groupName = group
 			})
 
-			if (groupCount === 2 && compareGroups(selectedBooks, booksByGroup('Writings')))
-				return 'Writings'
-			else if (
-				groupCount === 1 ||
-				(groupCount && compareGroups(selectedBooks, booksByGroup(groupName)))
-			)
-				return groupName
+			if (groupName) return groupName
 			else return selectedBooks.length !== 1 ? selectedBooks.length + ' Books' : selectedBooks[0]
 		},
 		checker = (groupName: string) => {
