@@ -255,3 +255,8 @@ input:disabled {
 	border-radius: var(--borderRadius);
 	box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 10%) 0px 2px 4px -2px;
 }
+.subtext {
+	/* padding-left: .2rem; */
+	font-size: 0.8rem;
+	color: var(--secondary-txt-color);
+}

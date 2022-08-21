@@ -47,46 +47,48 @@
 		</div>
 	</div>
 	<div class="body">
-		{#await state}
-			<div class="result">Loading...</div>
-		{:then data}
-			{#if !data.ok}
-				<div class="result" style="color: red">Server error: {data.msg}</div>
-			{:else if data.runtime && data.ok}
-				{#each data.matches as match, id}
-					<div class="result">
-						<!-- {data.matches[id-1] < data.matches && match.fullverse === data.matches[id-1].fullverse? true: ''} -->
-						<div class="fullverse">
-							{#if match.splitvalue}
-								<!-- everything is connected to avoid unwanted whitespace -->
-								{match.fullverse.split(match.splitvalue)[0]}<b>{match.splitvalue}</b
-								>{match.fullverse.split(match.splitvalue).slice(1).join(match.splitvalue)}
-							{:else}
-								{match.fullverse}
-							{/if}
+		<div>
+			{#await state}
+				<div class="result">Loading...</div>
+			{:then data}
+				{#if !data.ok}
+					<div class="result" style="color: red">Server error: {data.msg}</div>
+				{:else if data.runtime && data.ok}
+					{#each data.matches as match, id}
+						<div class="result">
+							<!-- {data.matches[id-1] < data.matches && match.fullverse === data.matches[id-1].fullverse? true: ''} -->
+							<div class="fullverse">
+								{#if match.splitvalue}
+									<!-- everything is connected to avoid unwanted whitespace -->
+									{match.fullverse.split(match.splitvalue)[0]}<b>{match.splitvalue}</b
+									>{match.fullverse.split(match.splitvalue).slice(1).join(match.splitvalue)}
+								{:else}
+									{match.fullverse}
+								{/if}
+							</div>
+							<a
+								class="location"
+								href="https://www.sefaria.org/{match.bookname.replace(
+									'1',
+									'I'
+								)}.{match.perek}.{match.pasuk}?lang=he"
+								target="_blank"
+							>
+								{#if data.matches[id + 1] && match.fullverse === data.matches[id + 1].fullverse && match.bookname === data.matches[id + 1].bookname && match.perek === data.matches[id + 1].perek && match.pasuk === data.matches[id + 1].pasuk}*{/if}
+								{match.bookname.replaceAll('_', ' ')}
+								{match.perek}:{match.pasuk}</a
+							>
 						</div>
-						<a
-							class="location"
-							href="https://www.sefaria.org/{match.bookname.replace(
-								'1',
-								'I'
-							)}.{match.perek}.{match.pasuk}?lang=he"
-							target="_blank"
-						>
-							{#if data.matches[id + 1] && match.fullverse === data.matches[id + 1].fullverse && match.bookname === data.matches[id + 1].bookname && match.perek === data.matches[id + 1].perek && match.pasuk === data.matches[id + 1].pasuk}*{/if}
-							{match.bookname.replaceAll('_', ' ')}
-							{match.perek}:{match.pasuk}</a
-						>
-					</div>
+					{:else}
+						<div class="result">No results found</div>
+					{/each}
 				{:else}
-					<div class="result">No results found</div>
-				{/each}
-			{:else}
-				<div class="result">No search entered</div>
-			{/if}
-		{:catch error}
-			<div class="result" style="color: red">Local error: {error.message}</div>
-		{/await}
+					<div class="result">No search entered</div>
+				{/if}
+			{:catch error}
+				<div class="result" style="color: red">Local error: {error.message}</div>
+			{/await}
+		</div>
 	</div>
 </div>
 
@@ -120,9 +122,11 @@
 	.container .body {
 		position: relative;
 		height: 100%;
-		max-height: 100%;
-		height: 503px;
 		overflow: auto;
+	}
+	.container .body > div {
+		position: absolute;
+		height: 100%;
 		padding: var(--topPadding);
 	}
 	.container .result:not(:last-of-type) {
@@ -131,6 +135,9 @@
 	}
 	.container .result:not(:first-of-type) {
 		padding-top: calc(var(--topPadding) / 2);
+	}
+	.container .result:last-of-type {
+		padding-bottom: var(--topPadding);
 	}
 	.container .fullverse {
 		text-align: right;
