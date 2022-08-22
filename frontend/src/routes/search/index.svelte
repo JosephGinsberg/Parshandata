@@ -45,7 +45,7 @@
 	<link rel="icon" href="http://parshandata.herokuapp.com/images/favicon.png" />
 </svelte:head>
 
-<section class="fullHeight fullWidth" class:fullWidth={true}>
+<section class="fullHeight fullWidth row" class:fullWidth={true}>
 	<div
 		style="text-transform: unset;color: var(--secondary-txt-color);margin: 0;padding: 1.25rem 0 1rem"
 	>
@@ -65,7 +65,7 @@
 		display: flex;
 		flex-direction: column;
 		max-height: 100%;
-		padding-bottom: var(--topPadding);
+		padding: 0 var(--sidePadding) var(--sidePadding);
 	}
 	.row {
 		align-items: flex-start;
