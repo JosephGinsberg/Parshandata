@@ -1,11 +1,27 @@
 <script lang="ts">
 	import { globalState } from '../../globalState'
-
+	import Button from '$lib/Button.svelte'
+	import InputKeyboard from './_InputKeyboard.svelte'
 	export let element: SearchParam, index: number
+	let option: HTMLDivElement,
+		editMode = false,
+		toggle = false
+
+	const isChild = (child: any, parent: Node) => {
+			while ((child = child?.parentNode)) {
+				if (child.tagName.toUpperCase() === 'BODY') return false
+				else if (child === parent) return true
+			}
+			return false
+		},
+		toggleEdit = (e: any) => {
+			if (isChild(e.target, option) /*|| (option === e.target && editMode)*/) return
+			editMode = !editMode
+		}
 </script>
 
-<div class="option">
-	{#if element.param === 'input'}
+<div class="option" class:editMode bind:this={option} on:click={toggleEdit}>
+	{#if element.param === 'input' && !editMode}
 		{element.matchtype}
 
 		{#if element.matchtype === 'is' || element.matchtype === 'is not'}
@@ -27,6 +43,73 @@
 
 		{#if element.connector !== 'none'}
 			{element.connector}
+		{/if}
+	{:else if element.param === 'input' && editMode}
+		<Button classes="minimal small" icon="more" on:click={() => (toggle = !toggle)} />
+
+		that
+		<select
+			class="small"
+			style="display: inline-block;width: 145px;margin-inline-start: .5rem;
+			margin-block-end: .5rem;"
+			placeholder={element.matchtype}
+			bind:value={$globalState.searchRequest.search[index].matchtype}
+		>
+			<option value="contains">contains</option>
+			<option value="does not contain">does not contain</option>
+			<option value="is">is</option>
+			<option value="is not">is not</option>
+			<option value="begins">begins with</option>
+			<option value="ends">ends with</option>
+		</select>
+
+		{#if (element.matchtype === 'contains' || element.matchtype === 'does not contain') && toggle}
+			<!-- <input type="text" bind:value={element.count}> -->
+			<select
+				class="small"
+				style="display: inline-block;width: 120px;margin-inline-start: .5rem;
+				margin-block-end: .5rem;"
+				placeholder={element.counttype}
+				bind:value={element.counttype}
+			>
+				<option value="equal">exactly</option>
+				<option value="greater">greater than</option>
+				<option value="less">less than</option>
+			</select>
+			<input
+				type="text"
+				class="small"
+				style="width: 50px;"
+				placeholder="count"
+				bind:value={$globalState.searchRequest.search[index].count}
+			/>
+		{:else}
+			&nbsp;a
+		{/if}
+
+		<!-- <input
+			type="text"
+			class="small"
+			style="width: 150px;"
+			placeholder="value"
+			bind:value={$globalState.searchRequest.search[index].value}
+		/> -->
+
+		<InputKeyboard group={element?.type} value={element?.value} {index} />
+
+		{#if $globalState.searchRequest.search.length - 1 !== index}
+			<select
+				class="small"
+				style="display: inline-block;width: 120px;margin-inline-start: .5rem;
+				margin-block-end: .5rem;"
+				placeholder={element.connector}
+				bind:value={element.connector}
+			>
+				<!-- <option value="none">no connector</option> -->
+				<option value="and">and</option>
+				<option value="or">or</option>
+				<!-- <option value="distance">distance</option> -->
+			</select>
 		{/if}
 	{:else if element.param === 'abstract'}
 		{#if element.matchtype === 'begins' || element.matchtype === 'ends'}
@@ -174,14 +257,25 @@
 	} */
 
 	.option {
+		position: relative;
 		margin: 0.25rem calc(var(--topPadding) / 2);
 		padding: 0.5rem calc(var(--topPadding) / 2);
 		cursor: pointer;
+		user-select: none;
 	}
 	.option:hover {
 		background-color: var(--tertiary-bg-color);
 		background-color: var(--secondary-bg-color);
 		border-radius: var(--borderRadius);
+	}
+	.option.editMode {
+		background-color: var(--tertiary-bg-color);
+		padding-bottom: 0;
+	}
+	:global(.option > button.minimal.small) {
+		position: absolute;
+		top: calc(var(--topPadding) / 2);
+		right: calc(var(--topPadding) / 2);
 	}
 	.highlight {
 		background-color: var(--gray-shade-1);

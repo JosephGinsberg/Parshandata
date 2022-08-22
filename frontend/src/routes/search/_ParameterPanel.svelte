@@ -419,10 +419,10 @@
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		width: 275px;
-		min-width: 275px;
+		width: 240px;
+		min-width: 240px;
 		height: 100%;
-		padding-inline-start: var(--sidePadding);
+		margin-inline-start: var(--sidePadding);
 	}
 	.title {
 		padding-bottom: 0.5rem;
