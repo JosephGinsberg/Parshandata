@@ -265,21 +265,34 @@ public class AppFunctions {
 	public static ArrayList<Integer> countchecker(ArrayList<Integer> input, int totalcount, String counttype){
 		ArrayList<Integer> output = input;
 		int listlen = output.size();
-			if(counttype.equals("equal")){
-				if(!(listlen == totalcount)){
-					output.clear();
+		//does an empty list return a size of 0?
+		if(counttype.equals("equal")){
+			if(!(listlen == totalcount)){
+				output.clear();
+			}
+			//For "contains exactly 0"
+			else{
+				if(listlen == 0){
+					output.add(-1);
 				}
 			}
-			else if(counttype.equals("greater")){
-				if(!(listlen > totalcount)){
-					output.clear();
+		}
+		else if(counttype.equals("greater")){
+			if(!(listlen > totalcount)){
+				output.clear();
+			}
+		}
+		else if(counttype.equals("less")){
+			if(!(listlen < totalcount)){
+				output.clear();
+			}
+			//For "contains less than x"
+			else{
+				if(listlen == 0){
+					output.add(-1);
 				}
 			}
-			else if(counttype.equals("less")){
-				if(!(listlen < totalcount)){
-					output.clear();
-				}
-			}
+		}
 		return output;
 	}
 
@@ -299,16 +312,16 @@ public class AppFunctions {
 			String[][] result = {newterms, next};
 			return result;
 		}
-		else if(type.equals("letter")) {
-			newterms = bibleLists.separateLetters(term);
-			String[] next = tropLists.tropFinder(newterms, place[0], Integer.parseInt(place[1]), Integer.parseInt(place[2]));
-			String[][] result = {newterms, next};
-			return result;
-		}
 		else if(type.equals("tropword")) {
 			newterms = bibleLists.tropWords(term);
 			String[] trop = tropLists.tropFinder(newterms, place[0], Integer.parseInt(place[1]), Integer.parseInt(place[2]));
 			String[][] result = {newterms, trop};
+			return result;
+		}
+		else if(type.equals("letter")) {
+			newterms = bibleLists.separateLetters(term);
+			String[] next = tropLists.tropFinder(newterms, place[0], Integer.parseInt(place[1]), Integer.parseInt(place[2]));
+			String[][] result = {newterms, next};
 			return result;
 		}
 		else{
