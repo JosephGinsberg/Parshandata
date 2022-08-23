@@ -1,26 +1,23 @@
 <script lang="ts">
 	import { globalState } from '../../globalState'
+	import { clickedOutside } from '$lib/clickedOutside'
 	import Button from '$lib/Button.svelte'
 	import InputKeyboard from './_InputKeyboard.svelte'
-	export let element: SearchParam, index: number
-	let option: HTMLDivElement,
-		editMode = false,
-		toggle = false
 
-	const isChild = (child: any, parent: Node) => {
-			while ((child = child?.parentNode)) {
-				if (child.tagName.toUpperCase() === 'BODY') return false
-				else if (child === parent) return true
-			}
-			return false
-		},
-		toggleEdit = (e: any) => {
-			if (isChild(e.target, option) /*|| (option === e.target && editMode)*/) return
-			editMode = !editMode
-		}
+	export let element: SearchParam, index: number
+
+	let editMode = false,
+		// for demo | add option to change defaults
+		toggle = false
 </script>
 
-<div class="option" class:editMode bind:this={option} on:click={toggleEdit}>
+<div
+	class="option"
+	class:editMode
+	on:click={() => (editMode = true)}
+	use:clickedOutside
+	on:outclick={() => (editMode = false)}
+>
 	{#if element.param === 'input' && !editMode}
 		{element.matchtype}
 

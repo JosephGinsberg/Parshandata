@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { globalState } from '../../globalState'
+	import { clickedOutside } from '$lib/clickedOutside'
 	export let group = 'trop',
 		value = 'Select',
 		index: number
 
-	const updateValue = (value: string) => {
-			$globalState.searchRequest.search[index].type = active
-			$globalState.searchRequest.search[index].value = value
-		},
-		inputList: any = {
+	let container: HTMLDivElement,
+		showKeyboard = false,
+		listenerStarted = false,
+		active = group
+
+	const inputList: any = {
 			letter: [
 				{ value: 'א', english: 'aleph', hebrew: 'Hebrew' },
 				{ value: 'ב', english: 'beis', hebrew: 'Hebrew' },
@@ -87,16 +89,18 @@
 				{ value: '׀', english: 'pesik', hebrew: 'Hebrew' }
 			],
 			value: []
+		},
+		updateValue = (value: string) => {
+			$globalState.searchRequest.search[index].type = active
+			$globalState.searchRequest.search[index].value = value
+			// showKeyboard = false
 		}
-
-	let showKeyboard = false,
-		active = group
 </script>
 
 <div class="container">
 	<div class="currentInput" on:click={() => (showKeyboard = true)}>{value}</div>
 	{#if showKeyboard}
-		<div class="container card">
+		<div class="container card" use:clickedOutside on:outclick={() => (showKeyboard = false)}>
 			<div class="tabContainer row">
 				{#each Object.keys(inputList) as group}
 					<span class="tab" class:active={active === group} on:click={() => (active = group)}>
@@ -131,13 +135,13 @@
 	}
 	.currentInput {
 		display: inline-block;
-		width: 50px;
-		height: 1.75em;
-		line-height: 1.75em;
+		width: 65px;
+		height: 1.5em;
+		line-height: 1.5em;
 		margin-left: 8px;
 		margin-block-end: 0.5rem;
 		padding: 0 0.5rem;
-		font-size: 0.875rem;
+		font-size: 1rem;
 		box-sizing: content-box;
 		background-color: var(--secondary-bg-color);
 		border: 2px solid var(--gray-shade-2);

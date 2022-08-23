@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte'
 	import Icon from '$lib/Icon.svelte'
+	import { clickedOutside } from '$lib/clickedOutside'
 
 	export let classes: string = 'default',
 		style: string = '',
@@ -11,9 +12,7 @@
 
 	const dispatch: any = createEventDispatcher()
 	let openDropdown = false,
-		searchTerm = '',
-		menuEl: HTMLDivElement,
-		listenerStarted = 0
+		searchTerm = ''
 
 	const valueChange = () => {
 			let value: string[] | dropdownInput[] | any
@@ -40,26 +39,12 @@
 				choice.display = searchValues.match(tempRegex) ? true : false
 			})
 			return choices
-		},
-		clickedOutside = (e: any) => {
-			if (menuEl?.contains(e.target) || !listenerStarted) {
-				listenerStarted = 1
-				return
-			}
-			// close dropdown menu
-			listenerStarted = 0
-			openDropdown = false
-			window.removeEventListener('click', clickedOutside)
-		},
-		toggleDropdown = () => {
-			openDropdown = true
-			window.addEventListener('click', clickedOutside)
 		}
 	// if user chose an option, keep search results
 	$: if (searchTerm) options = filter(options)
 </script>
 
-<div class="container" on:click={toggleDropdown}>
+<div class="container" on:click={() => (openDropdown = true)}>
 	<div class="dropdown row {classes}" {style}>
 		<span>{placeholder}</span>
 		<Icon name="expand" style="fill: var(--primary-txt-color);" />
@@ -67,7 +52,7 @@
 
 	<!-- append passed in children -->
 	{#if openDropdown}
-		<div class="menu card" bind:this={menuEl}>
+		<div class="menu card" use:clickedOutside on:outclick={() => (openDropdown = false)}>
 			{#if search}
 				<input
 					type="text"

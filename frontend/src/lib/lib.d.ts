@@ -1,3 +1,9 @@
+declare namespace svelte.JSX {
+	interface HTMLAttributes<T> {
+		onoutclick?: () => void
+	}
+}
+
 interface notification {
 	urgency: number
 	msg: string
