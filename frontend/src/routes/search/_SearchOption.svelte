@@ -257,17 +257,16 @@
 		position: relative;
 		margin: 0.25rem calc(var(--topPadding) / 2);
 		padding: 0.5rem calc(var(--topPadding) / 2);
+		border-radius: var(--borderRadius);
 		cursor: pointer;
 		user-select: none;
 	}
 	.option:hover {
-		background-color: var(--tertiary-bg-color);
 		background-color: var(--secondary-bg-color);
-		border-radius: var(--borderRadius);
 	}
 	.option.editMode {
-		background-color: var(--tertiary-bg-color);
 		padding-bottom: 0;
+		background-color: var(--tertiary-bg-color);
 	}
 	:global(.option > button.minimal.small) {
 		position: absolute;

@@ -98,7 +98,9 @@
 </script>
 
 <div class="container">
-	<div class="currentInput" on:click={() => (showKeyboard = true)}>{value}</div>
+	<div class="currentInput" class:focus={showKeyboard} on:click={() => (showKeyboard = true)}>
+		{value}
+	</div>
 	{#if showKeyboard}
 		<div class="container card" use:clickedOutside on:outclick={() => (showKeyboard = false)}>
 			<div class="tabContainer row">
@@ -149,6 +151,9 @@
 		cursor: pointer;
 		user-select: none;
 	}
+	.currentInput.focus {
+		border-color: var(--gray-shade-6);
+	}
 	/* temp: start */
 	.container.card {
 		position: absolute;
@@ -166,7 +171,7 @@
 	.tabContainer.row {
 		justify-content: flex-start;
 		padding-bottom: 0.5rem;
-		margin-bottom: 0.75rem;
+		margin-bottom: 0.25rem;
 		border-bottom: 2px solid var(--gray-shade-1);
 	}
 	.values.row {
@@ -205,7 +210,7 @@
 		cursor: pointer;
 
 		margin-inline-end: 0.5rem;
-		margin-block-end: 0.5rem;
+		margin-block-start: 0.5rem;
 	}
 	.values.row .value.selected,
 	.values.row .value:active {
