@@ -8,7 +8,7 @@ An advanced Tanach search engine, allowing for complex, layered searches of the 
     *	Implementation in function | done
     *	Legarmeh and other exceptions (Tropless words) | done 
     *	Nekudot lists and letter lists for Shin and Sin (which means modifying seperate letters) | done
-    *   Ta'amei Emes  
+    *   Ta'amei Emes | done
 
 * Before/after (with distance) | done
 * Begins with/ends with | done
