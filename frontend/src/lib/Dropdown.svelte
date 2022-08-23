@@ -5,14 +5,15 @@
 
 	export let classes: string = 'default',
 		style: string = '',
-		options: dropdownInput[],
+		options: dropdownInput[] | any,
 		placeholder: string = 'Select an option',
 		returnOriginal: boolean = false,
 		search: boolean = false
 
 	const dispatch = createEventDispatcher()
 	let openDropdown = false,
-		searchTerm = ''
+		searchTerm = '',
+		checkboxes: any = []
 
 	const valueChange = () => {
 			let value: string[] | dropdownInput[] | any
@@ -20,7 +21,7 @@
 				value = options
 			} else {
 				value = []
-				options.forEach(option => {
+				options.forEach((option: dropdownInput) => {
 					if (!option.checked) return
 					value.push(option.value)
 				})
@@ -71,9 +72,32 @@
 							type="checkbox"
 							id={idString}
 							value={option.value ?? option}
+							bind:this={checkboxes[idString]}
 							bind:checked={options[id].checked}
 							on:change={valueChange}
 						/>
+						{#if options[id].checked}
+							<Icon
+								height="22px"
+								width="22px"
+								name="checkbox_checked"
+								on:click={() => checkboxes[idString].click()}
+							/>
+						{:else if options[id]?.partial}
+							<Icon
+								height="22px"
+								width="22px"
+								name="checkbox_partial"
+								on:click={() => checkboxes[idString].click()}
+							/>
+						{:else}
+							<Icon
+								height="22px"
+								width="22px"
+								name="checkbox_unchecked"
+								on:click={() => checkboxes[idString].click()}
+							/>
+						{/if}
 						<label for={idString}>{option.text ?? option.value}</label>
 					</div>
 				{:else if !option.text && !searchTerm}
@@ -132,16 +156,16 @@
 	}
 	.menu .option {
 		justify-content: flex-start;
+		cursor: pointer;
+		user-select: none;
 	}
 	.option input {
-		align-self: flex-end;
+		display: none;
 	}
 	.option label {
 		height: 100%;
 		width: 100%;
-		padding: calc(var(--topPadding) / 5) 0 calc(var(--topPadding) / 5) 8px;
-		cursor: pointer;
-		user-select: none;
+		padding: calc(var(--topPadding) / 3) 0 calc(var(--topPadding) / 3) 8px;
 	}
 	.spacer {
 		margin: 0.5rem;

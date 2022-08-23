@@ -248,6 +248,8 @@
 <style>
 	.option {
 		position: relative;
+		/* align-items: baseline;
+		justify-content: flex-start; */
 		margin: 0.25rem calc(var(--topPadding) / 2);
 		padding: 0.5rem calc(var(--topPadding) / 2);
 		border-radius: var(--borderRadius);

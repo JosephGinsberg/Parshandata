@@ -11,6 +11,7 @@ interface notification {
 
 interface dropdownInput {
 	checked: boolean
+	partial?: boolean
 	value: string
 	text?: string
 	originalValue?: boolean

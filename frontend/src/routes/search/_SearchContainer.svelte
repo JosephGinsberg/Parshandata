@@ -99,7 +99,6 @@
 					>
 						<option value="pasuk">Pasuk</option>
 						<option value="word">Word</option>
-						<option value="tropword">Tropword</option>
 					</select>
 				{/if}
 			</div>

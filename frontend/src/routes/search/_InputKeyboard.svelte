@@ -41,7 +41,7 @@
 				{ value: 'ף', english: 'pei-sofit', hebrew: 'Hebrew' },
 				{ value: 'ך', english: 'tsadi-sofit', hebrew: 'Hebrew' }
 			],
-			nekudah: [
+			nekudot: [
 				{ value: 'ָ', english: 'kamatz', hebrew: 'Hebrew' },
 				{ value: 'ַ', english: 'patach', hebrew: 'Hebrew' },
 				{ value: 'ֵ', english: 'tsaray', hebrew: 'Hebrew' },
@@ -88,7 +88,16 @@
 				{ value: '֝', english: 'mugrash', hebrew: 'Hebrew' },
 				{ value: '׀', english: 'pesik', hebrew: 'Hebrew' }
 			],
-			value: []
+			others: [
+				{ value: 'ּ', english: 'dagesh', hebrew: 'Hebrew' },
+				{ value: 'ֿ', english: 'rafeh', hebrew: 'Hebrew' },
+				{ value: 'ׄ', english: 'top dots', hebrew: 'Hebrew' },
+				{ value: 'ׅ', english: 'bottom dots', hebrew: 'Hebrew' },
+				{ value: '*', english: 'keri ukesiv marker', hebrew: 'Hebrew' },
+				{ value: 'ֽ', english: 'gaya', hebrew: 'Hebrew' },
+				{ value: ' ', english: 'space', hebrew: 'Hebrew' },
+				{ value: '־', english: 'makaf', hebrew: 'Hebrew' }
+			]
 		},
 		updateValue = (value: string) => {
 			$globalState.searchRequest.search[index].type = active
@@ -97,10 +106,12 @@
 		}
 </script>
 
-<div class="container">
-	<div class="currentInput" class:focus={showKeyboard} on:click={() => (showKeyboard = true)}>
+<div class="container main">
+	<!-- <div class="currentInput" class:focus={showKeyboard} on:click={() => (showKeyboard = true)}>
 		{value}
-	</div>
+	</div> -->
+	<input type="text" style="width: 100px;" bind:value on:click={() => (showKeyboard = true)} />
+
 	{#if showKeyboard}
 		<div class="container card" use:clickedOutside on:outclick={() => (showKeyboard = false)}>
 			<div class="tabContainer row">
@@ -111,40 +122,39 @@
 				{/each}
 			</div>
 			<div class="values row">
-				{#if active !== 'value'}
-					{#each inputList[active] as input}
-						<div
-							class="value"
-							class:selected={input.value === value || input.english === value}
-							on:click={() => updateValue(active === 'letter' ? input.value : input.english)}
-						>
-							{input.english.replaceAll('-', ' ')}
-						</div>
-					{/each}
-				{:else}
-					show text input
-				{/if}
+				{#each inputList[active] as input}
+					<div
+						class="value"
+						class:selected={input.value === value || input.english === value}
+						on:click={() => updateValue(active !== 'trop' ? input.value : input.english)}
+					>
+						{input.english.replaceAll('-', ' ')}
+					</div>
+				{/each}
 			</div>
 		</div>
 	{/if}
 </div>
 
 <style>
-	.container {
-		/* position: relative; */
+	.container.main {
 		position: static;
 		display: inline-block;
 	}
 	.currentInput {
+		position: absolute;
+		bottom: 0;
 		display: inline-block;
-		width: 65px;
+		width: 75px;
 		height: 1.5em;
 		line-height: 1.5em;
-		margin-left: 8px;
-		margin-block-end: 0.5rem;
+		margin: 0 0 0.5rem 8px;
 		padding: 0 0.5rem;
 		font-size: 1rem;
 		box-sizing: content-box;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
 		background-color: var(--secondary-bg-color);
 		border: 2px solid var(--gray-shade-2);
 		border-radius: var(--borderRadius);
@@ -154,19 +164,13 @@
 	.currentInput.focus {
 		border-color: var(--gray-shade-6);
 	}
-	/* temp: start */
 	.container.card {
 		position: absolute;
 		top: 98%;
 		left: 0px;
-		/* left: 100px; */
-		z-index: 25;
-		/* margin: 2rem auto 3rem; */
-	}
-	/* temp: end */
-	.container.card {
 		max-width: 400px;
 		background-color: var(--primary-bg-color);
+		z-index: 25;
 	}
 	.tabContainer.row {
 		justify-content: flex-start;

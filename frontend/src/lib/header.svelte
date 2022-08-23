@@ -9,7 +9,7 @@
 				<img src="/images/favicon.png" alt="logo" />
 				<span>Parshandata</span>
 			</a>
-			<a href="/search" class="page" sveltekit:prefetch>Search Tanach</a>
+			<a href="/search" class="page" sveltekit:prefetch>Search Tanakh</a>
 			<a href="/about" class="page" sveltekit:prefetch>About</a>
 		</div>
 		<Button classes="minimal small" icon="" text="" />

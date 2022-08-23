@@ -22,6 +22,7 @@
 				Toggle occurance count
 			</div>
 			<div class="option">Define distance</div>
+			<div class="option">Delete block</div>
 		</div>
 	{/if}
 </div>
