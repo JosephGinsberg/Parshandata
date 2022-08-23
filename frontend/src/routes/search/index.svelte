@@ -42,7 +42,7 @@
 		name="description"
 		content="A tool enabling you to search Tanach the way that you want to."
 	/>
-	<link rel="icon" href="http://parshandata.herokuapp.com/images/favicon.png" />
+	<link rel="icon" href="https://parshandata.herokuapp.com/images/favicon.png" />
 </svelte:head>
 
 <section class="fullHeight fullWidth row" class:fullWidth={true}>
