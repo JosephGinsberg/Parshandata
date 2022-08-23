@@ -41,15 +41,8 @@
 			})
 			return choices
 		},
-		isChild = (child: any, parent: Node) => {
-			while ((child = child?.parentNode)) {
-				if (child.tagName.toUpperCase() === 'BODY') return false
-				else if (child === parent) return true
-			}
-			return false
-		},
 		clickedOutside = (e: any) => {
-			if (isChild(e.target, menuEl) || menuEl === e.target || !listenerStarted) {
+			if (menuEl?.contains(e.target) || !listenerStarted) {
 				listenerStarted = 1
 				return
 			}
