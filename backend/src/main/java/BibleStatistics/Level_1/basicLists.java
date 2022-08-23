@@ -67,7 +67,7 @@ public class basicLists {
 		{"֡", "pazair", "Hebrew", "trop"},
 		{"֩", "telisha-ketanah", "Hebrew", "trop"},
 		{"֠", "telisha-gedolah", "Hebrew", "trop"},
-		{"֜", "azlah-geiresh", "Hebrew", "trop"},
+		{"֜", "azlah", "Hebrew", "trop"},
 		{"֞", "gershayim", "Hebrew", "trop"},
 		{"֧", "dargah", "Hebrew", "trop"},
 		{"֛", "tevier", "Hebrew", "trop"},
@@ -78,7 +78,7 @@ public class basicLists {
 		{"֦", "mercha-kefula", "Hebrew", "trop"},
 		{"׃", "sof-pasuk", "Hebrew", "trop"},
 		{"֭", "dechi", "Hebrew", "trop"},
-		{"֘", "tsinor", "Hebrew", "trop"},
+		{"֘", "tsinorit", "Hebrew", "trop"},
 		{"֬", "elui", "Hebrew", "trop"},
 		{"֫", "oleh", "Hebrew", "trop"},
 		{"֝", "mugrash", "Hebrew", "trop"},
@@ -86,14 +86,29 @@ public class basicLists {
 		{"־", "makaf", "Hebrew", "other"},
 	};
 
+	private static String[] disjunctives = {"sof-pasuk", "segol", "esnachta", "shalsheles", "zakaif", "revie", "tipcha", "zarka", "pashtah", "yesiv", "tevier", "azlah", "gershayim", "legarmeh", "pazair", "karnei-pharah", "telisha-gedolah"};
+	//private static String[] conjunctives = {"munach", "mahpach", "mercha", "dargah", "kadmah", "telisha-ketanah", "yareach-ben-yomo", "mercha-kefula", "mayela"};
 	public static void main(String[] args){
-		String[] testChars = {"ץ", "ֵ", "֦", "p"};
+		String[] testChars = {"ץ", "ֵ", "֦", "p", "legarmeh"};
 		for(int i = 0; i < testChars.length; i++){
 			System.out.println(
 			 "isaLetter: "	+ isaletter(testChars[i]) +
 			" isaNekudah: "	+ isanekudah(testChars[i]) +
-			" isaTrop: "	+ isatrop(testChars[i]));
+			" isaTrop: "	+ isatrop(testChars[i]) + 
+			" isadisjunctive: "	+ isdisjunctive(testChars[i]));
 		}
+	}
+
+	// retuns whether the input is within a value within the disjunctive array.
+	public static Boolean isdisjunctive(String query){
+		Boolean result = false;
+		for(String d : disjunctives){
+			if(query.contains(d)){
+				result = true;
+				break;
+			}
+		}
+		return result;
 	}
 
 	// Get String[] of chars in a class, i.e. letter, nekudah, trop

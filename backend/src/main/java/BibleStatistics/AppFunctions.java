@@ -265,7 +265,6 @@ public class AppFunctions {
 	public static ArrayList<Integer> countchecker(ArrayList<Integer> input, int totalcount, String counttype){
 		ArrayList<Integer> output = input;
 		int listlen = output.size();
-		//does an empty list return a size of 0?
 		if(counttype.equals("equal")){
 			if(!(listlen == totalcount)){
 				output.clear();

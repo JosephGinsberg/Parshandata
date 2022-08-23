@@ -68,7 +68,10 @@ public class bibleLists {
 		for(int i = 0; i < len; i++){
 			String now = bible.substring(i, i + 1);
 			if(now.equals(" ")){
-				if(!bible.substring(startPos, i).equals("׀")) {
+				if(bible.substring(startPos, i).equals("")){
+
+				}
+				else if(!bible.substring(startPos, i).equals("׀")) {
 					words.add(bible.substring(startPos, i));
 				}
 				else {
