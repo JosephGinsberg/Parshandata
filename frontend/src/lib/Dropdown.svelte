@@ -10,7 +10,7 @@
 		returnOriginal: boolean = false,
 		search: boolean = false
 
-	const dispatch: any = createEventDispatcher()
+	const dispatch = createEventDispatcher()
 	let openDropdown = false,
 		searchTerm = ''
 

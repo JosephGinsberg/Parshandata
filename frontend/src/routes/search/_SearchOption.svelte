@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { globalState } from '../../globalState'
 	import { clickedOutside } from '$lib/clickedOutside'
-	import Button from '$lib/Button.svelte'
+	import Menu from '$lib/Menu.svelte'
 	import InputKeyboard from './_InputKeyboard.svelte'
 
 	export let element: SearchParam, index: number
@@ -42,7 +42,7 @@
 			{element.connector}
 		{/if}
 	{:else if element.param === 'input' && editMode}
-		<Button classes="minimal small" icon="more" on:click={() => (toggle = !toggle)} />
+		<Menu on:click={() => (toggle = !toggle)} />
 
 		that
 		<select
@@ -246,13 +246,6 @@
 </div>
 
 <style>
-	/* .option {
-		/* display: inline-flex; *
-		margin-block-start: 1rem;
-		justify-content: flex-start;
-		flex-wrap: wrap;
-	} */
-
 	.option {
 		position: relative;
 		margin: 0.25rem calc(var(--topPadding) / 2);
@@ -267,11 +260,6 @@
 	.option.editMode {
 		padding-bottom: 0;
 		background-color: var(--tertiary-bg-color);
-	}
-	:global(.option > button.minimal.small) {
-		position: absolute;
-		top: calc(var(--topPadding) / 2);
-		right: calc(var(--topPadding) / 2);
 	}
 	.highlight {
 		background-color: var(--gray-shade-1);
