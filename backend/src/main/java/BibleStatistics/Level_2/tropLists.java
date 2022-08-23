@@ -119,6 +119,9 @@ public class tropLists {
 					}
 					else if(now.equals("֪")){
 						toadd = "esnach-haphuch";
+						if(previous.equals("pazair")){
+							toadd = "galgal";
+						}
 					}
 					else if(now.equals("֖")){
 						toadd = "tarcha";
