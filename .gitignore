@@ -12,5 +12,7 @@ temp
 .output
 maker.*
 output.*
+test.*
+testing.*
 *.temp.*
 /backend/target
