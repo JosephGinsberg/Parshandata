@@ -125,6 +125,9 @@ public class tropLists {
 					}
 					else if(now.equals("֗")){
 						toadd = "revie-gadol";
+						if(previous.equals("oleh-veyoraid")){
+							toadd = "revie-katan";
+						}
 					}
 					else if(now.equals("֫")){
 						toadd = basicLists.translate(now);
@@ -152,9 +155,6 @@ public class tropLists {
 					}
 					else if(now.contains("֥") && now.contains("֫")){
 						toadd = "oleh-veyoraid";
-						if(previous.equals("revie-gadol")){
-							trop.set(0, "revie-katan");
-						}
 					}
 					else if(now.contains("֨") && now.contains("׀")){
 						toadd = "azlah-legarmeh";
