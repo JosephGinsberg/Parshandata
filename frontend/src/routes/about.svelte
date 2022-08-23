@@ -1,42 +1,97 @@
-<!-- <script context="module">
-	import { browser, dev } from '$app/env';
-
-	// we don't need any JS on this page, though we'll load
-	// it in dev so that we get hot module replacement...
-	export const hydrate = dev;
-
-	// ...but if the client-side router is already loaded
-	// (i.e. we came here from elsewhere in the app), use it
-	export const router = browser;
-
-	// since there's no dynamic data here, we can prerender
-	// it so that it gets served as a static asset in prod
-	export const prerender = true;
-</script> -->
+<script>
+	import Button from '$lib/Button.svelte'
+</script>
 
 <svelte:head>
-	<title>About</title>
-	<meta name="description" content="About this app" />
+	<title>About | Parshandata</title>
+	<meta
+		name="description"
+		content="About the parshandata project and how we are inovating on Tanakh search."
+	/>
 </svelte:head>
 
 <section>
-	<h1>About this app</h1>
+	<h1>About the project</h1>
 
+	<h3>What is Parshandata?</h3>
 	<p>
-		This is a <a href="https://kit.svelte.dev">SvelteKit</a> app. You can make your own by typing the
-		following into your command line and following the prompts:
+		Parshandata is an advanced search engine for Tanakh that was created by Yosef Ginsberg (engine)
+		and Nosson Frankel (interface).
 	</p>
 
-	<pre>npm init svelte</pre>
-
+	<h3>Why is Parshandata different?</h3>
 	<p>
-		The page you're looking at is purely static HTML, with no client-side interactivity needed.
-		Because of that, we don't need to load any JavaScript. Try viewing the page's source, or opening
-		the devtools network panel and reloading.
+		Tools for searching Tanakh in-depth do exist, but they are ubiquitously clunky or pricey. The
+		core idea of Parshandata is an intuitive, simple - and free - interface that affords scholar and
+		student alike the ability to search Tanakh with ease. Additionally, Parshandata allows one to
+		layer and interconnect different searches, giving them a strong and flexible means of canvassing
+		the entire Tanakh for specific linguistic phenomena.
+	</p>
+	<p>In a similar vein, we hope Parshandata will:</p>
+	<ul>
+		<li>
+			Streamline research on Hebrew accentuation (<i>Ta'amei HaMikra</i>, or Trop). The system that
+			governs accentuation in Tanakh is complex and opaque, and very often certain formations have
+			only been partially understood. This is especially true regarding the poetic accents (<i
+				>Ta'amei Emes</i
+			>) which are used only in the non-prosaic books of Psalms, Proverbs, and Job. Parshandata, as
+			a fine-toothed research tool, allows for proper and critical analysis of such accentuation.
+		</li>
+		<li>
+			Facilitate investigation into the Masorah. The Masorah is a collection of comments and glosses
+			(mostly found in manuscript) that were compiled by the Masoretes, ostensibly for the purpose
+			of preserving the text of Tanakh as accurately as possible. They often pertain to linguistic
+			minutiae, and are nearly always short and cryptic. For example, a typical note will state that
+			a certain phenomena only appears two times in the entire Tanakh, which can be quite tedious to
+			verify. Parshandata makes checking the accuracy of such Masoretic notes a clean and quick
+			experience.
+		</li>
+	</ul>
+	<p>
+		A relatively simple example: the Masorah states that the word "כֹּה" with the <i>legarmeh</i>
+		accent ("כֹּ֣ה ׀") appears 18 times in the book of Jeremiah (this note has been misinterpreted several
+		times by different scholars). But what exactly are these 18 occurrences? Scholars have struggled
+		to identify them for one reason or another. The popular Biblia Hebraica Stuttgartensia (BHS) fails
+		to note an accurate list, and C. D. Ginsburg in “The Massorah” attempts to list 18 places, but one
+		of them is erroneous (he mistakenly lists 33:4 instead of 47:2).
+	</p>
+	<p>/This/ simple search on Parshandata easily reveals all 18 occurrences.</p>
+	<p>
+		Parshandata uses the open-source text provided by the Wesminster Leningrad Codex (WLC) project,
+		which is based on the Leningrad Codex, the oldest complete Tanakh manuscript extant. Though the
+		text has slight idiosyncrasies (which we have tried to mitigate), as it is based entirely on a
+		single codex, it is highly accurate and is generally the standard critical text of Tanakh used
+		on the web.
 	</p>
 
+	<h3>What else can one do with Parshandata?</h3>
 	<p>
-		The _TODOs_ page illustrates SvelteKit's data loading and form handling. Try using
-		it with JavaScript disabled!
+		Parshandata allows searches to be saved locally and re-uploaded later, and for search results to
+		be downloaded in a convenient spreadsheet. In addition, both dark/light aesthetics and
+		English/Hebrew compatibility have been integrated into the site.
 	</p>
+
+	<h3>What is the future of Parshandata?</h3>
+	<p>
+		We hope to continue to expand this project to include other Tanakh-based research tools, and
+		constantly update and improve the current apparatus. To facilitate this, if you find Parshandata
+		particularly helpful or inspiring, please consider expressing your appreciation by donating to
+		the project!
+	</p>
+
+	<Button icon="coffee" text="Donate" href="https://www.buymeacoffee.com/parshandata" />
 </section>
+
+<style>
+	section {
+		padding-bottom: 8rem;
+	}
+	h1 {
+		margin-bottom: 2.5rem;
+		padding-bottom: 1rem;
+		border-bottom: 0.25rem solid var(--primary-txt-color);
+	}
+	li + li {
+		padding-top: 1rem;
+	}
+</style>

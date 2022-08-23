@@ -1,97 +1,117 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte'
-	import Icon from "$lib/Icon.svelte"
+	import Icon from '$lib/Icon.svelte'
 
 	const dispatch: any = createEventDispatcher()
 	const transferClick = () => dispatch('click')
 
-	export let style: string = 'default',
-	icon: string = '',
-	text: string = ''
+	export let classes = 'default',
+		style = '',
+		icon = '',
+		text = '',
+		href = ''
 </script>
 
 {#if text || icon}
-<button class='{style}' on:click={transferClick}>
-	{#if icon!=='' && text}
-		<Icon name={icon} height='1.15em' width='1.15em' margin='.5em' />
-	{:else if icon!==''}
-		<Icon name={icon} height='1.15em' width='1.15em' />
-	{/if}
-	<span class:leadingIcon={icon!==''}>{text}</span>
-</button>
+	<svelte:element
+		this={!href ? 'button' : 'a'}
+		class="button {classes}"
+		{style}
+		{href}
+		on:click={transferClick}
+	>
+		{#if icon !== '' && text}
+			<Icon name={icon} height="1.15em" width="1.15em" margin=".5em" />
+		{:else if icon !== ''}
+			<Icon name={icon} height="1.15em" width="1.15em" />
+		{/if}
+		<span class:leadingIcon={icon !== ''}>{text}</span>
+	</svelte:element>
 {/if}
 
 <style>
-	button{
+	.button {
 		position: relative;
 		display: inline-flex;
 		align-items: center;
-		padding: 0 .75rem;
+		padding: 0 0.75rem;
 		border: none;
-		border-radius: 6px;
+		border-radius: var(--borderRadius);
 		text-align: center;
 		font-size: 1rem;
-		line-height: 2rem;
+		height: 2em;
 		white-space: nowrap;
 		cursor: pointer;
 		-webkit-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
 	}
-	button:hover{
+	.button:hover {
 		transition: background-color 0.12s ease-out, color 0.12s ease-out;
 	}
-	button.small{
-		font-size: .875rem;
-		padding: 0 .5rem;
+	.button:focus {
+		box-shadow: inset 0 0 0 2px var(--gray-shade-6);
+		/* border: 2px solid var(--gray-shade-6); */
+		outline: none;
 	}
-	/* button.bold{
+	.small {
+		font-size: 0.875rem;
+		padding: 0 0.5rem;
+	}
+	/* button.bold {
 		font-weight: 700;
 	} */
 
-	button.default{
+	.default {
 		background-color: #0969da;
 		color: #fff;
+		fill: #fff;
 		/* box-shadow:
 			0px 2px 1px -1px rgba(0, 0, 0, 0.2),
 			0px 1px 1px 0px rgba(0, 0, 0, 0.14),
 			0px 1px 3px 0px rgba(0, 0, 0, 0.12); */
 	}
-	button.default:hover{
+	.default:hover {
 		background-color: #1065c5;
-		color: var(--offWhite);
+		color: #f5f5fa;
+		fill: #f5f5fa;
 	}
-	button.default:active{
+	.default:active {
 		background-color: #0a52a4;
-		color: #fff;
+		color: #fafaff;
+		fill: #fafaff;
 	}
 
-	button.muted{
-		background-color: var(--offWhite);
+	.muted {
+		/* background-color: var(--offWhite); */
+		background-color: rgba(208, 215, 222, 0.32);
+		color: var(--primary-txt-color);
+		fill: var(--primary-txt-color);
 	}
-	button.muted:hover{
-		background-color: #d9d9e3;
+	.muted:hover {
+		/* background-color: #d9d9e3; */
+		background-color: rgba(180, 186, 192, 0.32);
 	}
-	button.muted:active{
-		background-color: #c5c5d2;
+	.muted:active {
+		/* background-color: #c5c5d2; */
+		background-color: rgba(159, 164, 170, 0.32);
 	}
 
-	button.minimal{
+	.minimal {
 		/* border: 1px solid rgba(208,215,222,0.32); */
-		border: none;
+		border-color: transparent;
 		background-color: transparent;
-		color: var(--fadedOffBlack);
-		fill: var(--fadedOffBlack);
+		color: var(--secondary-txt-color);
+		fill: var(--secondary-txt-color);
 	}
-	button.minimal:hover{
+	.minimal:hover {
 		color: rgb(36, 41, 47);
 		fill: rgb(36, 41, 47);
-		background: rgba(208,215,222,0.32);
+		background-color: rgba(208, 215, 222, 0.32);
 	}
-
-
-
-
+	.minimal:active {
+		background-color: rgba(180, 186, 192, 0.32);
+	}
 
 	/* button{
 		display: inline-flex;
@@ -146,7 +166,6 @@
 	button.secondary:not(:disabled):active{
 		background-color: var(--offWhite);
 	} */
-
 
 	/* openAI */
 	/* :root{

@@ -1,5 +1,5 @@
-import adapter from '@sveltejs/adapter-static';
-import preprocess from 'svelte-preprocess';
+import adapter from '@sveltejs/adapter-auto'
+import preprocess from 'svelte-preprocess'
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -8,23 +8,12 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		adapter: adapter({
-			pages: 'build',
-			assets: 'build',
-			fallback: null,//'200.html'
-			precompress: false
-		}),
-
-		prerender: {
-		  // This can be false if you're using a fallback (i.e. SPA mode)
-		  default: true
-		},
-
-		// Override http methods in the Todo forms
-		methodOverride: {
-			allowed: ['PATCH', 'DELETE']
-		}
+		adapter: adapter({ out: 'build' })
+	},
+	prerender: {
+		// This can be false if you're using a fallback (i.e. SPA mode)
+		default: true
 	}
-};
+}
 
-export default config;
+export default config

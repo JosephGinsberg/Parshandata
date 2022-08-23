@@ -7,7 +7,7 @@ public class maker {
 
 	static private String RESOURCE_PATH = System.getenv("RESOURCE_PATH")!=null?
 		System.getenv("RESOURCE_PATH"):
-		"C:/Users/Nosson M Frankel/Documents/Parshandata/backend/src/main/resources/";
+		"/Users/yosefginsberg/Documents/Coding/Parshandata/backend/src/main/resources/";
 
 	// use env var for location -> /app/backend/src/main/resources
 	// Original file path: /Users/yosefginsberg/Documents/Coding/...

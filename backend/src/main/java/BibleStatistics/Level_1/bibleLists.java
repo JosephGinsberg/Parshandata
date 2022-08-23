@@ -68,7 +68,10 @@ public class bibleLists {
 		for(int i = 0; i < len; i++){
 			String now = bible.substring(i, i + 1);
 			if(now.equals(" ")){
-				if(!bible.substring(startPos, i).equals("׀")) {
+				if(bible.substring(startPos, i).equals("")){
+
+				}
+				else if(!bible.substring(startPos, i).equals("׀")) {
 					words.add(bible.substring(startPos, i));
 				}
 				else {
@@ -89,7 +92,6 @@ public class bibleLists {
 		return tools.ArraylistToArray(words);
 	}
 	
-
 	/*Outputs a String array containing all the Pesukim in the given input String*/
 	public static String[] pasukim(String bible){
 		ArrayList<String> pasuk = new ArrayList<String>();
@@ -146,7 +148,7 @@ public class bibleLists {
 			//started i at 1, because if it started at 0, it would add "" to the arrayList as the first item as soon as it encountered the first letter, since there is nothing ("") before it.
 			//update?
 			String now = str.substring(i, i + 1);
-			if(basicLists.isaletter(now)){
+			if(basicLists.isaletter(now) /*shin and sin dots*/ && !now.equals("ׂ") && !now.equals("ׁ")){
 				sep.add(str.substring(startPos, i));
 				startPos = i;
 			}

@@ -1,6 +1,5 @@
-
 .DS_Store
-# .vscode
+.vscode
 temp
 /frontend/node_modules
 /frontend/build
@@ -11,7 +10,9 @@ temp
 !.env.example
 .vercel
 .output
-
+maker.*
 output.*
+test.*
+testing.*
 *.temp.*
-target
+/backend/target

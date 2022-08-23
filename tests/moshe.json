@@ -1,0 +1,45 @@
+{
+  "books": [
+      "Genesis",
+      "Exodus",
+      "Leviticus",
+      "Numbers",
+      "Deuteronomy"
+  ],
+  "useKeri": true,
+  "taamTachton": true,
+  "display": "every",
+  "splitBy": "word",
+  "search": [
+      {
+          "param": "input",
+          "type": "value",
+          "value": "משׁה",
+          "matchtype": "contains",
+          "count": 0,
+          "counttype": "greater",
+          "connector": "and",
+          "level": 1
+      },
+      {
+          "param": "input",
+          "type": "letter",
+          "value": "ח",
+          "matchtype": "does not contain",
+          "count": 0,
+          "counttype": "greater",
+          "connector": "or",
+          "level": 1
+      },
+      {
+          "param": "input",
+          "type": "letter",
+          "value": "י",
+          "matchtype": "does not contain",
+          "count": 0,
+          "counttype": "greater",
+          "connector": "none",
+          "level": 1
+      }
+  ]
+}

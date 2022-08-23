@@ -98,16 +98,15 @@ public class otherBibles {
 	
 	public static String lettersAndSpaces(String bible){
 		int len = bible.length();
-		bible = bible.replace(" ׀" , "");
-		bible = bible.replace("־" , " ");
+		bible = bible.replace(" ׀", "");
+		bible = bible.replace("־", " ");
 		for(int i = 0; i < len; i++) {
 			String now = bible.substring(i, i + 1);
 			if(!(basicLists.isaletter(now) || now.equals(" ") || now.equals("׃"))){
-				bible = bible.replace(now , "");
+				bible = bible.replace(now, "");
 				len = bible.length();
 			}
 		}
-		
 		return bible;
 	}
 	

@@ -1,6 +1,6 @@
 {
 	"books": ["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy"],
-	"keriUkesiv": true,
+	"useKeri": true,
 	"taamTachton": true,
 	"display": "every",
 	"splitBy": "pasuk",

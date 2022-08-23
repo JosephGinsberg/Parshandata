@@ -1,0 +1,26 @@
+﻿{
+    "books": [
+        "Genesis"
+    ],
+    "useKeri": true,
+    "taamTachton": true,
+    "remove": [
+        "trop",
+        "other",
+        "nekudah"
+    ],
+    "display": "every",
+    "splitBy": "word",
+    "search": [
+        {
+            "param": "input",
+            "type": "value",
+            "value": "ל",
+            "matchtype": "contains",
+            "count": 2,
+            "counttype": "equal",
+            "connector": "none",
+            "level": 1
+        }
+    ]
+}
