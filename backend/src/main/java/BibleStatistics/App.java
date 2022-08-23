@@ -217,8 +217,8 @@ public class App {
 			JSONArray conditions = current.getJSONArray(nextvalues[4]);
 			String type = current.getString(nextvalues[5]);
 			Boolean[] array = {conditions.getBoolean(0), conditions.getBoolean(1), conditions.getBoolean(2), conditions.getBoolean(3), conditions.getBoolean(4), conditions.getBoolean(5)};
-			term = otherBibles.choose(term, array);
-			indexlist = AppFunctions.finder(term, val, type, matchtype, trop);                           
+			String thisterm = otherBibles.choose(term, array);
+			indexlist = AppFunctions.finder(thisterm, val, type, matchtype, trop);                           
 			indexlist = AppFunctions.countchecker(indexlist, totalcount, counttype);
 			if(connector.equals("and") || connector.equals("or")){
 				return AppFunctions.logics(connector, indexlist, searching(search, index + 1, term, place, trop));
