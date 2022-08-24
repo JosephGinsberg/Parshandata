@@ -214,13 +214,13 @@ public class AppFunctions {
 				}
 			}
 			else if(matchtype.equals("begins")){
-				if(term.substring(0, vallen).equals(val)){
+				if(termlen >= vallen && term.substring(0, vallen).equals(val)){
 					indexlist.add(0);
 				}
 			}
 			else if(matchtype.equals("ends")){
 				//System.out.println(basicLists.translate(term.substring(pos, termlen)));
-				if(term.substring(pos, termlen).equals(val)){
+				if(termlen >= vallen && term.substring(pos, termlen).equals(val)){
 					indexlist.add(pos);
 				}
 			}
@@ -248,6 +248,7 @@ public class AppFunctions {
 				}
 			} 
 			else if(matchtype.equals("begins")){
+				//May want to modify this and "ends" in the future. What if there are two trop in trop[0]?
 				if(trop[0].contains(val)){
 					indexlist.add(0);
 				}
