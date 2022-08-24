@@ -19,10 +19,9 @@
 					showMenu = false
 				}}
 			>
-				Toggle occurance count
+				Add a count
 			</div>
-			<div class="option">Define distance</div>
-			<div class="option">Delete block</div>
+			<div class="option" style="color: var(--error);">Delete</div>
 		</div>
 	{/if}
 </div>

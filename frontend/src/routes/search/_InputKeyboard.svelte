@@ -93,26 +93,27 @@
 				{ value: 'ֿ', english: 'rafeh', hebrew: 'Hebrew' },
 				{ value: 'ׄ', english: 'top dots', hebrew: 'Hebrew' },
 				{ value: 'ׅ', english: 'bottom dots', hebrew: 'Hebrew' },
-				{ value: '*', english: 'keri ukesiv marker', hebrew: 'Hebrew' },
 				{ value: 'ֽ', english: 'gaya', hebrew: 'Hebrew' },
-				{ value: ' ', english: 'space', hebrew: 'Hebrew' },
 				{ value: '־', english: 'makaf', hebrew: 'Hebrew' }
 			]
 		},
 		updateValue = (value: string) => {
 			$globalState.searchRequest.search[index].type = active
-			$globalState.searchRequest.search[index].value = value
+			$globalState.searchRequest.search[index].value += value
 			// showKeyboard = false
 		}
 </script>
 
 <div class="container main">
-	<!-- <div class="currentInput" class:focus={showKeyboard} on:click={() => (showKeyboard = true)}>
-		{value}
-	</div> -->
-	<input type="text" style="width: 100px;" bind:value on:click={() => (showKeyboard = true)} />
+	<input
+		type="text"
+		class="small rtl"
+		style="width: 100px;"
+		bind:value={$globalState.searchRequest.search[index].value}
+		on:click={() => (showKeyboard = true)}
+	/>
 
-	{#if showKeyboard}
+	{#if showKeyboard || true}
 		<div class="container card" use:clickedOutside on:outclick={() => (showKeyboard = false)}>
 			<div class="tabContainer row">
 				{#each Object.keys(inputList) as group}
@@ -121,14 +122,15 @@
 					</span>
 				{/each}
 			</div>
-			<div class="values row">
+			<div class="chars row" class:rtl={active === 'letter'}>
 				{#each inputList[active] as input}
 					<div
-						class="value"
+						class="char"
 						class:selected={input.value === value || input.english === value}
 						on:click={() => updateValue(active !== 'trop' ? input.value : input.english)}
 					>
-						{input.english.replaceAll('-', ' ')}
+						<div class="value">&nbsp;{input.value}&nbsp;</div>
+						<div class="name subtext">{input.english.replaceAll('-', ' ')}</div>
 					</div>
 				{/each}
 			</div>
@@ -141,33 +143,12 @@
 		position: static;
 		display: inline-block;
 	}
-	.currentInput {
-		position: absolute;
-		bottom: 0;
-		display: inline-block;
-		width: 75px;
-		height: 1.5em;
-		line-height: 1.5em;
-		margin: 0 0 0.5rem 8px;
-		padding: 0 0.5rem;
-		font-size: 1rem;
-		box-sizing: content-box;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow: hidden;
-		background-color: var(--secondary-bg-color);
-		border: 2px solid var(--gray-shade-2);
-		border-radius: var(--borderRadius);
-		cursor: pointer;
-		user-select: none;
-	}
-	.currentInput.focus {
-		border-color: var(--gray-shade-6);
-	}
 	.container.card {
 		position: absolute;
 		top: 98%;
+		top: 200%;
 		left: 0px;
+		left: 75px;
 		max-width: 400px;
 		background-color: var(--primary-bg-color);
 		z-index: 25;
@@ -178,7 +159,7 @@
 		margin-bottom: 0.25rem;
 		border-bottom: 2px solid var(--gray-shade-1);
 	}
-	.values.row {
+	.chars.row {
 		justify-content: flex-start;
 	}
 	.tab {
@@ -202,27 +183,34 @@
 	.tab.active::after {
 		background-color: var(--blue-dark);
 	}
-	.values.row {
+	.chars.row {
 		flex-wrap: wrap;
 	}
-	.values.row .value {
+	.chars .char {
+		min-width: 2.75rem;
+		margin-inline-end: 0.5rem;
+		margin-block-start: 0.5rem;
+		padding: 0.25rem 0.5rem;
 		background-color: var(--tertiary-bg-color);
 		border-radius: var(--borderRadius);
 		border: 2px solid transparent;
-		padding: 0.25rem 0.5rem;
+		text-align: center;
 		text-transform: capitalize;
 		cursor: pointer;
-
-		margin-inline-end: 0.5rem;
-		margin-block-start: 0.5rem;
 	}
-	.values.row .value.selected,
-	.values.row .value:active {
+	.chars .char.selected,
+	.chars .char:active {
 		background-color: var(--quaternary-bg-color);
 		background-color: var(--primary-bg-color);
 		border-color: var(--gray-shade-2);
 	}
-	.values.row .value:not(:active):hover {
+	.chars .char:not(:active):hover {
 		background-color: var(--gray-shade-2);
+	}
+	.chars .char .value {
+		font: 700 1.25rem var(--hebrew-font);
+	}
+	.chars .char .name {
+		padding-top: 0.25rem;
 	}
 </style>

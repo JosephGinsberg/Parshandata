@@ -11,7 +11,7 @@
 		search: boolean = false
 
 	const dispatch = createEventDispatcher()
-	let openDropdown = false,
+	let openDropdown = 0,
 		searchTerm = '',
 		checkboxes: any = []
 
@@ -45,15 +45,25 @@
 	$: if (searchTerm) options = filter(options)
 </script>
 
-<div class="container" on:click={() => (openDropdown = true)}>
-	<div class="dropdown row {classes}" {style}>
+<div class="container">
+	<div
+		class="dropdown row {classes}"
+		{style}
+		on:click={() => {
+			if (new Date().getTime() - openDropdown > 20) openDropdown = 1
+		}}
+	>
 		<span>{placeholder}</span>
 		<Icon name="expand" style="fill: var(--primary-txt-color);" />
 	</div>
 
 	<!-- append passed in children -->
-	{#if openDropdown}
-		<div class="menu card" use:clickedOutside on:outclick={() => (openDropdown = false)}>
+	{#if openDropdown === 1}
+		<div
+			class="menu card"
+			use:clickedOutside
+			on:outclick={() => (openDropdown = new Date().getTime())}
+		>
 			{#if search}
 				<input
 					type="text"
@@ -158,6 +168,7 @@
 		justify-content: flex-start;
 		cursor: pointer;
 		user-select: none;
+		fill: var(--blue-primary);
 	}
 	.option input {
 		display: none;

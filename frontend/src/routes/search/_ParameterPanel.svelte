@@ -395,7 +395,7 @@
 		/>
 	</div>
 
-	<div id="bottom">
+	<div id="bottom" class="row">
 		<!-- <Button
 			classes="muted small"
 			icon="language"
@@ -405,8 +405,14 @@
 		/> -->
 		<Button
 			classes="muted small"
+			style="margin-inline-end: .5rem"
+			icon="coffee"
+			text="Sponsor coffee"
+			href="https://www.buymeacoffee.com/parshandata"
+		/>
+		<Button
+			classes="muted small"
 			icon={isDarkMode ? 'lightmode' : 'darkmode'}
-			style="position: absolute;bottom: 0px;right: 0px;"
 			on:click={() => {
 				document.documentElement.classList.contains('dark')
 					? document.documentElement.classList.remove('dark')
@@ -414,12 +420,6 @@
 				isDarkMode = !isDarkMode
 			}}
 		/>
-		<!-- <Button
-			classes="muted small"
-			icon="coffee"
-			text="Sponsor coffee"
-			href="https://www.buymeacoffee.com/parshandata"
-		/> -->
 	</div>
 </aside>
 
@@ -444,5 +444,8 @@
 		position: absolute;
 		bottom: 0;
 		right: 0px;
+		width: 100%;
+		justify-content: flex-end;
 	}
+	/* #bottom { */
 </style>
