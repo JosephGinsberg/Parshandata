@@ -110,6 +110,7 @@
 		class="small rtl"
 		style="width: 100px;"
 		bind:value={$globalState.searchRequest.search[index].value}
+		placeholder="Select a char"
 		on:click={() => (showKeyboard = true)}
 	/>
 

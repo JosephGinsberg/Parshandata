@@ -90,6 +90,7 @@
 							<Icon
 								height="22px"
 								width="22px"
+								style="fill: var(--blue-primary);"
 								name="checkbox_checked"
 								on:click={() => checkboxes[idString].click()}
 							/>
@@ -97,6 +98,7 @@
 							<Icon
 								height="22px"
 								width="22px"
+								style="fill: var(--blue-primary);"
 								name="checkbox_partial"
 								on:click={() => checkboxes[idString].click()}
 							/>
@@ -168,7 +170,6 @@
 		justify-content: flex-start;
 		cursor: pointer;
 		user-select: none;
-		fill: var(--blue-primary);
 	}
 	.option input {
 		display: none;
@@ -177,6 +178,7 @@
 		height: 100%;
 		width: 100%;
 		padding: calc(var(--topPadding) / 3) 0 calc(var(--topPadding) / 3) 8px;
+		cursor: pointer;
 	}
 	.spacer {
 		margin: 0.5rem;

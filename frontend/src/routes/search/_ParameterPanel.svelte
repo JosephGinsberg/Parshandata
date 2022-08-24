@@ -404,10 +404,11 @@
 				(document.documentElement.lang = document.documentElement.lang === 'en' ? 'he' : 'en')}
 		/> -->
 		<Button
-			classes="muted small"
+			classes="default small"
 			style="margin-inline-end: .5rem"
 			icon="coffee"
-			text="Sponsor coffee"
+			text="Donate"
+			target='_blank'
 			href="https://www.buymeacoffee.com/parshandata"
 		/>
 		<Button

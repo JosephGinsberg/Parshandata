@@ -36,7 +36,9 @@
 		{/if}
 
 		<!-- { element.type } -->
-		<span class="highlight">&nbsp;{element.value}&nbsp;</span>
+		<span class="highlight" class:subtext={!element.value}>
+			{element.value ? element.value : 'Select charachter(s)'}
+		</span>
 
 		{#if element.connector !== 'none'}
 			{element.connector}
@@ -266,7 +268,7 @@
 	.highlight {
 		background-color: var(--gray-shade-1);
 		border-radius: var(--borderRadius);
-		padding: 4px;
+		padding: 0.25rem 0.5rem;
 	}
 	.spacer {
 		margin: 0 4rem 0.5rem;

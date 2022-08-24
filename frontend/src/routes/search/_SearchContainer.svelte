@@ -99,6 +99,7 @@
 					>
 						<option value="pasuk">Pasuk</option>
 						<option value="word">Word</option>
+						<option value="letter">Letter</option>
 					</select>
 				{/if}
 			</div>
