@@ -35,11 +35,11 @@
 				{ value: 'שׂ', english: 'sin', hebrew: 'Hebrew' },
 				{ value: 'שׁ', english: 'shin', hebrew: 'Hebrew' },
 				{ value: 'ת', english: 'tav', hebrew: 'Hebrew' },
-				{ value: 'ם', english: 'chaf-sofit', hebrew: 'Hebrew' },
-				{ value: 'ן', english: 'mem-sofit', hebrew: 'Hebrew' },
-				{ value: 'ץ', english: 'nun-sofit', hebrew: 'Hebrew' },
+				{ value: 'ך', english: 'chaf-sofit', hebrew: 'Hebrew' },
+				{ value: 'ם', english: 'mem-sofit', hebrew: 'Hebrew' },
+				{ value: 'ן', english: 'nun-sofit', hebrew: 'Hebrew' },
 				{ value: 'ף', english: 'pei-sofit', hebrew: 'Hebrew' },
-				{ value: 'ך', english: 'tsadi-sofit', hebrew: 'Hebrew' }
+				{ value: 'ץ', english: 'tsadi-sofit', hebrew: 'Hebrew' }
 			],
 			nekudot: [
 				{ value: 'ָ', english: 'kamatz', hebrew: 'Hebrew' },
