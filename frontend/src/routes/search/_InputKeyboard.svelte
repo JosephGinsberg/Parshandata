@@ -129,7 +129,7 @@
 						class:selected={input.value === value || input.english === value}
 						on:click={() => updateValue(active !== 'trop' ? input.value : input.english)}
 					>
-						<div class="value">&nbsp;{input.value}&nbsp;</div>
+						<div class="value">&nbsp; {input.value} &nbsp;</div>
 						<div class="name subtext">{input.english.replaceAll('-', ' ')}</div>
 					</div>
 				{/each}
