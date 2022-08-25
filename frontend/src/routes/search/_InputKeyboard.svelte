@@ -1,15 +1,14 @@
 <script lang="ts">
 	import { globalState } from '../../globalState'
 	import { clickedOutside } from '$lib/clickedOutside'
-	export let group = 'trop',
-		index: number
+	export let index: number
 
 	let showKeyboard = false,
 		inputEl: any,
-		active = group
+		active = 'letters'
 
 	const inputList: any = {
-			letter: [
+			letters: [
 				{ value: 'א', english: 'aleph', hebrew: 'Hebrew' },
 				{ value: 'ב', english: 'beis', hebrew: 'Hebrew' },
 				{ value: 'ג', english: 'gimmel', hebrew: 'Hebrew' },
@@ -21,23 +20,23 @@
 				{ value: 'ט', english: 'tes', hebrew: 'Hebrew' },
 				{ value: 'י', english: 'yud', hebrew: 'Hebrew' },
 				{ value: 'כ', english: 'chaf', hebrew: 'Hebrew' },
+				{ value: 'ך', english: 'chaf-sofit', hebrew: 'Hebrew' },
 				{ value: 'ל', english: 'lamed', hebrew: 'Hebrew' },
 				{ value: 'מ', english: 'mem', hebrew: 'Hebrew' },
+				{ value: 'ם', english: 'mem-sofit', hebrew: 'Hebrew' },
 				{ value: 'נ', english: 'nun', hebrew: 'Hebrew' },
+				{ value: 'ן', english: 'nun-sofit', hebrew: 'Hebrew' },
 				{ value: 'ס', english: 'samach', hebrew: 'Hebrew' },
 				{ value: 'ע', english: 'ayin', hebrew: 'Hebrew' },
 				{ value: 'פ', english: 'pei', hebrew: 'Hebrew' },
+				{ value: 'ף', english: 'pei-sofit', hebrew: 'Hebrew' },
 				{ value: 'צ', english: 'tsadi', hebrew: 'Hebrew' },
+				{ value: 'ץ', english: 'tsadi-sofit', hebrew: 'Hebrew' },
 				{ value: 'ק', english: 'kuf', hebrew: 'Hebrew' },
 				{ value: 'ר', english: 'reish', hebrew: 'Hebrew' },
 				{ value: 'שׂ', english: 'sin', hebrew: 'Hebrew' },
 				{ value: 'שׁ', english: 'shin', hebrew: 'Hebrew' },
-				{ value: 'ת', english: 'tav', hebrew: 'Hebrew' },
-				{ value: 'ך', english: 'chaf-sofit', hebrew: 'Hebrew' },
-				{ value: 'ם', english: 'mem-sofit', hebrew: 'Hebrew' },
-				{ value: 'ן', english: 'nun-sofit', hebrew: 'Hebrew' },
-				{ value: 'ף', english: 'pei-sofit', hebrew: 'Hebrew' },
-				{ value: 'ץ', english: 'tsadi-sofit', hebrew: 'Hebrew' }
+				{ value: 'ת', english: 'tav', hebrew: 'Hebrew' }
 			],
 			nekudot: [
 				{ value: 'ָ', english: 'kamatz', hebrew: 'Hebrew' },
@@ -48,12 +47,12 @@
 				{ value: 'ֻ', english: 'shuruk', hebrew: 'Hebrew' },
 				{ value: 'ִ', english: 'chirik', hebrew: 'Hebrew' },
 				{ value: 'ְ', english: 'shva', hebrew: 'Hebrew' },
-				{ value: 'ֺ', english: 'cholam chaser for vav', hebrew: 'Hebrew' },
 				{ value: 'ֳ', english: 'chataf-kamatz', hebrew: 'Hebrew' },
 				{ value: 'ֲ', english: 'chataf-patach', hebrew: 'Hebrew' },
-				{ value: 'ֱ', english: 'chataf-segol', hebrew: 'Hebrew' }
+				{ value: 'ֱ', english: 'chataf-segol', hebrew: 'Hebrew' },
+				{ value: 'ֺ', english: 'cholam chaser for vav', hebrew: 'Hebrew' }
 			],
-			trop: [
+			ta_amim: [
 				{ value: '֨', english: 'kadmah', hebrew: 'Hebrew' },
 				{ value: '֣', english: 'munach', hebrew: 'Hebrew' },
 				{ value: '֮', english: 'zarka', hebrew: 'Hebrew' },
@@ -127,18 +126,18 @@
 			<div class="tabContainer row">
 				{#each Object.keys(inputList) as group}
 					<span class="tab" class:active={active === group} on:click={() => (active = group)}>
-						{group}
+						{group.replaceAll('_', "'")}
 					</span>
 				{/each}
 			</div>
-			<div class="chars row" class:rtl={active === 'letter'}>
+			<div class="chars row" class:rtl={active === 'letters'}>
 				{#each inputList[active] as input}
 					<div
 						class="char"
-						on:click={() => updateValue(active !== 'trop' ? input.value : input.english)}
+						on:click={() => updateValue(active !== 'ta_amim' ? input.value : input.english)}
 					>
 						<div class="value">&nbsp;&#8203;{input.value} &#8203;&nbsp;</div>
-						<div class="name subtext">{input.english.replaceAll('-', ' ')}</div>
+						<div class="name subtext">{input.english}</div>
 					</div>
 				{/each}
 			</div>
@@ -196,6 +195,7 @@
 	}
 	.chars.row {
 		flex-wrap: wrap;
+		justify-content: space-around;
 	}
 	.chars .char {
 		min-width: 2.75rem;
@@ -206,8 +206,10 @@
 		border-radius: var(--borderRadius);
 		border: 2px solid var(--gray-shade-1);
 		text-align: center;
-		text-transform: capitalize;
 		cursor: pointer;
+	}
+	.chars .char ::first-letter {
+		text-transform: capitalize;
 	}
 	.chars .char:hover {
 		background-color: var(--tertiary-bg-color);

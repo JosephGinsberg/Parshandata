@@ -94,7 +94,7 @@
 			bind:value={$globalState.searchRequest.search[index].value}
 		/> -->
 
-		<InputKeyboard group={element?.type} {index} />
+		<InputKeyboard {index} />
 
 		{#if $globalState.searchRequest.search.length - 1 !== index}
 			<select
