@@ -100,11 +100,11 @@
 				endSection = $globalState.searchRequest.search[index].value?.slice(selectionEnd),
 				newValue = startSection + value + endSection
 
-			$globalState.searchRequest.search[index].value = newValue
 			$globalState.searchRequest.search[index].type = newValue.length === 1 ? active : 'value'
+			$globalState.searchRequest.search[index].value = newValue
 
 			setTimeout(() => {
-				inputEl.selectionStart = selectionStart + 1
+				inputEl.selectionStart = selectionStart + value.length
 				inputEl.focus()
 			}, 10)
 		}
@@ -121,7 +121,7 @@
 		on:click={() => (showKeyboard = true)}
 	/>
 
-	{#if showKeyboard || true}
+	{#if showKeyboard || (true && false)}
 		<div class="container card" use:clickedOutside on:outclick={() => (showKeyboard = false)}>
 			<div class="tabContainer row">
 				{#each Object.keys(inputList) as group}
@@ -136,7 +136,7 @@
 						class="char"
 						on:click={() => updateValue(active !== 'ta_amim' ? input.value : input.english)}
 					>
-						<div class="value">&nbsp;&#8203;{input.value} &#8203;&nbsp;</div>
+						<div class="value">&ZeroWidthSpace;{input.value} &ZeroWidthSpace;</div>
 						<div class="name subtext">{input.english}</div>
 					</div>
 				{/each}
@@ -149,6 +149,7 @@
 	.container.main {
 		position: static;
 		display: inline-block;
+		cursor: default;
 	}
 	.container:active input {
 		border: solid 2px var(--gray-shade-6);
@@ -156,9 +157,9 @@
 	.container.card {
 		position: absolute;
 		top: 98%;
-		top: 200%;
 		left: 0px;
-		left: 75px;
+		/* top: 200%;
+		left: 75px; */
 		max-width: 400px;
 		background-color: var(--primary-bg-color);
 		z-index: 25;
@@ -196,11 +197,10 @@
 	.chars.row {
 		flex-wrap: wrap;
 		justify-content: space-around;
+		gap: 0.5rem;
 	}
 	.chars .char {
 		min-width: 2.75rem;
-		margin-inline-end: 0.5rem;
-		margin-block-start: 0.5rem;
 		padding: 0.25rem 0.5rem;
 		background-color: var(--secondary-bg-color);
 		border-radius: var(--borderRadius);

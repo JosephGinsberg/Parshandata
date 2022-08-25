@@ -215,11 +215,6 @@
 			})
 			return books
 		},
-		compareGroups = (a: any, b: any) => {
-			a = JSON.stringify(a.sort())
-			b = JSON.stringify(b.sort())
-			return a === b
-		},
 		updateBookSelection = (selectedBooks: dropdownInput[]) => {
 			const exceptions: dropdownInput[] = []
 			let selectedValue: string[] = []

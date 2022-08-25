@@ -1,9 +1,7 @@
 <script>
-	import { createEventDispatcher } from 'svelte'
 	import Button from '$lib/Button.svelte'
 	import { clickedOutside } from '$lib/clickedOutside'
 
-	const dispatch = createEventDispatcher()
 	let showMenu = false
 </script>
 
@@ -12,16 +10,7 @@
 
 	{#if showMenu}
 		<div class="card menu" use:clickedOutside on:outclick={() => (showMenu = false)}>
-			<div
-				class="option"
-				on:click={() => {
-					dispatch('click')
-					showMenu = false
-				}}
-			>
-				Add a count
-			</div>
-			<div class="option" style="color: var(--error);">Delete</div>
+			<slot />
 		</div>
 	{/if}
 </div>
@@ -38,13 +27,13 @@
 		background-color: var(--primary-bg-color);
 		z-index: 25;
 	}
-	.menu .option {
+	:global(.menu > div) {
 		margin-bottom: calc(var(--topPadding) / 2);
 		padding-bottom: calc(var(--topPadding) / 2);
 		border-bottom: 2px solid var(--gray-shade-1);
 		cursor: pointer;
 	}
-	.menu .option:last-of-type {
+	:global(.menu > div:last-of-type) {
 		margin-bottom: 0;
 		padding-bottom: 0;
 		border-bottom: none;
