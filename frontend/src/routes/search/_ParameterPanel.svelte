@@ -408,7 +408,7 @@
 			style="margin-inline-end: .5rem"
 			icon="coffee"
 			text="Donate"
-			target='_blank'
+			target="_blank"
 			href="https://www.buymeacoffee.com/parshandata"
 		/>
 		<Button

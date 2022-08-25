@@ -2,12 +2,10 @@
 	import { globalState } from '../../globalState'
 	import { clickedOutside } from '$lib/clickedOutside'
 	export let group = 'trop',
-		value = 'Select',
 		index: number
 
-	let container: HTMLDivElement,
-		showKeyboard = false,
-		listenerStarted = false,
+	let showKeyboard = false,
+		inputEl: any,
 		active = group
 
 	const inputList: any = {
@@ -98,9 +96,18 @@
 			]
 		},
 		updateValue = (value: string) => {
-			$globalState.searchRequest.search[index].type = active
-			$globalState.searchRequest.search[index].value += value
-			// showKeyboard = false
+			let { selectionStart, selectionEnd } = inputEl,
+				startSection = $globalState.searchRequest.search[index].value?.slice(0, selectionStart),
+				endSection = $globalState.searchRequest.search[index].value?.slice(selectionEnd),
+				newValue = startSection + value + endSection
+
+			$globalState.searchRequest.search[index].value = newValue
+			$globalState.searchRequest.search[index].type = newValue.length === 1 ? active : 'value'
+
+			setTimeout(() => {
+				inputEl.selectionStart = selectionStart + 1
+				inputEl.focus()
+			}, 10)
 		}
 </script>
 
@@ -109,8 +116,9 @@
 		type="text"
 		class="small rtl"
 		style="width: 100px;"
-		bind:value={$globalState.searchRequest.search[index].value}
 		placeholder="Select a char"
+		bind:this={inputEl}
+		bind:value={$globalState.searchRequest.search[index].value}
 		on:click={() => (showKeyboard = true)}
 	/>
 
@@ -127,10 +135,9 @@
 				{#each inputList[active] as input}
 					<div
 						class="char"
-						class:selected={input.value === value || input.english === value}
 						on:click={() => updateValue(active !== 'trop' ? input.value : input.english)}
 					>
-						<div class="value">&nbsp; {input.value} &nbsp;</div>
+						<div class="value">&nbsp;&#8203;{input.value} &#8203;&nbsp;</div>
 						<div class="name subtext">{input.english.replaceAll('-', ' ')}</div>
 					</div>
 				{/each}
@@ -143,6 +150,9 @@
 	.container.main {
 		position: static;
 		display: inline-block;
+	}
+	.container:active input {
+		border: solid 2px var(--gray-shade-6);
 	}
 	.container.card {
 		position: absolute;
@@ -192,21 +202,20 @@
 		margin-inline-end: 0.5rem;
 		margin-block-start: 0.5rem;
 		padding: 0.25rem 0.5rem;
-		background-color: var(--tertiary-bg-color);
+		background-color: var(--secondary-bg-color);
 		border-radius: var(--borderRadius);
-		border: 2px solid transparent;
+		border: 2px solid var(--gray-shade-1);
 		text-align: center;
 		text-transform: capitalize;
 		cursor: pointer;
 	}
-	.chars .char.selected,
-	.chars .char:active {
-		background-color: var(--quaternary-bg-color);
-		background-color: var(--primary-bg-color);
+	.chars .char:hover {
+		background-color: var(--tertiary-bg-color);
 		border-color: var(--gray-shade-2);
 	}
-	.chars .char:not(:active):hover {
-		background-color: var(--gray-shade-2);
+	.chars .char:active {
+		background-color: var(--secondary-bg-color);
+		border-color: var(--gray-shade-1);
 	}
 	.chars .char .value {
 		font: 700 1.25rem var(--hebrew-font);
