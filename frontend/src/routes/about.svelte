@@ -55,7 +55,10 @@
 		to note an accurate list, and C. D. Ginsburg in “The Massorah” attempts to list 18 places, but one
 		of them is erroneous (he mistakenly lists 33:4 instead of 47:2).
 	</p>
-	<p>/This/ simple search on Parshandata easily reveals all 18 occurrences.</p>
+	<p>
+		<a href="/Jeremiah_Koh_with_legarmeh.json" download sveltekit:prefetch>This</a> simple search on
+		Parshandata easily reveals all 18 occurrences.
+	</p>
 	<p>
 		Parshandata uses the open-source text provided by the Wesminster Leningrad Codex (WLC) project,
 		which is based on the Leningrad Codex, the oldest complete Tanakh manuscript extant. Though the
