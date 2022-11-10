@@ -32,7 +32,7 @@
 			greater than {element.count}
 		{:else if element.counttype === 'less'}
 			less than {element.count}
-		{:else if element.count === 1}
+		{:else if element.count === 1 || element.count === undefined}
 			a
 		{:else}
 			{element.count ?? '_error_'}
@@ -204,7 +204,7 @@
 		-webkit-appearance: none;
 		margin: 0;
 	}
-	input[type='number'] {
+	input[type=number] {
 		-moz-appearance: textfield;
 	}
 </style>

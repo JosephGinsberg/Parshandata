@@ -1,0 +1,38 @@
+{
+	"definition": "Distance: every Pasuk in Psalms that contains <a trop that exactly is tsinor> less than 3 trop before a <trop whose name contains “oleh”> I've done the contains for the second trop here because I want both a plain oleh and an oleh-veyoraid (extremely common) to be included here. That is the difference between is and contains when it comes to trop. You can see this earlier as well.",
+	"books": ["Psalms"],
+	"useKeri": true,
+	"taamTachton": true,
+	"display": "every",
+	"splitBy": "pasuk",
+	"search": [
+		{
+			"param": "input",
+			"type": "trop",
+			"value": "tsinor",
+			"matchtype": "is",
+			"count": 0,
+			"counttype": "greater",
+			"connector": "distance",
+			"level": 1
+		},
+		{
+			"param": "distance",
+			"type": "before",
+			"distancetype": "less",
+			"count": 3,
+			"connector": "none",
+			"level": 1
+		},
+		{
+			"param": "input",
+			"type": "trop",
+			"value": "oleh",
+			"matchtype": "contains",
+			"count": 0,
+			"counttype": "greater",
+			"connector": "none",
+			"level": 1
+		}
+	]
+}

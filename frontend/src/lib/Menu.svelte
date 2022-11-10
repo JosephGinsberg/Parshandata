@@ -28,9 +28,9 @@
 		z-index: 25;
 	}
 	:global(.menu > div) {
-		margin-bottom: calc(var(--topPadding) / 2);
+		/* margin-bottom: calc(var(--topPadding) / 2);
 		padding-bottom: calc(var(--topPadding) / 2);
-		border-bottom: 2px solid var(--gray-shade-1);
+		border-bottom: 2px solid var(--gray-shade-1); */
 		cursor: pointer;
 	}
 	:global(.menu > div:last-of-type) {

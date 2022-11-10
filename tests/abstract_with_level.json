@@ -1,0 +1,67 @@
+{
+	"definition": "Abstract and Level: every Pasuk that <contains a word that <contains a letter <which is a kuf> and a <trop whose name includes zakaif>>> and that <contains a word with <a trop whose name includes segol>>. The second Abstract needs a higher level because it is inside the first abstract. Basically, because we want the “and” of the first abstract to connect to the third abstract (of “word”), and not the second (of “letter”), we need the level of the second abstract to be higher so the connector skips over it.  The level is only relevant when connector are in play. You can also see how abstract works in this search as well.",
+	"books": ["Genesis", "Exodus"],
+	"useKeri": true,
+	"taamTachton": true,
+	"display": "every",
+	"splitBy": "pasuk",
+	"search": [
+		{
+			"param": "abstract",
+			"type": "word",
+			"count": 0,
+			"counttype": "greater",
+			"matchtype": "contains",
+			"connector": "and",
+			"level": 1
+		},
+		{
+			"param": "abstract",
+			"type": "letter",
+			"count": 0,
+			"counttype": "greater",
+			"matchtype": "contains",
+			"connector": "none",
+			"level": 2
+		},
+		{
+			"param": "input",
+			"type": "letter",
+			"value": "ק",
+			"matchtype": "is",
+			"count": 0,
+			"counttype": "greater",
+			"connector": "and",
+			"level": 1
+		},
+		{
+			"param": "input",
+			"type": "trop",
+			"value": "zakaif",
+			"matchtype": "contains",
+			"count": 0,
+			"counttype": "greater",
+			"connector": "none",
+			"level": 1
+		},
+		{
+			"param": "abstract",
+			"type": "word",
+			"count": 0,
+			"counttype": "greater",
+			"matchtype": "contains",
+			"connector": "none",
+			"level": 1
+		},
+		{
+			"param": "input",
+			"type": "trop",
+			"value": "segol",
+			"matchtype": "contains",
+			"count": 0,
+			"counttype": "greater",
+			"connector": "none",
+			"level": 1
+		}
+	]
+}

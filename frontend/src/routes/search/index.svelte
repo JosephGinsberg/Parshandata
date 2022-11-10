@@ -19,7 +19,7 @@
 		const res: any = await fetch(
 				window.location.hostname === 'localhost'
 					? 'http://localhost:8080/api/search'
-					: 'https://parshandata.herokuapp.com/api/search',
+					: 'https://parshandata.onrender.com/api/search',
 				{
 					method: 'POST',
 					headers: {
