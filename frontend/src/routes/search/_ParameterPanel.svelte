@@ -215,11 +215,6 @@
 			})
 			return books
 		},
-		compareGroups = (a: any, b: any) => {
-			a = JSON.stringify(a.sort())
-			b = JSON.stringify(b.sort())
-			return a === b
-		},
 		updateBookSelection = (selectedBooks: dropdownInput[]) => {
 			const exceptions: dropdownInput[] = []
 			let selectedValue: string[] = []
@@ -267,10 +262,13 @@
 			if (groupName) return groupName
 			else return selectedBooks.length !== 1 ? selectedBooks.length + ' Books' : selectedBooks[0]
 		},
-		checker = (groupName: string) => {
-			const bookGroup = booksByGroup(groupName)
-			const matchCount = bookGroup.filter(book => searchRequest.books.indexOf(book) >= 0)
-			return matchCount.length === bookGroup.length
+		checker = (groupName: string, partial: boolean = false) => {
+			const bookGroup = booksByGroup(groupName),
+				matchCount = bookGroup.filter(book => searchRequest.books.indexOf(book) >= 0),
+				fullMatch = matchCount.length === bookGroup.length
+
+			if (fullMatch) return fullMatch
+			else return partial && matchCount.length > 0 ? true : false
 		}
 
 	let bookOptions: dropdownInput[],
@@ -280,6 +278,7 @@
 		bookOptions = [
 			{
 				checked: checker('Tanakh'),
+				partial: checker('Tanakh', true),
 				text: 'Tanakh',
 				value: 'Tanakh',
 				originalValue: checker('Tanakh'),
@@ -287,6 +286,7 @@
 			},
 			{
 				checked: checker('Torah'),
+				partial: checker('Torah', true),
 				text: 'Torah',
 				value: 'Torah',
 				originalValue: checker('Torah'),
@@ -294,6 +294,7 @@
 			},
 			{
 				checked: checker('Prophets'),
+				partial: checker('Prophets', true),
 				text: 'Prophets',
 				value: 'Prophets',
 				originalValue: checker('Prophets'),
@@ -301,6 +302,7 @@
 			},
 			{
 				checked: checker('Writings'),
+				partial: checker('Writings', true),
 				text: 'Writings',
 				value: 'Writings',
 				originalValue: checker('Writings'),
@@ -308,6 +310,7 @@
 			},
 			{
 				checked: checker('Prose books'),
+				partial: checker('Prose books', true),
 				text: 'Prose books',
 				value: 'Prose books',
 				originalValue: checker('Prose books'),
@@ -315,6 +318,7 @@
 			},
 			{
 				checked: checker('Poetic books'),
+				partial: checker('Poetic books', true),
 				text: 'Poetic books',
 				value: 'Poetic books',
 				originalValue: checker('Poetic books'),
@@ -352,7 +356,7 @@
 	</div>
 
 	<div class="option">
-		<div class="title"><i>Keri</i> instead of <i>kesiv</i></div>
+		<div class="title"><i>Keri</i> instead of <i>Kesiv</i></div>
 		<div class="support" />
 		<Button
 			classes="small {searchRequest.useKeri ? 'default' : 'muted'}"
@@ -386,7 +390,7 @@
 		/>
 	</div>
 
-	<div id="bottom">
+	<div id="bottom" class="row">
 		<!-- <Button
 			classes="muted small"
 			icon="language"
@@ -395,9 +399,16 @@
 				(document.documentElement.lang = document.documentElement.lang === 'en' ? 'he' : 'en')}
 		/> -->
 		<Button
+			classes="default small"
+			style="margin-inline-end: .5rem"
+			icon="coffee"
+			text="Donate"
+			target="_blank"
+			href="https://www.buymeacoffee.com/parshandata"
+		/>
+		<Button
 			classes="muted small"
 			icon={isDarkMode ? 'lightmode' : 'darkmode'}
-			style="position: absolute;bottom: 0px;right: 0px;"
 			on:click={() => {
 				document.documentElement.classList.contains('dark')
 					? document.documentElement.classList.remove('dark')
@@ -405,12 +416,6 @@
 				isDarkMode = !isDarkMode
 			}}
 		/>
-		<!-- <Button
-			classes="muted small"
-			icon="coffee"
-			text="Sponsor coffee"
-			href="https://www.buymeacoffee.com/parshandata"
-		/> -->
 	</div>
 </aside>
 
@@ -435,5 +440,8 @@
 		position: absolute;
 		bottom: 0;
 		right: 0px;
+		width: 100%;
+		justify-content: flex-end;
 	}
+	/* #bottom { */
 </style>

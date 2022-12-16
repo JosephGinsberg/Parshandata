@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { globalState } from '../../globalState'
+	import { clickedOutside } from '$lib/clickedOutside'
 	import SearchOption from './_SearchOption.svelte'
 	import Button from '$lib/Button.svelte'
 
@@ -65,23 +66,26 @@
 
 <div class="container" on:contextmenu|preventDefault={() => (isDevMode = !isDevMode)}>
 	{#if !isDevMode}
-		<div
+		<!-- <div
 			class="row"
 			style="position: absolute;top: calc(var(--topPadding) / 1.5);right: var(--topPadding);flex-direction: column;"
 		>
-			<!-- <Button
+			<Button
 				classes="minimal small"
 				style="width: 100%;margin-bottom: 6px;"
 				icon="library_add"
 				text="Add block"
 				on:click={addBlock}
-			/> -->
-		</div>
+			/>
+		</div> -->
 
 		<div class="optionsContainer" style="padding-top: calc(var(--topPadding) / 2);overflow: auto;">
 			<div
-				style="padding: .5rem calc(var(--topPadding) / 1);"
-				on:click={() => (editSplitBy = !editSplitBy)}
+				class="option"
+				class:active={editSplitBy}
+				on:click={() => (editSplitBy = true)}
+				use:clickedOutside
+				on:outclick={() => (editSplitBy = false)}
 			>
 				Return every
 				{#if !editSplitBy}
@@ -95,7 +99,7 @@
 					>
 						<option value="pasuk">Pasuk</option>
 						<option value="word">Word</option>
-						<option value="tropword">Tropword</option>
+						<option value="letter">Letter</option>
 					</select>
 				{/if}
 			</div>
@@ -148,6 +152,18 @@
 	}
 	.container .optionsContainer {
 		height: 100%;
+	}
+	.container .optionsContainer .option {
+		margin: 0.25rem calc(var(--topPadding) / 2);
+		padding: 0.5rem calc(var(--topPadding) / 2);
+		border-radius: var(--borderRadius);
+		cursor: pointer;
+	}
+	.container .optionsContainer .option:hover {
+		background-color: var(--secondary-bg-color);
+	}
+	.container .optionsContainer .option.active {
+		background-color: var(--tertiary-bg-color);
 	}
 	textarea {
 		width: 100%;

@@ -9,7 +9,8 @@
 		style = '',
 		icon = '',
 		text = '',
-		href = ''
+		href = '',
+		target = ''
 </script>
 
 {#if text || icon}
@@ -18,6 +19,7 @@
 		class="button {classes}"
 		{style}
 		{href}
+		{target}
 		on:click={transferClick}
 	>
 		{#if icon !== '' && text}

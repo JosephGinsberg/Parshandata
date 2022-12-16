@@ -1,19 +1,19 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte'
 	import Icon from '$lib/Icon.svelte'
+	import { clickedOutside } from '$lib/clickedOutside'
 
 	export let classes: string = 'default',
 		style: string = '',
-		options: dropdownInput[],
+		options: dropdownInput[] | any,
 		placeholder: string = 'Select an option',
 		returnOriginal: boolean = false,
 		search: boolean = false
 
-	const dispatch: any = createEventDispatcher()
-	let openDropdown = false,
+	const dispatch = createEventDispatcher()
+	let openDropdown = 0,
 		searchTerm = '',
-		menuEl: HTMLDivElement,
-		listenerStarted = 0
+		checkboxes: any = []
 
 	const valueChange = () => {
 			let value: string[] | dropdownInput[] | any
@@ -21,7 +21,7 @@
 				value = options
 			} else {
 				value = []
-				options.forEach(option => {
+				options.forEach((option: dropdownInput) => {
 					if (!option.checked) return
 					value.push(option.value)
 				})
@@ -40,41 +40,30 @@
 				choice.display = searchValues.match(tempRegex) ? true : false
 			})
 			return choices
-		},
-		isChild = (child: any, parent: Node) => {
-			while ((child = child?.parentNode)) {
-				if (child.tagName.toUpperCase() === 'BODY') return false
-				else if (child === parent) return true
-			}
-			return false
-		},
-		clickedOutside = (e: any) => {
-			if (isChild(e.target, menuEl) || menuEl === e.target || !listenerStarted) {
-				listenerStarted = 1
-				return
-			}
-			// close dropdown menu
-			listenerStarted = 0
-			openDropdown = false
-			window.removeEventListener('click', clickedOutside)
-		},
-		toggleDropdown = () => {
-			openDropdown = true
-			window.addEventListener('click', clickedOutside)
 		}
 	// if user chose an option, keep search results
 	$: if (searchTerm) options = filter(options)
 </script>
 
-<div class="container" on:click={toggleDropdown}>
-	<div class="dropdown row {classes}" {style}>
+<div class="container">
+	<div
+		class="dropdown row {classes}"
+		{style}
+		on:click={() => {
+			if (new Date().getTime() - openDropdown > 20) openDropdown = 1
+		}}
+	>
 		<span>{placeholder}</span>
 		<Icon name="expand" style="fill: var(--primary-txt-color);" />
 	</div>
 
 	<!-- append passed in children -->
-	{#if openDropdown}
-		<div class="menu card" bind:this={menuEl}>
+	{#if openDropdown === 1}
+		<div
+			class="menu card"
+			use:clickedOutside
+			on:outclick={() => (openDropdown = new Date().getTime())}
+		>
 			{#if search}
 				<input
 					type="text"
@@ -93,9 +82,34 @@
 							type="checkbox"
 							id={idString}
 							value={option.value ?? option}
+							bind:this={checkboxes[idString]}
 							bind:checked={options[id].checked}
 							on:change={valueChange}
 						/>
+						{#if options[id].checked}
+							<Icon
+								height="22px"
+								width="22px"
+								style="fill: var(--blue-primary);"
+								name="checkbox_checked"
+								on:click={() => checkboxes[idString].click()}
+							/>
+						{:else if options[id]?.partial}
+							<Icon
+								height="22px"
+								width="22px"
+								style="fill: var(--blue-primary);"
+								name="checkbox_partial"
+								on:click={() => checkboxes[idString].click()}
+							/>
+						{:else}
+							<Icon
+								height="22px"
+								width="22px"
+								name="checkbox_unchecked"
+								on:click={() => checkboxes[idString].click()}
+							/>
+						{/if}
 						<label for={idString}>{option.text ?? option.value}</label>
 					</div>
 				{:else if !option.text && !searchTerm}
@@ -154,16 +168,17 @@
 	}
 	.menu .option {
 		justify-content: flex-start;
+		cursor: pointer;
+		user-select: none;
 	}
 	.option input {
-		align-self: flex-end;
+		display: none;
 	}
 	.option label {
 		height: 100%;
 		width: 100%;
-		padding: calc(var(--topPadding) / 5) 0 calc(var(--topPadding) / 5) 8px;
+		padding: calc(var(--topPadding) / 3) 0 calc(var(--topPadding) / 3) 8px;
 		cursor: pointer;
-		user-select: none;
 	}
 	.spacer {
 		margin: 0.5rem;

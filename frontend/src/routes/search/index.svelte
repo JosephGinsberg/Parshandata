@@ -19,7 +19,7 @@
 		const res: any = await fetch(
 				window.location.hostname === 'localhost'
 					? 'http://localhost:8080/api/search'
-					: 'https://parshandata.herokuapp.com/api/search',
+					: 'https://parshandata.onrender.com/api/search',
 				{
 					method: 'POST',
 					headers: {
@@ -42,14 +42,14 @@
 		name="description"
 		content="A tool enabling you to search Tanach the way that you want to."
 	/>
-	<link rel="icon" href="https://parshandata.herokuapp.com/images/favicon.png" />
+	<link rel="icon" href="https://parshandata.herokuapp.com/favicon.png" />
 </svelte:head>
 
 <section class="fullHeight fullWidth row" class:fullWidth={true}>
 	<div
 		style="text-transform: unset;color: var(--secondary-txt-color);margin: 0;padding: 1.25rem 0 1rem"
 	>
-		Search Tanach
+		Search Tanakh
 	</div>
 
 	<div class="row">

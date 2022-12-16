@@ -1,0 +1,38 @@
+﻿{
+	"books": ["Jeremiah"],
+	"useKeri": true,
+	"taamTachton": true,
+	"display": "every",
+	"splitBy": "pasuk",
+	"search": [
+		{
+			"param": "abstract",
+			"type": "tropword",
+			"count": 0,
+			"counttype": "greater",
+			"matchtype": "contains",
+			"connector": "none",
+			"level": 1
+		},
+		{
+			"param": "input",
+			"type": "letter",
+			"value": "כה",
+			"matchtype": "is",
+			"count": 0,
+			"counttype": "greater",
+			"connector": "and",
+			"level": 1
+		},
+		{
+			"param": "input",
+			"type": "trop",
+			"value": "legarmeh",
+			"matchtype": "is",
+			"count": 0,
+			"counttype": "greater",
+			"connector": "none",
+			"level": 1
+		}
+	]
+}

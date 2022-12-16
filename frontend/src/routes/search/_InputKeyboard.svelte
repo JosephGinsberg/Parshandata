@@ -1,15 +1,14 @@
 <script lang="ts">
 	import { globalState } from '../../globalState'
-	export let group = 'trop',
-		value = 'Select',
-		index: number
+	import { clickedOutside } from '$lib/clickedOutside'
+	export let index: number
 
-	const updateValue = (value: string) => {
-			$globalState.searchRequest.search[index].type = active
-			$globalState.searchRequest.search[index].value = value
-		},
-		inputList: any = {
-			letter: [
+	let showKeyboard = false,
+		inputEl: any,
+		active = 'letters'
+
+	const inputList: any = {
+			letters: [
 				{ value: 'א', english: 'aleph', hebrew: 'Hebrew' },
 				{ value: 'ב', english: 'beis', hebrew: 'Hebrew' },
 				{ value: 'ג', english: 'gimmel', hebrew: 'Hebrew' },
@@ -21,25 +20,25 @@
 				{ value: 'ט', english: 'tes', hebrew: 'Hebrew' },
 				{ value: 'י', english: 'yud', hebrew: 'Hebrew' },
 				{ value: 'כ', english: 'chaf', hebrew: 'Hebrew' },
+				{ value: 'ך', english: 'chaf-sofit', hebrew: 'Hebrew' },
 				{ value: 'ל', english: 'lamed', hebrew: 'Hebrew' },
 				{ value: 'מ', english: 'mem', hebrew: 'Hebrew' },
+				{ value: 'ם', english: 'mem-sofit', hebrew: 'Hebrew' },
 				{ value: 'נ', english: 'nun', hebrew: 'Hebrew' },
+				{ value: 'ן', english: 'nun-sofit', hebrew: 'Hebrew' },
 				{ value: 'ס', english: 'samach', hebrew: 'Hebrew' },
 				{ value: 'ע', english: 'ayin', hebrew: 'Hebrew' },
 				{ value: 'פ', english: 'pei', hebrew: 'Hebrew' },
+				{ value: 'ף', english: 'pei-sofit', hebrew: 'Hebrew' },
 				{ value: 'צ', english: 'tsadi', hebrew: 'Hebrew' },
+				{ value: 'ץ', english: 'tsadi-sofit', hebrew: 'Hebrew' },
 				{ value: 'ק', english: 'kuf', hebrew: 'Hebrew' },
 				{ value: 'ר', english: 'reish', hebrew: 'Hebrew' },
 				{ value: 'שׂ', english: 'sin', hebrew: 'Hebrew' },
 				{ value: 'שׁ', english: 'shin', hebrew: 'Hebrew' },
-				{ value: 'ת', english: 'tav', hebrew: 'Hebrew' },
-				{ value: 'ם', english: 'chaf-sofit', hebrew: 'Hebrew' },
-				{ value: 'ן', english: 'mem-sofit', hebrew: 'Hebrew' },
-				{ value: 'ץ', english: 'nun-sofit', hebrew: 'Hebrew' },
-				{ value: 'ף', english: 'pei-sofit', hebrew: 'Hebrew' },
-				{ value: 'ך', english: 'tsadi-sofit', hebrew: 'Hebrew' }
+				{ value: 'ת', english: 'tav', hebrew: 'Hebrew' }
 			],
-			nekudah: [
+			nekudot: [
 				{ value: 'ָ', english: 'kamatz', hebrew: 'Hebrew' },
 				{ value: 'ַ', english: 'patach', hebrew: 'Hebrew' },
 				{ value: 'ֵ', english: 'tsaray', hebrew: 'Hebrew' },
@@ -48,12 +47,12 @@
 				{ value: 'ֻ', english: 'shuruk', hebrew: 'Hebrew' },
 				{ value: 'ִ', english: 'chirik', hebrew: 'Hebrew' },
 				{ value: 'ְ', english: 'shva', hebrew: 'Hebrew' },
-				{ value: 'ֺ', english: 'cholam chaser for vav', hebrew: 'Hebrew' },
 				{ value: 'ֳ', english: 'chataf-kamatz', hebrew: 'Hebrew' },
 				{ value: 'ֲ', english: 'chataf-patach', hebrew: 'Hebrew' },
-				{ value: 'ֱ', english: 'chataf-segol', hebrew: 'Hebrew' }
+				{ value: 'ֱ', english: 'chataf-segol', hebrew: 'Hebrew' },
+				{ value: 'ֺ', english: 'cholam chaser for vav', hebrew: 'Hebrew' }
 			],
-			trop: [
+			ta_amim: [
 				{ value: '֨', english: 'kadmah', hebrew: 'Hebrew' },
 				{ value: '֣', english: 'munach', hebrew: 'Hebrew' },
 				{ value: '֮', english: 'zarka', hebrew: 'Hebrew' },
@@ -86,86 +85,92 @@
 				{ value: '֝', english: 'mugrash', hebrew: 'Hebrew' },
 				{ value: '׀', english: 'pesik', hebrew: 'Hebrew' }
 			],
-			value: []
-		}
+			others: [
+				{ value: 'ּ', english: 'dagesh', hebrew: 'Hebrew' },
+				{ value: 'ֿ', english: 'rafeh', hebrew: 'Hebrew' },
+				{ value: 'ׄ', english: 'top dots', hebrew: 'Hebrew' },
+				{ value: 'ׅ', english: 'bottom dots', hebrew: 'Hebrew' },
+				{ value: 'ֽ', english: 'gaya', hebrew: 'Hebrew' },
+				{ value: '־', english: 'makaf', hebrew: 'Hebrew' }
+			]
+		},
+		updateValue = (value: string) => {
+			let { selectionStart, selectionEnd } = inputEl,
+				startSection = $globalState.searchRequest.search[index].value?.slice(0, selectionStart),
+				endSection = $globalState.searchRequest.search[index].value?.slice(selectionEnd),
+				newValue = startSection + value + endSection
 
-	let showKeyboard = false,
-		active = group
+			$globalState.searchRequest.search[index].type = newValue.length === 1 ? active : 'value'
+			$globalState.searchRequest.search[index].value = newValue
+
+			setTimeout(() => {
+				inputEl.selectionStart = selectionStart + value.length
+				inputEl.focus()
+			}, 10)
+		}
 </script>
 
-<div class="container">
-	<div class="currentInput" on:click={() => (showKeyboard = true)}>{value}</div>
-	{#if showKeyboard}
-		<div class="container card">
+<div class="container main">
+	<input
+		type="text"
+		class="small rtl"
+		style="width: 100px;"
+		placeholder="Select a char"
+		bind:this={inputEl}
+		bind:value={$globalState.searchRequest.search[index].value}
+		on:click={() => (showKeyboard = true)}
+	/>
+
+	{#if showKeyboard || (true && false)}
+		<div class="container card" use:clickedOutside on:outclick={() => (showKeyboard = false)}>
 			<div class="tabContainer row">
 				{#each Object.keys(inputList) as group}
 					<span class="tab" class:active={active === group} on:click={() => (active = group)}>
-						{group}
+						{group.replaceAll('_', "'")}
 					</span>
 				{/each}
 			</div>
-			<div class="values row">
-				{#if active !== 'value'}
-					{#each inputList[active] as input}
-						<div
-							class="value"
-							class:selected={input.value === value || input.english === value}
-							on:click={() => updateValue(active === 'letter' ? input.value : input.english)}
-						>
-							{input.english.replaceAll('-', ' ')}
-						</div>
-					{/each}
-				{:else}
-					show text input
-				{/if}
+			<div class="chars row" class:rtl={active === 'letters'}>
+				{#each inputList[active] as input}
+					<div
+						class="char"
+						on:click={() => updateValue(active !== 'ta_amim' ? input.value : input.english)}
+					>
+						<div class="value">&ZeroWidthSpace;{input.value} &ZeroWidthSpace;</div>
+						<div class="name subtext">{input.english}</div>
+					</div>
+				{/each}
 			</div>
 		</div>
 	{/if}
 </div>
 
 <style>
-	.container {
-		/* position: relative; */
+	.container.main {
 		position: static;
 		display: inline-block;
+		cursor: default;
 	}
-	.currentInput {
-		display: inline-block;
-		width: 50px;
-		height: 1.75em;
-		line-height: 1.75em;
-		margin-left: 8px;
-		margin-block-end: 0.5rem;
-		padding: 0 0.5rem;
-		font-size: 0.875rem;
-		box-sizing: content-box;
-		background-color: var(--secondary-bg-color);
-		border: 2px solid var(--gray-shade-2);
-		border-radius: var(--borderRadius);
-		cursor: pointer;
-		user-select: none;
+	.container:active input {
+		border: solid 2px var(--gray-shade-6);
 	}
-	/* temp: start */
 	.container.card {
 		position: absolute;
 		top: 98%;
 		left: 0px;
-		/* left: 100px; */
-		z-index: 25;
-		/* margin: 2rem auto 3rem; */
-	}
-	/* temp: end */
-	.container.card {
+		/* top: 200%;
+		left: 75px; */
 		max-width: 400px;
 		background-color: var(--primary-bg-color);
+		z-index: 25;
 	}
 	.tabContainer.row {
 		justify-content: flex-start;
 		padding-bottom: 0.5rem;
-		margin-bottom: 0.75rem;
+		margin-bottom: 0.25rem;
 		border-bottom: 2px solid var(--gray-shade-1);
 	}
-	.values.row {
+	.chars.row {
 		justify-content: flex-start;
 	}
 	.tab {
@@ -189,27 +194,35 @@
 	.tab.active::after {
 		background-color: var(--blue-dark);
 	}
-	.values.row {
+	.chars.row {
 		flex-wrap: wrap;
+		justify-content: space-around;
+		gap: 0.5rem;
 	}
-	.values.row .value {
-		background-color: var(--tertiary-bg-color);
-		border-radius: var(--borderRadius);
-		border: 2px solid transparent;
+	.chars .char {
+		min-width: 2.75rem;
 		padding: 0.25rem 0.5rem;
-		text-transform: capitalize;
+		background-color: var(--secondary-bg-color);
+		border-radius: var(--borderRadius);
+		border: 2px solid var(--gray-shade-1);
+		text-align: center;
 		cursor: pointer;
-
-		margin-inline-end: 0.5rem;
-		margin-block-end: 0.5rem;
 	}
-	.values.row .value.selected,
-	.values.row .value:active {
-		background-color: var(--quaternary-bg-color);
-		background-color: var(--primary-bg-color);
+	.chars .char ::first-letter {
+		text-transform: capitalize;
+	}
+	.chars .char:hover {
+		background-color: var(--tertiary-bg-color);
 		border-color: var(--gray-shade-2);
 	}
-	.values.row .value:not(:active):hover {
-		background-color: var(--gray-shade-2);
+	.chars .char:active {
+		background-color: var(--secondary-bg-color);
+		border-color: var(--gray-shade-1);
+	}
+	.chars .char .value {
+		font: 700 1.25rem var(--hebrew-font);
+	}
+	.chars .char .name {
+		padding-top: 0.25rem;
 	}
 </style>

@@ -32,6 +32,7 @@
 	--max-width: 76rem;
 	--topPadding: calc(var(--sidePadding) / 2);
 	--borderRadius: 6px;
+	--hebrew-font: 'david', 'Taamey Ashkenaz', serif;
 }
 :root.dark {
 	--primary-bg-color: #202124;
@@ -258,4 +259,7 @@ input:disabled {
 	/* padding-left: .2rem; */
 	font-size: 0.8rem;
 	color: var(--secondary-txt-color);
+}
+.rtl {
+	direction: rtl;
 }

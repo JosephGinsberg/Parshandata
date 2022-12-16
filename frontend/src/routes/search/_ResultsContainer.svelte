@@ -141,7 +141,7 @@
 	}
 	.container .fullverse {
 		text-align: right;
-		font-family: 'david', 'Taamey Ashkenaz', serif;
+		font-family: var(--hebrew-font);
 		font-size: 22px;
 		line-height: 1.25;
 		padding-bottom: calc(var(--topPadding) / 2.5);
