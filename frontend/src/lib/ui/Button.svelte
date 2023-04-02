@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte'
-	import Icon from '$lib/Icon.svelte'
+	import { createEventDispatcher } from 'svelte';
+	import Icon from './Icon.svelte';
 
-	const dispatch: any = createEventDispatcher()
-	const transferClick = () => dispatch('click')
+	const dispatch: any = createEventDispatcher();
+	const transferClick = () => dispatch('click');
 
 	export let classes = 'default',
 		style = '',
 		icon = '',
 		text = '',
 		href = '',
-		target = ''
+		target = '';
 </script>
 
 {#if text || icon}

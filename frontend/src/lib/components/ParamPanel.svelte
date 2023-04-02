@@ -1,15 +1,7 @@
 <script lang="ts">
-	import { onMount } from 'svelte'
-	import { globalState } from '../../globalState'
-	import Button from '$lib/Button.svelte'
-	import Dropdown from '$lib/Dropdown.svelte'
-
-	let searchRequest: SearchRequest
-	globalState.subscribe(value => ({ searchRequest } = value))
-	$: globalState.update(state => {
-		state.searchRequest = searchRequest
-		return state
-	})
+	import { search, general } from '$lib/appState';
+	import Button from '$lib/ui/Button.svelte';
+	import Dropdown from '$lib/ui/Dropdown.svelte';
 
 	const TanakhBooks: TanachBook[] = [
 			{
@@ -209,71 +201,73 @@
 			}
 		],
 		booksByGroup = (group: string) => {
-			const books: string[] = []
-			TanakhBooks.forEach(book => {
-				if (book.grouping.indexOf(group) >= 0) books.push(book.bookname)
-			})
-			return books
+			const books: string[] = [];
+			TanakhBooks.forEach((book) => {
+				if (book.grouping.indexOf(group) >= 0) books.push(book.bookname);
+			});
+			return books;
 		},
 		updateBookSelection = (selectedBooks: dropdownInput[]) => {
-			const exceptions: dropdownInput[] = []
-			let selectedValue: string[] = []
+			const exceptions: dropdownInput[] = [];
+			let selectedValue: string[] = [];
 
 			// add individually selected books
-			selectedBooks.forEach(book => {
+			selectedBooks.forEach((book) => {
 				if (!book.grouping?.length && book.checked !== book.originalValue) {
-					exceptions.push(book)
-					return
-				} else if (!book.checked || book.checked === book.originalValue) return
-				selectedValue.push(book.value)
-			})
+					exceptions.push(book);
+					return;
+				} else if (!book.checked || book.checked === book.originalValue) return;
+				selectedValue.push(book.value);
+			});
 
 			// add/remove groups
-			exceptions.forEach(group => {
-				const bookGroup = booksByGroup(group.value)
+			exceptions.forEach((group) => {
+				const bookGroup = booksByGroup(group.value);
 				if (group.checked && !group.originalValue) {
-					selectedValue = [...selectedValue, ...bookGroup]
+					selectedValue = [...selectedValue, ...bookGroup];
 				} else if (!group.checked && group.originalValue) {
-					selectedValue = selectedValue.filter(singleBook => bookGroup.indexOf(singleBook) === -1)
+					selectedValue = selectedValue.filter(
+						(singleBook) => bookGroup.indexOf(singleBook) === -1
+					);
 				}
-			})
+			});
 
 			// sort book selection based on tanach's book order
 			// TanakhBooks.filter(book => selectedValue.indexOf(book.bookname) >= 0)
 			selectedValue = selectedValue.sort((a: string, b: string) => {
-				const TanakhBooksAsString = JSON.stringify(TanakhBooks)
-				return TanakhBooksAsString.search(a) > TanakhBooksAsString.search(b) ? 1 : -1
-			})
+				const TanakhBooksAsString = JSON.stringify(TanakhBooks);
+				return TanakhBooksAsString.search(a) > TanakhBooksAsString.search(b) ? 1 : -1;
+			});
 
 			// update globalState and avoid doubles
-			searchRequest.books = [...new Set(selectedValue)]
+			$search.books = [...new Set(selectedValue)];
 		},
 		displayBookSelection = (selectedBooks: string[]) => {
-			const groups = ['Tanakh', 'Torah', 'Prophets', 'Writings', 'Prose books', 'Poetic books']
+			const groups = ['Tanakh', 'Torah', 'Prophets', 'Writings', 'Prose books', 'Poetic books'];
 
-			let groupName = ''
+			let groupName = '';
 
-			groups.forEach(group => {
-				const checkerResult = checker(group) && booksByGroup(group).length === selectedBooks.length
-				if (!checkerResult) return
-				groupName = group
-			})
+			groups.forEach((group) => {
+				const checkerResult = checker(group) && booksByGroup(group).length === selectedBooks.length;
+				if (!checkerResult) return;
+				groupName = group;
+			});
 
-			if (groupName) return groupName
-			else return selectedBooks.length !== 1 ? selectedBooks.length + ' Books' : selectedBooks[0]
+			if (groupName) return groupName;
+			else return selectedBooks.length !== 1 ? selectedBooks.length + ' Books' : selectedBooks[0];
 		},
 		checker = (groupName: string, partial: boolean = false) => {
 			const bookGroup = booksByGroup(groupName),
-				matchCount = bookGroup.filter(book => searchRequest.books.indexOf(book) >= 0),
-				fullMatch = matchCount.length === bookGroup.length
+				// UPDATED
+				// matchCount = bookGroup.filter((book) => searchRequest.books.indexOf(book) >= 0),
+				matchCount = bookGroup.filter((book) => $search.books.indexOf(book) >= 0),
+				fullMatch = matchCount.length === bookGroup.length;
 
-			if (fullMatch) return fullMatch
-			else return partial && matchCount.length > 0 ? true : false
-		}
+			if (fullMatch) return fullMatch;
+			else return partial && matchCount.length > 0 ? true : false;
+		};
 
-	let bookOptions: dropdownInput[],
-		isDarkMode = false
-	onMount(() => (isDarkMode = document?.documentElement.classList.contains('dark')))
+	let bookOptions: dropdownInput[];
 	$: {
 		bookOptions = [
 			{
@@ -329,16 +323,16 @@
 				text: '',
 				value: ''
 			}
-		]
+		];
 		for (const book of TanakhBooks) {
 			// check user's language preference
 
 			bookOptions.push({
-				checked: searchRequest.books.indexOf(book.bookname) >= 0,
+				checked: $search.books.indexOf(book.bookname) >= 0,
 				value: book.bookname,
 				text: book.bookname.replaceAll('_', ' '),
 				grouping: book.grouping
-			})
+			});
 		}
 	}
 </script>
@@ -347,11 +341,11 @@
 	<div class="option">
 		<div class="title">Books to search</div>
 		<Dropdown
-			placeholder="{displayBookSelection(searchRequest.books)} selected"
+			placeholder="{displayBookSelection($search.books)} selected"
 			options={bookOptions}
 			returnOriginal={true}
 			search={true}
-			on:change={e => updateBookSelection(e.detail.value)}
+			on:change={(e) => updateBookSelection(e.detail.value)}
 		/>
 	</div>
 
@@ -359,34 +353,34 @@
 		<div class="title"><i>Keri</i> instead of <i>Kesiv</i></div>
 		<div class="support" />
 		<Button
-			classes="small {searchRequest.useKeri ? 'default' : 'muted'}"
+			classes="small {$search.useKeri ? 'default' : 'muted'}"
 			text="Yes"
-			on:click={() => (searchRequest.useKeri = true)}
+			on:click={() => ($search.useKeri = true)}
 		/>
 		<Button
-			classes="small {!searchRequest.useKeri ? 'default' : 'muted'}"
+			classes="small {!$search.useKeri ? 'default' : 'muted'}"
 			text="No"
-			on:click={() => (searchRequest.useKeri = false)}
+			on:click={() => ($search.useKeri = false)}
 		/>
 	</div>
 
 	<div class="option">
 		<div class="title"><i>Taam tachton</i></div>
 		<Button
-			classes="small {searchRequest.taamTachton &&
-			!!searchRequest.books.join('').match(/Genesis|Exodus|Deuteronomy/)
+			classes="small {$search.taamTachton &&
+			!!$search.books.join('').match(/Genesis|Exodus|Deuteronomy/)
 				? 'default'
 				: 'muted'}"
 			text="Yes"
-			on:click={() => (searchRequest.taamTachton = true)}
+			on:click={() => ($search.taamTachton = true)}
 		/>
 		<Button
-			classes="small {!searchRequest.taamTachton &&
-			!!searchRequest.books.join('').match(/Genesis|Exodus|Deuteronomy/)
+			classes="small {!$search.taamTachton &&
+			!!$search.books.join('').match(/Genesis|Exodus|Deuteronomy/)
 				? 'default'
 				: 'muted'}"
 			text="No"
-			on:click={() => (searchRequest.taamTachton = false)}
+			on:click={() => ($search.taamTachton = false)}
 		/>
 	</div>
 
@@ -394,9 +388,10 @@
 		<!-- <Button
 			classes="muted small"
 			icon="language"
-			text="Hebrew"
+			style="margin-inline-end: .5rem"
+			text={$general.lang === 'en' ? 'Hebrew' : 'English'}
 			on:click={() =>
-				(document.documentElement.lang = document.documentElement.lang === 'en' ? 'he' : 'en')}
+				($general.lang = $general.lang === 'en' ? 'he' : 'en')}
 		/> -->
 		<Button
 			classes="default small"
@@ -408,13 +403,8 @@
 		/>
 		<Button
 			classes="muted small"
-			icon={isDarkMode ? 'lightmode' : 'darkmode'}
-			on:click={() => {
-				document.documentElement.classList.contains('dark')
-					? document.documentElement.classList.remove('dark')
-					: document.documentElement.classList.add('dark')
-				isDarkMode = !isDarkMode
-			}}
+			icon={$general.isDarkMode ? 'lightmode' : 'darkmode'}
+			on:click={() => ($general.isDarkMode = !$general.isDarkMode)}
 		/>
 	</div>
 </aside>
@@ -422,12 +412,7 @@
 <style>
 	aside {
 		position: relative;
-		display: flex;
-		flex-direction: column;
-		width: 240px;
-		min-width: 240px;
 		height: 100%;
-		margin-inline-start: var(--sidePadding);
 	}
 	.title {
 		padding-bottom: 0.5rem;
@@ -443,5 +428,4 @@
 		width: 100%;
 		justify-content: flex-end;
 	}
-	/* #bottom { */
 </style>

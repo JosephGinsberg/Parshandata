@@ -1,48 +1,48 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte'
-	import Icon from '$lib/Icon.svelte'
-	import { clickedOutside } from '$lib/clickedOutside'
+	import { createEventDispatcher } from 'svelte';
+	import Icon from './Icon.svelte';
+	import { clickedOutside } from './clickedOutside';
 
 	export let classes: string = 'default',
 		style: string = '',
 		options: dropdownInput[] | any,
 		placeholder: string = 'Select an option',
 		returnOriginal: boolean = false,
-		search: boolean = false
+		search: boolean = false;
 
-	const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher();
 	let openDropdown = 0,
 		searchTerm = '',
-		checkboxes: any = []
+		checkboxes: any = [];
 
 	const valueChange = () => {
-			let value: string[] | dropdownInput[] | any
+			let value: string[] | dropdownInput[] | any;
 			if (returnOriginal) {
-				value = options
+				value = options;
 			} else {
-				value = []
+				value = [];
 				options.forEach((option: dropdownInput) => {
-					if (!option.checked) return
-					value.push(option.value)
-				})
+					if (!option.checked) return;
+					value.push(option.value);
+				});
 			}
-			dispatch('change', { value })
+			dispatch('change', { value });
 		},
 		filter = (choices: dropdownInput[]) => {
 			try {
-				const tempRegex = new RegExp(searchTerm, 'i')
+				const tempRegex = new RegExp(searchTerm, 'i');
 			} catch {
-				return choices
+				return choices;
 			}
-			choices.forEach(choice => {
-				const tempRegex = new RegExp('^' + searchTerm, 'i')
-				const searchValues = choice?.text + '|' + choice?.value ?? ''
-				choice.display = searchValues.match(tempRegex) ? true : false
-			})
-			return choices
-		}
+			choices.forEach((choice) => {
+				const tempRegex = new RegExp('^' + searchTerm, 'i');
+				const searchValues = choice?.text + '|' + choice?.value ?? '';
+				choice.display = searchValues.match(tempRegex) ? true : false;
+			});
+			return choices;
+		};
 	// if user chose an option, keep search results
-	$: if (searchTerm) options = filter(options)
+	$: if (searchTerm) options = filter(options);
 </script>
 
 <div class="container">
@@ -50,7 +50,7 @@
 		class="dropdown row {classes}"
 		{style}
 		on:click={() => {
-			if (new Date().getTime() - openDropdown > 20) openDropdown = 1
+			if (new Date().getTime() - openDropdown > 20) openDropdown = 1;
 		}}
 	>
 		<span>{placeholder}</span>

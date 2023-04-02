@@ -1,5 +1,5 @@
-<script>
-	import Button from '$lib/Button.svelte'
+<script lang="ts">
+	import Button from '$lib/ui/Button.svelte';
 </script>
 
 <svelte:head>
@@ -56,8 +56,8 @@
 		of them is erroneous (he mistakenly lists 33:4 instead of 47:2).
 	</p>
 	<p>
-		<a href="/Jeremiah_Koh_with_legarmeh.json" download sveltekit:prefetch>This</a> simple search, when
-		uploaded on Parshandata, easily reveals all 18 occurrences.
+		<a href="/Jeremiah_Koh_with_legarmeh.json" download data-sveltekit-preload-data>This</a> simple search,
+		when uploaded on Parshandata, easily reveals all 18 occurrences.
 	</p>
 	<p>
 		Parshandata uses the open–source text provided by the Westminster Leningrad Codex (WLC) project,
@@ -87,14 +87,14 @@
 
 <style>
 	section {
-		padding–bottom: 8rem;
+		padding-bottom: 8rem;
 	}
 	h1 {
-		margin–bottom: 2.5rem;
-		padding–bottom: 1rem;
-		border–bottom: 0.25rem solid var(––primary–txt–color);
+		margin-bottom: 2.5rem;
+		padding-bottom: 1rem;
+		border-bottom: 0.25rem solid var(--primary-txt-color);
 	}
 	li + li {
-		padding–top: 1rem;
+		padding-top: 1rem;
 	}
 </style>

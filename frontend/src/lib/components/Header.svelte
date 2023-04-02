@@ -1,16 +1,17 @@
 <script lang="ts">
-	import Button from '$lib/Button.svelte'
+	import { general } from '$lib/appState';
+	import Button from '$lib/ui/Button.svelte';
 </script>
 
-<header>
+<header class:darkMode={$general.isDarkMode}>
 	<div class="row">
 		<div class="links row">
-			<a href="../" class="row" id="logo" sveltekit:prefetch>
+			<a href="../" class="row" id="logo" data-sveltekit-preload-data>
 				<img src="/images/favicon.png" alt="logo" />
 				<span>Parshandata</span>
 			</a>
-			<a href="/search" class="page" sveltekit:prefetch>Search Tanakh</a>
-			<a href="/about" class="page" sveltekit:prefetch>About</a>
+			<!-- <a href="/search" class="page" data-sveltekit-preload-data>Search Tanakh</a> -->
+			<a href="/about" class="page" data-sveltekit-preload-data>About</a>
 		</div>
 		<Button classes="minimal small" icon="" text="" />
 	</div>
@@ -18,9 +19,9 @@
 
 <style>
 	header {
-		position: -webkit-sticky;
+		/* position: -webkit-sticky;
 		position: sticky;
-		top: 0px;
+		top: 0px; */
 		height: var(--headerHeight);
 		padding: 0 var(--sidePadding);
 		box-sizing: border-box;

@@ -34,7 +34,7 @@
 	--borderRadius: 6px;
 	--hebrew-font: 'david', 'Taamey Ashkenaz', serif;
 }
-:root.dark {
+.darkMode {
 	--primary-bg-color: #202124;
 	--secondary-bg-color: #303136;
 	--tertiary-bg-color: #3c4043;
@@ -54,19 +54,15 @@
 
 	--orange-background: rgba(var(--complementary), 0.45);
 }
-html {
-	box-sizing: border-box;
-}
+
 *,
 *::before,
 *::after {
-	box-sizing: inherit;
+	box-sizing: border-box;
 }
 body {
 	margin: 0;
 	font: 16px Arial, Helvetica, sans-serif;
-	color: var(--primary-txt-color);
-	background-color: var(--primary-bg-color);
 }
 html,
 body,
