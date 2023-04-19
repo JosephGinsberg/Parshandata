@@ -14,6 +14,8 @@
 		/* height: 100vh;
 		height: 100svh; */
 		width: 100%;
+		max-width: 1600px;
+		margin: 0 auto;
 		padding: var(--sidePadding, 1rem);
 		color: var(--primary-txt-color);
 		background-color: var(--primary-bg-color);

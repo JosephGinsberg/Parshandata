@@ -259,3 +259,6 @@ input:disabled {
 .rtl {
 	direction: rtl;
 }
+.hidden {
+	display: none !important;
+}
